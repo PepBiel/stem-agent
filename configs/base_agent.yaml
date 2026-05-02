@@ -1,0 +1,54 @@
+agent:
+  id: baseline_research_agent
+  type: baseline
+  domain: technical_deep_research_llm_agents
+  description: >
+    Minimal comparison agent for the JetBrains stem-agent task. It answers a
+    technical research question by collecting a small number of sources and
+    producing a concise cited summary.
+
+model:
+  provider: openai
+  env_var: OPENAI_MODEL
+  recommended_default: gpt-5.4-mini
+  reasoning_effort: low
+
+workflow:
+  - receive_question
+  - generate_search_queries
+  - collect_top_sources
+  - read_sources
+  - summarize_with_citations
+
+tools:
+  allowed:
+    - web_search
+    - fetch_url
+  forbidden:
+    - arbitrary_code_execution
+    - source_modification
+    - unbounded_web_browsing
+
+limits:
+  max_search_queries: 2
+  max_sources: 4
+  max_model_calls: 3
+  max_runtime_seconds: 180
+
+memory:
+  policy: none
+  rationale: >
+    The baseline should not accumulate research memory because the evolved
+    agent is expected to improve by adding structured memory and validation.
+
+output_contract:
+  required_sections:
+    - answer
+    - sources
+    - limitations
+  citation_style: inline_url
+  unsupported_claim_policy: allow_but_count
+
+evaluation:
+  question_set: evals/questions.json
+  rubric: evals/rubric.yaml

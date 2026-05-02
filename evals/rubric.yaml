@@ -1,0 +1,88 @@
+version: 2026-05-02
+domain: technical_deep_research_llm_agents
+
+objective: >
+  Compare a simple baseline research agent with an evolved deep research agent
+  on fixed technical questions. The evaluation should reward grounded,
+  useful, well-covered answers rather than length or polish.
+
+automatic_metrics:
+  coverage_score:
+    weight: 0.25
+    definition: >
+      Fraction of required must_cover points substantially answered.
+    scale: 0.0_to_1.0
+  citation_support_score:
+    weight: 0.25
+    definition: >
+      Fraction of important claims that are supported by a relevant cited
+      source.
+    scale: 0.0_to_1.0
+  source_quality_score:
+    weight: 0.15
+    definition: >
+      Proportion of sources that are authoritative for the question, such as
+      papers, official docs, benchmarks, or primary technical sources.
+    scale: 0.0_to_1.0
+  unsupported_claim_count:
+    weight: 0.15
+    definition: >
+      Count of important claims that lack supporting evidence. Lower is better.
+    scale: count
+  contradiction_handling_score:
+    weight: 0.10
+    definition: >
+      Whether the answer identifies uncertainty, disagreements, or limits in
+      the evidence when they matter.
+    scale: 0.0_to_1.0
+  redundancy_score:
+    weight: 0.10
+    definition: >
+      Degree to which the answer avoids repeated claims and duplicated source
+      evidence. Higher is better.
+    scale: 0.0_to_1.0
+
+human_rubric:
+  scale: 1_to_5
+  dimensions:
+    factual_accuracy:
+      1: Mostly incorrect or misleading.
+      3: Generally correct but missing nuance or containing minor errors.
+      5: Accurate, nuanced, and well-supported.
+    coverage:
+      1: Misses most required aspects.
+      3: Covers the central idea but misses important subquestions.
+      5: Covers all or nearly all required aspects.
+    evidence_quality:
+      1: Uses weak, irrelevant, or missing sources.
+      3: Uses some good sources but support is uneven.
+      5: Uses strong sources and connects evidence to claims.
+    uncertainty_handling:
+      1: Presents uncertain points as settled facts.
+      3: Mentions limitations generically.
+      5: Clearly identifies uncertainty, conflicts, and open questions.
+    engineer_usefulness:
+      1: Too vague to guide engineering decisions.
+      3: Useful overview with limited actionable detail.
+      5: Helps an engineer make concrete design or evaluation decisions.
+    conciseness_and_structure:
+      1: Hard to scan or unnecessarily verbose.
+      3: Understandable but could be tighter.
+      5: Clear, structured, and concise.
+
+failure_tags:
+  - unsupported_claim
+  - weak_source
+  - missing_required_aspect
+  - citation_mismatch
+  - hallucinated_reference
+  - contradiction_missed
+  - repetitive_answer
+  - exceeded_budget
+  - tool_error
+
+reporting:
+  baseline_results: results/baseline_results.json
+  evolved_results: results/evolved_results.json
+  comparison: results/comparison.md
+  traces_dir: results/traces

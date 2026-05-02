@@ -86,13 +86,24 @@ cp .env.example .env
 
 Then edit `.env` and set `OPENAI_API_KEY`. Never commit `.env`.
 
+Recommended starting model:
+
+```bash
+OPENAI_MODEL=gpt-5.4-mini
+```
+
+This keeps early experiments cheaper and faster. A stronger model can be used
+later for final synthesis or citation auditing if the evaluation shows a real
+need.
+
 ## Current Status
 
-Step 1 is the project scaffold. The next step is to define the baseline agent
-and the initial evaluation shape before adding more complex evolution logic.
+Step 2 defines the baseline agent and the fixed evaluation shape before adding
+more complex evolution logic.
 
 Smoke check:
 
 ```bash
 python -m stem_agent status
+python -m stem_agent eval-info
 ```

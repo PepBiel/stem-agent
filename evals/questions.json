@@ -1,0 +1,136 @@
+{
+  "version": "2026-05-02",
+  "domain": "technical_deep_research_llm_agents",
+  "description": "Fixed evaluation questions for comparing the baseline research agent against the evolved deep research agent.",
+  "questions": [
+    {
+      "id": "DR-001",
+      "question": "What are the main failure modes of memory in LLM agents?",
+      "must_cover": [
+        "context pollution",
+        "retrieval of stale or irrelevant memories",
+        "over-trusting previous agent outputs",
+        "trade-offs between short-term and long-term memory",
+        "evaluation methods for memory quality"
+      ],
+      "source_expectations": [
+        "agent memory paper or survey",
+        "framework documentation or implementation notes",
+        "evaluation benchmark or empirical report"
+      ]
+    },
+    {
+      "id": "DR-002",
+      "question": "How do ReAct-style agents differ from planner-executor agents?",
+      "must_cover": [
+        "interleaved reasoning and acting",
+        "explicit planning stage",
+        "tool-use implications",
+        "failure modes",
+        "when each architecture is preferable"
+      ],
+      "source_expectations": [
+        "ReAct paper",
+        "agent framework documentation",
+        "technical comparison or benchmark"
+      ]
+    },
+    {
+      "id": "DR-003",
+      "question": "What are current approaches to evaluating tool use in LLM agents?",
+      "must_cover": [
+        "task success",
+        "tool-call correctness",
+        "argument validity",
+        "recovery from tool errors",
+        "cost and latency"
+      ],
+      "source_expectations": [
+        "agent evaluation survey",
+        "tool-use benchmark",
+        "provider or framework evaluation documentation"
+      ]
+    },
+    {
+      "id": "DR-004",
+      "question": "What is agentic RAG and how does it differ from standard RAG?",
+      "must_cover": [
+        "standard retrieve-then-generate workflow",
+        "planning or iterative retrieval",
+        "tool use",
+        "reflection or verification",
+        "added complexity and failure modes"
+      ],
+      "source_expectations": [
+        "agentic RAG survey",
+        "RAG baseline reference",
+        "implementation or framework documentation"
+      ]
+    },
+    {
+      "id": "DR-005",
+      "question": "What techniques exist for self-improving agents without fine-tuning?",
+      "must_cover": [
+        "verbal feedback",
+        "reflection",
+        "self-refinement",
+        "prompt or workflow optimization",
+        "limits of self-improvement without external feedback"
+      ],
+      "source_expectations": [
+        "Reflexion paper",
+        "Self-Refine paper",
+        "agent design or optimization paper"
+      ]
+    },
+    {
+      "id": "DR-006",
+      "question": "What are common failure modes in multi-agent systems?",
+      "must_cover": [
+        "coordination overhead",
+        "role confusion",
+        "error propagation",
+        "consensus without correctness",
+        "evaluation difficulty"
+      ],
+      "source_expectations": [
+        "multi-agent system paper or survey",
+        "agent framework documentation",
+        "empirical failure analysis"
+      ]
+    },
+    {
+      "id": "DR-007",
+      "question": "How should citations be audited in deep research agents?",
+      "must_cover": [
+        "claim-level evidence",
+        "source relevance",
+        "citation granularity",
+        "unsupported claim detection",
+        "handling conflicting sources"
+      ],
+      "source_expectations": [
+        "citation or factuality evaluation guidance",
+        "deep research agent documentation",
+        "retrieval or source-grounding benchmark"
+      ]
+    },
+    {
+      "id": "DR-008",
+      "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+      "must_cover": [
+        "flexibility",
+        "controllability",
+        "observability",
+        "cost",
+        "reproducibility",
+        "failure recovery"
+      ],
+      "source_expectations": [
+        "agent framework documentation",
+        "workflow or orchestration guide",
+        "engineering case study"
+      ]
+    }
+  ]
+}
