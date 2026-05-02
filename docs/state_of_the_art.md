@@ -24,13 +24,31 @@ The literature points toward a controlled design:
 This supports the project choice: evolve a constrained **agent genome** rather
 than letting the agent rewrite arbitrary code.
 
+## Citation Policy
+
+Prefer the strongest canonical source available:
+
+1. venue or publisher page, such as ICLR, NeurIPS, ACL Anthology, or OpenReview
+2. official project page
+3. official code repository
+4. arXiv preprint as a stable fallback
+5. paper aggregators only for discovery, not final citation
+
+This matters for the final write-up: arXiv is normal in AI research, but a
+venue or project page gives reviewers a clearer signal that the source is
+published, maintained, or connected to an implementation.
+
 ## Key Sources
 
 ### ReAct: Synergizing Reasoning and Acting in Language Models
 
 - Year: 2022
 - Type: paper
-- Link: https://arxiv.org/abs/2210.03629
+- Venue: ICLR 2023, notable top 5%
+- Paper: https://openreview.net/forum?id=WE_vluYUL-X
+- Preprint: https://arxiv.org/abs/2210.03629
+- Project page: https://react-lm.github.io/
+- Code: https://github.com/ysymyth/ReAct
 - Core idea: interleave reasoning traces with actions so the model can use
   external tools while updating its plan.
 - Why it matters: the baseline should not be a hidden one-shot summary; the
@@ -45,7 +63,10 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2023
 - Type: paper
-- Link: https://arxiv.org/abs/2302.04761
+- Venue: NeurIPS 2023, oral
+- Paper: https://openreview.net/forum?id=Yacmpz84TH
+- Proceedings: https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html
+- Preprint: https://arxiv.org/abs/2302.04761
 - Core idea: models can learn when to call tools, what arguments to use, and how
   to incorporate tool outputs.
 - Why it matters: tool use should be evaluated explicitly, not treated as magic.
@@ -58,7 +79,11 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2023
 - Type: paper
-- Link: https://arxiv.org/abs/2303.11366
+- Venue: NeurIPS 2023
+- Paper: https://openreview.net/forum?id=vAElhFcKW6
+- Proceedings: https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html
+- Preprint: https://arxiv.org/abs/2303.11366
+- Code: https://github.com/noahshinn024/reflexion
 - Core idea: agents can improve across attempts by turning feedback into
   verbal reflection stored in episodic memory, without updating model weights.
 - Why it matters: the stem agent can use evaluation feedback to propose a better
@@ -73,7 +98,11 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2023
 - Type: paper
-- Link: https://arxiv.org/abs/2303.17651
+- Venue: NeurIPS 2023
+- Paper: https://openreview.net/forum?id=S37hOerQLB
+- Proceedings: https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html
+- Preprint: https://arxiv.org/abs/2303.17651
+- Project page: https://selfrefine.info/
 - Core idea: generate an output, critique it, and refine it iteratively using
   the same or similar model.
 - Why it matters: evolution can be framed as generate genome -> critique with
@@ -87,7 +116,12 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2024/2025
 - Type: paper
-- Link: https://arxiv.org/abs/2408.08435
+- Venue: ICLR 2025
+- Paper: https://openreview.net/forum?id=t9U3LW7JVX
+- Conference page: https://iclr.cc/virtual/2025/poster/28073
+- Preprint: https://arxiv.org/abs/2408.08435
+- Project page: https://www.shengranhu.com/ADAS/
+- Code: https://github.com/ShengranHu/ADAS
 - Core idea: a meta-agent can search over agentic system designs, including
   prompts, tools, workflows, and combinations of components.
 - Why it matters: this is the closest conceptual neighbor to the stem-agent
@@ -102,7 +136,10 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2025/2026 revision
 - Type: survey
-- Link: https://arxiv.org/abs/2501.09136
+- Venue: preprint / survey
+- Paper: https://arxiv.org/abs/2501.09136
+- Institutional profile: https://facultyprofile.csuohio.edu/en/publications/agentic-retrieval-augmented-generation-a-survey-on-agentic-rag-3/
+- Code/resources: no official implementation source identified yet
 - Core idea: agentic RAG extends static retrieve-then-generate pipelines with
   planning, tool use, reflection, multi-agent coordination, adaptive retrieval,
   and richer knowledge representations.
@@ -116,7 +153,9 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2025/2026 revision
 - Type: survey
-- Link: https://arxiv.org/abs/2503.16416
+- Venue: CoRR 2025
+- Paper: https://openreview.net/forum?id=jXhAhTMewL
+- Preprint: https://arxiv.org/abs/2503.16416
 - Core idea: agent evaluation must cover capabilities such as planning, tool
   use, self-reflection, memory, robustness, cost-efficiency, and application
   performance.
@@ -130,7 +169,10 @@ than letting the agent rewrite arbitrary code.
 
 - Year: 2025
 - Type: paper
-- Link: https://arxiv.org/abs/2504.03160
+- Venue: EMNLP 2025
+- Paper: https://aclanthology.org/2025.emnlp-main.22/
+- Preprint: https://arxiv.org/abs/2504.03160
+- Code: https://github.com/GAIR-NLP/DeepResearcher
 - Core idea: deep research agents benefit from real web interaction, planning,
   cross-validation, self-reflection, and honesty when definitive evidence is
   unavailable.

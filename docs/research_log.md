@@ -23,18 +23,33 @@ Research question:
 
 Sources inspected:
 
-- ReAct: https://arxiv.org/abs/2210.03629
-- Toolformer: https://arxiv.org/abs/2302.04761
-- Reflexion: https://arxiv.org/abs/2303.11366
-- Self-Refine: https://arxiv.org/abs/2303.17651
-- Automated Design of Agentic Systems: https://arxiv.org/abs/2408.08435
-- Agentic RAG survey: https://arxiv.org/abs/2501.09136
-- Survey on Evaluation of LLM-based Agents: https://arxiv.org/abs/2503.16416
-- DeepResearcher: https://arxiv.org/abs/2504.03160
+- ReAct: ICLR/OpenReview https://openreview.net/forum?id=WE_vluYUL-X;
+  project https://react-lm.github.io/; preprint https://arxiv.org/abs/2210.03629
+- Toolformer: NeurIPS/OpenReview https://openreview.net/forum?id=Yacmpz84TH;
+  preprint https://arxiv.org/abs/2302.04761
+- Reflexion: NeurIPS/OpenReview https://openreview.net/forum?id=vAElhFcKW6;
+  code https://github.com/noahshinn024/reflexion; preprint https://arxiv.org/abs/2303.11366
+- Self-Refine: NeurIPS/OpenReview https://openreview.net/forum?id=S37hOerQLB;
+  project https://selfrefine.info/; preprint https://arxiv.org/abs/2303.17651
+- Automated Design of Agentic Systems: ICLR/OpenReview https://openreview.net/forum?id=t9U3LW7JVX;
+  project https://www.shengranhu.com/ADAS/; code https://github.com/ShengranHu/ADAS
+- Agentic RAG survey: preprint https://arxiv.org/abs/2501.09136;
+  institutional profile https://facultyprofile.csuohio.edu/en/publications/agentic-retrieval-augmented-generation-a-survey-on-agentic-rag-3/
+- Survey on Evaluation of LLM-based Agents: CoRR/OpenReview https://openreview.net/forum?id=jXhAhTMewL;
+  preprint https://arxiv.org/abs/2503.16416
+- DeepResearcher: ACL Anthology / EMNLP 2025 https://aclanthology.org/2025.emnlp-main.22/;
+  code https://github.com/GAIR-NLP/DeepResearcher; preprint https://arxiv.org/abs/2504.03160
 - OpenAI Deep Research: https://openai.com/index/introducing-deep-research/
 - LangGraph docs: https://docs.langchain.com/oss/python/langgraph/overview
 - DSPy docs: https://dspy.ai/
 - OpenAI Agents SDK docs: https://openai.github.io/openai-agents-python/
+
+Source hygiene decision:
+
+Use conference, OpenReview, ACL Anthology, official project pages, or official
+repositories as primary links when available. Keep arXiv links as stable
+preprint fallbacks. Do not cite paper aggregators in the final write-up unless
+they are only used for discovery.
 
 Evidence:
 
