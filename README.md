@@ -107,3 +107,20 @@ Smoke check:
 python -m stem_agent status
 python -m stem_agent eval-info
 ```
+
+Run the baseline without spending API credits:
+
+```bash
+python -m stem_agent run-baseline --question-id DR-001 --dry-run
+```
+
+Run the baseline live:
+
+```bash
+python -m stem_agent run-baseline --question-id DR-001
+```
+
+Live runs use the OpenAI Responses API with the `web_search` tool, so the API
+key must have permission for Responses writes.
+
+Each run writes a JSON trace under `results/traces/`.

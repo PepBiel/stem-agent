@@ -7,7 +7,10 @@ requires-python = ">=3.11"
 authors = [
   { name = "Josep Biel" }
 ]
-dependencies = []
+dependencies = [
+  "openai>=1.100.0",
+  "PyYAML>=6.0.2"
+]
 
 [project.scripts]
 stem-agent = "stem_agent.cli:main"
