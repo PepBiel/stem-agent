@@ -1,0 +1,24 @@
+[project]
+name = "stem-agent"
+version = "0.1.0"
+description = "A constrained stem agent that evolves into a deep research agent for technical AI topics."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Josep Biel" }
+]
+dependencies = []
+
+[project.scripts]
+stem-agent = "stem_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
