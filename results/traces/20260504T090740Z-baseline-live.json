@@ -1,0 +1,309 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T09:07:29+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T09:07:40+00:00",
+  "answer": "## Answer\n\nReAct-style agents **interleave reasoning and tool use in the same loop**: the model alternates between “thought” and “action,” uses observations from the environment, and updates its next step on the fly. The core idea is tight coupling between reasoning and acting, which makes it good for reactive, information-seeking tasks. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\n\nPlanner-executor agents **split those responsibilities**: one component first produces an explicit plan or subgoal decomposition, and a separate executor carries out the steps. This creates a clearer separation of concerns and is usually used for longer-horizon workflows where you want more control, modularity, and easier debugging/governance. ([esy.com](https://esy.com/agents/patterns/planner-executor/?utm_source=openai))\n\nIn short:\n- **ReAct** = “reason, act, observe, repeat” in one adaptive loop.\n- **Planner-executor** = “plan first, then execute,” often with replanning only at boundaries. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\n\n## Sources\n\n- ReAct paper, *ReAct: Synergizing Reasoning and Acting in Language Models* (arXiv). ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\n- ReAct paper PDF excerpt. ([arxiv.org](https://arxiv.org/pdf/2210.03629?utm_source=openai))\n- Planner-executor pattern docs. ([esy.com](https://esy.com/agents/patterns/planner-executor/?utm_source=openai))\n- Plan-and-execute agent overview. ([emergentmind.com](https://www.emergentmind.com/topics/plan-then-execute-llm-agents?utm_source=openai))\n\n## Limitations\n\nThis is a high-level architectural comparison, not a taxonomy with strict boundaries. In practice, many systems combine both ideas: a planner may generate a plan, and the executor may still use ReAct-style inner loops for each step.",
+  "citations": [
+    {
+      "end_index": 405,
+      "start_index": 340,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629?utm_source=openai"
+    },
+    {
+      "end_index": 833,
+      "start_index": 753,
+      "title": "Planner-Executor Pattern | Esy Agents Reference | Esy",
+      "type": "url_citation",
+      "url": "https://esy.com/agents/patterns/planner-executor/?utm_source=openai"
+    },
+    {
+      "end_index": 1072,
+      "start_index": 1007,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629?utm_source=openai"
+    },
+    {
+      "end_index": 1236,
+      "start_index": 1171,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629?utm_source=openai"
+    },
+    {
+      "end_index": 1329,
+      "start_index": 1264,
+      "title": "Published as a conference paper at ICLR 2023",
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2210.03629?utm_source=openai"
+    },
+    {
+      "end_index": 1443,
+      "start_index": 1363,
+      "title": "Planner-Executor Pattern | Esy Agents Reference | Esy",
+      "type": "url_citation",
+      "url": "https://esy.com/agents/patterns/planner-executor/?utm_source=openai"
+    },
+    {
+      "end_index": 1583,
+      "start_index": 1479,
+      "title": "Plan-then-Execute LLM Agents",
+      "type": "url_citation",
+      "url": "https://www.emergentmind.com/topics/plan-then-execute-llm-agents?utm_source=openai"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_09a00db6f32fb6d90069f861e47020819085c20b8dfa5c868e",
+      "action": {
+        "query": "ReAct paper reasoning and acting in language models arXiv",
+        "type": "search",
+        "queries": [
+          "ReAct paper reasoning and acting in language models arXiv",
+          "planner executor agent planning execution paper arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://agentica.wiki/articles/react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://engineersofai.com/docs/research/paper-breakdowns/react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://alanhou.org/blog/arxiv-react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/397322324_ALAS_Transactional_and_Dynamic_Multi-Agent_LLM_Planning"
+          },
+          {
+            "type": "url",
+            "url": "https://medium.com/papers-i-found/e26-react-synergizing-reasoning-and-acting-in-language-models-14a08f46c33d"
+          },
+          {
+            "type": "url",
+            "url": "https://portkey.ai/blog/react-synergizing-reasoning-and-acting-in-language-models-summary/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.01262"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/react-synergizing-reasoning-and-acting-in-language-models--arxiv-2210.03629/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.07056"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/ysymyth/ReAct"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2406.18082"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.02664"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/364290390_ReAct_Synergizing_Reasoning_and_Acting_in_Language_Models"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/y1mosn"
+          },
+          {
+            "type": "url",
+            "url": "https://ysymyth.github.io/papers/react_llm.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MLQuestions/comments/1c08ca1"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Reasoning_model"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/y0j0ji"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenSourceeAI/comments/1ste8q3/why_most_multiagent_frameworks_fail_at_scale/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/learnmachinelearning/comments/1ssgzj5/why_most_multiagent_frameworks_fail_at_scale/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09a00db6f32fb6d90069f861e5ef748190a3309ed54d529076",
+      "action": {
+        "query": "planner executor agent architecture official documentation planning execution agent",
+        "type": "search",
+        "queries": [
+          "planner executor agent architecture official documentation planning execution agent",
+          "planner-executor agent paper plan execute separate planner executor"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://esy.com/agents/patterns/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework"
+          },
+          {
+            "type": "url",
+            "url": "https://gantz.ai/blog/post/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.doairight.org/posts/pat-multiagent-planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://callsphere.ai/blog/plan-and-execute-agents-separating-planning-execution"
+          },
+          {
+            "type": "url",
+            "url": "https://datasciocean.com/en/paper-intro/hira/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mcp-agent.com/mcp-agent-sdk/effective-patterns/planner"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/plan-then-execute-llm-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mobilerun.ai/framework/concepts/architecture"
+          },
+          {
+            "type": "url",
+            "url": "https://www.copyl.com/ar/agentic-ai-design-patterns/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-architecture"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.16438"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LanguageTechnology/comments/1q8iae4/do_you_keep_an_agents_planning_separate_from_what/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1svz2cz/model_orchestration_in_codex_separate_planner_and/"
+          },
+          {
+            "type": "url",
+            "url": "https://ceur-ws.org/Vol-494/ladspaper10.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.07577"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.03560"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1shafwz/finally_a_planner_executor_setup_for_ai_agents_is/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/JACK_Intelligent_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1ry7qmc/when_running_multiple_agents_in_parallel_how_do/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenWebUI/comments/1s8gc2t/planner_agent_v3_now_with_subagents/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ClaudeAI/comments/1sgr92n/i_replaced_plan_with_a_multiagent_workflow_in/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "response_id": "resp_09a00db6f32fb6d90069f861e3318481908c6bfbba8c2c52bc",
+  "status": "complete"
+}
