@@ -6,6 +6,11 @@ from pathlib import Path
 
 from stem_agent.core.paths import PROJECT_ROOT
 from stem_agent.core.settings import load_settings
+from stem_agent.evaluation.scoring import (
+    EvaluationInput,
+    evaluate_trace,
+    write_evaluation,
+)
 from stem_agent.workflows.baseline import run_baseline
 
 
@@ -53,6 +58,34 @@ def build_parser() -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Validate the pipeline without calling the OpenAI API.",
+    )
+
+    score_parser = subparsers.add_parser(
+        "score-trace",
+        help="Score one agent trace against the fixed evaluation rubric.",
+    )
+    score_parser.add_argument(
+        "--trace",
+        required=True,
+        help="Path to a trace JSON file.",
+    )
+    score_parser.add_argument(
+        "--question-id",
+        help="Question ID from evals/questions.json. Inferred when omitted.",
+    )
+    score_parser.add_argument(
+        "--questions",
+        default="evals/questions.json",
+        help="Path to the fixed question set.",
+    )
+    score_parser.add_argument(
+        "--rubric",
+        default="evals/rubric.yaml",
+        help="Path to the scoring rubric.",
+    )
+    score_parser.add_argument(
+        "--output",
+        help="Optional path where the score JSON should be written.",
     )
 
     return parser
@@ -115,14 +148,47 @@ def run_baseline_command(args: argparse.Namespace) -> None:
     settings = load_settings(PROJECT_ROOT)
     result = run_baseline(
         question=question,
-        config_path=PROJECT_ROOT / args.config,
-        trace_dir=PROJECT_ROOT / args.trace_dir,
+        config_path=resolve_cli_path(args.config),
+        trace_dir=resolve_cli_path(args.trace_dir),
         settings=settings,
         dry_run=args.dry_run,
     )
 
     print(result.answer)
     print(f"\nTrace written to: {result.trace_path}")
+
+
+def resolve_cli_path(value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    return PROJECT_ROOT / path
+
+
+def score_trace_command(args: argparse.Namespace) -> None:
+    evaluation = evaluate_trace(
+        EvaluationInput(
+            trace_path=resolve_cli_path(args.trace),
+            questions_path=resolve_cli_path(args.questions),
+            rubric_path=resolve_cli_path(args.rubric),
+            question_id=args.question_id,
+        )
+    )
+
+    if args.output:
+        output_path = resolve_cli_path(args.output)
+        write_evaluation(output_path, evaluation)
+        print(f"Evaluation written to: {output_path}")
+
+    metrics = evaluation["metrics"]
+    print("Trace evaluation")
+    print(f"Question: {evaluation['question_id']}")
+    print(f"Overall score: {evaluation['overall_score']}")
+    print(f"Coverage: {metrics['coverage_score']}")
+    print(f"Citation support: {metrics['citation_support_score']}")
+    print(f"Source quality: {metrics['source_quality_score']}")
+    print(f"Unsupported claims: {metrics['unsupported_claim_count']}")
+    print(f"Failure tags: {', '.join(evaluation['failure_tags']) or 'none'}")
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -141,6 +207,13 @@ def main(argv: list[str] | None = None) -> None:
         try:
             run_baseline_command(args)
         except RuntimeError as exc:
+            parser.exit(1, f"error: {exc}\n")
+        return
+
+    if args.command == "score-trace":
+        try:
+            score_trace_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
             parser.exit(1, f"error: {exc}\n")
         return
 

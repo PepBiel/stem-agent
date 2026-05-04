@@ -73,6 +73,28 @@ Human or LLM-assisted rubric dimensions:
 - usefulness for an engineer
 - conciseness and structure
 
+## Automatic Scorer V0
+
+The first implementation is a transparent heuristic scorer exposed through:
+
+```bash
+python -m stem_agent score-trace --trace results/traces/<trace>.json
+```
+
+It scores:
+
+- coverage by matching `must_cover` terms from `evals/questions.json`
+- citation support by checking whether answer claim lines include citations
+- source quality by classifying cited source domains
+- unsupported claim count from uncited claim lines
+- contradiction/uncertainty handling from limitation and uncertainty language
+- redundancy from repeated lines and repeated citations
+
+This scorer is intentionally imperfect. Its purpose is to create a reproducible
+first signal and expose detailed diagnostics. The final comparison should still
+include manual or model-assisted review for factual accuracy and citation
+correctness.
+
 ## Before/After Table
 
 The final comparison should use this shape:

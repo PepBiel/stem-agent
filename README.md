@@ -124,3 +124,14 @@ Live runs use the OpenAI Responses API with the `web_search` tool, so the API
 key must have permission for Responses writes.
 
 Each run writes a JSON trace under `results/traces/`.
+
+Score a trace against the fixed evaluation rubric:
+
+```bash
+python -m stem_agent score-trace --trace results/traces/<trace>.json
+```
+
+The automatic scorer is intentionally transparent. It estimates coverage,
+citation support, source quality, unsupported claims, uncertainty handling, and
+redundancy from the saved trace. Later evaluations will combine this with
+manual or model-assisted review for the final before/after comparison.

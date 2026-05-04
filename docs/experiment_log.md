@@ -51,3 +51,31 @@ Keep the Responses API + `web_search` implementation because it matches the
 baseline design and provides citations/sources. Improve error handling so this
 failure is clear to future users. Before live evaluation, use a key that has
 Responses API write permissions.
+
+## 2026-05-04: Automatic Trace Scorer V0
+
+Hypothesis:
+
+Before implementing stem-agent evolution, the project needs a reproducible
+automatic scorer that can turn saved traces into measurable metrics.
+
+Planned command:
+
+```bash
+python -m stem_agent score-trace --trace results/traces/<trace>.json
+```
+
+Expected result:
+
+- load a baseline or evolved-agent trace
+- infer the evaluation question when possible
+- compute coverage, citation support, source quality, unsupported claims,
+  contradiction handling, and redundancy
+- print a compact summary
+- optionally write JSON results for later comparison
+
+Known limitation:
+
+The scorer is heuristic. It can identify missing terms or uncited claim lines,
+but it cannot fully verify whether a citation truly supports a claim. That
+claim-level audit should be added later as a stronger model-assisted evaluator.
