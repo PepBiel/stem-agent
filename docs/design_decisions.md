@@ -91,3 +91,18 @@ Rationale:
 - prevents the evolved agent from being compared only against a vague baseline
 - makes cost and token usage easier to attribute
 - shows whether retrieval alone explains most of the improvement
+
+## 2026-05-04: Validate Genomes Before Execution
+
+The evolved agent should not be introduced as free-form code or an unbounded
+prompt. It is represented as a genome that must pass a project-level schema
+before it can be executed.
+
+Rationale:
+
+- keeps specialization controlled and auditable
+- makes workflow, prompts, tools, limits, trace events, and acceptance criteria
+  visible before running expensive evaluations
+- prevents mislabeled or unsafe candidate agents from entering the comparison
+- gives the final write-up a concrete evolution artifact rather than only a
+  better prompt

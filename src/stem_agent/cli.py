@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from stem_agent.core.genome import format_validation_result, validate_genome_files
 from stem_agent.core.paths import PROJECT_ROOT
 from stem_agent.core.settings import load_settings
 from stem_agent.evaluation.batch import (
@@ -36,6 +37,21 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "eval-info",
         help="Print the fixed evaluation set summary.",
+    )
+
+    genome_parser = subparsers.add_parser(
+        "validate-genome",
+        help="Validate an evolved agent genome against the project schema.",
+    )
+    genome_parser.add_argument(
+        "--genome",
+        default="configs/evolved_deep_research_agent.yaml",
+        help="Path to the candidate agent genome.",
+    )
+    genome_parser.add_argument(
+        "--schema",
+        default="configs/genome_schema.yaml",
+        help="Path to the genome schema contract.",
     )
 
     baseline_parser = subparsers.add_parser(
@@ -196,6 +212,8 @@ def print_status() -> None:
         "configs",
         "configs/base_agent.yaml",
         "configs/baseline_no_web.yaml",
+        "configs/evolved_deep_research_agent.yaml",
+        "configs/genome_schema.yaml",
         "docs",
         "docs/evaluation_plan.md",
         "evals",
@@ -264,6 +282,16 @@ def resolve_cli_path(value: str) -> Path:
     if path.is_absolute():
         return path
     return PROJECT_ROOT / path
+
+
+def validate_genome_command(args: argparse.Namespace) -> None:
+    result = validate_genome_files(
+        genome_path=resolve_cli_path(args.genome),
+        schema_path=resolve_cli_path(args.schema),
+    )
+    print(format_validation_result(result))
+    if not result.valid:
+        raise RuntimeError("Genome validation failed.")
 
 
 def score_trace_command(args: argparse.Namespace) -> None:
@@ -382,6 +410,13 @@ def main(argv: list[str] | None = None) -> None:
 
     if args.command == "eval-info":
         print_eval_info()
+        return
+
+    if args.command == "validate-genome":
+        try:
+            validate_genome_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
+            parser.exit(1, f"error: {exc}\n")
         return
 
     if args.command == "run-baseline":

@@ -237,3 +237,79 @@ Observed smoke result:
   command failed before writing a mislabeled batch
 - a non-dry-run batch without `--confirm-live` failed before making API calls
 - no smoke batch artifacts were kept in `results/`
+
+## 2026-05-04: Baseline Live Ablation Results
+
+Hypothesis:
+
+Web search should improve answer quality over a model-only baseline, but it
+should not solve the full deep-research problem because the workflow still lacks
+source triage, evidence extraction, coverage checking, contradiction checking,
+and citation auditing.
+
+Observed live runs:
+
+```text
+baseline_no_web run:
+results/runs/baseline_no_web/baseline-no-web-2026-05-04t12-32-33-00-00-live/
+
+baseline_web run:
+results/runs/baseline/baseline-2026-05-04t11-44-15-00-00-live/
+```
+
+Results:
+
+| Metric | baseline_no_web | baseline_web | Delta |
+|---|---:|---:|---:|
+| Final avg | 0.3856 | 0.6738 | +0.2882 |
+| Judge avg | 0.4167 | 0.5833 | +0.1666 |
+| Combined tokens | 34514 | 158887 | +124373 |
+
+Decision:
+
+Accept the ablation as the baseline evidence. Web search is clearly useful, but
+the judge summaries still point to missing coverage, weak decision criteria,
+contradiction handling gaps, and citation-audit risk. The next step is a
+controlled evolved genome that addresses those failures without widening the
+tool boundary.
+
+## 2026-05-04: Evolved Genome Contract V1
+
+Hypothesis:
+
+Before implementing a more capable agent runner, the project needs a validated
+genome contract so specialization is explicit, bounded, and auditable.
+
+Command:
+
+```bash
+python -m stem_agent validate-genome
+```
+
+Expected result:
+
+- `configs/evolved_deep_research_agent.yaml` defines the first specialized
+  deep-research genome
+- `configs/genome_schema.yaml` defines required workflow steps, roles, tool
+  boundaries, limits, trace events, and acceptance metrics
+- the CLI validator fails if a candidate genome omits required pieces or
+  exceeds budget/tool constraints
+
+Decision criteria:
+
+Accept this step if the candidate genome validates and the contract clearly
+connects each new workflow stage to a baseline failure mode.
+
+Observed result:
+
+- `python -m stem_agent validate-genome` passed for
+  `configs/evolved_deep_research_agent.yaml`
+- `python -m stem_agent validate-genome --genome configs\baseline_no_web.yaml`
+  failed with explicit schema errors, which confirms that baseline configs are
+  not accidentally accepted as evolved genomes
+
+Decision:
+
+Accept the genome contract. The next implementation step is the evolved-agent
+runner that executes this validated workflow and writes the required trace
+events.

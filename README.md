@@ -109,15 +109,22 @@ need.
 
 The project currently has model-only and web-search baseline variants, saved
 traces, a transparent heuristic scorer, and a stricter model-assisted judge. The
-next implementation step is the stem agent that proposes and validates evolved
-genomes.
+project also defines the first evolved deep-research genome and a schema
+validator. The next implementation step is the runner that executes this
+evolved workflow.
 
 Smoke check:
 
 ```bash
 python -m stem_agent status
 python -m stem_agent eval-info
+python -m stem_agent validate-genome
 ```
+
+`validate-genome` checks `configs/evolved_deep_research_agent.yaml` against
+`configs/genome_schema.yaml`. This is the contract that keeps specialization
+controlled: the evolved agent can change workflow and prompts, but it must stay
+inside fixed tool, budget, trace, and evaluation boundaries.
 
 Run the baseline without spending API credits:
 

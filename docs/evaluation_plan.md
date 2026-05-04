@@ -61,6 +61,35 @@ The official comparison should report all three stages separately:
 - `baseline_web`: simple retrieval and summarization
 - evolved agent: specialized deep research workflow
 
+## Evolved Agent Genome V1
+
+The first evolved genome is defined in
+`configs/evolved_deep_research_agent.yaml` and validated against
+`configs/genome_schema.yaml`.
+
+It is designed as a direct response to the baseline failure modes:
+
+- missing required aspects
+- weak source triage
+- citation mismatch risk
+- contradiction missed
+- shallow decision criteria
+
+The genome adds explicit stages for decomposition, search planning, source
+triage, evidence extraction, coverage checking, contradiction checking,
+synthesis, and citation audit. It keeps the tool boundary narrow: currently
+only `web_search` is allowed.
+
+Validation command:
+
+```bash
+python -m stem_agent validate-genome
+```
+
+The validator does not prove the agent is good. It proves the candidate is
+complete enough to execute and compare without silently changing the experiment
+boundary.
+
 ## Metrics
 
 The rubric is stored in `evals/rubric.yaml`.

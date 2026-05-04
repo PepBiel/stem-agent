@@ -1,0 +1,95 @@
+schema_version: 2026-05-04
+description: >
+  Validation contract for controlled stem-agent genomes. The schema is not a
+  full JSON Schema implementation; it is a project-level contract used by the
+  CLI validator before a candidate genome can be executed or evaluated.
+
+required_sections:
+  - genome
+  - agent
+  - model
+  - workflow
+  - prompt_roles
+  - tools
+  - limits
+  - memory
+  - safeguards
+  - trace
+  - output_contract
+  - evaluation
+  - acceptance_criteria
+  - rollback
+
+required_workflow_steps:
+  - receive_question
+  - decompose_question
+  - create_search_plan
+  - collect_candidate_sources
+  - source_triage
+  - extract_evidence
+  - coverage_check
+  - contradiction_check
+  - synthesize_answer
+  - citation_audit
+  - report_limitations
+
+required_prompt_roles:
+  - planner
+  - searcher
+  - source_triager
+  - evidence_extractor
+  - coverage_auditor
+  - contradiction_auditor
+  - citation_auditor
+  - synthesizer
+
+allowed_tool_ids:
+  - web_search
+
+forbidden_tool_ids:
+  - arbitrary_code_execution
+  - source_modification
+  - unbounded_web_browsing
+  - filesystem_write
+
+max_limits:
+  max_search_queries: 4
+  max_sources: 8
+  max_model_calls: 6
+  max_runtime_seconds: 360
+  max_evolution_rounds: 3
+
+required_trace_events:
+  - question_received
+  - decomposition_created
+  - search_plan_created
+  - candidate_sources_collected
+  - sources_triaged
+  - evidence_extracted
+  - coverage_checked
+  - contradictions_checked
+  - answer_synthesized
+  - citations_audited
+  - final_answer_returned
+
+required_acceptance_metrics:
+  - final_score
+  - judge_score
+  - coverage_score
+  - source_quality_score
+  - unsupported_claim_count
+  - combined_total_tokens
+
+immutable_fields:
+  - agent.domain
+  - evaluation.question_set
+  - evaluation.rubric
+  - tools.allowed
+  - tools.forbidden
+
+mutable_fields:
+  - workflow
+  - prompt_roles
+  - limits.max_search_queries
+  - limits.max_sources
+  - acceptance_criteria
