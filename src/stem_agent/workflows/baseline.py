@@ -10,6 +10,7 @@ from stem_agent.core.config import load_yaml, resolve_model
 from stem_agent.core.openai_responses import (
     extract_citations,
     extract_output_text,
+    extract_usage,
     extract_web_search_calls,
     response_to_dict,
 )
@@ -93,6 +94,7 @@ def run_baseline(
                 "answer": answer,
                 "citations": [],
                 "web_search_calls": [],
+                "usage": {},
                 "status": "dry_run_complete",
             }
         )
@@ -156,6 +158,7 @@ def run_baseline(
             "answer": answer,
             "citations": extract_citations(response_payload),
             "web_search_calls": extract_web_search_calls(response_payload),
+            "usage": extract_usage(response_payload),
             "response_id": response_payload.get("id"),
             "status": "complete",
         }

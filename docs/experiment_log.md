@@ -139,3 +139,55 @@ Decision:
 Accept the judge as the main evaluation layer for now. Keep improving it later
 with source fetching or claim-level verification if the evolved agent starts
 gaming the prompt.
+
+## 2026-05-04: Batch Evaluation Runner
+
+Hypothesis:
+
+The project needs evaluation artifacts grouped by run ID so baseline and evolved
+agents can be compared question-by-question and by aggregate metrics.
+
+Planned smoke command:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline --dry-run --limit 2
+```
+
+Planned live command:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline --confirm-live
+```
+
+Expected artifacts:
+
+```text
+results/runs/baseline/<run_id>/
+  traces/
+  heuristic/
+  judge/
+  summary.json
+  summary.md
+```
+
+Metrics to inspect:
+
+- per-question heuristic score
+- per-question judge score
+- per-question final score
+- average scores
+- baseline usage
+- judge usage
+- combined usage
+
+Safety:
+
+Live batch mode requires `--confirm-live` because it performs one baseline call
+and one judge call per question.
+
+Observed smoke result:
+
+- `--dry-run --limit 2` generated the expected folder structure, summaries, and
+  empty usage totals
+- a non-dry-run batch without `--confirm-live` failed before making API calls
+- no smoke batch artifacts were kept in `results/`

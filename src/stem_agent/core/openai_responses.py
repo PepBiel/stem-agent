@@ -47,3 +47,10 @@ def extract_web_search_calls(response_payload: dict[str, Any]) -> list[dict[str,
         if isinstance(item, dict) and item.get("type") == "web_search_call":
             calls.append(item)
     return calls
+
+
+def extract_usage(response_payload: dict[str, Any]) -> dict[str, Any]:
+    usage = response_payload.get("usage")
+    if isinstance(usage, dict):
+        return usage
+    return {}

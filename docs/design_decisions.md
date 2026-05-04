@@ -62,3 +62,16 @@ Rationale:
 - allows the final write-up to discuss a real evaluation failure and correction
 - reduces the chance that the evolved agent wins by formatting answers to match
   shallow heuristics
+
+## 2026-05-04: Store Evaluations As Run Artifacts
+
+Each full evaluation should write traces, heuristic scores, judge scores, and a
+summary under a stable `results/runs/<agent>/<run_id>/` folder.
+
+Rationale:
+
+- avoids overwriting previous experiments
+- makes before/after comparisons auditable
+- lets the write-up cite exact run IDs
+- captures token usage and runtime alongside quality metrics
+- supports future comparison between baseline and evolved agents

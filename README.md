@@ -148,3 +148,29 @@ This second layer grades factual accuracy, real coverage, evidence quality,
 uncertainty handling, engineer usefulness, and structure using the fixed rubric.
 It exists because the heuristic scorer can overestimate answers that merely look
 well-cited.
+
+Run a full evaluation batch:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline --dry-run
+```
+
+Live batches require explicit confirmation because they make model calls for
+each answer and each judge evaluation:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline --confirm-live
+```
+
+Batch artifacts are written under:
+
+```text
+results/runs/<agent>/<run_id>/
+  traces/       raw agent traces per question
+  heuristic/    automatic scorer outputs per question
+  judge/        model-assisted judge outputs per question
+  summary.json  aggregate metrics and usage totals
+  summary.md    compact human-readable report
+```
+
+The summary includes token usage when the OpenAI API returns usage metadata.

@@ -132,6 +132,39 @@ The judge is still not perfect. It does not fetch every cited source itself, so
 claim-level support remains an estimate from answer text and citation metadata.
 That limitation should be disclosed in the final write-up.
 
+## Batch Evaluation Runs
+
+Evaluation runs should be stored as immutable-ish batches:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline --confirm-live
+```
+
+The command runs every fixed evaluation question through the selected agent,
+scores every trace with the heuristic scorer, judges every trace with the
+model-assisted evaluator, and writes an aggregate summary.
+
+Artifact layout:
+
+```text
+results/runs/<agent>/<run_id>/
+  traces/DR-001.json
+  heuristic/DR-001.json
+  judge/DR-001.json
+  summary.json
+  summary.md
+```
+
+The summary records:
+
+- per-question `heuristic_score`, `judge_score`, and `final_score`
+- runtime where available
+- baseline token usage
+- judge token usage
+- combined token usage
+
+This gives the final write-up both quality and efficiency metrics.
+
 ## Before/After Table
 
 The final comparison should use this shape:

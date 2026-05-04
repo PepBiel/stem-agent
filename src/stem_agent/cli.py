@@ -6,6 +6,11 @@ from pathlib import Path
 
 from stem_agent.core.paths import PROJECT_ROOT
 from stem_agent.core.settings import load_settings
+from stem_agent.evaluation.batch import (
+    BatchInput,
+    default_run_id,
+    run_evaluation_batch,
+)
 from stem_agent.evaluation.scoring import (
     EvaluationInput,
     evaluate_trace,
@@ -124,6 +129,60 @@ def build_parser() -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Validate judge wiring without calling the OpenAI API.",
+    )
+
+    batch_parser = subparsers.add_parser(
+        "run-eval-batch",
+        help="Run an evaluation batch across the fixed question set.",
+    )
+    batch_parser.add_argument(
+        "--agent",
+        default="baseline",
+        choices=["baseline"],
+        help="Agent to evaluate. Only baseline is implemented now.",
+    )
+    batch_parser.add_argument(
+        "--run-id",
+        help="Stable run ID. Defaults to a timestamped ID.",
+    )
+    batch_parser.add_argument(
+        "--questions",
+        default="evals/questions.json",
+        help="Path to the fixed question set.",
+    )
+    batch_parser.add_argument(
+        "--rubric",
+        default="evals/rubric.yaml",
+        help="Path to the scoring rubric.",
+    )
+    batch_parser.add_argument(
+        "--config",
+        default="configs/base_agent.yaml",
+        help="Path to the baseline config.",
+    )
+    batch_parser.add_argument(
+        "--output-root",
+        default="results",
+        help="Root directory for batch artifacts.",
+    )
+    batch_parser.add_argument(
+        "--judge-model",
+        help="Judge model. Defaults to OPENAI_EVAL_MODEL, then OPENAI_MODEL.",
+    )
+    batch_parser.add_argument(
+        "--limit",
+        type=int,
+        help="Evaluate only the first N questions. Useful for smoke tests.",
+    )
+    batch_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run without OpenAI calls. Baseline and judge both use dry-run mode.",
+    )
+    batch_parser.add_argument(
+        "--confirm-live",
+        action="store_true",
+        help="Required for non-dry-run batches because they spend API calls.",
     )
 
     return parser
@@ -261,6 +320,49 @@ def judge_trace_command(args: argparse.Namespace) -> None:
     print(f"Recommended fix: {judge['recommended_fix']}")
 
 
+def run_eval_batch_command(args: argparse.Namespace) -> None:
+    if not args.dry_run and not args.confirm_live:
+        raise RuntimeError(
+            "Live batch evaluation makes OpenAI calls for each question and "
+            "judge. Re-run with --confirm-live or use --dry-run."
+        )
+
+    settings = load_settings(PROJECT_ROOT)
+    judge_model = (
+        args.judge_model or settings.openai_eval_model or settings.openai_model
+    )
+    if not judge_model:
+        raise RuntimeError(
+            "A judge model is required. Set OPENAI_EVAL_MODEL or pass --judge-model."
+        )
+
+    run_id = args.run_id or default_run_id(args.agent, args.dry_run)
+    summary = run_evaluation_batch(
+        BatchInput(
+            agent=args.agent,
+            run_id=run_id,
+            output_root=resolve_cli_path(args.output_root),
+            questions_path=resolve_cli_path(args.questions),
+            rubric_path=resolve_cli_path(args.rubric),
+            config_path=resolve_cli_path(args.config),
+            settings=settings,
+            judge_model=judge_model,
+            dry_run=args.dry_run,
+            limit=args.limit,
+        )
+    )
+
+    print("Evaluation batch complete")
+    print(f"Run ID: {summary['run_id']}")
+    print(f"Artifact root: {summary['artifact_root']}")
+    print(f"Questions: {summary['question_count']}")
+    print(f"Heuristic avg: {summary['aggregate']['heuristic_score_avg']}")
+    print(f"Judge avg: {summary['aggregate']['judge_score_avg']}")
+    print(f"Final avg: {summary['aggregate']['final_score_avg']}")
+    print("Usage totals:")
+    print(json.dumps(summary["usage_totals"], indent=2))
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -290,6 +392,13 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "judge-trace":
         try:
             judge_trace_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
+            parser.exit(1, f"error: {exc}\n")
+        return
+
+    if args.command == "run-eval-batch":
+        try:
+            run_eval_batch_command(args)
         except (OSError, RuntimeError, ValueError) as exc:
             parser.exit(1, f"error: {exc}\n")
         return

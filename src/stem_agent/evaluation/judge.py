@@ -8,7 +8,11 @@ from typing import Any
 
 from openai import OpenAI, OpenAIError
 
-from stem_agent.core.openai_responses import extract_output_text, response_to_dict
+from stem_agent.core.openai_responses import (
+    extract_output_text,
+    extract_usage,
+    response_to_dict,
+)
 from stem_agent.core.settings import Settings
 from stem_agent.core.tracing import utc_now_iso
 from stem_agent.evaluation.scoring import (
@@ -246,6 +250,7 @@ def judge_trace(judge_input: JudgeInput) -> dict[str, Any]:
     if judge_input.dry_run:
         judge_payload = build_dry_run_judge_payload(heuristic_evaluation)
         response_id = None
+        judge_usage: dict[str, Any] = {}
     else:
         if not judge_input.settings.openai_api_key:
             raise RuntimeError("OPENAI_API_KEY is required for model-assisted judging.")
@@ -268,6 +273,7 @@ def judge_trace(judge_input: JudgeInput) -> dict[str, Any]:
 
         response_payload = response_to_dict(response)
         response_id = response_payload.get("id")
+        judge_usage = extract_usage(response_payload)
         judge_payload = normalize_judge_payload(
             extract_json_object(extract_output_text(response_payload))
         )
@@ -292,6 +298,7 @@ def judge_trace(judge_input: JudgeInput) -> dict[str, Any]:
         ),
         "heuristic_evaluation": heuristic_evaluation,
         "judge_evaluation": judge_payload,
+        "judge_usage": judge_usage,
         "response_id": response_id,
     }
 
