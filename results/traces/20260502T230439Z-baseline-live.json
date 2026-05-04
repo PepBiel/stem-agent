@@ -1,0 +1,203 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-02T23:04:30+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-02T23:04:39+00:00",
+  "answer": "## Answer\n\nThe main failure modes of memory in LLM agents are:\n\n- **Bad retrieval**: the agent fails to recall the right past information, or retrieves something irrelevant/too similar, so it acts on the wrong memory. Current benchmarks emphasize that **accurate retrieval** is a core competency and that many methods still fall short here. ([arxiv.org](https://arxiv.org/abs/2507.05257))\n- **Error propagation / memory contamination**: once a bad action, mistaken fact, or low-quality experience is stored, later retrieval can replay and amplify that error. One empirical study explicitly calls this **error propagation** and shows that retrieved memories can strongly shape future outputs. ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- **Stale or inconsistent memory**: agents struggle to update memories when facts change, and they can store conflicting items without resolving them. Surveys highlight **contradiction handling** and **continual consolidation** as major open challenges. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- **Poor forgetting / over-retention**: agents need to delete obsolete or low-value memories, but selective forgetting is difficult; otherwise memory becomes noisy and misleading. Benchmark work identifies **selective forgetting** as a missing competency in current systems. ([arxiv.org](https://arxiv.org/abs/2507.05257))\n- **Write-path quality problems**: if the agent writes too much, writes the wrong thing, or stores low-quality “experiences,” the memory bank degrades. The survey literature calls out **write-path filtering** and management policies as important failure points. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n\nIn practice, these show up as: forgetting user preferences, recalling the wrong episode, being anchored by a bad prior example, and accumulating stale or contradictory memories. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n\n## Sources\n\n1. *Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers* (arXiv, 2026). ([arxiv.org](https://arxiv.org/abs/2603.07670))  \n2. *How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior* (arXiv, 2025). ([arxiv.org](https://arxiv.org/abs/2505.16067))  \n3. *Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions* (arXiv, 2025). ([arxiv.org](https://arxiv.org/abs/2507.05257))  \n4. *LLM Agent Memory: A Survey from a Unified Representation–Management Perspective* (OpenReview, 2026). ([openreview.net](https://openreview.net/forum?id=KPs1EgGKcT))  \n\n## Limitations\n\nThis is a high-level synthesis from recent survey and benchmark papers, not a full taxonomy across all agent architectures. The field is moving quickly, and different papers use slightly different labels for similar failure modes. ([arxiv.org](https://arxiv.org/abs/2603.07670))",
+  "citations": [
+    {
+      "end_index": 388,
+      "start_index": 341,
+      "title": "[2507.05257] Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257"
+    },
+    {
+      "end_index": 739,
+      "start_index": 692,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 1041,
+      "start_index": 994,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 1364,
+      "start_index": 1317,
+      "title": "[2507.05257] Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257"
+    },
+    {
+      "end_index": 1674,
+      "start_index": 1627,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 1901,
+      "start_index": 1854,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 2063,
+      "start_index": 2016,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 2227,
+      "start_index": 2180,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 2369,
+      "start_index": 2322,
+      "title": "[2507.05257] Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257"
+    },
+    {
+      "end_index": 2539,
+      "start_index": 2477,
+      "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+    },
+    {
+      "end_index": 2837,
+      "start_index": 2790,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0decdd5c92fc2ffd0069f68300bf4c8197bd6b74e54970adc3",
+      "action": {
+        "query": "LLM agent memory failure modes paper retrieval forgetting hallucination long-term memory survey",
+        "type": "search",
+        "queries": [
+          "LLM agent memory failure modes paper retrieval forgetting hallucination long-term memory survey",
+          "memory in LLM agents failure modes survey official paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.lunadong.com/paper/8628"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10462-024-11078-6"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.05665"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2404.13501"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2512.13564v1"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20006"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2604.16548"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2404.13501"
+          },
+          {
+            "type": "url",
+            "url": "https://www.preprints.org/manuscript/202603.0359"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/ff27b3f068664be7d08dfd54b8dd8a56cd3349f4.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_Individual-Bench4448/comments/1rm59kg/realworld_use_cases_of_ai_agents_that_remember/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0decdd5c92fc2ffd0069f68302a5088197a03b8d8d2d3a3756",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2603.07670"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "response_id": "resp_0decdd5c92fc2ffd0069f683001d1c8197be444f32ea81d101",
+  "status": "complete"
+}

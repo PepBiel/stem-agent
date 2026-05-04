@@ -1,0 +1,193 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T06:57:09+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T06:57:18+00:00",
+  "answer": "## Answer\n\nThe main failure modes of memory in LLM agents are usually:\n\n1. **Retrieval failure**  \n   The agent stores something but fails to fetch the right memory when needed. Recent benchmark work suggests retrieval is often the dominant bottleneck, more than how memories are written or summarized. ([openreview.net](https://openreview.net/forum?id=cxYbqAtBIz))\n\n2. **Lossy or poor write/store decisions**  \n   Memory systems can over-compress or summarize away useful details, so later retrieval has less to work with. In one study, raw chunk storage sometimes matched or beat more sophisticated lossy write strategies, implying that write-time abstraction can discard context that matters later. ([openreview.net](https://openreview.net/forum?id=cxYbqAtBIz))\n\n3. **Forgetting what was already known / learned**  \n   Agents may “forget” epistemic state: they re-ask questions, rediscover facts, or repeat work even though the information was already learned earlier. This is a distinct failure from hallucination or world-state inconsistency. ([openreview.net](https://openreview.net/forum?id=u5VS0Eg9DO))\n\n4. **Failure to update memory over time**  \n   Memory agents are expected to support accurate retrieval, test-time learning, long-range understanding, and selective forgetting, but current systems fall short on these competencies, especially in multi-turn settings where information accumulates incrementally. ([openreview.net](https://openreview.net/forum?id=DT7JyQC3MR))\n\nA practical summary for engineers: **memory usually fails at the interface between storage and use**—either the right thing isn’t stored cleanly, isn’t retrieved, or isn’t incorporated correctly into the agent’s current state. ([arxiv.org](https://arxiv.org/abs/2404.13501))\n\n## Sources\n\n- Survey on LLM agent memory mechanisms. ([arxiv.org](https://arxiv.org/abs/2404.13501))\n- MemoryAgentBench / core memory competencies. ([openreview.net](https://openreview.net/forum?id=DT7JyQC3MR))\n- Retrieval vs. utilization bottlenecks in agent memory. ([openreview.net](https://openreview.net/forum?id=cxYbqAtBIz))\n- Known-information forgetting in narrative agents. ([openreview.net](https://openreview.net/forum?id=u5VS0Eg9DO))\n\n## Limitations\n\n- This is a **high-level synthesis** from a small set of recent papers, not an exhaustive taxonomy.\n- “Main failure modes” varies by application: chat assistants, coding agents, RAG systems, and long-horizon task agents can fail in slightly different ways.\n- I did not deeply reconcile disagreements across papers; I focused on the most recurring patterns surfaced by the sources.",
+  "citations": [
+    {
+      "end_index": 365,
+      "start_index": 303,
+      "title": "Diagnosing Retrieval vs. Utilization Bottlenecks in LLM Agent Memory | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=cxYbqAtBIz"
+    },
+    {
+      "end_index": 764,
+      "start_index": 702,
+      "title": "Diagnosing Retrieval vs. Utilization Bottlenecks in LLM Agent Memory | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=cxYbqAtBIz"
+    },
+    {
+      "end_index": 1110,
+      "start_index": 1048,
+      "title": "Epistemic Memory Failures in Long-Form Narrative Agents: A Deployment Study | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=u5VS0Eg9DO"
+    },
+    {
+      "end_index": 1484,
+      "start_index": 1422,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=DT7JyQC3MR"
+    },
+    {
+      "end_index": 1760,
+      "start_index": 1713,
+      "title": "[2404.13501] A Survey on the Memory Mechanism of Large Language Model based Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2404.13501"
+    },
+    {
+      "end_index": 1862,
+      "start_index": 1815,
+      "title": "[2404.13501] A Survey on the Memory Mechanism of Large Language Model based Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2404.13501"
+    },
+    {
+      "end_index": 1972,
+      "start_index": 1910,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=DT7JyQC3MR"
+    },
+    {
+      "end_index": 2092,
+      "start_index": 2030,
+      "title": "Diagnosing Retrieval vs. Utilization Bottlenecks in LLM Agent Memory | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=cxYbqAtBIz"
+    },
+    {
+      "end_index": 2207,
+      "start_index": 2145,
+      "title": "Epistemic Memory Failures in Long-Form Narrative Agents: A Deployment Study | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=u5VS0Eg9DO"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0b83c3e12d718a900069f8435749808194ac6b156e24302b23",
+      "action": {
+        "query": "LLM agents memory failure modes paper long-term memory agent survey retrieval forgetting hallucination",
+        "type": "search",
+        "queries": [
+          "LLM agents memory failure modes paper long-term memory agent survey retrieval forgetting hallucination",
+          "LLM agent memory failure modes official blog retrieval augmentation agent memory paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=cxYbqAtBIz"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=8TsfuV5aIn"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=u5VS0Eg9DO"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=uuETsL6jwI"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=FiM0M8gcct"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=DT7JyQC3MR"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=QVX6hcJ2um"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=r5h2um8UsH"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=fVxfCEv8xG"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=LE664kai2e"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.21760"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2404.13501"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/3291bd39f740eec1fca31bff4b9e9b3b3e360246.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/ff27b3f068664be7d08dfd54b8dd8a56cd3349f4.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=KPs1EgGKcT"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b83c3e12d718a900069f84359077c8194b364de1db7485093",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2404.13501"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "response_id": "resp_0b83c3e12d718a900069f8435664b48194b24a7c235ab1586f",
+  "status": "complete"
+}
