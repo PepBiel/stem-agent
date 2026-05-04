@@ -1,0 +1,225 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T12:32:50+00:00",
+  "finished_at": "2026-05-04T12:32:56+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "baseline_model_only_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.2,
+  "judge_score": 0.375,
+  "final_score": 0.3138,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-002.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_model_only_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 0.2,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.0,
+      "unsupported_claim_count": 12,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.5
+    },
+    "overall_score": 0.2,
+    "failure_tags": [
+      "missing_required_aspect",
+      "repetitive_answer",
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 4.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": false,
+          "matched_terms": [
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": false,
+          "matched_terms": [
+            "planning"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents and planner-executor agents differ mainly in how they interleave reasoning with action.",
+        "This makes them **reactive and adaptive**. They decide the next step based on the latest observation, which is useful when the environment is uncertain, dynamic, or requires exploration.",
+        "1. **planning**: produce a higher-level multi-step plan up front,",
+        "2. **execution**: carry out the plan, often step by step.",
+        "This makes them **more structured and goal-directed**. They are often better when the task can be decomposed cleanly and benefits from a stable plan.",
+        "- **Adaptivity**: ReAct adapts continuously; planner-executor may need re-planning if conditions change.",
+        "- **Transparency**: planner-executor often yields a clearer overall task structure; ReAct exposes more local decision-making.",
+        "- **Robustness**: ReAct can handle surprises better; planner-executor can be more efficient on predictable tasks.",
+        "- **Failure modes**: ReAct may get stuck in loops or overreact to noise; planner-executor may follow a bad plan too rigidly.",
+        "- **ReAct** = “decide next action while thinking.”",
+        "- **Planner-executor** = “think first, then execute.”",
+        "I’m answering from general model knowledge, so terminology may vary across papers and implementations. Some systems combine both patterns, so the boundary is not always strict."
+      ],
+      "unsupported_claim_lines": [
+        "ReAct-style agents and planner-executor agents differ mainly in how they interleave reasoning with action.",
+        "This makes them **reactive and adaptive**. They decide the next step based on the latest observation, which is useful when the environment is uncertain, dynamic, or requires exploration.",
+        "1. **planning**: produce a higher-level multi-step plan up front,",
+        "2. **execution**: carry out the plan, often step by step.",
+        "This makes them **more structured and goal-directed**. They are often better when the task can be decomposed cleanly and benefits from a stable plan.",
+        "- **Adaptivity**: ReAct adapts continuously; planner-executor may need re-planning if conditions change.",
+        "- **Transparency**: planner-executor often yields a clearer overall task structure; ReAct exposes more local decision-making.",
+        "- **Robustness**: ReAct can handle surprises better; planner-executor can be more efficient on predictable tasks.",
+        "- **Failure modes**: ReAct may get stuck in loops or overreact to noise; planner-executor may follow a bad plan too rigidly.",
+        "- **ReAct** = “decide next action while thinking.”",
+        "- **Planner-executor** = “think first, then execute.”",
+        "I’m answering from general model knowledge, so terminology may vary across papers and implementations. Some systems combine both patterns, so the boundary is not always strict."
+      ],
+      "sources": [],
+      "citation_count": 0,
+      "unique_citation_count": 0
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 2,
+      "evidence_quality": 1,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explains ReAct as alternating thought, action, and observation, which matches the core distinction."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Clearly states planner-executor has an upfront planning phase followed by execution."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not explain how each architecture affects tool selection, tool-call sequencing, or tool feedback loops."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 3,
+        "verdict": "covered",
+        "reason": "Mentions looping/noise sensitivity for ReAct and rigid adherence to a bad plan for planner-executor."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Gives general guidance for uncertain/dynamic vs. predictable/cleanly decomposable tasks, but lacks concrete engineering decision criteria."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct-style agents and planner-executor agents differ mainly in how they interleave reasoning with action.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No sources are provided."
+      },
+      {
+        "claim": "Planner-executor agents separate work into planning and execution phases.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "Plausible, but uncited."
+      },
+      {
+        "claim": "ReAct can get stuck in loops or overreact to noise; planner-executor may follow a bad plan too rigidly.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "Reasonable but uncited and not grounded in a source."
+      },
+      {
+        "claim": "Some systems combine both patterns, so the boundary is not always strict.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "Uncited generalization."
+      }
+    ],
+    "source_audit": [],
+    "failure_tags": [
+      "missing_required_aspect",
+      "no_citations",
+      "weak_source",
+      "unsupported_claim"
+    ],
+    "summary": "The answer correctly describes the broad contrast and some failure modes, but it misses tool-use implications, lacks citations entirely, and stays fairly generic.",
+    "recommended_fix": "Add citations from the ReAct paper and an agent-framework or technical comparison source, then explicitly cover how tool calling differs, including planning granularity, re-planning frequency, and concrete cases where each architecture is preferable.",
+    "average_score": 2.5,
+    "normalized_score": 0.375
+  },
+  "judge_usage": {
+    "input_tokens": 2480,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 732,
+    "output_tokens_details": {
+      "reasoning_tokens": 28
+    },
+    "total_tokens": 3212
+  },
+  "response_id": "resp_0cca3675bcb10f080069f8920355ac8197a00c256bff5dc9ae"
+}

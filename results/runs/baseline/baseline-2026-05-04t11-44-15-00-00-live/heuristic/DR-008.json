@@ -1,0 +1,108 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-008.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 0.1667,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.6667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.7143
+  },
+  "overall_score": 0.7131,
+  "failure_tags": [
+    "missing_required_aspect"
+  ],
+  "runtime_seconds": 9.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "**Autonomous agents** trade more flexibility for more risk and operational complexity. They can decide actions dynamically, handle open-ended tasks, and adapt to messy/unstructured inputs, but they are harder to evaluate, debug, secure, and keep predictable. OpenAI’s guidance explicitly recommends an incremental approach rather than jumping straight to fully autonomous systems, noting that simpler single-agent setups are often easier to maintain and evaluate. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+      "**Workflow-based agents** trade some autonomy for more reliability and control. They are better when you need repeatable processes, clear handoffs, consistent outputs, and tighter guardrails. In practice, workflow-oriented designs make it easier to manage intermediate files, retries, timeouts, permissions, and other production concerns. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))",
+      "- Use **workflow-based agents** for well-defined, high-volume, or compliance-sensitive tasks where predictability matters more than improvisation. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+      "- Use **autonomous agents** when the task is ambiguous, tool-heavy, or changes as it runs, and you need the system to plan and adapt on its own. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://docs.anthropic.com/en/docs/claude-code/sub-agents",
+        "domain": "docs.anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 7,
+    "unique_citation_count": 3
+  }
+}

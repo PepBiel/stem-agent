@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:32:33+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:32:39+00:00",
+  "answer": "## Answer\n\nThe main failure modes of memory in LLM agents are:\n\n1. **Forgotten context**\n   - Relevant past information is not retrieved or not retained long enough.\n   - Common when context windows are small or retrieval misses the right items.\n\n2. **Wrong retrieval**\n   - The agent recalls the wrong past fact, conversation turn, or document.\n   - Often caused by weak indexing, poor embeddings, ambiguous queries, or stale summaries.\n\n3. **Memory drift / distortion**\n   - Stored memory gets paraphrased, compressed, or summarized incorrectly over time.\n   - Small errors accumulate and the agent starts acting on a corrupted version of events.\n\n4. **Confabulation / false memory**\n   - The agent invents memories or treats inferred details as if they were observed facts.\n   - Especially likely when the model tries to “fill in gaps” from weak evidence.\n\n5. **Over-reliance on recent context**\n   - Recent messages dominate decisions while older but important information is ignored.\n   - This can make behavior unstable across long interactions.\n\n6. **Under-reliance on memory**\n   - The agent has memory available but fails to use it consistently.\n   - Often due to prompt design, poor retrieval policy, or the model not trusting retrieved items.\n\n7. **Memory pollution**\n   - Irrelevant, low-quality, or incorrect items get stored and later interfere with retrieval.\n   - This degrades precision over time.\n\n8. **Stale memory**\n   - The agent keeps using information that is no longer valid.\n   - Important in changing environments, user preferences, or evolving task state.\n\n9. **Privacy or scope leakage**\n   - The agent retrieves and uses memory outside the intended user/session/task scope.\n   - This is both a correctness and safety problem.\n\n10. **Inconsistent state across memory systems**\n   - Different memory layers disagree, such as chat history, vector store, and structured profile memory.\n   - The agent may combine them inconsistently and produce contradictory behavior.\n\nIn practice, these failures usually come from a mix of **retrieval errors, compression/summarization errors, storage noise, and the model’s tendency to hallucinate or overgeneralize**.\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nThis is a high-level synthesis from model knowledge, not a citation-backed survey. The exact taxonomy can vary by architecture: for example, agents with episodic memory, vector databases, or hierarchical summaries may fail in slightly different ways. I’m reasonably confident in the categories above, but specific relative importance depends on the implementation.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 115,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 540,
+    "output_tokens_details": {
+      "reasoning_tokens": 11
+    },
+    "total_tokens": 655
+  },
+  "response_id": "resp_053fa480a30466880069f891f2c19c819596b909d87c2c62cf",
+  "status": "complete"
+}

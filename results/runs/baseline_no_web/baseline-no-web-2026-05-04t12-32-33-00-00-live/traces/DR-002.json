@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:32:46+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:32:50+00:00",
+  "answer": "**Answer**\n\nReAct-style agents and planner-executor agents differ mainly in how they interleave reasoning with action.\n\n- **ReAct-style agents** alternate between:\n  1. a thought/reasoning step,\n  2. an action step,\n  3. observing the result,\n  4. repeating.\n  \n  This makes them **reactive and adaptive**. They decide the next step based on the latest observation, which is useful when the environment is uncertain, dynamic, or requires exploration.\n\n- **Planner-executor agents** separate work into two phases:\n  1. **planning**: produce a higher-level multi-step plan up front,\n  2. **execution**: carry out the plan, often step by step.\n  \n  This makes them **more structured and goal-directed**. They are often better when the task can be decomposed cleanly and benefits from a stable plan.\n\nPractical differences:\n- **Adaptivity**: ReAct adapts continuously; planner-executor may need re-planning if conditions change.\n- **Transparency**: planner-executor often yields a clearer overall task structure; ReAct exposes more local decision-making.\n- **Robustness**: ReAct can handle surprises better; planner-executor can be more efficient on predictable tasks.\n- **Failure modes**: ReAct may get stuck in loops or overreact to noise; planner-executor may follow a bad plan too rigidly.\n\nA simple way to think about it:\n- **ReAct** = “decide next action while thinking.”\n- **Planner-executor** = “think first, then execute.”\n\n**Sources**\n\nNo external sources used\n\n**Limitations**\n\nI’m answering from general model knowledge, so terminology may vary across papers and implementations. Some systems combine both patterns, so the boundary is not always strict.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 115,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 390,
+    "output_tokens_details": {
+      "reasoning_tokens": 11
+    },
+    "total_tokens": 505
+  },
+  "response_id": "resp_09fc48b6be2ba7270069f891ff9d948195ad7722d99ec6b234",
+  "status": "complete"
+}

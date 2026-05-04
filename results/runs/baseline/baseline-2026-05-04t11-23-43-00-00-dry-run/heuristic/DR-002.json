@@ -1,0 +1,88 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-002.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": true,
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "metrics": {
+    "coverage_score": 0.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.15,
+  "failure_tags": [
+    "missing_required_aspect",
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 0.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ]
+      },
+      {
+        "aspect": "explicit planning stage",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ]
+      },
+      {
+        "aspect": "tool-use implications",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "implications",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "failure modes",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "failure",
+          "modes"
+        ]
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "This is a dry-run baseline response for: How do ReAct-style agents differ from planner-executor agents?"
+    ],
+    "unsupported_claim_lines": [
+      "This is a dry-run baseline response for: How do ReAct-style agents differ from planner-executor agents?"
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

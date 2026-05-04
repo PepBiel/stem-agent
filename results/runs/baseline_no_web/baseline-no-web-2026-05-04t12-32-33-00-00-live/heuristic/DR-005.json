@@ -1,0 +1,160 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-005.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 29,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.4,
+  "failure_tags": [
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 8.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": true,
+        "matched_terms": [
+          "feedback"
+        ],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "refinement",
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": true,
+        "matched_terms": [
+          "optimization",
+          "prompt"
+        ],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Yes. There are several **self-improvement techniques for agents that do not require fine-tuning or updating model weights**. The main idea is to improve behavior through **prompting, memory, search, verification, and external control loops** rather than gradient updates.",
+      "- The agent evaluates its own output, identifies mistakes, and retries.",
+      "- Often implemented as: draft → critique → revise.",
+      "- Works well for reasoning, coding, and planning tasks.",
+      "- The agent produces an answer, checks it against constraints or tests, then improves it in multiple rounds.",
+      "- Useful when correctness can be measured partially, e.g. by unit tests or rule checks.",
+      "- Generate multiple candidate solutions and choose the best or most consistent one.",
+      "- This improves reliability without changing model weights.",
+      "- Especially useful for reasoning tasks where one sample may be brittle.",
+      "- Use tree search, beam search, Monte Carlo-style exploration, or best-first search over candidate thoughts/actions.",
+      "- The agent explores multiple action paths and selects the best one using a scoring function.",
+      "- The agent delegates subproblems to tools such as calculators, code interpreters, search engines, or theorem/proof checkers.",
+      "- It can then verify and correct its own outputs using tool feedback.",
+      "- Store prior successes, failures, summaries, or task-specific notes in external memory.",
+      "- On future tasks, retrieve relevant memories to guide behavior.",
+      "- This can act like “learning” without weight updates.",
+      "- Improve system prompts, instructions, exemplars, or templates based on observed failures.",
+      "- Examples include better role definitions, clearer constraints, or structured output formats.",
+      "- Break hard tasks into smaller subtasks and solve them sequentially.",
+      "- The agent can learn better decompositions over time from feedback, even without changing model parameters.",
+      "- One component proposes actions/answers; another checks them.",
+      "- The verifier can be another model, rules, tests, or symbolic checks.",
+      "- The system improves by selecting better proposals, not by training.",
+      "- For code or structured outputs, generate, run, detect failure, patch, and rerun.",
+      "- This is a strong form of self-improvement because the environment provides ground-truth signals.",
+      "- A higher-level policy decides when to think longer, query tools, retry, or switch strategies.",
+      "- The agent “improves” by changing inference strategy rather than weights.",
+      "- Reuse previous traces, successful plans, or failure cases as retrieved context.",
+      "- Similar to learning from experience, but implemented through context injection."
+    ],
+    "unsupported_claim_lines": [
+      "Yes. There are several **self-improvement techniques for agents that do not require fine-tuning or updating model weights**. The main idea is to improve behavior through **prompting, memory, search, verification, and external control loops** rather than gradient updates.",
+      "- The agent evaluates its own output, identifies mistakes, and retries.",
+      "- Often implemented as: draft → critique → revise.",
+      "- Works well for reasoning, coding, and planning tasks.",
+      "- The agent produces an answer, checks it against constraints or tests, then improves it in multiple rounds.",
+      "- Useful when correctness can be measured partially, e.g. by unit tests or rule checks.",
+      "- Generate multiple candidate solutions and choose the best or most consistent one.",
+      "- This improves reliability without changing model weights.",
+      "- Especially useful for reasoning tasks where one sample may be brittle.",
+      "- Use tree search, beam search, Monte Carlo-style exploration, or best-first search over candidate thoughts/actions.",
+      "- The agent explores multiple action paths and selects the best one using a scoring function.",
+      "- The agent delegates subproblems to tools such as calculators, code interpreters, search engines, or theorem/proof checkers.",
+      "- It can then verify and correct its own outputs using tool feedback.",
+      "- Store prior successes, failures, summaries, or task-specific notes in external memory.",
+      "- On future tasks, retrieve relevant memories to guide behavior.",
+      "- This can act like “learning” without weight updates.",
+      "- Improve system prompts, instructions, exemplars, or templates based on observed failures.",
+      "- Examples include better role definitions, clearer constraints, or structured output formats.",
+      "- Break hard tasks into smaller subtasks and solve them sequentially.",
+      "- The agent can learn better decompositions over time from feedback, even without changing model parameters.",
+      "- One component proposes actions/answers; another checks them.",
+      "- The verifier can be another model, rules, tests, or symbolic checks.",
+      "- The system improves by selecting better proposals, not by training.",
+      "- For code or structured outputs, generate, run, detect failure, patch, and rerun.",
+      "- This is a strong form of self-improvement because the environment provides ground-truth signals.",
+      "- A higher-level policy decides when to think longer, query tools, retry, or switch strategies.",
+      "- The agent “improves” by changing inference strategy rather than weights.",
+      "- Reuse previous traces, successful plans, or failure cases as retrieved context.",
+      "- Similar to learning from experience, but implemented through context injection."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

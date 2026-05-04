@@ -1,0 +1,89 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-008.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": true,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 0.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.15,
+  "failure_tags": [
+    "missing_required_aspect",
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 0.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "This is a dry-run baseline response for: What are the trade-offs between autonomous agents and workflow-based agents?"
+    ],
+    "unsupported_claim_lines": [
+      "This is a dry-run baseline response for: What are the trade-offs between autonomous agents and workflow-based agents?"
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

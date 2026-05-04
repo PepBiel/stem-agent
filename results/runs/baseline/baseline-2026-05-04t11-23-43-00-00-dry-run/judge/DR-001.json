@@ -1,0 +1,136 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:23:43+00:00",
+  "finished_at": "2026-05-04T11:23:43+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": true,
+  "heuristic_score": 0.2,
+  "judge_score": 0.4583,
+  "final_score": 0.3679,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-001.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": true,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 0.2,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.0,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.5
+    },
+    "overall_score": 0.2,
+    "failure_tags": [
+      "missing_required_aspect",
+      "repetitive_answer",
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 0.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": false,
+          "matched_terms": [
+            "memory"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "This is a dry-run baseline response for: What are the main failure modes of memory in LLM agents?"
+      ],
+      "unsupported_claim_lines": [
+        "This is a dry-run baseline response for: What are the main failure modes of memory in LLM agents?"
+      ],
+      "sources": [],
+      "citation_count": 0,
+      "unique_citation_count": 0
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 3,
+      "evidence_quality": 2,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 3
+    },
+    "coverage_audit": [],
+    "citation_audit": [],
+    "source_audit": [],
+    "failure_tags": [
+      "dry_run"
+    ],
+    "summary": "Dry-run judge output; no model call was made.",
+    "recommended_fix": "Run without --dry-run for semantic evaluation.",
+    "average_score": 2.8333,
+    "normalized_score": 0.4583
+  },
+  "judge_usage": {},
+  "response_id": null
+}

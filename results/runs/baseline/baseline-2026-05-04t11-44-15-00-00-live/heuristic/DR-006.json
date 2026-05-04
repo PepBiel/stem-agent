@@ -1,0 +1,107 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-006.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 0.4,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.6667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.6875
+  },
+  "overall_score": 0.7688,
+  "failure_tags": [
+    "missing_required_aspect"
+  ],
+  "runtime_seconds": 11.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": true,
+        "matched_terms": [
+          "role"
+        ],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- **Specification / system-design failures**: agents ignore the task or role spec, repeat steps, lose conversation history, or miss termination conditions. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))",
+      "- **Inter-agent coordination failures**: agents derail the task, fail to ask for clarification, withhold information, ignore another agent’s input, or exhibit reasoning-action mismatch. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))",
+      "- **Verification / control failures**: agents terminate too early or verify outputs incompletely or incorrectly, so errors slip through. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))",
+      "Older MAS safety literature also highlights related system-level issues such as **accidental steering**, **coordination failures**, **adversarial misalignment**, **input spoofing/filtering**, and **goal co-option or direct hacking**. ([arxiv.org](https://arxiv.org/abs/1810.10862))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/1810.10862",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://journals.sagepub.com/doi/10.3233/AIC-220136",
+        "domain": "journals.sagepub.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/pdf?id=MqBzKkb8eK",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 8,
+    "unique_citation_count": 3
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-007.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 21,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.35,
+  "failure_tags": [
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 6.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "relevance",
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": false,
+        "matched_terms": [
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- Every citation should point to a real source.",
+      "- Verify that identifiers, titles, authors, dates, and links are correct.",
+      "- Flag missing, broken, duplicated, or fabricated references.",
+      "- For each important claim, inspect whether the cited source actually supports it.",
+      "- **direct support**: source explicitly states the claim,",
+      "- **indirect support**: claim is inferred from source,",
+      "- **unsupported**: citation is unrelated or too weak.",
+      "- If the agent quotes text, the quote should match exactly.",
+      "- If paraphrasing, check that the meaning is preserved and not overstated.",
+      "- Prefer primary sources, official docs, standards, datasets, or original research when relevant.",
+      "- Audit for overreliance on secondary summaries or low-quality pages.",
+      "- Check whether citations cover all major subclaims, especially contentious or numerical ones.",
+      "- Ensure the agent is not cherry-picking only supportive sources.",
+      "- Confirm the cited source is current enough for the claim.",
+      "- Older sources may be fine for historical facts but not for fast-changing technical details.",
+      "- Multiple citations should ideally not all trace back to the same underlying source.",
+      "- Detect citation chains where many sources are just rephrasings of one original claim.",
+      "- The audit should preserve how the source was obtained and used.",
+      "- Best practice is to store snippet-level evidence or passage offsets alongside each citation.",
+      "- **Score each citation** on validity, relevance, and strength of support",
+      "For deep research agents, I’d especially recommend auditing for **citation hallucination**, **overclaiming**, and **evidence mismatch**; those are usually more damaging than simple formatting errors."
+    ],
+    "unsupported_claim_lines": [
+      "- Every citation should point to a real source.",
+      "- Verify that identifiers, titles, authors, dates, and links are correct.",
+      "- Flag missing, broken, duplicated, or fabricated references.",
+      "- For each important claim, inspect whether the cited source actually supports it.",
+      "- **direct support**: source explicitly states the claim,",
+      "- **indirect support**: claim is inferred from source,",
+      "- **unsupported**: citation is unrelated or too weak.",
+      "- If the agent quotes text, the quote should match exactly.",
+      "- If paraphrasing, check that the meaning is preserved and not overstated.",
+      "- Prefer primary sources, official docs, standards, datasets, or original research when relevant.",
+      "- Audit for overreliance on secondary summaries or low-quality pages.",
+      "- Check whether citations cover all major subclaims, especially contentious or numerical ones.",
+      "- Ensure the agent is not cherry-picking only supportive sources.",
+      "- Confirm the cited source is current enough for the claim.",
+      "- Older sources may be fine for historical facts but not for fast-changing technical details.",
+      "- Multiple citations should ideally not all trace back to the same underlying source.",
+      "- Detect citation chains where many sources are just rephrasings of one original claim.",
+      "- The audit should preserve how the source was obtained and used.",
+      "- Best practice is to store snippet-level evidence or passage offsets alongside each citation.",
+      "- **Score each citation** on validity, relevance, and strength of support",
+      "For deep research agents, I’d especially recommend auditing for **citation hallucination**, **overclaiming**, and **evidence mismatch**; those are usually more damaging than simple formatting errors."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

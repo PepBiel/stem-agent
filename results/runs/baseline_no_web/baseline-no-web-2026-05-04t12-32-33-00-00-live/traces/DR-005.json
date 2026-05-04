@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:33:17+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:25+00:00",
+  "answer": "## Answer\n\nYes. There are several **self-improvement techniques for agents that do not require fine-tuning or updating model weights**. The main idea is to improve behavior through **prompting, memory, search, verification, and external control loops** rather than gradient updates.\n\nCommon approaches:\n\n1. **Reflection / self-critique**\n   - The agent evaluates its own output, identifies mistakes, and retries.\n   - Often implemented as: draft → critique → revise.\n   - Works well for reasoning, coding, and planning tasks.\n\n2. **Iterative refinement loops**\n   - The agent produces an answer, checks it against constraints or tests, then improves it in multiple rounds.\n   - Useful when correctness can be measured partially, e.g. by unit tests or rule checks.\n\n3. **Self-consistency / sampling-and-voting**\n   - Generate multiple candidate solutions and choose the best or most consistent one.\n   - This improves reliability without changing model weights.\n   - Especially useful for reasoning tasks where one sample may be brittle.\n\n4. **Search-based reasoning**\n   - Use tree search, beam search, Monte Carlo-style exploration, or best-first search over candidate thoughts/actions.\n   - The agent explores multiple action paths and selects the best one using a scoring function.\n\n5. **Tool use with verification**\n   - The agent delegates subproblems to tools such as calculators, code interpreters, search engines, or theorem/proof checkers.\n   - It can then verify and correct its own outputs using tool feedback.\n\n6. **Memory-based adaptation**\n   - Store prior successes, failures, summaries, or task-specific notes in external memory.\n   - On future tasks, retrieve relevant memories to guide behavior.\n   - This can act like “learning” without weight updates.\n\n7. **Prompt optimization**\n   - Improve system prompts, instructions, exemplars, or templates based on observed failures.\n   - Examples include better role definitions, clearer constraints, or structured output formats.\n\n8. **Automatic curriculum / task decomposition**\n   - Break hard tasks into smaller subtasks and solve them sequentially.\n   - The agent can learn better decompositions over time from feedback, even without changing model parameters.\n\n9. **Critic–actor or proposer–verifier architectures**\n   - One component proposes actions/answers; another checks them.\n   - The verifier can be another model, rules, tests, or symbolic checks.\n   - The system improves by selecting better proposals, not by training.\n\n10. **Programmatic repair**\n    - For code or structured outputs, generate, run, detect failure, patch, and rerun.\n    - This is a strong form of self-improvement because the environment provides ground-truth signals.\n\n11. **Meta-controller adaptation**\n    - A higher-level policy decides when to think longer, query tools, retry, or switch strategies.\n    - The agent “improves” by changing inference strategy rather than weights.\n\n12. **Experience replay as retrieval**\n    - Reuse previous traces, successful plans, or failure cases as retrieved context.\n    - Similar to learning from experience, but implemented through context injection.\n\nIn practice, the most effective non-fine-tuning setups combine several of these:\n- **reflection + tool use + memory**\n- **sampling + verification + retries**\n- **search + external critics + test execution**\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nI’m answering from model knowledge only, so this is a **high-level survey rather than an exhaustive taxonomy**. Some techniques overlap conceptually, and different papers/systems may use different names for similar ideas. If you want, I can also turn this into a **design pattern checklist for building a self-improving agent without training**.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 116,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 814,
+    "output_tokens_details": {
+      "reasoning_tokens": 49
+    },
+    "total_tokens": 930
+  },
+  "response_id": "resp_025894e2b812db9d0069f8921e97c88197bb7653564d2527d7",
+  "status": "complete"
+}

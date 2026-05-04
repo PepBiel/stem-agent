@@ -1,0 +1,319 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:46:08+00:00",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:46:21+00:00",
+  "answer": "## Answer\n\n**Agentic RAG** is a retrieval-augmented generation pattern where an LLM acts more like an autonomous agent: it can **plan**, **decide when and what to retrieve**, **rewrite queries**, **use tools**, and **iterate over multiple retrieval/reasoning steps** before answering. In contrast, **standard RAG** is usually a mostly fixed pipeline: **retrieve relevant context once, append it to the prompt, then generate the answer**. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai))\n\nPractically, agentic RAG is useful for **complex, multi-hop, or ambiguous questions** because the system can refine its search as it learns more. The tradeoff is **more latency, higher cost, and more orchestration complexity**, plus more opportunities for compounding mistakes across steps. Standard RAG is simpler, cheaper, and easier to control, but it can struggle when one retrieval pass is not enough. ([arxiv.org](https://arxiv.org/abs/2501.09136?utm_source=openai))\n\n## Sources\n\n- Microsoft Learn — *Retrieval augmented generation (RAG) and indexes in Microsoft Foundry*: standard RAG as search + grounding context + generation. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic&utm_source=openai))\n- Microsoft Learn — *What is agentic RAG?*: basic vs agentic RAG overview. ([learn.microsoft.com](https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag?utm_source=openai))\n- arXiv survey — *Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG*: agentic RAG uses planning, reflection, tool use, and multi-agent collaboration. ([arxiv.org](https://arxiv.org/abs/2501.09136?utm_source=openai))\n- arXiv — *A-RAG: Scaling Agentic Retrieval-Augmented Generation via Hierarchical Retrieval Interfaces*: agentic RAG exposes retrieval tools and lets the model participate in retrieval decisions. ([arxiv.org](https://arxiv.org/abs/2602.03442?utm_source=openai))\n\n## Limitations\n\n- This is a high-level summary, not a full taxonomy of agentic RAG variants.\n- “Agentic RAG” is not a single standardized architecture; different papers use the term differently. ([arxiv.org](https://arxiv.org/abs/2501.09136?utm_source=openai))",
+  "citations": [
+    {
+      "end_index": 571,
+      "start_index": 438,
+      "title": "Retrieval augmented generation in Microsoft Foundry portal - Microsoft Foundry | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai"
+    },
+    {
+      "end_index": 1045,
+      "start_index": 980,
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136?utm_source=openai"
+    },
+    {
+      "end_index": 1363,
+      "start_index": 1209,
+      "title": "Retrieval augmented generation (RAG) and indexes in Microsoft Foundry - Microsoft Foundry | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic&utm_source=openai"
+    },
+    {
+      "end_index": 1565,
+      "start_index": 1439,
+      "title": "What is agentic RAG? (Part 5 of 10) | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag?utm_source=openai"
+    },
+    {
+      "end_index": 1795,
+      "start_index": 1730,
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136?utm_source=openai"
+    },
+    {
+      "end_index": 2057,
+      "start_index": 1992,
+      "title": "A-RAG: Scaling Agentic Retrieval-Augmented Generation via Hierarchical Retrieval Interfaces",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.03442?utm_source=openai"
+    },
+    {
+      "end_index": 2319,
+      "start_index": 2254,
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136?utm_source=openai"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0c4f15503b18c3600069f8871207dc81949eb912c106a7029c",
+      "action": {
+        "query": "agentic RAG definition official documentation paper",
+        "type": "search",
+        "queries": [
+          "agentic RAG definition official documentation paper",
+          "retrieval augmented generation agentic vs standard RAG paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/og-rag-ontology-grounded-retrieval-augmented-generation-for-large-language-models/?lang=ko-kr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/xrag-extreme-context-compression-for-retrieval-augmented-generation-with-one-token/?locale=zh-cn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/chain-of-retrieval-augmented-generation/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/retrieval-augmented-generation-rag-and-beyond-a-comprehensive-survey-on-how-to-make-your-llms-use-external-data-more-wisely/?lang=ko-kr"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.25518"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.07711"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/planrag-efficient-test-time-planning-for-retrieval-augmented-generation/?locale=zh-cn"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/quantifying-reliance-on-external-information-over-parametric-knowledge-during-retrieval-augmented-generation-rag-using-mechanistic-analysis/?lang=ko-kr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/pike-rag-specialized-knowledge-and-rationale-augmented-generation/%3Flang%3Dko-kr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/metis-fast-quality-aware-rag-systems-with-configuration-adaptation-2/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/metis-fast-quality-aware-rag-systems-with-configuration-adaptation-tr/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/improving-long-context-summarization-with-multi-granularity-retrieval-optimization/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://techcommunity.microsoft.com/blog/azure-ai-services-blog/bonus-rag-time-journey-agentic-rag/4404652"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.08067"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/10/sosp25-final547.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.07630"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-product-and-services/microsoft-education/downloadables/Cloud-AI-Strategy-and-Planning-eBook.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/ai/The-Microsoft-Agent-Factory-white-paper-Feb-2026.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c4f15503b18c3600069f88714a8d48194a4ecb42251b44a36",
+      "action": {
+        "query": "site:learn.microsoft.com retrieval augmented generation basic RAG official",
+        "type": "search",
+        "queries": [
+          "site:learn.microsoft.com retrieval augmented generation basic RAG official",
+          "site:learn.microsoft.com agentic rag official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/azure/databricks/generative-ai/tutorials/ai-cookbook/rag-overview"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/evaluation-evaluators/rag-evaluators"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/retrieval-augmented-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-in/microsoft-copilot-studio/guidance/retrieval-augmented-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/storage/files/artificial-intelligence/retrieval-augmented-generation/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/dotnet/ai/conceptual/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/retrieval-augmented-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-br/services-hub/microsoft-engage-center/health/pdfs/assessment-prereq-docs/prereqsexoassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/ja-jp/aspnet/web-forms/overview/data-access/editing-and-deleting-data-through-the-datalist/an-overview-of-editing-and-deleting-data-in-the-datalist-vb/_static/datatutorial36vb1.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-br/services-hub/microsoft-engage-center/health/pdfs/assessment-prereq-docs/prereqsspassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/unified/health/assessment_prereq_docs/ama/prereqsspassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/aspnet/web-forms/overview/data-access/accessing-the-database-directly-from-an-aspnet-page/implementing-optimistic-concurrency-with-the-sqldatasource-cs/_static/datatutorial50cs1.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/previous-versions/microsoft-365/freelance-toolkit/media/downloads/microsoft-365-freelance-toolkit-embracingfreelance.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c4f15503b18c3600069f88717036081948e782266c5970783",
+      "action": {
+        "query": "agentic retrieval augmented generation survey arxiv",
+        "type": "search",
+        "queries": [
+          "agentic retrieval augmented generation survey arxiv",
+          "agentic RAG architecture multi-step retrieval planning arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.03442"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.08067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.07630"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09101"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 16395,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 959,
+    "output_tokens_details": {
+      "reasoning_tokens": 448
+    },
+    "total_tokens": 17354
+  },
+  "response_id": "resp_0c4f15503b18c3600069f88711264c819485439ae913646135",
+  "status": "complete"
+}

@@ -1,0 +1,326 @@
+{
+  "schema_version": "2026-05-04",
+  "run_id": "baseline-no-web-2026-05-04t12-32-33-00-00-live",
+  "agent": "baseline_no_web",
+  "requested_agent": "baseline_no_web",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "dry_run": false,
+  "started_at": "2026-05-04T12:32:33+00:00",
+  "finished_at": "2026-05-04T12:34:03+00:00",
+  "question_count": 8,
+  "artifact_root": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live",
+  "questions": [
+    {
+      "question_id": "DR-001",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-001.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-001.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-001.json",
+      "heuristic_score": 0.4,
+      "judge_score": 0.4167,
+      "final_score": 0.4109,
+      "runtime_seconds": 6.0,
+      "agent_usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 540,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 655
+      },
+      "judge_usage": {
+        "input_tokens": 2824,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 870,
+        "output_tokens_details": {
+          "reasoning_tokens": 122
+        },
+        "total_tokens": 3694
+      },
+      "summary": "The answer is a plausible high-level taxonomy of memory failures, but it is uncited, misses concrete evaluation methods, and only partially covers key trade-offs and over-trusting prior outputs.",
+      "recommended_fix": "Add cited evidence from memory-focused agent papers/surveys and explicitly include evaluation methods, plus a clearer discussion of short-term vs long-term memory trade-offs and trust in prior agent outputs."
+    },
+    {
+      "question_id": "DR-002",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-002.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-002.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-002.json",
+      "heuristic_score": 0.2,
+      "judge_score": 0.375,
+      "final_score": 0.3138,
+      "runtime_seconds": 4.0,
+      "agent_usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 390,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 505
+      },
+      "judge_usage": {
+        "input_tokens": 2480,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 732,
+        "output_tokens_details": {
+          "reasoning_tokens": 28
+        },
+        "total_tokens": 3212
+      },
+      "summary": "The answer correctly describes the broad contrast and some failure modes, but it misses tool-use implications, lacks citations entirely, and stays fairly generic.",
+      "recommended_fix": "Add citations from the ReAct paper and an agent-framework or technical comparison source, then explicitly cover how tool calling differs, including planning granularity, re-planning frequency, and concrete cases where each architecture is preferable."
+    },
+    {
+      "question_id": "DR-003",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-003.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-003.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-003.json",
+      "heuristic_score": 0.4,
+      "judge_score": 0.4583,
+      "final_score": 0.4379,
+      "runtime_seconds": 6.0,
+      "agent_usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 721,
+        "output_tokens_details": {
+          "reasoning_tokens": 47
+        },
+        "total_tokens": 836
+      },
+      "judge_usage": {
+        "input_tokens": 3176,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 835,
+        "output_tokens_details": {
+          "reasoning_tokens": 25
+        },
+        "total_tokens": 4011
+      },
+      "summary": "The answer covers all required evaluation dimensions at a high level, but it is entirely uncited and therefore not evidence-grounded. It is useful as a taxonomy, but not as a benchmarked or source-backed review of current approaches.",
+      "recommended_fix": "Add concrete citations from agent-evaluation surveys, tool-use benchmarks, and provider/framework docs for each metric category, and tie each metric to a named evaluation method or benchmark."
+    },
+    {
+      "question_id": "DR-004",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-004.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-004.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-004.json",
+      "heuristic_score": 0.3,
+      "judge_score": 0.4167,
+      "final_score": 0.3759,
+      "runtime_seconds": 4.0,
+      "agent_usage": {
+        "input_tokens": 118,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 381,
+        "output_tokens_details": {
+          "reasoning_tokens": 14
+        },
+        "total_tokens": 499
+      },
+      "judge_usage": {
+        "input_tokens": 1839,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 828,
+        "output_tokens_details": {
+          "reasoning_tokens": 26
+        },
+        "total_tokens": 2667
+      },
+      "summary": "The answer gives a decent high-level distinction between standard and agentic RAG, but it is unsupported by sources and omits reflection/verification plus concrete failure modes and complexity trade-offs.",
+      "recommended_fix": "Add citations from a RAG survey, a baseline RAG reference, and implementation docs, and explicitly cover verification/reflection plus the extra complexity and failure modes introduced by agentic loops."
+    },
+    {
+      "question_id": "DR-005",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-005.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-005.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-005.json",
+      "heuristic_score": 0.4,
+      "judge_score": 0.375,
+      "final_score": 0.3838,
+      "runtime_seconds": 8.0,
+      "agent_usage": {
+        "input_tokens": 116,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 814,
+        "output_tokens_details": {
+          "reasoning_tokens": 49
+        },
+        "total_tokens": 930
+      },
+      "judge_usage": {
+        "input_tokens": 3570,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 987,
+        "output_tokens_details": {
+          "reasoning_tokens": 170
+        },
+        "total_tokens": 4557
+      },
+      "summary": "The answer is broadly correct and covers many non-fine-tuning self-improvement patterns, but it is uncited, generic, and only weakly addresses the limits of self-improvement without external feedback.",
+      "recommended_fix": "Add grounded citations from the Reflexion paper, Self-Refine paper, and one agent optimization paper, and explicitly discuss the boundaries of these methods (e.g. they mainly improve performance through better inference/search, not true capability learning)."
+    },
+    {
+      "question_id": "DR-006",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-006.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-006.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-006.json",
+      "heuristic_score": 0.3,
+      "judge_score": 0.4167,
+      "final_score": 0.3759,
+      "runtime_seconds": 5.0,
+      "agent_usage": {
+        "input_tokens": 112,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 615,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 727
+      },
+      "judge_usage": {
+        "input_tokens": 3008,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 820,
+        "output_tokens_details": {
+          "reasoning_tokens": 119
+        },
+        "total_tokens": 3828
+      },
+      "summary": "The answer gives a useful general list of multi-agent failure modes, but it lacks citations, misses evaluation difficulty, and only partially captures consensus without correctness.",
+      "recommended_fix": "Add sourced coverage for each required aspect, especially explicit discussion of consensus that is wrong and why evaluation/attribution is hard in multi-agent systems."
+    },
+    {
+      "question_id": "DR-007",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-007.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-007.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-007.json",
+      "heuristic_score": 0.35,
+      "judge_score": 0.5,
+      "final_score": 0.4475,
+      "runtime_seconds": 6.0,
+      "agent_usage": {
+        "input_tokens": 112,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 641,
+        "output_tokens_details": {
+          "reasoning_tokens": 67
+        },
+        "total_tokens": 753
+      },
+      "judge_usage": {
+        "input_tokens": 2787,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 698,
+        "output_tokens_details": {
+          "reasoning_tokens": 60
+        },
+        "total_tokens": 3485
+      },
+      "summary": "A solid practical checklist for citation auditing, but it has no supporting sources and fails to address conflicting-source handling in a substantive way.",
+      "recommended_fix": "Add authoritative citations and a concrete procedure for resolving contradictory sources, including source prioritization, evidence comparison, and escalation rules."
+    },
+    {
+      "question_id": "DR-008",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-008.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\heuristic\\DR-008.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\judge\\DR-008.json",
+      "heuristic_score": 0.2719,
+      "judge_score": 0.375,
+      "final_score": 0.3389,
+      "runtime_seconds": 3.0,
+      "agent_usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 447,
+        "output_tokens_details": {
+          "reasoning_tokens": 8
+        },
+        "total_tokens": 562
+      },
+      "judge_usage": {
+        "input_tokens": 2719,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 874,
+        "output_tokens_details": {
+          "reasoning_tokens": 97
+        },
+        "total_tokens": 3593
+      },
+      "summary": "A reasonable high-level comparison, but it omits key required dimensions like controllability and observability, and provides no citations or source grounding.",
+      "recommended_fix": "Add explicit, concrete comparison points for controllability, observability, reproducibility, and failure recovery, and support the claims with relevant framework/docs or engineering case studies."
+    }
+  ],
+  "aggregate": {
+    "heuristic_score_avg": 0.3277,
+    "judge_score_avg": 0.4167,
+    "final_score_avg": 0.3856
+  },
+  "usage_totals": {
+    "agent": {
+      "input_tokens": 918,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 4549,
+      "output_tokens_details": {
+        "reasoning_tokens": 218
+      },
+      "total_tokens": 5467
+    },
+    "judge": {
+      "input_tokens": 22403,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 6644,
+      "output_tokens_details": {
+        "reasoning_tokens": 647
+      },
+      "total_tokens": 29047
+    },
+    "combined": {
+      "input_tokens": 23321,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 11193,
+      "output_tokens_details": {
+        "reasoning_tokens": 865
+      },
+      "total_tokens": 34514
+    }
+  }
+}

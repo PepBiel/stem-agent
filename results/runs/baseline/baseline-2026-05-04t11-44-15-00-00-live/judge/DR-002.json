@@ -1,0 +1,242 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:45:27+00:00",
+  "finished_at": "2026-05-04T11:45:35+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8688,
+  "judge_score": 0.5,
+  "final_score": 0.6291,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-002.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 0.6,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.6875
+    },
+    "overall_score": 0.8688,
+    "failure_tags": [],
+    "runtime_seconds": 8.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents **interleave reasoning and tool use step by step** in a single loop: the model emits a thought, takes an action, observes the result, and then revises its next step based on that feedback. The core idea is tight coupling between reasoning and acting, so the plan can change as new information arrives. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))",
+        "Planner-executor agents **separate those concerns**: one component first creates a higher-level plan or task decomposition, and a different executor component carries out the steps, often in a loop with tools or subagents. This makes the system more modular and better suited to long-horizon tasks, but the executor is typically following an already-formed plan rather than constantly re-planning at every step. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai))",
+        "- **ReAct** = “think, act, observe, repeat” in one intertwined process. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))",
+        "- **Planner-executor** = “plan first, then execute” with clearer role separation. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2210.03629?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/deepagents/index?utm_source=openai",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 8,
+      "unique_citation_count": 3
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 2,
+      "evidence_quality": 3,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains the ReAct loop as thought/action/observation interleaving."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "States planner-executor separates planning from execution and uses a higher-level plan/decomposition."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions tools/subagents and that ReAct revises steps based on observations, but does not really explain concrete tool-use trade-offs or consequences."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not discuss typical failure modes such as ReAct getting stuck in local loops or planner-executor suffering from brittle plans / plan-execution mismatch."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Only loosely says planner-executor is better for long-horizon tasks; it does not compare when ReAct is preferable or provide decision guidance."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct-style agents interleave reasoning and tool use step by step in a single loop.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629?utm_source=openai"
+        ],
+        "reason": "This is the central ReAct idea and is plausibly supported by the paper."
+      },
+      {
+        "claim": "Planner-executor agents separate planning from execution, with one component creating a higher-level plan and another carrying it out.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai"
+        ],
+        "reason": "A framework doc on agents is an appropriate source for this architecture description."
+      },
+      {
+        "claim": "This makes the system more modular and better suited to long-horizon tasks.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai"
+        ],
+        "reason": "Plausible engineering inference, but not clearly established by the cited source as written."
+      },
+      {
+        "claim": "In practice, many modern systems mix the two patterns, e.g. a planner that replans during execution or a ReAct loop with an explicit planning step.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai"
+        ],
+        "reason": "This may be true, but the answer does not substantiate it with a specific comparison source."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629?utm_source=openai",
+        "quality": "strong",
+        "reason": "Primary source for ReAct-style reasoning-and-acting behavior."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/agents?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Relevant framework documentation for planner/executor-style agents, though not a formal benchmark or comparison paper."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/index?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Potentially relevant agent-framework documentation, but it is not actually used to support a specific claim in the answer."
+      }
+    ],
+    "failure_tags": [
+      "missing_failure_modes",
+      "incomplete_preference_guidance",
+      "thin_tooling_tradeoffs"
+    ],
+    "summary": "The answer correctly distinguishes ReAct from planner-executor at a high level, but it omits the required failure modes and gives only weak guidance on when each is preferable.",
+    "recommended_fix": "Add a direct comparison of failure modes and selection criteria, e.g. ReAct for rapidly changing tasks needing frequent adaptation, planner-executor for long-horizon or structured work where a stable decomposition helps, plus concrete risks of each.",
+    "average_score": 3.0,
+    "normalized_score": 0.5
+  },
+  "judge_usage": {
+    "input_tokens": 2972,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1098,
+    "output_tokens_details": {
+      "reasoning_tokens": 45
+    },
+    "total_tokens": 4070
+  },
+  "response_id": "resp_05507a73f877c2420069f886e891c08194b9b599e42e670b43"
+}

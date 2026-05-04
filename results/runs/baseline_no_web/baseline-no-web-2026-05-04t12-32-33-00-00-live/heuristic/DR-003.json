@@ -1,0 +1,152 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-003.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 26,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.4,
+  "failure_tags": [
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 6.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "task success",
+        "covered": true,
+        "matched_terms": [
+          "success",
+          "task"
+        ],
+        "expected_terms": [
+          "success",
+          "task"
+        ]
+      },
+      {
+        "aspect": "tool-call correctness",
+        "covered": true,
+        "matched_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ],
+        "expected_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "argument validity",
+        "covered": true,
+        "matched_terms": [
+          "argument",
+          "validity"
+        ],
+        "expected_terms": [
+          "argument",
+          "validity"
+        ]
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "covered": true,
+        "matched_terms": [
+          "recovery",
+          "tool"
+        ],
+        "expected_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "cost and latency",
+        "covered": true,
+        "matched_terms": [
+          "cost",
+          "latency"
+        ],
+        "expected_terms": [
+          "cost",
+          "latency"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Current approaches to evaluating tool use in LLM agents usually combine **task-level**, **trajectory-level**, and **robustness/safety** metrics.",
+      "The most common approach is to measure whether the agent **achieves the end goal** in a tool-using environment.",
+      "- **Success rate / pass rate**: Did the agent complete the task correctly?",
+      "- **Goal-conditioned accuracy**: For structured tasks, compare final outputs against expected answers.",
+      "- **End-to-end utility**: Especially for multi-step workflows, measure whether the final user objective was satisfied.",
+      "This is often the primary metric because it captures whether tool use actually helps.",
+      "Evaluate whether the agent chose and used tools appropriately.",
+      "- **Tool selection accuracy**: Did it pick the right tool?",
+      "- **Argument / parameter correctness**: Were API calls formed correctly?",
+      "- **Call validity**: Did the action succeed syntactically and semantically?",
+      "- **Action precision/recall**: Useful when there are multiple possible tool calls.",
+      "This is important when the agent can solve tasks only if it invokes the right tool at the right time.",
+      "Instead of only the final answer, assess the **sequence of steps**.",
+      "- **Planning quality**: Are intermediate steps sensible?",
+      "- **Efficiency**: Number of tool calls, total steps, latency, token cost.",
+      "- **Redundancy / waste**: Repeated unnecessary calls or loops.",
+      "- **Recovery behavior**: Can the agent correct failed calls and continue?",
+      "Trajectory evaluation is useful because some agents may succeed but do so inefficiently or unreliably.",
+      "Test whether tool use works beyond the training or seen settings.",
+      "This helps distinguish memorization from genuine tool-use capability.",
+      "For agents that answer using tool outputs, evaluate whether the final response is **supported by the tool results**.",
+      "Still common for open-ended agent tasks.",
+      "This is especially relevant when automated labels are hard to define.",
+      "- calendar/email/workflow tasks,",
+      "- retrieval-augmented question answering.",
+      "These benchmarks typically combine success, cost, and step-level metrics."
+    ],
+    "unsupported_claim_lines": [
+      "Current approaches to evaluating tool use in LLM agents usually combine **task-level**, **trajectory-level**, and **robustness/safety** metrics.",
+      "The most common approach is to measure whether the agent **achieves the end goal** in a tool-using environment.",
+      "- **Success rate / pass rate**: Did the agent complete the task correctly?",
+      "- **Goal-conditioned accuracy**: For structured tasks, compare final outputs against expected answers.",
+      "- **End-to-end utility**: Especially for multi-step workflows, measure whether the final user objective was satisfied.",
+      "This is often the primary metric because it captures whether tool use actually helps.",
+      "Evaluate whether the agent chose and used tools appropriately.",
+      "- **Tool selection accuracy**: Did it pick the right tool?",
+      "- **Argument / parameter correctness**: Were API calls formed correctly?",
+      "- **Call validity**: Did the action succeed syntactically and semantically?",
+      "- **Action precision/recall**: Useful when there are multiple possible tool calls.",
+      "This is important when the agent can solve tasks only if it invokes the right tool at the right time.",
+      "Instead of only the final answer, assess the **sequence of steps**.",
+      "- **Planning quality**: Are intermediate steps sensible?",
+      "- **Efficiency**: Number of tool calls, total steps, latency, token cost.",
+      "- **Redundancy / waste**: Repeated unnecessary calls or loops.",
+      "- **Recovery behavior**: Can the agent correct failed calls and continue?",
+      "Trajectory evaluation is useful because some agents may succeed but do so inefficiently or unreliably.",
+      "Test whether tool use works beyond the training or seen settings.",
+      "This helps distinguish memorization from genuine tool-use capability.",
+      "For agents that answer using tool outputs, evaluate whether the final response is **supported by the tool results**.",
+      "Still common for open-ended agent tasks.",
+      "This is especially relevant when automated labels are hard to define.",
+      "- calendar/email/workflow tasks,",
+      "- retrieval-augmented question answering.",
+      "These benchmarks typically combine success, cost, and step-level metrics."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

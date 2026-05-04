@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:33:32+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:37+00:00",
+  "answer": "## Answer\n\nCommon failure modes in multi-agent systems include:\n\n1. **Coordination breakdown**\n   - Agents fail to align on a shared plan, timing, or roles.\n   - Typical symptoms: duplicated work, missed dependencies, deadlocks, or oscillation between actions.\n\n2. **Communication failures**\n   - Messages are delayed, lost, misformatted, ambiguous, or ignored.\n   - In LLM-based systems, agents may also misunderstand each other due to prompt/format drift.\n\n3. **Goal misalignment**\n   - Agents optimize local objectives that conflict with the global objective.\n   - This can produce selfish behavior, partial solutions, or agents working at cross-purposes.\n\n4. **Non-convergent interaction**\n   - Repeated back-and-forth does not settle on a stable plan or answer.\n   - Common in debate, negotiation, or planning loops when there is no good stopping criterion.\n\n5. **Error amplification**\n   - One agent’s mistake propagates through the system, and other agents build on it.\n   - This is especially problematic when agents trust prior outputs without verification.\n\n6. **Groupthink / correlated failure**\n   - Multiple agents reinforce the same incorrect assumption.\n   - Diversity helps, but if agents share similar prompts, data, or biases, they may fail together.\n\n7. **Role confusion and overlap**\n   - Agents have unclear boundaries, so multiple agents try to do the same task or none take ownership.\n   - Often caused by poor task decomposition or vague role definitions.\n\n8. **Over-trust in other agents**\n   - Agents accept outputs from peers without validation.\n   - This can be dangerous when one agent is a weak verifier or when adversarial inputs are possible.\n\n9. **Resource contention**\n   - Agents compete for shared memory, tools, bandwidth, compute, or locks.\n   - Can cause starvation, latency spikes, or priority inversion.\n\n10. **State inconsistency**\n    - Different agents hold different views of shared state.\n    - Happens with weak synchronization, stale caches, or eventual-consistency designs.\n\n11. **Infinite loops / task thrashing**\n    - Agents repeatedly reassign, revise, or retry tasks without progress.\n    - Often due to poor termination conditions or unstable control policies.\n\n12. **Security and adversarial exploitation**\n    - A malicious or compromised agent can manipulate others through prompt injection, spoofing, or deceptive outputs.\n    - In open systems, this is a major failure mode.\n\nA practical engineering summary: most failures come from a mix of **bad coordination, weak verification, stale shared state, and unclear stopping/ownership rules**.\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nThis is based on general model knowledge rather than a specific framework or empirical study. The exact failure modes depend on the system design: classic distributed systems, robotics swarms, and LLM-based agent frameworks fail in somewhat different ways. I may be missing niche or domain-specific failure modes.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 112,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 615,
+    "output_tokens_details": {
+      "reasoning_tokens": 11
+    },
+    "total_tokens": 727
+  },
+  "response_id": "resp_07417a6ef5d1b9e70069f8922cbe68819792dd38fcd0a4f857",
+  "status": "complete"
+}

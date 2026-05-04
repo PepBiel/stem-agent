@@ -1,0 +1,224 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T12:33:12+00:00",
+  "finished_at": "2026-05-04T12:33:17+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-004.json",
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "agent_id": "baseline_model_only_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.3,
+  "judge_score": 0.4167,
+  "final_score": 0.3759,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-004.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_model_only_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-004",
+    "question": "What is agentic RAG and how does it differ from standard RAG?",
+    "metrics": {
+      "coverage_score": 0.6,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.0,
+      "unsupported_claim_count": 6,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.5
+    },
+    "overall_score": 0.3,
+    "failure_tags": [
+      "repetitive_answer",
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 4.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "standard retrieve-then-generate workflow",
+          "covered": true,
+          "matched_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then"
+          ],
+          "expected_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "planning or iterative retrieval",
+          "covered": true,
+          "matched_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ]
+        },
+        {
+          "aspect": "tool use",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "tool"
+          ]
+        },
+        {
+          "aspect": "reflection or verification",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "reflection",
+            "verification"
+          ]
+        },
+        {
+          "aspect": "added complexity and failure modes",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "- decide whether retrieval is needed at all,",
+        "- loop through retrieval again if needed,",
+        "- and combine evidence before answering.",
+        "- tasks needing tool use or planning,",
+        "- situations where retrieval quality needs refinement.",
+        "A useful mental model is: **standard RAG is “retrieve then answer,” while agentic RAG is “reason about what to retrieve, retrieve iteratively, then answer.”**"
+      ],
+      "unsupported_claim_lines": [
+        "- decide whether retrieval is needed at all,",
+        "- loop through retrieval again if needed,",
+        "- and combine evidence before answering.",
+        "- tasks needing tool use or planning,",
+        "- situations where retrieval quality needs refinement.",
+        "A useful mental model is: **standard RAG is “retrieve then answer,” while agentic RAG is “reason about what to retrieve, retrieve iteratively, then answer.”**"
+      ],
+      "sources": [],
+      "citation_count": 0,
+      "unique_citation_count": 0
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 3,
+      "evidence_quality": 1,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Clearly describes standard RAG as a fixed retrieve-then-generate pipeline."
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "States that agentic RAG can plan, decide, and loop through retrieval iteratively."
+      },
+      {
+        "aspect": "tool use",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions tool use as a practical implication, but does not explain how tools are used in agentic RAG."
+      },
+      {
+        "aspect": "reflection or verification",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not mention reflection, self-checking, verification, or evidence validation."
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Mentions easier debugging and predictability for standard RAG, but does not discuss added complexity, new failure modes, or trade-offs for agentic RAG."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Agentic RAG is a retrieval-augmented generation approach where the model behaves more like an agent: it can plan, decide, iterate, and choose actions during retrieval and answer generation.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citation provided."
+      },
+      {
+        "claim": "Standard RAG is usually a more fixed pipeline: take the user query, retrieve relevant documents, feed them to the model, generate the answer.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citation provided."
+      },
+      {
+        "claim": "Agentic RAG can be better for complex multi-hop questions, ambiguous queries, tasks needing tool use or planning, and situations where retrieval quality needs refinement.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citation provided and the answer gives no sourced justification."
+      },
+      {
+        "claim": "Standard RAG is often better for simpler Q&A, lower latency, easier implementation and debugging, more predictable behavior.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citation provided."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "No external sources used.",
+        "quality": "irrelevant",
+        "reason": "There are no sources to evaluate; the answer is unsupported by references."
+      }
+    ],
+    "failure_tags": [
+      "no_citations",
+      "unsupported_claim",
+      "missing_reflection_or_verification",
+      "missing_failure_modes"
+    ],
+    "summary": "The answer gives a decent high-level distinction between standard and agentic RAG, but it is unsupported by sources and omits reflection/verification plus concrete failure modes and complexity trade-offs.",
+    "recommended_fix": "Add citations from a RAG survey, a baseline RAG reference, and implementation docs, and explicitly cover verification/reflection plus the extra complexity and failure modes introduced by agentic loops.",
+    "average_score": 2.6667,
+    "normalized_score": 0.4167
+  },
+  "judge_usage": {
+    "input_tokens": 1839,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 828,
+    "output_tokens_details": {
+      "reasoning_tokens": 26
+    },
+    "total_tokens": 2667
+  },
+  "response_id": "resp_0865d69145311a570069f8921973b88194972120dfad60bda0"
+}

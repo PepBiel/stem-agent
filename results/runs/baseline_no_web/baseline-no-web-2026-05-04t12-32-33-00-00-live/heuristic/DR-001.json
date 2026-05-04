@@ -1,0 +1,148 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-001.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 21,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.4,
+  "failure_tags": [
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 6.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "over",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- Relevant past information is not retrieved or not retained long enough.",
+      "- Common when context windows are small or retrieval misses the right items.",
+      "- The agent recalls the wrong past fact, conversation turn, or document.",
+      "- Often caused by weak indexing, poor embeddings, ambiguous queries, or stale summaries.",
+      "- Stored memory gets paraphrased, compressed, or summarized incorrectly over time.",
+      "- Small errors accumulate and the agent starts acting on a corrupted version of events.",
+      "- The agent invents memories or treats inferred details as if they were observed facts.",
+      "- Especially likely when the model tries to “fill in gaps” from weak evidence.",
+      "- Recent messages dominate decisions while older but important information is ignored.",
+      "- This can make behavior unstable across long interactions.",
+      "- The agent has memory available but fails to use it consistently.",
+      "- Often due to prompt design, poor retrieval policy, or the model not trusting retrieved items.",
+      "- Irrelevant, low-quality, or incorrect items get stored and later interfere with retrieval.",
+      "- This degrades precision over time.",
+      "- The agent keeps using information that is no longer valid.",
+      "- Important in changing environments, user preferences, or evolving task state.",
+      "- The agent retrieves and uses memory outside the intended user/session/task scope.",
+      "- This is both a correctness and safety problem.",
+      "- Different memory layers disagree, such as chat history, vector store, and structured profile memory.",
+      "- The agent may combine them inconsistently and produce contradictory behavior.",
+      "In practice, these failures usually come from a mix of **retrieval errors, compression/summarization errors, storage noise, and the model’s tendency to hallucinate or overgeneralize**."
+    ],
+    "unsupported_claim_lines": [
+      "- Relevant past information is not retrieved or not retained long enough.",
+      "- Common when context windows are small or retrieval misses the right items.",
+      "- The agent recalls the wrong past fact, conversation turn, or document.",
+      "- Often caused by weak indexing, poor embeddings, ambiguous queries, or stale summaries.",
+      "- Stored memory gets paraphrased, compressed, or summarized incorrectly over time.",
+      "- Small errors accumulate and the agent starts acting on a corrupted version of events.",
+      "- The agent invents memories or treats inferred details as if they were observed facts.",
+      "- Especially likely when the model tries to “fill in gaps” from weak evidence.",
+      "- Recent messages dominate decisions while older but important information is ignored.",
+      "- This can make behavior unstable across long interactions.",
+      "- The agent has memory available but fails to use it consistently.",
+      "- Often due to prompt design, poor retrieval policy, or the model not trusting retrieved items.",
+      "- Irrelevant, low-quality, or incorrect items get stored and later interfere with retrieval.",
+      "- This degrades precision over time.",
+      "- The agent keeps using information that is no longer valid.",
+      "- Important in changing environments, user preferences, or evolving task state.",
+      "- The agent retrieves and uses memory outside the intended user/session/task scope.",
+      "- This is both a correctness and safety problem.",
+      "- Different memory layers disagree, such as chat history, vector store, and structured profile memory.",
+      "- The agent may combine them inconsistently and produce contradictory behavior.",
+      "In practice, these failures usually come from a mix of **retrieval errors, compression/summarization errors, storage noise, and the model’s tendency to hallucinate or overgeneralize**."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

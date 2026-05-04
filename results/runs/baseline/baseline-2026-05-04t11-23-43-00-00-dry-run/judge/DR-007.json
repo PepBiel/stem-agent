@@ -1,0 +1,129 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:23:43+00:00",
+  "finished_at": "2026-05-04T11:23:43+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-007.json",
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": true,
+  "heuristic_score": 0.15,
+  "judge_score": 0.4583,
+  "final_score": 0.3504,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-007.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": true,
+    "question_id": "DR-007",
+    "question": "How should citations be audited in deep research agents?",
+    "metrics": {
+      "coverage_score": 0.0,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.0,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.5
+    },
+    "overall_score": 0.15,
+    "failure_tags": [
+      "missing_required_aspect",
+      "repetitive_answer",
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 0.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "claim-level evidence",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "claim",
+            "evidence",
+            "level"
+          ]
+        },
+        {
+          "aspect": "source relevance",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "relevance",
+            "source"
+          ]
+        },
+        {
+          "aspect": "citation granularity",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "citation",
+            "granularity"
+          ]
+        },
+        {
+          "aspect": "unsupported claim detection",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "claim",
+            "detection",
+            "unsupported"
+          ]
+        },
+        {
+          "aspect": "handling conflicting sources",
+          "covered": false,
+          "matched_terms": [
+            "sources"
+          ],
+          "expected_terms": [
+            "conflicting",
+            "handling",
+            "sources"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "This is a dry-run baseline response for: How should citations be audited in deep research agents?"
+      ],
+      "unsupported_claim_lines": [
+        "This is a dry-run baseline response for: How should citations be audited in deep research agents?"
+      ],
+      "sources": [],
+      "citation_count": 0,
+      "unique_citation_count": 0
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 3,
+      "evidence_quality": 2,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 3
+    },
+    "coverage_audit": [],
+    "citation_audit": [],
+    "source_audit": [],
+    "failure_tags": [
+      "dry_run"
+    ],
+    "summary": "Dry-run judge output; no model call was made.",
+    "recommended_fix": "Run without --dry-run for semantic evaluation.",
+    "average_score": 2.8333,
+    "normalized_score": 0.4583
+  },
+  "judge_usage": {},
+  "response_id": null
+}

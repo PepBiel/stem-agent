@@ -1,0 +1,95 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-005.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": true,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 0.4,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.25,
+  "failure_tags": [
+    "missing_required_aspect",
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 0.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "This is a dry-run baseline response for: What techniques exist for self-improving agents without fine-tuning?"
+    ],
+    "unsupported_claim_lines": [
+      "This is a dry-run baseline response for: What techniques exist for self-improving agents without fine-tuning?"
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

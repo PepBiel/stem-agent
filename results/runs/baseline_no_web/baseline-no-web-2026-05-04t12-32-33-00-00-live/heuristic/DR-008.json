@@ -1,0 +1,133 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-008.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 0.5,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 20,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.4688
+  },
+  "overall_score": 0.2719,
+  "failure_tags": [
+    "missing_required_aspect",
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 3.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": true,
+        "matched_terms": [
+          "cost"
+        ],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": true,
+        "matched_terms": [
+          "failure"
+        ],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Autonomous agents and workflow-based agents differ mainly in **who controls the next step**.",
+      "These decide their own actions dynamically based on goals, observations, and feedback.",
+      "- **Flexible**: can handle novel or ambiguous situations.",
+      "- **Adaptive**: can recover from unexpected outcomes and change plans.",
+      "- **Less upfront orchestration**: useful when the task path is hard to predict.",
+      "- **Less predictable**: behavior can vary run to run.",
+      "- **Harder to test and debug**: more branching, more emergent failure modes.",
+      "- **Higher cost/latency risk**: may take extra steps, loop, or over-explore.",
+      "- **Harder to govern**: more difficult to enforce strict business rules and safety constraints.",
+      "These follow a predefined sequence, graph, or set of rules. The system controls the flow.",
+      "- **Predictable and testable**: easier to validate, monitor, and reproduce.",
+      "- **More efficient**: fewer unnecessary steps; lower cost and latency.",
+      "- **Easier compliance and auditing**: clear control points and approvals.",
+      "- **Better for stable processes**: ideal when the task structure is known.",
+      "- **Rigid**: struggles with unforeseen cases or changing conditions.",
+      "- **More engineering upfront**: requires designing the flow and edge-case handling.",
+      "- **Can break on novelty**: if the process doesn’t cover a scenario, it may fail or degrade.",
+      "- Choose **autonomous agents** when the problem is open-ended, uncertain, or requires exploration.",
+      "- Choose **workflow-based agents** when correctness, cost, latency, and governance matter more than flexibility.",
+      "- Many real systems use a **hybrid**: workflow for guardrails and critical steps, autonomy for local reasoning or exception handling."
+    ],
+    "unsupported_claim_lines": [
+      "Autonomous agents and workflow-based agents differ mainly in **who controls the next step**.",
+      "These decide their own actions dynamically based on goals, observations, and feedback.",
+      "- **Flexible**: can handle novel or ambiguous situations.",
+      "- **Adaptive**: can recover from unexpected outcomes and change plans.",
+      "- **Less upfront orchestration**: useful when the task path is hard to predict.",
+      "- **Less predictable**: behavior can vary run to run.",
+      "- **Harder to test and debug**: more branching, more emergent failure modes.",
+      "- **Higher cost/latency risk**: may take extra steps, loop, or over-explore.",
+      "- **Harder to govern**: more difficult to enforce strict business rules and safety constraints.",
+      "These follow a predefined sequence, graph, or set of rules. The system controls the flow.",
+      "- **Predictable and testable**: easier to validate, monitor, and reproduce.",
+      "- **More efficient**: fewer unnecessary steps; lower cost and latency.",
+      "- **Easier compliance and auditing**: clear control points and approvals.",
+      "- **Better for stable processes**: ideal when the task structure is known.",
+      "- **Rigid**: struggles with unforeseen cases or changing conditions.",
+      "- **More engineering upfront**: requires designing the flow and edge-case handling.",
+      "- **Can break on novelty**: if the process doesn’t cover a scenario, it may fail or degrade.",
+      "- Choose **autonomous agents** when the problem is open-ended, uncertain, or requires exploration.",
+      "- Choose **workflow-based agents** when correctness, cost, latency, and governance matter more than flexibility.",
+      "- Many real systems use a **hybrid**: workflow for guardrails and critical steps, autonomy for local reasoning or exception handling."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:45:35+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:45:44+00:00",
+  "answer": "## Answer\n\nCurrent evaluation of tool use in LLM agents is usually grouped into a few approaches:\n\n1. **Task-completion / end-to-end success**\n   - Measure whether the agent finishes the user task after using tools, often on realistic multi-step scenarios. This is the broadest metric and is still common in recent surveys. ([link.springer.com](https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai))\n\n2. **Tool-selection and function-calling accuracy**\n   - Benchmarks test whether the model chooses the right tool, produces a valid call, and fills arguments correctly. BFCL is a representative example focused on function-calling behavior, including multi-turn tool invocation. ([www2.eecs.berkeley.edu](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html?utm_source=openai))\n\n3. **Stateful / multi-turn trajectory evaluation**\n   - Newer benchmarks evaluate agents over conversations and intermediate states, not just one-shot calls. ToolSandbox is designed for interactive, stateful tool use; ACEBench similarly splits evaluation into categories that cover normal, special, and agentic tool-use settings. ([arxiv.org](https://arxiv.org/abs/2408.04682?utm_source=openai))\n\n4. **Fine-grained intermediate metrics**\n   - Beyond final success, researchers increasingly score tool-use trajectories: whether the agent asked for clarification when needed, avoided unnecessary tool calls, handled errors, and followed tool-specific constraints. Surveys now explicitly separate task completion, output quality, tool selection/invocation, and robustness/error handling. ([link.springer.com](https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai))\n\n5. **Robustness and safety evaluation**\n   - Some evaluations stress-test agents with misleading tools, malformed outputs, adversarial prompts, or high-stakes settings to see whether tool use is safe and reliable under failure conditions. ([link.springer.com](https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai))\n\nIn practice, the field is moving from **single-call, static benchmarks** toward **interactive, stateful, multi-step benchmarks with richer scoring**. ([arxiv.org](https://arxiv.org/abs/2408.04682?utm_source=openai))\n\n## Sources\n\n- Survey on evaluation of LLM-based agents. ([arxiv.org](https://arxiv.org/abs/2503.16416?utm_source=openai))\n- ACEBench: A Comprehensive Evaluation of LLM Tool Usage. ([openreview.net](https://openreview.net/forum?id=h18n85toHj&utm_source=openai))\n- ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities. ([arxiv.org](https://arxiv.org/abs/2408.04682?utm_source=openai))\n- The Berkeley Function Calling Leaderboard (BFCL): From Tool Use to Agentic. ([openreview.net](https://openreview.net/pdf/d52a12bb32128210600246f8979d90b892505cca.pdf?utm_source=openai))\n\n## Limitations\n\n- This is a compact summary, not an exhaustive taxonomy.\n- I relied on a small set of recent benchmark/survey sources, so niche domain-specific evaluators are underrepresented.\n- I did not deeply compare metric formulas or implementation details across benchmarks.",
+  "citations": [
+    {
+      "end_index": 425,
+      "start_index": 324,
+      "title": "LLM-Based Agents for Tool Learning: A Survey | Data Science and Engineering | Springer Nature Link",
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai"
+    },
+    {
+      "end_index": 811,
+      "start_index": 705,
+      "title": "A Function Calling Perspective on Scalable Large Language Model Agent Evaluation | EECS at UC Berkeley",
+      "type": "url_citation",
+      "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html?utm_source=openai"
+    },
+    {
+      "end_index": 1208,
+      "start_index": 1143,
+      "title": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2408.04682?utm_source=openai"
+    },
+    {
+      "end_index": 1699,
+      "start_index": 1598,
+      "title": "LLM-Based Agents for Tool Learning: A Survey | Data Science and Engineering | Springer Nature Link",
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai"
+    },
+    {
+      "end_index": 2041,
+      "start_index": 1940,
+      "title": "LLM-Based Agents for Tool Learning: A Survey | Data Science and Engineering | Springer Nature Link",
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s41019-025-00296-9?utm_source=openai"
+    },
+    {
+      "end_index": 2258,
+      "start_index": 2193,
+      "title": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2408.04682?utm_source=openai"
+    },
+    {
+      "end_index": 2381,
+      "start_index": 2316,
+      "title": "Survey on Evaluation of LLM-based Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2503.16416?utm_source=openai"
+    },
+    {
+      "end_index": 2520,
+      "start_index": 2440,
+      "title": "ACEBench: A Comprehensive Evaluation of LLM Tool Usage | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=h18n85toHj&utm_source=openai"
+    },
+    {
+      "end_index": 2693,
+      "start_index": 2628,
+      "title": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2408.04682?utm_source=openai"
+    },
+    {
+      "end_index": 2881,
+      "start_index": 2772,
+      "title": "The Berkeley Function Calling Leaderboard (BFCL): From Tool Use to Agentic",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf/d52a12bb32128210600246f8979d90b892505cca.pdf?utm_source=openai"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0cd10bc362a1f3d70069f886f092e0819098b4e9e622bd9b86",
+      "action": {
+        "query": "current approaches evaluating tool use in LLM agents survey paper benchmark tool use evaluation 2024 2025",
+        "type": "search",
+        "queries": [
+          "current approaches evaluating tool use in LLM agents survey paper benchmark tool use evaluation 2024 2025",
+          "tool use evaluation LLM agents benchmark function calling tool use paper official repository"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s41019-025-00296-9"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s44336-025-00024-x"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.lunadong.com/paper/8277"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2512.24565"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=h18n85toHj"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.11557"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2506.11102"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2506.08800"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/survey-evaluation-llm-based-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=jXhAhTMewL"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.22458"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.11557"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-emnlp.697.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/coling/2025.coling-main.652.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rivista.ai/wp-content/uploads/2025/06/1749500273238.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/264141/preprint_pdf/521a7a6ff150e38f0c7647964d707b64.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0cd10bc362a1f3d70069f886f29268819092dc80d54d118a10",
+      "action": {
+        "query": "BFCL benchmark tool calling official repository evaluation function calling",
+        "type": "search",
+        "queries": [
+          "BFCL benchmark tool calling official repository evaluation function calling",
+          "ToolSandbox benchmark tool use evaluation official paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2408.04682"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/toolsandbox-stateful-conversational-interactive-evaluation-benchmark-llm"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2408.04682"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/392498982_ToolSandbox_A_Stateful_Conversational_Interactive_Evaluation_Benchmark_for_LLM_Tool_Use_Capabilities"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.nvidia.com/nemo/microservices/latest/evaluate/evaluation-types/bfcl.html"
+          },
+          {
+            "type": "url",
+            "url": "https://researchr.org/publication/LuHZANBMMLYWP25"
+          },
+          {
+            "type": "url",
+            "url": "https://hub.baai.ac.cn/paper/56f443d2-76ed-4206-988e-a310a08d84ae"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/abs/2408.4682"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.nvidia.com/nemo/microservices/25.10.0/evaluate/flows/academic-benchmarks/bfcl.html"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2408-04682.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/383037342_ToolSandbox_A_Stateful_Conversational_Interactive_Evaluation_Benchmark_for_LLM_Tool_Use_Capabilities"
+          },
+          {
+            "type": "url",
+            "url": "https://www.bibsonomy.org/bibtex/1d209da9a80597dbc8964da82ad98dcd9"
+          },
+          {
+            "type": "url",
+            "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/naacl/2025.naacl-findings.65.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00392"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/anthology-files/pdf/naacl/2025.naacl-findings.65.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2407.12823"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/d52a12bb32128210600246f8979d90b892505cca.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/01486.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ollama/comments/1rw6wz1/built_a_cli_to_benchmark_any_llm_on_function/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1rw6udq/function_calling_benchmarking_cli_tool_for_any/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/vibecoding/comments/1shmbv9/why_does_nobody_talk_about_tools_when_discussing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/173dwe7"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/bioinformatics/comments/wruauk"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/hardware/comments/y3c4ne"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1rpwhoh/the_lazy_benchmark_makers_rant/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1roytqv/own_benchmark_tool/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 12831,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 959,
+    "output_tokens_details": {
+      "reasoning_tokens": 306
+    },
+    "total_tokens": 13790
+  },
+  "response_id": "resp_0cd10bc362a1f3d70069f886efd6a48190be42bf6b98a83279",
+  "status": "complete"
+}

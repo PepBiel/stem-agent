@@ -1,0 +1,219 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:47:12+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:47:23+00:00",
+  "answer": "## Answer\n\nAudit citations in deep research agents by treating them as **claim-level evidence links**, not decorative references. A practical workflow is:\n\n1. **Map each important claim to a source** and confirm the source actually supports the wording, numbers, and scope of the claim. OpenAI’s guidance explicitly recommends verifying quotes, data, technical information, and external references directly. ([help.openai.com](https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations))\n\n2. **Check source quality and freshness**: prefer primary or authoritative sources, and confirm dates when the claim is time-sensitive. OpenAI’s research guidance recommends requiring citations for key claims and asking for a source-quality check when accuracy matters. ([openai.com](https://openai.com/academy/research/))\n\n3. **Inspect provenance and traceability**: make sure the agent returns source metadata and that the cited URL/document is the same one used in reasoning. OpenAI’s deep research API docs say outputs should include inline citations and all source metadata. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))\n\n4. **Log and review tool activity** for the research chain, especially when multiple tools or private data sources are involved. The API docs recommend logging and reviewing tool calls and model messages, and staging workflows when sensitive data is involved. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))\n\n5. **Flag unsupported or partial support**: if a citation only loosely relates to a claim, mark it as weak support or omit it. OpenAI notes that models can still fabricate or overstate confidence, so citations should be checked critically rather than trusted automatically. ([help.openai.com](https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations))\n\nIn short: **verify every key claim against the original source, prefer authoritative/primary evidence, capture metadata, and review the tool trail**. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))\n\n## Sources\n\n- OpenAI Deep Research API Guide — inline citations, source metadata, tool usage, and safety guidance. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))\n- OpenAI Help Center: Accuracy and limitations — verifies quotes/data/references and warns about fabricated citations. ([help.openai.com](https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations))\n- OpenAI Academy: ChatGPT for research — recommends source-quality checks and citations for key claims. ([openai.com](https://openai.com/academy/research/))\n\n## Limitations\n\nThis is a concise best-practice summary, not a formal auditing standard. It is based on OpenAI documentation and guidance, so it reflects a pragmatic workflow rather than a full benchmarked evaluation framework. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))",
+  "citations": [
+    {
+      "end_index": 505,
+      "start_index": 408,
+      "title": "Does ChatGPT tell the truth? | OpenAI Help Center",
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations"
+    },
+    {
+      "end_index": 829,
+      "start_index": 777,
+      "title": "ChatGPT for research | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/academy/research/"
+    },
+    {
+      "end_index": 1165,
+      "start_index": 1087,
+      "title": "Deep research | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/deep-research"
+    },
+    {
+      "end_index": 1505,
+      "start_index": 1427,
+      "title": "Deep research | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/deep-research"
+    },
+    {
+      "end_index": 1878,
+      "start_index": 1781,
+      "title": "Does ChatGPT tell the truth? | OpenAI Help Center",
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations"
+    },
+    {
+      "end_index": 2108,
+      "start_index": 2030,
+      "title": "Deep research | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/deep-research"
+    },
+    {
+      "end_index": 2303,
+      "start_index": 2225,
+      "title": "Deep research | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/deep-research"
+    },
+    {
+      "end_index": 2520,
+      "start_index": 2423,
+      "title": "Does ChatGPT tell the truth? | OpenAI Help Center",
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations"
+    },
+    {
+      "end_index": 2677,
+      "start_index": 2625,
+      "title": "ChatGPT for research | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/academy/research/"
+    },
+    {
+      "end_index": 2985,
+      "start_index": 2907,
+      "title": "Deep research | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/deep-research"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_02aff870312a79540069f88752fb4c81949b6fd9e47fa3565a",
+      "action": {
+        "query": "site:openai.com deep research citations audit sources official",
+        "type": "search",
+        "queries": [
+          "site:openai.com deep research citations audit sources official",
+          "site:arxiv.org citation auditing retrieval augmented generation agents evaluation citations"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/10500283"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/articles/10500283"
+          },
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/?video=1052827364"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/20001202-chatgpt-for-clinicians"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research?lang=curl"
+          },
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/home/resources/deep-research-in-action-2025-10-31"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.07437"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/?q=Deep+Sentinel+official+website+overview"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.06401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.11394"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.08067"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/5e10f4ab-d6f7-442e-9508-59515c65e35d/browsecomp.pdf?_bhlid=5e37ec605bdb75a861131661072e162d73bf8dd5"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/osa/chatgpt-regulated-workspace.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.07630"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/API/docs/deep_research_blog.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_02aff870312a79540069f887554cf08194925d5932a65b2489",
+      "action": {
+        "type": "open_page",
+        "url": "https://platform.openai.com/docs/guides/deep-research"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 13060,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 1199,
+    "output_tokens_details": {
+      "reasoning_tokens": 592
+    },
+    "total_tokens": 14259
+  },
+  "response_id": "resp_02aff870312a79540069f88750eff88194a6ada681f716979b",
+  "status": "complete"
+}

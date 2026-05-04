@@ -1,0 +1,262 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T12:32:39+00:00",
+  "finished_at": "2026-05-04T12:32:46+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "baseline_model_only_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.4,
+  "judge_score": 0.4167,
+  "final_score": 0.4109,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-001.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_model_only_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.0,
+      "unsupported_claim_count": 21,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.5
+    },
+    "overall_score": 0.4,
+    "failure_tags": [
+      "repetitive_answer",
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 6.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "over",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "- Relevant past information is not retrieved or not retained long enough.",
+        "- Common when context windows are small or retrieval misses the right items.",
+        "- The agent recalls the wrong past fact, conversation turn, or document.",
+        "- Often caused by weak indexing, poor embeddings, ambiguous queries, or stale summaries.",
+        "- Stored memory gets paraphrased, compressed, or summarized incorrectly over time.",
+        "- Small errors accumulate and the agent starts acting on a corrupted version of events.",
+        "- The agent invents memories or treats inferred details as if they were observed facts.",
+        "- Especially likely when the model tries to “fill in gaps” from weak evidence.",
+        "- Recent messages dominate decisions while older but important information is ignored.",
+        "- This can make behavior unstable across long interactions.",
+        "- The agent has memory available but fails to use it consistently.",
+        "- Often due to prompt design, poor retrieval policy, or the model not trusting retrieved items.",
+        "- Irrelevant, low-quality, or incorrect items get stored and later interfere with retrieval.",
+        "- This degrades precision over time.",
+        "- The agent keeps using information that is no longer valid.",
+        "- Important in changing environments, user preferences, or evolving task state.",
+        "- The agent retrieves and uses memory outside the intended user/session/task scope.",
+        "- This is both a correctness and safety problem.",
+        "- Different memory layers disagree, such as chat history, vector store, and structured profile memory.",
+        "- The agent may combine them inconsistently and produce contradictory behavior.",
+        "In practice, these failures usually come from a mix of **retrieval errors, compression/summarization errors, storage noise, and the model’s tendency to hallucinate or overgeneralize**."
+      ],
+      "unsupported_claim_lines": [
+        "- Relevant past information is not retrieved or not retained long enough.",
+        "- Common when context windows are small or retrieval misses the right items.",
+        "- The agent recalls the wrong past fact, conversation turn, or document.",
+        "- Often caused by weak indexing, poor embeddings, ambiguous queries, or stale summaries.",
+        "- Stored memory gets paraphrased, compressed, or summarized incorrectly over time.",
+        "- Small errors accumulate and the agent starts acting on a corrupted version of events.",
+        "- The agent invents memories or treats inferred details as if they were observed facts.",
+        "- Especially likely when the model tries to “fill in gaps” from weak evidence.",
+        "- Recent messages dominate decisions while older but important information is ignored.",
+        "- This can make behavior unstable across long interactions.",
+        "- The agent has memory available but fails to use it consistently.",
+        "- Often due to prompt design, poor retrieval policy, or the model not trusting retrieved items.",
+        "- Irrelevant, low-quality, or incorrect items get stored and later interfere with retrieval.",
+        "- This degrades precision over time.",
+        "- The agent keeps using information that is no longer valid.",
+        "- Important in changing environments, user preferences, or evolving task state.",
+        "- The agent retrieves and uses memory outside the intended user/session/task scope.",
+        "- This is both a correctness and safety problem.",
+        "- Different memory layers disagree, such as chat history, vector store, and structured profile memory.",
+        "- The agent may combine them inconsistently and produce contradictory behavior.",
+        "In practice, these failures usually come from a mix of **retrieval errors, compression/summarization errors, storage noise, and the model’s tendency to hallucinate or overgeneralize**."
+      ],
+      "sources": [],
+      "citation_count": 0,
+      "unique_citation_count": 0
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 3,
+      "evidence_quality": 1,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Addresses irrelevant/incorrect items stored in memory interfering with retrieval, which matches the general idea of context pollution."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explicitly covers wrong retrieval, stale memory, and irrelevant memories."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions the model not trusting retrieved items, but does not clearly discuss over-trusting prior agent outputs as a distinct failure mode."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions recent context dominating older information, but does not explain the design trade-off between short-term and long-term memory systems."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "No concrete evaluation methods, metrics, benchmarks, or test procedures are provided."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Relevant past information is not retrieved or not retained long enough.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citations were provided."
+      },
+      {
+        "claim": "The agent recalls the wrong past fact, conversation turn, or document.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citations were provided."
+      },
+      {
+        "claim": "Stored memory gets paraphrased, compressed, or summarized incorrectly over time.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citations were provided."
+      },
+      {
+        "claim": "The agent invents memories or treats inferred details as if they were observed facts.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citations were provided."
+      },
+      {
+        "claim": "Different memory layers disagree, such as chat history, vector store, and structured profile memory.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "No citations were provided."
+      }
+    ],
+    "source_audit": [],
+    "failure_tags": [
+      "no_citations",
+      "missing_evaluation_methods",
+      "partial_tradeoff_coverage",
+      "unsupported_claim"
+    ],
+    "summary": "The answer is a plausible high-level taxonomy of memory failures, but it is uncited, misses concrete evaluation methods, and only partially covers key trade-offs and over-trusting prior outputs.",
+    "recommended_fix": "Add cited evidence from memory-focused agent papers/surveys and explicitly include evaluation methods, plus a clearer discussion of short-term vs long-term memory trade-offs and trust in prior agent outputs.",
+    "average_score": 2.6667,
+    "normalized_score": 0.4167
+  },
+  "judge_usage": {
+    "input_tokens": 2824,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 870,
+    "output_tokens_details": {
+      "reasoning_tokens": 122
+    },
+    "total_tokens": 3694
+  },
+  "response_id": "resp_061858c3965536d00069f891f87f9081938692572f390eb850"
+}

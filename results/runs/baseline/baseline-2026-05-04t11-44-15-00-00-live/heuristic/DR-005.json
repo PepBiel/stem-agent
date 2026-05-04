@@ -1,0 +1,125 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-005.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.7222
+  },
+  "overall_score": 0.9222,
+  "failure_tags": [],
+  "runtime_seconds": 13.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": true,
+        "matched_terms": [
+          "feedback",
+          "verbal"
+        ],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "refinement",
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "1. **Iterative self-refinement / self-feedback**: the agent drafts an output, critiques it, and revises it in a loop. This is the core idea behind **Self-Refine**, which explicitly avoids supervised training, extra training, and RL. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))",
+      "2. **Reflection with episodic memory**: after a failure, the agent writes a verbal reflection and stores it in memory for future attempts. **Reflexion** uses this “verbal reinforcement” loop and reported gains across decision-making, coding, and reasoning tasks. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+      "3. **External memory / retrieval-augmented self-improvement**: the agent accumulates useful “thoughts,” plans, or past solutions in memory and retrieves them later. **MoT (Memory-of-Thought)** is a concrete example: it pre-computes high-confidence thoughts into external memory and recalls them at test time, without parameter updates. ([arxiv.org](https://arxiv.org/abs/2305.05181?utm_source=openai))",
+      "4. **Search over candidate trajectories**: instead of committing to one answer, the agent explores multiple branches and uses value/reflection signals to choose the best path. **LATS** integrates Monte Carlo Tree Search with LLM self-reflection for better planning/acting. ([arxiv.org](https://arxiv.org/abs/2310.04406?utm_source=openai))",
+      "In practice, these methods are often combined: **generate → critique → revise → store lessons → search alternative branches**. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2303.11366?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.05181?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.04406?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 9,
+    "unique_citation_count": 4
+  }
+}

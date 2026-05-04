@@ -1,0 +1,142 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline_no_web\\baseline-no-web-2026-05-04t12-32-33-00-00-live\\traces\\DR-006.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 0.6,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 25,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.3,
+  "failure_tags": [
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 5.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": true,
+        "matched_terms": [
+          "confusion",
+          "role"
+        ],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": true,
+        "matched_terms": [
+          "error"
+        ],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": false,
+        "matched_terms": [
+          "without"
+        ],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- Agents fail to align on a shared plan, timing, or roles.",
+      "- Typical symptoms: duplicated work, missed dependencies, deadlocks, or oscillation between actions.",
+      "- Messages are delayed, lost, misformatted, ambiguous, or ignored.",
+      "- In LLM-based systems, agents may also misunderstand each other due to prompt/format drift.",
+      "- Agents optimize local objectives that conflict with the global objective.",
+      "- This can produce selfish behavior, partial solutions, or agents working at cross-purposes.",
+      "- Repeated back-and-forth does not settle on a stable plan or answer.",
+      "- Common in debate, negotiation, or planning loops when there is no good stopping criterion.",
+      "- One agent’s mistake propagates through the system, and other agents build on it.",
+      "- This is especially problematic when agents trust prior outputs without verification.",
+      "- Multiple agents reinforce the same incorrect assumption.",
+      "- Diversity helps, but if agents share similar prompts, data, or biases, they may fail together.",
+      "- Agents have unclear boundaries, so multiple agents try to do the same task or none take ownership.",
+      "- Often caused by poor task decomposition or vague role definitions.",
+      "- Agents accept outputs from peers without validation.",
+      "- This can be dangerous when one agent is a weak verifier or when adversarial inputs are possible.",
+      "- Agents compete for shared memory, tools, bandwidth, compute, or locks.",
+      "- Can cause starvation, latency spikes, or priority inversion.",
+      "- Different agents hold different views of shared state.",
+      "- Happens with weak synchronization, stale caches, or eventual-consistency designs.",
+      "- Agents repeatedly reassign, revise, or retry tasks without progress.",
+      "- Often due to poor termination conditions or unstable control policies.",
+      "- A malicious or compromised agent can manipulate others through prompt injection, spoofing, or deceptive outputs.",
+      "- In open systems, this is a major failure mode.",
+      "A practical engineering summary: most failures come from a mix of **bad coordination, weak verification, stale shared state, and unclear stopping/ownership rules**."
+    ],
+    "unsupported_claim_lines": [
+      "- Agents fail to align on a shared plan, timing, or roles.",
+      "- Typical symptoms: duplicated work, missed dependencies, deadlocks, or oscillation between actions.",
+      "- Messages are delayed, lost, misformatted, ambiguous, or ignored.",
+      "- In LLM-based systems, agents may also misunderstand each other due to prompt/format drift.",
+      "- Agents optimize local objectives that conflict with the global objective.",
+      "- This can produce selfish behavior, partial solutions, or agents working at cross-purposes.",
+      "- Repeated back-and-forth does not settle on a stable plan or answer.",
+      "- Common in debate, negotiation, or planning loops when there is no good stopping criterion.",
+      "- One agent’s mistake propagates through the system, and other agents build on it.",
+      "- This is especially problematic when agents trust prior outputs without verification.",
+      "- Multiple agents reinforce the same incorrect assumption.",
+      "- Diversity helps, but if agents share similar prompts, data, or biases, they may fail together.",
+      "- Agents have unclear boundaries, so multiple agents try to do the same task or none take ownership.",
+      "- Often caused by poor task decomposition or vague role definitions.",
+      "- Agents accept outputs from peers without validation.",
+      "- This can be dangerous when one agent is a weak verifier or when adversarial inputs are possible.",
+      "- Agents compete for shared memory, tools, bandwidth, compute, or locks.",
+      "- Can cause starvation, latency spikes, or priority inversion.",
+      "- Different agents hold different views of shared state.",
+      "- Happens with weak synchronization, stale caches, or eventual-consistency designs.",
+      "- Agents repeatedly reassign, revise, or retry tasks without progress.",
+      "- Often due to poor termination conditions or unstable control policies.",
+      "- A malicious or compromised agent can manipulate others through prompt injection, spoofing, or deceptive outputs.",
+      "- In open systems, this is a major failure mode.",
+      "A practical engineering summary: most failures come from a mix of **bad coordination, weak verification, stale shared state, and unclear stopping/ownership rules**."
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

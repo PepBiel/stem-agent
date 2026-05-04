@@ -1,0 +1,283 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:45:07+00:00",
+  "finished_at": "2026-05-04T11:45:19+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.92,
+  "judge_score": 0.5417,
+  "final_score": 0.6741,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-001.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 0.8,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.7
+    },
+    "overall_score": 0.92,
+    "failure_tags": [],
+    "runtime_seconds": 52.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "short",
+            "term"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "1. **Poor retrieval** — the agent stores something but cannot later find the right item, or retrieves the wrong chunk/fact. This is often the dominant bottleneck in practice. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+        "2. **False or stale memory** — the agent recalls outdated, contradictory, or hallucinated information instead of the current truth, so “remembering wrong” becomes a trust problem. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))",
+        "3. **Weak consolidation / test-time learning** — the agent fails to turn repeated experience into better future behavior, so memory stays as raw logs rather than usable knowledge. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+        "4. **Poor long-range understanding** — even if facts are present, the agent cannot connect them across many turns or sessions to infer latent constraints or user intent. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+        "5. **Bad forgetting / overwrite control** — the agent either forgets useful information too early or fails to selectively forget obsolete information, leading to clutter, drift, or conflicts. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+        "In short: memory failures are less about “running out of context” and more about **write, store, retrieve, update, and forget** errors across the memory lifecycle. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2507.05257?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2602.10715?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.07670?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.20006?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 10,
+      "unique_citation_count": 4
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 3,
+      "evidence_quality": 3,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions 'running out of context' and long-range understanding, but does not clearly explain pollution from irrelevant or conflicting context contaminating agent behavior."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly covers poor retrieval, wrong chunks, stale/contradictory memory, and obsolete information."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not identify the failure mode of treating prior agent outputs as ground truth or compounding earlier mistakes."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions long-range understanding and forgetting/overwrite control, but does not discuss the actual trade-off between fast, bounded short-term memory and slower, durable long-term memory."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Cites evaluation-oriented papers and mentions evaluation in general, but gives no concrete methods, metrics, or benchmark styles for assessing memory quality."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Poor retrieval is often the dominant bottleneck in practice.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2507.05257?utm_source=openai"
+        ],
+        "reason": "The cited paper is plausibly relevant to memory evaluation, but the answer does not show that it specifically supports the 'dominant bottleneck' characterization."
+      },
+      {
+        "claim": "False or stale memory means recalling outdated, contradictory, or hallucinated information instead of current truth.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.07670?utm_source=openai"
+        ],
+        "reason": "A memory survey on autonomous LLM agents plausibly supports this general failure-mode description."
+      },
+      {
+        "claim": "Weak consolidation / test-time learning means the agent fails to turn repeated experience into better future behavior.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2507.05257?utm_source=openai"
+        ],
+        "reason": "Relevant in spirit, but the specific framing of test-time learning and raw logs is not shown to be directly supported by the cited title alone."
+      },
+      {
+        "claim": "Poor long-range understanding prevents connecting facts across many turns or sessions to infer latent constraints or user intent.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2507.05257?utm_source=openai"
+        ],
+        "reason": "Plausible, but this is more an inference than a clearly supported claim from the cited source metadata."
+      },
+      {
+        "claim": "Bad forgetting / overwrite control leads to clutter, drift, or conflicts.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2507.05257?utm_source=openai"
+        ],
+        "reason": "A memory evaluation paper is plausibly relevant to forgetting/overwrite behavior and related failure modes."
+      },
+      {
+        "claim": "Memory failures are errors across the write, store, retrieve, update, and forget lifecycle.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.07670?utm_source=openai"
+        ],
+        "reason": "This is consistent with a survey framing memory as a lifecycle in autonomous LLM agents."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2507.05257?utm_source=openai",
+        "quality": "strong",
+        "reason": "Directly relevant agent-memory evaluation paper; good source type for failure modes and benchmarks."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670?utm_source=openai",
+        "quality": "strong",
+        "reason": "Highly relevant survey on memory mechanisms and evaluation for LLM agents."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.20006?utm_source=openai",
+        "quality": "strong",
+        "reason": "Relevant benchmark on long-term memory for personalized agents."
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.10715?utm_source=openai",
+        "quality": "strong",
+        "reason": "Relevant evaluation framework for memory quality in LLM agents."
+      }
+    ],
+    "failure_tags": [
+      "missing_required_aspect",
+      "partial_coverage",
+      "under-specified_evaluation_methods",
+      "unclear_tradeoffs",
+      "citation_overreach"
+    ],
+    "summary": "The answer is directionally correct and uses relevant memory papers, but it only partially covers the benchmark's required aspects. It misses the key 'over-trusting previous agent outputs' failure mode and gives only shallow treatment of memory trade-offs and evaluation methods.",
+    "recommended_fix": "Add a dedicated section that explicitly covers each required aspect with concrete mechanisms and examples: context pollution, stale/irrelevant retrieval, over-trusting prior outputs, short-term vs long-term memory trade-offs, and specific evaluation methods/metrics used in memory benchmarks.",
+    "average_score": 3.1667,
+    "normalized_score": 0.5417
+  },
+  "judge_usage": {
+    "input_tokens": 3619,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1421,
+    "output_tokens_details": {
+      "reasoning_tokens": 95
+    },
+    "total_tokens": 5040
+  },
+  "response_id": "resp_038449c015c352ea0069f886d40d708190ae88f85536fb844c"
+}

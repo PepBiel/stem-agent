@@ -1,0 +1,252 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:47:46+00:00",
+  "finished_at": "2026-05-04T11:47:54+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-008.json",
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.7131,
+  "judge_score": 0.3333,
+  "final_score": 0.4662,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-008.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-008",
+    "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+    "metrics": {
+      "coverage_score": 0.1667,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.6667,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.7143
+    },
+    "overall_score": 0.7131,
+    "failure_tags": [
+      "missing_required_aspect"
+    ],
+    "runtime_seconds": 9.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "flexibility",
+          "covered": true,
+          "matched_terms": [
+            "flexibility"
+          ],
+          "expected_terms": [
+            "flexibility"
+          ]
+        },
+        {
+          "aspect": "controllability",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "controllability"
+          ]
+        },
+        {
+          "aspect": "observability",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "observability"
+          ]
+        },
+        {
+          "aspect": "cost",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "cost"
+          ]
+        },
+        {
+          "aspect": "reproducibility",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "reproducibility"
+          ]
+        },
+        {
+          "aspect": "failure recovery",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "failure",
+            "recovery"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "**Autonomous agents** trade more flexibility for more risk and operational complexity. They can decide actions dynamically, handle open-ended tasks, and adapt to messy/unstructured inputs, but they are harder to evaluate, debug, secure, and keep predictable. OpenAI’s guidance explicitly recommends an incremental approach rather than jumping straight to fully autonomous systems, noting that simpler single-agent setups are often easier to maintain and evaluate. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+        "**Workflow-based agents** trade some autonomy for more reliability and control. They are better when you need repeatable processes, clear handoffs, consistent outputs, and tighter guardrails. In practice, workflow-oriented designs make it easier to manage intermediate files, retries, timeouts, permissions, and other production concerns. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))",
+        "- Use **workflow-based agents** for well-defined, high-volume, or compliance-sensitive tasks where predictability matters more than improvisation. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+        "- Use **autonomous agents** when the task is ambiguous, tool-heavy, or changes as it runs, and you need the system to plan and adapt on its own. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://docs.anthropic.com/en/docs/claude-code/sub-agents",
+          "domain": "docs.anthropic.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/index/equip-responses-api-computer-environment",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 7,
+      "unique_citation_count": 3
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 1,
+      "evidence_quality": 2,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 2,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "flexibility",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explicitly contrasts autonomous agents as more flexible and workflow-based agents as less autonomous."
+      },
+      {
+        "aspect": "controllability",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions control/guardrails and predictability, but does not directly discuss controllability as a trade-off in engineering terms."
+      },
+      {
+        "aspect": "observability",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not address observability, logging, tracing, or ease of monitoring."
+      },
+      {
+        "aspect": "cost",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "No discussion of runtime, token, engineering, or operational cost trade-offs."
+      },
+      {
+        "aspect": "reproducibility",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions repeatable processes and consistent outputs, but not reproducibility as a distinct concern or why workflows improve it."
+      },
+      {
+        "aspect": "failure recovery",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "References retries, timeouts, and production concerns, but does not explain failure recovery strategies or comparative robustness."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Autonomous agents trade more flexibility for more risk and operational complexity.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+        ],
+        "reason": "Plausibly consistent with OpenAI guidance about choosing simpler agent setups first and the maintainability/evaluation trade-off."
+      },
+      {
+        "claim": "Workflow-based agents trade some autonomy for more reliability and control.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openai.com/index/equip-responses-api-computer-environment"
+        ],
+        "reason": "A workflow/orchestration guide can support reliability/control framing, though the exact wording is inferred."
+      },
+      {
+        "claim": "In practice, workflow-oriented designs make it easier to manage intermediate files, retries, timeouts, permissions, and other production concerns.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.com/index/equip-responses-api-computer-environment"
+        ],
+        "reason": "Likely directionally related, but the citation metadata alone does not demonstrate support for all listed operational concerns."
+      },
+      {
+        "claim": "Use workflow-based agents for well-defined, high-volume, or compliance-sensitive tasks where predictability matters more than improvisation.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+        ],
+        "reason": "Reasonable advice, but the source support is not specific enough from the provided metadata."
+      },
+      {
+        "claim": "Use autonomous agents when the task is ambiguous, tool-heavy, or changes as it runs, and you need the system to plan and adapt on its own.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+        ],
+        "reason": "Plausible but only loosely supported; the answer extrapolates beyond the cited metadata."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "quality": "strong",
+        "reason": "Relevant agent-framework guidance from an authoritative vendor source."
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment",
+        "quality": "strong",
+        "reason": "Relevant workflow/orchestration documentation from an authoritative vendor source."
+      },
+      {
+        "url": "https://docs.anthropic.com/en/docs/claude-code/sub-agents",
+        "quality": "acceptable",
+        "reason": "Relevant agent-framework documentation, but not clearly used in the answer and less directly tied to the question than the OpenAI sources."
+      }
+    ],
+    "failure_tags": [
+      "missing_required_aspect",
+      "shallow_tradeoff_analysis"
+    ],
+    "summary": "The answer gives a reasonable high-level flexibility vs control framing, but it largely misses the required engineering dimensions: observability, cost, reproducibility, and failure recovery are not substantively addressed.",
+    "recommended_fix": "Explicitly compare autonomous vs workflow-based agents across all required aspects—especially observability, cost, reproducibility, and failure recovery—with concrete engineering implications and examples.",
+    "average_score": 2.3333,
+    "normalized_score": 0.3333
+  },
+  "judge_usage": {
+    "input_tokens": 2965,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1164,
+    "output_tokens_details": {
+      "reasoning_tokens": 12
+    },
+    "total_tokens": 4129
+  },
+  "response_id": "resp_0cb3029b1ace7c300069f88773b1048197a3935f0d633478ac"
+}

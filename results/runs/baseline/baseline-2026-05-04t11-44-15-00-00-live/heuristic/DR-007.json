@@ -1,0 +1,118 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-007.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.6667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.65
+  },
+  "overall_score": 0.865,
+  "failure_tags": [],
+  "runtime_seconds": 11.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": false,
+        "matched_terms": [
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "1. **Map each important claim to a source** and confirm the source actually supports the wording, numbers, and scope of the claim. OpenAI’s guidance explicitly recommends verifying quotes, data, technical information, and external references directly. ([help.openai.com](https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations))",
+      "2. **Check source quality and freshness**: prefer primary or authoritative sources, and confirm dates when the claim is time-sensitive. OpenAI’s research guidance recommends requiring citations for key claims and asking for a source-quality check when accuracy matters. ([openai.com](https://openai.com/academy/research/))",
+      "3. **Inspect provenance and traceability**: make sure the agent returns source metadata and that the cited URL/document is the same one used in reasoning. OpenAI’s deep research API docs say outputs should include inline citations and all source metadata. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))",
+      "4. **Log and review tool activity** for the research chain, especially when multiple tools or private data sources are involved. The API docs recommend logging and reviewing tool calls and model messages, and staging workflows when sensitive data is involved. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))",
+      "5. **Flag unsupported or partial support**: if a citation only loosely relates to a claim, mark it as weak support or omit it. OpenAI notes that models can still fabricate or overstate confidence, so citations should be checked critically rather than trusted automatically. ([help.openai.com](https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations))",
+      "In short: **verify every key claim against the original source, prefer authoritative/primary evidence, capture metadata, and review the tool trail**. ([platform.openai.com](https://platform.openai.com/docs/guides/deep-research))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/academy/research/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/deep-research",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 10,
+    "unique_citation_count": 3
+  }
+}

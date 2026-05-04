@@ -1,0 +1,377 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:46:30+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:46:43+00:00",
+  "answer": "## Answer\n\nYes—there are several **inference-time / non-fine-tuning** techniques for self-improving agents:\n\n1. **Iterative self-refinement / self-feedback**: the agent drafts an output, critiques it, and revises it in a loop. This is the core idea behind **Self-Refine**, which explicitly avoids supervised training, extra training, and RL. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\n\n2. **Reflection with episodic memory**: after a failure, the agent writes a verbal reflection and stores it in memory for future attempts. **Reflexion** uses this “verbal reinforcement” loop and reported gains across decision-making, coding, and reasoning tasks. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\n\n3. **External memory / retrieval-augmented self-improvement**: the agent accumulates useful “thoughts,” plans, or past solutions in memory and retrieves them later. **MoT (Memory-of-Thought)** is a concrete example: it pre-computes high-confidence thoughts into external memory and recalls them at test time, without parameter updates. ([arxiv.org](https://arxiv.org/abs/2305.05181?utm_source=openai))\n\n4. **Search over candidate trajectories**: instead of committing to one answer, the agent explores multiple branches and uses value/reflection signals to choose the best path. **LATS** integrates Monte Carlo Tree Search with LLM self-reflection for better planning/acting. ([arxiv.org](https://arxiv.org/abs/2310.04406?utm_source=openai))\n\nIn practice, these methods are often combined: **generate → critique → revise → store lessons → search alternative branches**. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\n\n## Sources\n\n- Self-Refine: Iterative Refinement with Self-Feedback. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\n- Reflexion: Language Agents with Verbal Reinforcement Learning. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\n- MoT: Memory-of-Thought Enables ChatGPT to Self-Improve. ([arxiv.org](https://arxiv.org/abs/2305.05181?utm_source=openai))\n- Language Agent Tree Search (LATS). ([arxiv.org](https://arxiv.org/abs/2310.04406?utm_source=openai))\n\n## Limitations\n\n- This is a **high-level taxonomy**, not an exhaustive survey.\n- I focused on **methods that improve behavior without updating model weights**; some related work mixes in fine-tuning or RL and was excluded.\n- I used a small set of primary papers, so I may have missed newer variants or niche agent frameworks.",
+  "citations": [
+    {
+      "end_index": 407,
+      "start_index": 342,
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651?utm_source=openai"
+    },
+    {
+      "end_index": 737,
+      "start_index": 672,
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366?utm_source=openai"
+    },
+    {
+      "end_index": 1140,
+      "start_index": 1075,
+      "title": "MoT: Memory-of-Thought Enables ChatGPT to Self-Improve",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.05181?utm_source=openai"
+    },
+    {
+      "end_index": 1480,
+      "start_index": 1415,
+      "title": "Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.04406?utm_source=openai"
+    },
+    {
+      "end_index": 1674,
+      "start_index": 1609,
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651?utm_source=openai"
+    },
+    {
+      "end_index": 1809,
+      "start_index": 1744,
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651?utm_source=openai"
+    },
+    {
+      "end_index": 1940,
+      "start_index": 1875,
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366?utm_source=openai"
+    },
+    {
+      "end_index": 2064,
+      "start_index": 1999,
+      "title": "MoT: Memory-of-Thought Enables ChatGPT to Self-Improve",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.05181?utm_source=openai"
+    },
+    {
+      "end_index": 2167,
+      "start_index": 2102,
+      "title": "Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.04406?utm_source=openai"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0be5c5b6b13866430069f88728b6f88194bdfefd2ed37cfb6a",
+      "action": {
+        "query": "self-improving agents without fine-tuning reflection critique revise inference-time paper",
+        "type": "search",
+        "queries": [
+          "self-improving agents without fine-tuning reflection critique revise inference-time paper",
+          "LLM self-improvement without fine-tuning agent memory reflection search paper official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.16153"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.06682"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.05181"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.16334"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.01335"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0be5c5b6b13866430069f88729f4e48194afa4e81ad0fde2bc",
+      "action": {
+        "query": "Reflexion language agents verbal reinforcement self-improvement arxiv",
+        "type": "search",
+        "queries": [
+          "Reflexion language agents verbal reinforcement self-improvement arxiv",
+          "Self-Refine iterative refinement LLM arxiv self-improvement"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/04/25/reflexion-language-agents-verbal-reinforcement-learning"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/reflexion-language-agents-with-verbal-reinforcement-learning"
+          },
+          {
+            "type": "url",
+            "url": "https://monkemanx.github.io/paper-summary/reflexion_language_agents_with_verbal_reinforcement/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/381152763_Reflection-Reinforced_Self-Training_for_Language_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.athina.ai/reflexion-language-agents-with-verbal-reinforcement-learning"
+          },
+          {
+            "type": "url",
+            "url": "https://deep-paper.org/en/paper/2303.11366/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2310.00533"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.05605"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.00325"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00790"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=S37hOerQLB"
+          },
+          {
+            "type": "url",
+            "url": "https://storage.googleapis.com/arxiv-dataset/arxiv/arxiv/pdf/2303/2303.11366v3.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=vAElhFcKW6&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Feedback_neural_network"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/deeplearning/comments/147st0t"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Recursive_self-improvement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1am3ior"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0be5c5b6b13866430069f8872db6a081949d9ea045d3c75683",
+      "action": {
+        "query": "Language Agent Tree Search arxiv self-improving agent tree search",
+        "type": "search",
+        "queries": [
+          "Language Agent Tree Search arxiv self-improving agent tree search",
+          "LLM agent tree search reflection arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.04406"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/language-agent-tree-search-unifies-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2410.04444"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2410.20285"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.04406"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2404.05449"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.21240"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.20285"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2405.06682"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.06682"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/rot-enhancing-large-language-models-reflection-search"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.02584"
+          },
+          {
+            "type": "url",
+            "url": "https://selfgoal-agent.github.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.10686"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2509.26048"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.dagstuhl.de/rec/journals/corr/abs-2310-04406.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.16334"
+          },
+          {
+            "type": "url",
+            "url": "https://par.nsf.gov/servlets/purl/10536241"
+          },
+          {
+            "type": "url",
+            "url": "https://www.andyzhou.ai/pdfs/lats.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1kb5mpt"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1i7hdhz"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Recursive_self-improvement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/rajistics/comments/1s2cy8w/hyperagents_letting_agents_rewrite_their_own/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1ruzo3p/best_practices_for_evaluating_agent_reflection/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/mcp/comments/1o1wppl"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/174301j"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 17019,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 1250,
+    "output_tokens_details": {
+      "reasoning_tokens": 651
+    },
+    "total_tokens": 18269
+  },
+  "response_id": "resp_0be5c5b6b13866430069f8872752ac819490e50d731d834f30",
+  "status": "complete"
+}

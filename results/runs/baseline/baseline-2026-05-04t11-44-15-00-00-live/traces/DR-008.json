@@ -1,0 +1,241 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:47:37+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:47:46+00:00",
+  "answer": "## Answer\n\n**Autonomous agents** trade more flexibility for more risk and operational complexity. They can decide actions dynamically, handle open-ended tasks, and adapt to messy/unstructured inputs, but they are harder to evaluate, debug, secure, and keep predictable. OpenAI’s guidance explicitly recommends an incremental approach rather than jumping straight to fully autonomous systems, noting that simpler single-agent setups are often easier to maintain and evaluate. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n**Workflow-based agents** trade some autonomy for more reliability and control. They are better when you need repeatable processes, clear handoffs, consistent outputs, and tighter guardrails. In practice, workflow-oriented designs make it easier to manage intermediate files, retries, timeouts, permissions, and other production concerns. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))\n\nA useful rule of thumb:\n- Use **workflow-based agents** for well-defined, high-volume, or compliance-sensitive tasks where predictability matters more than improvisation. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n- Use **autonomous agents** when the task is ambiguous, tool-heavy, or changes as it runs, and you need the system to plan and adapt on its own. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n## Sources\n\n1. OpenAI, *A practical guide to building agents* ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))  \n2. OpenAI, *From model to agent: Equipping the Responses API with a computer environment* ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))  \n3. Anthropic Claude Code docs, *Create custom subagents* ([docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code/sub-agents))  \n\n## Limitations\n\nThis is a high-level summary, not a formal taxonomy. Different vendors use “agent” and “workflow” somewhat differently, so the exact boundary can vary by platform.",
+  "citations": [
+    {
+      "end_index": 580,
+      "start_index": 475,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 1002,
+      "start_index": 921,
+      "title": "From model to agent: Equipping the Responses API with a computer environment  | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment"
+    },
+    {
+      "end_index": 1280,
+      "start_index": 1175,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 1531,
+      "start_index": 1426,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 1700,
+      "start_index": 1595,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 1874,
+      "start_index": 1793,
+      "title": "From model to agent: Equipping the Responses API with a computer environment  | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment"
+    },
+    {
+      "end_index": 2015,
+      "start_index": 1934,
+      "title": "Create custom subagents - Claude Code Docs",
+      "type": "url_citation",
+      "url": "https://docs.anthropic.com/en/docs/claude-code/sub-agents"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0092b856ca34ff6a0069f8876b47f081978cc3b17a22e9ba8d",
+      "action": {
+        "query": "site:openai.com autonomous agents workflow-based agents official documentation",
+        "type": "search",
+        "queries": [
+          "site:openai.com autonomous agents workflow-based agents official documentation",
+          "site:docs.anthropic.com workflows agents official autonomous workflow-based agents"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openai.com/agent-platform/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/academy/workspace-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents/agent-builder%20rel%3D"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/nl-NL/agent-platform/"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/node-reference"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/choco"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents-sdk/"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/dd8e7875-e606-42b4-80a1-f824e4e11cf4/prevent-url-data-exfil.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/practices-for-governing-agentic-ai-systems.pdf."
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/practices-for-governing-agentic-ai-systems.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0092b856ca34ff6a0069f8876cd880819795e65af6a53bb81d",
+      "action": {
+        "query": "site:docs.anthropic.com building effective agents workflows vs agents official",
+        "type": "search",
+        "queries": [
+          "site:docs.anthropic.com building effective agents workflows vs agents official",
+          "site:www.anthropic.com engineers workflow agents official blog"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/sub-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/api/handling-stop-reasons"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/output-styles"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/common-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/sdk"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/ru/docs/claude-code/sub-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/slash-commands"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/fr/docs/claude-code/sub-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/claude-code/github-actions"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/fr/docs/claude-code/sdk/sdk-overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0092b856ca34ff6a0069f8876e1b208197aa7780de4056530a",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 16656,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 772,
+    "output_tokens_details": {
+      "reasoning_tokens": 330
+    },
+    "total_tokens": 17428
+  },
+  "response_id": "resp_0092b856ca34ff6a0069f8876a66c48197bc64dd15682e2840",
+  "status": "complete"
+}

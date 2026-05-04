@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:32:56+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:02+00:00",
+  "answer": "## Answer\n\nCurrent approaches to evaluating tool use in LLM agents usually combine **task-level**, **trajectory-level**, and **robustness/safety** metrics.\n\n### 1) Task success evaluation\nThe most common approach is to measure whether the agent **achieves the end goal** in a tool-using environment.\n\n- **Success rate / pass rate**: Did the agent complete the task correctly?\n- **Goal-conditioned accuracy**: For structured tasks, compare final outputs against expected answers.\n- **End-to-end utility**: Especially for multi-step workflows, measure whether the final user objective was satisfied.\n\nThis is often the primary metric because it captures whether tool use actually helps.\n\n### 2) Tool-call correctness\nEvaluate whether the agent chose and used tools appropriately.\n\n- **Tool selection accuracy**: Did it pick the right tool?\n- **Argument / parameter correctness**: Were API calls formed correctly?\n- **Call validity**: Did the action succeed syntactically and semantically?\n- **Action precision/recall**: Useful when there are multiple possible tool calls.\n\nThis is important when the agent can solve tasks only if it invokes the right tool at the right time.\n\n### 3) Trajectory-level evaluation\nInstead of only the final answer, assess the **sequence of steps**.\n\n- **Planning quality**: Are intermediate steps sensible?\n- **Efficiency**: Number of tool calls, total steps, latency, token cost.\n- **Redundancy / waste**: Repeated unnecessary calls or loops.\n- **Recovery behavior**: Can the agent correct failed calls and continue?\n\nTrajectory evaluation is useful because some agents may succeed but do so inefficiently or unreliably.\n\n### 4) Robustness and generalization\nTest whether tool use works beyond the training or seen settings.\n\n- **Out-of-distribution tasks**\n- **Tool API changes or noisy tool outputs**\n- **Missing/failed tools**\n- **Long-horizon tasks**\n- **Adversarial or ambiguous instructions**\n\nThis helps distinguish memorization from genuine tool-use capability.\n\n### 5) Groundedness and faithfulness\nFor agents that answer using tool outputs, evaluate whether the final response is **supported by the tool results**.\n\n- **Faithfulness to retrieved or computed evidence**\n- **No hallucinated tool output**\n- **Correct use of external information**\n\n### 6) Human evaluation\nStill common for open-ended agent tasks.\n\nHumans may rate:\n\n- correctness,\n- usefulness,\n- efficiency,\n- naturalness,\n- whether the tool use was appropriate.\n\nThis is especially relevant when automated labels are hard to define.\n\n### 7) Specialized benchmark families\nIn practice, evaluation is often done with benchmark suites that simulate:\n\n- API/tool use,\n- web navigation,\n- code execution,\n- data analysis,\n- calendar/email/workflow tasks,\n- retrieval-augmented question answering.\n\nThese benchmarks typically combine success, cost, and step-level metrics.\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nI’m summarizing from model knowledge only, so this may not reflect the very latest benchmark names or recent niche evaluation methods. Also, “tool use” covers a broad range of settings, and the best metric depends on whether the agent is doing API calling, web interaction, code execution, or retrieval.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 115,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 721,
+    "output_tokens_details": {
+      "reasoning_tokens": 47
+    },
+    "total_tokens": 836
+  },
+  "response_id": "resp_0b6dbfe70e0a850a0069f89208f9dc819398be0d8e17551809",
+  "status": "complete"
+}

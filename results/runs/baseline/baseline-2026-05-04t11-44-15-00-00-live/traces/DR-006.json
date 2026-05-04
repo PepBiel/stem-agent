@@ -1,0 +1,205 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:46:49+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:47:00+00:00",
+  "answer": "## Answer\n\nCommon failure modes in multi-agent systems cluster around three broad areas:\n\n- **Specification / system-design failures**: agents ignore the task or role spec, repeat steps, lose conversation history, or miss termination conditions. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))\n- **Inter-agent coordination failures**: agents derail the task, fail to ask for clarification, withhold information, ignore another agent’s input, or exhibit reasoning-action mismatch. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))\n- **Verification / control failures**: agents terminate too early or verify outputs incompletely or incorrectly, so errors slip through. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))\n\nOlder MAS safety literature also highlights related system-level issues such as **accidental steering**, **coordination failures**, **adversarial misalignment**, **input spoofing/filtering**, and **goal co-option or direct hacking**. ([arxiv.org](https://arxiv.org/abs/1810.10862))\n\n## Sources\n\n- **Why Do Multi-Agent LLM Systems Fail?** — empirical taxonomy from 1,242 execution traces. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))\n- **Multiparty Dynamics and Failure Modes for Machine Learning and Artificial Intelligence** — classic failure-mode taxonomy for multi-agent interactions. ([arxiv.org](https://arxiv.org/abs/1810.10862))\n- **Resilience, reliability, and coordination in autonomous multi-agent systems** — overview emphasizing resilience, reliability, and coordination challenges. ([journals.sagepub.com](https://journals.sagepub.com/doi/10.3233/AIC-220136))\n\n## Limitations\n\nThis is a high-level summary, and the most concrete taxonomy I found is **LLM-based multi-agent systems**, so it may not cover every failure mode in all robotics, distributed-systems, or game-theoretic MAS settings. ([openreview.net](https://openreview.net/pdf?id=MqBzKkb8eK))",
+  "citations": [
+    {
+      "end_index": 306,
+      "start_index": 246,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+    },
+    {
+      "end_index": 553,
+      "start_index": 493,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+    },
+    {
+      "end_index": 751,
+      "start_index": 691,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+    },
+    {
+      "end_index": 1034,
+      "start_index": 987,
+      "title": "[1810.10862] Multiparty Dynamics and Failure Modes for Machine Learning and Artificial Intelligence",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/1810.10862"
+    },
+    {
+      "end_index": 1201,
+      "start_index": 1141,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+    },
+    {
+      "end_index": 1404,
+      "start_index": 1357,
+      "title": "[1810.10862] Multiparty Dynamics and Failure Modes for Machine Learning and Artificial Intelligence",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/1810.10862"
+    },
+    {
+      "end_index": 1641,
+      "start_index": 1564,
+      "title": "Resilience, reliability, and coordination in autonomous multi-agent systems - Rafael C. Cardoso, Brian Logan, Felipe Meneguzzi, Nir Oren, Bruno Yun, 2022 ",
+      "type": "url_citation",
+      "url": "https://journals.sagepub.com/doi/10.3233/AIC-220136"
+    },
+    {
+      "end_index": 1935,
+      "start_index": 1875,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0cec66d4c890489d0069f8873b5d988195a6772cdf18f4d5e7",
+      "action": {
+        "query": "multi-agent systems failure modes survey paper coordination deadlock communication breakdown emergent behavior",
+        "type": "search",
+        "queries": [
+          "multi-agent systems failure modes survey paper coordination deadlock communication breakdown emergent behavior",
+          "multi-agent systems common failure modes paper autonomous agents coordination failure"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://journals.sagepub.com/doi/10.3233/AIC-220136"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10458-020-09489-0"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2504-2289/3/2/21"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19843"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/307889041_A_Survey_on_Fault_Tolerant_Multi_Agent_System"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ri.cmu.edu/publications/principled-monitoring-of-distributed-agents-for-detection-of-coordination-failure/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/324847369_Multi-Agent_Systems_A_survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0004370223001406"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/224683512_A_Survey_of_Emergent_Behavior_and_Its_Impacts_in_Agent-based_Systems"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2226-4310/9/9/488"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.cmu.edu/afs/cs/usr/pstone/public/papers/97MAS-survey/revised-survey.html"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Autonomous_Agents_and_Multi-Agent_Systems"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1810.10862"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.13657"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Multi-agent_system"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/0705.0401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2209.08611"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/rajistics/comments/1pmv2lo/why_multiagent_systems_often_make_things_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIAgentsInAction/comments/1pmwv0a/why_multiagent_systems_often_make_things_worse/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0cec66d4c890489d0069f8873cd4288195bb4deb7b5c29e6e2",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/1810.10862"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 12880,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 750,
+    "output_tokens_details": {
+      "reasoning_tokens": 332
+    },
+    "total_tokens": 13630
+  },
+  "response_id": "resp_0cec66d4c890489d0069f8873a8e5c8195a5de1af1090310c8",
+  "status": "complete"
+}

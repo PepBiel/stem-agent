@@ -1,0 +1,131 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-004.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.4,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.8571
+  },
+  "overall_score": 0.8457,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 13.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "covered": true,
+        "matched_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then"
+        ],
+        "expected_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "covered": true,
+        "matched_terms": [
+          "planning",
+          "retrieval"
+        ],
+        "expected_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ]
+      },
+      {
+        "aspect": "tool use",
+        "covered": true,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "tool"
+        ]
+      },
+      {
+        "aspect": "reflection or verification",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection",
+          "verification"
+        ]
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "covered": false,
+        "matched_terms": [
+          "complexity"
+        ],
+        "expected_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "**Agentic RAG** is a retrieval-augmented generation pattern where an LLM acts more like an autonomous agent: it can **plan**, **decide when and what to retrieve**, **rewrite queries**, **use tools**, and **iterate over multiple retrieval/reasoning steps** before answering. In contrast, **standard RAG** is usually a mostly fixed pipeline: **retrieve relevant context once, append it to the prompt, then generate the answer**. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai))",
+      "Practically, agentic RAG is useful for **complex, multi-hop, or ambiguous questions** because the system can refine its search as it learns more. The tradeoff is **more latency, higher cost, and more orchestration complexity**, plus more opportunities for compounding mistakes across steps. Standard RAG is simpler, cheaper, and easier to control, but it can struggle when one retrieval pass is not enough. ([arxiv.org](https://arxiv.org/abs/2501.09136?utm_source=openai))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2501.09136?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.03442?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic&utm_source=openai",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag?utm_source=openai",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 7,
+    "unique_citation_count": 5
+  }
+}

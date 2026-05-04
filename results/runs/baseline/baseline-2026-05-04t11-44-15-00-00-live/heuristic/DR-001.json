@@ -1,0 +1,129 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-001.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.7
+  },
+  "overall_score": 0.92,
+  "failure_tags": [],
+  "runtime_seconds": 52.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "short",
+          "term"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "1. **Poor retrieval** — the agent stores something but cannot later find the right item, or retrieves the wrong chunk/fact. This is often the dominant bottleneck in practice. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+      "2. **False or stale memory** — the agent recalls outdated, contradictory, or hallucinated information instead of the current truth, so “remembering wrong” becomes a trust problem. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))",
+      "3. **Weak consolidation / test-time learning** — the agent fails to turn repeated experience into better future behavior, so memory stays as raw logs rather than usable knowledge. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+      "4. **Poor long-range understanding** — even if facts are present, the agent cannot connect them across many turns or sessions to infer latent constraints or user intent. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+      "5. **Bad forgetting / overwrite control** — the agent either forgets useful information too early or fails to selectively forget obsolete information, leading to clutter, drift, or conflicts. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))",
+      "In short: memory failures are less about “running out of context” and more about **write, store, retrieve, update, and forget** errors across the memory lifecycle. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2507.05257?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.10715?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.20006?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 10,
+    "unique_citation_count": 4
+  }
+}

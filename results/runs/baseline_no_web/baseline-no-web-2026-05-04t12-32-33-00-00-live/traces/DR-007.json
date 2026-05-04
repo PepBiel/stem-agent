@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:33:43+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:49+00:00",
+  "answer": "## Answer\n\nCitations in deep research agents should be audited as a **traceability and evidence-quality problem**, not just a formatting problem. A practical audit process usually checks:\n\n1. **Citation existence and validity**\n   - Every citation should point to a real source.\n   - Verify that identifiers, titles, authors, dates, and links are correct.\n   - Flag missing, broken, duplicated, or fabricated references.\n\n2. **Claim-to-source support**\n   - For each important claim, inspect whether the cited source actually supports it.\n   - Distinguish between:\n     - **direct support**: source explicitly states the claim,\n     - **indirect support**: claim is inferred from source,\n     - **unsupported**: citation is unrelated or too weak.\n\n3. **Quotation and paraphrase fidelity**\n   - If the agent quotes text, the quote should match exactly.\n   - If paraphrasing, check that the meaning is preserved and not overstated.\n\n4. **Source quality and authority**\n   - Prefer primary sources, official docs, standards, datasets, or original research when relevant.\n   - Audit for overreliance on secondary summaries or low-quality pages.\n\n5. **Coverage and balance**\n   - Check whether citations cover all major subclaims, especially contentious or numerical ones.\n   - Ensure the agent is not cherry-picking only supportive sources.\n\n6. **Recency and context**\n   - Confirm the cited source is current enough for the claim.\n   - Older sources may be fine for historical facts but not for fast-changing technical details.\n\n7. **Dependency and independence**\n   - Multiple citations should ideally not all trace back to the same underlying source.\n   - Detect citation chains where many sources are just rephrasings of one original claim.\n\n8. **Provenance and retrieval trace**\n   - The audit should preserve how the source was obtained and used.\n   - Best practice is to store snippet-level evidence or passage offsets alongside each citation.\n\nA useful engineer-friendly workflow is:\n\n- **Extract claims**\n- **Map each claim to one or more citations**\n- **Verify support against the cited passage**\n- **Score each citation** on validity, relevance, and strength of support\n- **Escalate weak or unsupported claims**\n- **Sample-audit the hardest or highest-risk claims first**\n\nFor deep research agents, I’d especially recommend auditing for **citation hallucination**, **overclaiming**, and **evidence mismatch**; those are usually more damaging than simple formatting errors.\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nThis is based on general model knowledge, not a specific citation-audit standard or framework. Exact best practices may differ depending on the domain, toolchain, and whether the agent is doing academic, legal, medical, or internal enterprise research.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 112,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 641,
+    "output_tokens_details": {
+      "reasoning_tokens": 67
+    },
+    "total_tokens": 753
+  },
+  "response_id": "resp_0d7967ce927c57fd0069f892387db08195a47a1ee25d089349",
+  "status": "complete"
+}

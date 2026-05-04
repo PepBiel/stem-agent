@@ -1,0 +1,271 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-04T11:46:21+00:00",
+  "finished_at": "2026-05-04T11:46:30+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-004.json",
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "agent_id": "baseline_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8457,
+  "judge_score": 0.7083,
+  "final_score": 0.7564,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-004.json",
+    "run_type": "baseline",
+    "agent_id": "baseline_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-004",
+    "question": "What is agentic RAG and how does it differ from standard RAG?",
+    "metrics": {
+      "coverage_score": 0.8,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.4,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 0.8571
+    },
+    "overall_score": 0.8457,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 13.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "standard retrieve-then-generate workflow",
+          "covered": true,
+          "matched_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then"
+          ],
+          "expected_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "planning or iterative retrieval",
+          "covered": true,
+          "matched_terms": [
+            "planning",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ]
+        },
+        {
+          "aspect": "tool use",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "tool"
+          ]
+        },
+        {
+          "aspect": "reflection or verification",
+          "covered": true,
+          "matched_terms": [
+            "reflection"
+          ],
+          "expected_terms": [
+            "reflection",
+            "verification"
+          ]
+        },
+        {
+          "aspect": "added complexity and failure modes",
+          "covered": false,
+          "matched_terms": [
+            "complexity"
+          ],
+          "expected_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "**Agentic RAG** is a retrieval-augmented generation pattern where an LLM acts more like an autonomous agent: it can **plan**, **decide when and what to retrieve**, **rewrite queries**, **use tools**, and **iterate over multiple retrieval/reasoning steps** before answering. In contrast, **standard RAG** is usually a mostly fixed pipeline: **retrieve relevant context once, append it to the prompt, then generate the answer**. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai))",
+        "Practically, agentic RAG is useful for **complex, multi-hop, or ambiguous questions** because the system can refine its search as it learns more. The tradeoff is **more latency, higher cost, and more orchestration complexity**, plus more opportunities for compounding mistakes across steps. Standard RAG is simpler, cheaper, and easier to control, but it can struggle when one retrieval pass is not enough. ([arxiv.org](https://arxiv.org/abs/2501.09136?utm_source=openai))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2501.09136?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2602.03442?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic&utm_source=openai",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag?utm_source=openai",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 7,
+      "unique_citation_count": 5
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 4,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly states standard RAG as retrieve once, append context, then generate."
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly describes planning, deciding what/when to retrieve, query rewriting, and multiple retrieval/reasoning steps."
+      },
+      {
+        "aspect": "tool use",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly says the agent can use tools."
+      },
+      {
+        "aspect": "reflection or verification",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions multi-step reasoning and an arXiv survey in sources, but the answer itself does not clearly explain reflection or verification as a distinct mechanism."
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Notes higher latency, higher cost, orchestration complexity, and compounding mistakes across steps."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Agentic RAG can plan, decide when and what to retrieve, rewrite queries, use tools, and iterate over multiple retrieval/reasoning steps; standard RAG retrieves relevant context once, appends it, then generates the answer.",
+        "support": "supported",
+        "cited_urls": [
+          "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai"
+        ],
+        "reason": "The Microsoft RAG/agentic RAG documentation plausibly supports the high-level contrast, though the citation is broader than the specific phrasing."
+      },
+      {
+        "claim": "Agentic RAG is useful for complex, multi-hop, or ambiguous questions because the system can refine its search as it learns more.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136?utm_source=openai"
+        ],
+        "reason": "The survey likely supports this general idea, but the citation is only to the abstract page and the claim is more specific than what is directly evidenced here."
+      },
+      {
+        "claim": "The tradeoff is more latency, higher cost, more orchestration complexity, and more opportunities for compounding mistakes across steps.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136?utm_source=openai"
+        ],
+        "reason": "These are plausible engineering trade-offs, but the cited source metadata does not specifically demonstrate all of them."
+      },
+      {
+        "claim": "Standard RAG is simpler, cheaper, and easier to control, but can struggle when one retrieval pass is not enough.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136?utm_source=openai"
+        ],
+        "reason": "The claim is reasonable but only loosely tied to the cited survey abstract page."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2501.09136?utm_source=openai",
+        "quality": "strong",
+        "reason": "A survey on agentic RAG is highly relevant and an appropriate source type for the question."
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.03442?utm_source=openai",
+        "quality": "strong",
+        "reason": "A technical paper on hierarchical retrieval interfaces is relevant implementation-oriented evidence."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Vendor documentation is useful for implementation-facing definitions of standard RAG, though not as strong as a primary research reference."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation?view=foundry-classic&utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Similar Microsoft documentation; relevant but redundant."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Relevant explanatory source, but less authoritative than a survey or technical paper."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "partial_reflection_verification"
+    ],
+    "summary": "A solid high-level explanation that distinguishes standard RAG from agentic RAG and covers major trade-offs, but it is lighter than ideal on explicit reflection/verification and leans on broad citations rather than tightly supported claims.",
+    "recommended_fix": "Add a clearer explanation of reflection/verification as an explicit agent loop step, and tighten evidence by citing the survey/technical paper for each specific trade-off and capability.",
+    "average_score": 3.8333,
+    "normalized_score": 0.7083
+  },
+  "judge_usage": {
+    "input_tokens": 3212,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1367,
+    "output_tokens_details": {
+      "reasoning_tokens": 138
+    },
+    "total_tokens": 4579
+  },
+  "response_id": "resp_0874b88af079ff2a0069f8871e51fc8190bf9fd6614c768c46"
+}

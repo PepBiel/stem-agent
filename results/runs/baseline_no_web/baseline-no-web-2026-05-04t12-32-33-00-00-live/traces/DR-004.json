@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:33:08+00:00",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:12+00:00",
+  "answer": "## Answer\n\n**Agentic RAG** is a retrieval-augmented generation approach where the model behaves more like an **agent**: it can **plan, decide, iterate, and choose actions** during retrieval and answer generation. Instead of doing a single retrieval step and then generating an answer, an agentic RAG system may:\n\n- decide whether retrieval is needed at all,\n- reformulate the query,\n- retrieve from multiple sources,\n- inspect retrieved results,\n- ask follow-up subquestions,\n- loop through retrieval again if needed,\n- and combine evidence before answering.\n\n**Standard RAG** is usually a more **fixed pipeline**:\n1. take the user query,\n2. retrieve relevant documents,\n3. feed them to the model,\n4. generate the answer.\n\n### Main difference\n- **Standard RAG:** mostly **one-shot, linear, and static**\n- **Agentic RAG:** **dynamic, iterative, and decision-driven**\n\n### Practical implications\nAgentic RAG can be better for:\n- complex multi-hop questions,\n- ambiguous queries,\n- tasks needing tool use or planning,\n- situations where retrieval quality needs refinement.\n\nStandard RAG is often better for:\n- simpler Q&A,\n- lower latency,\n- easier implementation and debugging,\n- more predictable behavior.\n\nA useful mental model is: **standard RAG is “retrieve then answer,” while agentic RAG is “reason about what to retrieve, retrieve iteratively, then answer.”**\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nI’m answering from model knowledge only, so terminology may vary across papers and products. Some systems called “agentic RAG” include only light query rewriting and multi-step retrieval, while others integrate broader agent behaviors like tool use, memory, and task planning.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 118,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 381,
+    "output_tokens_details": {
+      "reasoning_tokens": 14
+    },
+    "total_tokens": 499
+  },
+  "response_id": "resp_0e19d82bd411dc1f0069f892156f608193bc74be90a70ec291",
+  "status": "complete"
+}

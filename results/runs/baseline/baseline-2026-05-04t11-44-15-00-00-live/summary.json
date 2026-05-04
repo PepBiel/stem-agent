@@ -1,0 +1,324 @@
+{
+  "schema_version": "2026-05-04",
+  "run_id": "baseline-2026-05-04t11-44-15-00-00-live",
+  "agent": "baseline",
+  "dry_run": false,
+  "started_at": "2026-05-04T11:44:15+00:00",
+  "finished_at": "2026-05-04T11:47:54+00:00",
+  "question_count": 8,
+  "artifact_root": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live",
+  "questions": [
+    {
+      "question_id": "DR-001",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-001.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-001.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-001.json",
+      "heuristic_score": 0.92,
+      "judge_score": 0.5417,
+      "final_score": 0.6741,
+      "runtime_seconds": 52.0,
+      "baseline_usage": {
+        "input_tokens": 12709,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 848,
+        "output_tokens_details": {
+          "reasoning_tokens": 282
+        },
+        "total_tokens": 13557
+      },
+      "judge_usage": {
+        "input_tokens": 3619,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1421,
+        "output_tokens_details": {
+          "reasoning_tokens": 95
+        },
+        "total_tokens": 5040
+      },
+      "summary": "The answer is directionally correct and uses relevant memory papers, but it only partially covers the benchmark's required aspects. It misses the key 'over-trusting previous agent outputs' failure mode and gives only shallow treatment of memory trade-offs and evaluation methods.",
+      "recommended_fix": "Add a dedicated section that explicitly covers each required aspect with concrete mechanisms and examples: context pollution, stale/irrelevant retrieval, over-trusting prior outputs, short-term vs long-term memory trade-offs, and specific evaluation methods/metrics used in memory benchmarks."
+    },
+    {
+      "question_id": "DR-002",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-002.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-002.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-002.json",
+      "heuristic_score": 0.8688,
+      "judge_score": 0.5,
+      "final_score": 0.6291,
+      "runtime_seconds": 8.0,
+      "baseline_usage": {
+        "input_tokens": 12929,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 780,
+        "output_tokens_details": {
+          "reasoning_tokens": 346
+        },
+        "total_tokens": 13709
+      },
+      "judge_usage": {
+        "input_tokens": 2972,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1098,
+        "output_tokens_details": {
+          "reasoning_tokens": 45
+        },
+        "total_tokens": 4070
+      },
+      "summary": "The answer correctly distinguishes ReAct from planner-executor at a high level, but it omits the required failure modes and gives only weak guidance on when each is preferable.",
+      "recommended_fix": "Add a direct comparison of failure modes and selection criteria, e.g. ReAct for rapidly changing tasks needing frequent adaptation, planner-executor for long-horizon or structured work where a stable decomposition helps, plus concrete risks of each."
+    },
+    {
+      "question_id": "DR-003",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-003.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-003.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-003.json",
+      "heuristic_score": 0.83,
+      "judge_score": 0.625,
+      "final_score": 0.6967,
+      "runtime_seconds": 9.0,
+      "baseline_usage": {
+        "input_tokens": 12831,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 959,
+        "output_tokens_details": {
+          "reasoning_tokens": 306
+        },
+        "total_tokens": 13790
+      },
+      "judge_usage": {
+        "input_tokens": 4065,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1482,
+        "output_tokens_details": {
+          "reasoning_tokens": 80
+        },
+        "total_tokens": 5547
+      },
+      "summary": "Good high-level overview of current tool-use evaluation approaches, with relevant benchmarks and surveys, but it misses the important cost/latency dimension and treats argument validity too indirectly.",
+      "recommended_fix": "Add a distinct section on efficiency evaluation—token cost, wall-clock latency, tool call count, and success-per-cost trade-offs—and explicitly separate argument validity from general tool-call correctness."
+    },
+    {
+      "question_id": "DR-004",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-004.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-004.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-004.json",
+      "heuristic_score": 0.8457,
+      "judge_score": 0.7083,
+      "final_score": 0.7564,
+      "runtime_seconds": 13.0,
+      "baseline_usage": {
+        "input_tokens": 16395,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 959,
+        "output_tokens_details": {
+          "reasoning_tokens": 448
+        },
+        "total_tokens": 17354
+      },
+      "judge_usage": {
+        "input_tokens": 3212,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1367,
+        "output_tokens_details": {
+          "reasoning_tokens": 138
+        },
+        "total_tokens": 4579
+      },
+      "summary": "A solid high-level explanation that distinguishes standard RAG from agentic RAG and covers major trade-offs, but it is lighter than ideal on explicit reflection/verification and leans on broad citations rather than tightly supported claims.",
+      "recommended_fix": "Add a clearer explanation of reflection/verification as an explicit agent loop step, and tighten evidence by citing the survey/technical paper for each specific trade-off and capability."
+    },
+    {
+      "question_id": "DR-005",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-005.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-005.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-005.json",
+      "heuristic_score": 0.9222,
+      "judge_score": 0.7083,
+      "final_score": 0.7832,
+      "runtime_seconds": 13.0,
+      "baseline_usage": {
+        "input_tokens": 17019,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 1250,
+        "output_tokens_details": {
+          "reasoning_tokens": 651
+        },
+        "total_tokens": 18269
+      },
+      "judge_usage": {
+        "input_tokens": 3569,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1242,
+        "output_tokens_details": {
+          "reasoning_tokens": 49
+        },
+        "total_tokens": 4811
+      },
+      "summary": "Accurate and well-sourced, with strong primary-paper citations, but it only partially addresses prompt/workflow optimization and gives a shallow treatment of the limits of self-improvement without external feedback.",
+      "recommended_fix": "Add a distinct section on prompt/workflow optimization (e.g., prompt chaining, rubric-based prompts, tool-use workflows) and explain concrete limits of purely self-improving loops without external feedback."
+    },
+    {
+      "question_id": "DR-006",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-006.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-006.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-006.json",
+      "heuristic_score": 0.7688,
+      "judge_score": 0.5,
+      "final_score": 0.5941,
+      "runtime_seconds": 11.0,
+      "baseline_usage": {
+        "input_tokens": 12880,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 750,
+        "output_tokens_details": {
+          "reasoning_tokens": 332
+        },
+        "total_tokens": 13630
+      },
+      "judge_usage": {
+        "input_tokens": 2757,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1275,
+        "output_tokens_details": {
+          "reasoning_tokens": 107
+        },
+        "total_tokens": 4032
+      },
+      "summary": "The answer is relevant and partly grounded, but it misses several required failure modes, especially consensus without correctness and evaluation difficulty, and only indirectly covers error propagation.",
+      "recommended_fix": "Explicitly address all five required aspects with a compact list or table, and tie each one to a source-backed explanation rather than a broad taxonomy."
+    },
+    {
+      "question_id": "DR-007",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-007.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-007.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-007.json",
+      "heuristic_score": 0.865,
+      "judge_score": 0.75,
+      "final_score": 0.7903,
+      "runtime_seconds": 11.0,
+      "baseline_usage": {
+        "input_tokens": 13060,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 1199,
+        "output_tokens_details": {
+          "reasoning_tokens": 592
+        },
+        "total_tokens": 14259
+      },
+      "judge_usage": {
+        "input_tokens": 3473,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1210,
+        "output_tokens_details": {
+          "reasoning_tokens": 106
+        },
+        "total_tokens": 4683
+      },
+      "summary": "A solid, practical answer that covers evidence checking, source quality, metadata, and unsupported claims, but it omits the key issue of conflicting sources and only lightly addresses exact citation granularity.",
+      "recommended_fix": "Add a concrete procedure for conflicting sources and make citation granularity explicit, e.g. subclaim-level checks, precedence rules for source hierarchy, and required escalation/reporting when sources disagree."
+    },
+    {
+      "question_id": "DR-008",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\traces\\DR-008.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\heuristic\\DR-008.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-44-15-00-00-live\\judge\\DR-008.json",
+      "heuristic_score": 0.7131,
+      "judge_score": 0.3333,
+      "final_score": 0.4662,
+      "runtime_seconds": 9.0,
+      "baseline_usage": {
+        "input_tokens": 16656,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 772,
+        "output_tokens_details": {
+          "reasoning_tokens": 330
+        },
+        "total_tokens": 17428
+      },
+      "judge_usage": {
+        "input_tokens": 2965,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1164,
+        "output_tokens_details": {
+          "reasoning_tokens": 12
+        },
+        "total_tokens": 4129
+      },
+      "summary": "The answer gives a reasonable high-level flexibility vs control framing, but it largely misses the required engineering dimensions: observability, cost, reproducibility, and failure recovery are not substantively addressed.",
+      "recommended_fix": "Explicitly compare autonomous vs workflow-based agents across all required aspects—especially observability, cost, reproducibility, and failure recovery—with concrete engineering implications and examples."
+    }
+  ],
+  "aggregate": {
+    "heuristic_score_avg": 0.8417,
+    "judge_score_avg": 0.5833,
+    "final_score_avg": 0.6738
+  },
+  "usage_totals": {
+    "baseline": {
+      "input_tokens": 114479,
+      "input_tokens_details": {
+        "cached_tokens": 33792
+      },
+      "output_tokens": 7517,
+      "output_tokens_details": {
+        "reasoning_tokens": 3287
+      },
+      "total_tokens": 121996
+    },
+    "judge": {
+      "input_tokens": 26632,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 10259,
+      "output_tokens_details": {
+        "reasoning_tokens": 632
+      },
+      "total_tokens": 36891
+    },
+    "combined": {
+      "input_tokens": 141111,
+      "input_tokens_details": {
+        "cached_tokens": 33792
+      },
+      "output_tokens": 17776,
+      "output_tokens_details": {
+        "reasoning_tokens": 3919
+      },
+      "total_tokens": 158887
+    }
+  }
+}

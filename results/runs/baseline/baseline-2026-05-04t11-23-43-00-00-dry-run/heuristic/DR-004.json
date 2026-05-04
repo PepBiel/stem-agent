@@ -1,0 +1,92 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\baseline\\baseline-2026-05-04t11-23-43-00-00-dry-run\\traces\\DR-004.json",
+  "run_type": "baseline",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": true,
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "metrics": {
+    "coverage_score": 0.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.0,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 0.5
+  },
+  "overall_score": 0.15,
+  "failure_tags": [
+    "missing_required_aspect",
+    "repetitive_answer",
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 0.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "covered": false,
+        "matched_terms": [
+          "standard"
+        ],
+        "expected_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ]
+      },
+      {
+        "aspect": "tool use",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "tool"
+        ]
+      },
+      {
+        "aspect": "reflection or verification",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reflection",
+          "verification"
+        ]
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "This is a dry-run baseline response for: What is agentic RAG and how does it differ from standard RAG?"
+    ],
+    "unsupported_claim_lines": [
+      "This is a dry-run baseline response for: What is agentic RAG and how does it differ from standard RAG?"
+    ],
+    "sources": [],
+    "citation_count": 0,
+    "unique_citation_count": 0
+  }
+}

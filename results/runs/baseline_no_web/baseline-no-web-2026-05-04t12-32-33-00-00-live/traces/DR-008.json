@@ -1,0 +1,40 @@
+{
+  "run_type": "baseline",
+  "agent_type": "baseline_no_web",
+  "started_at": "2026-05-04T12:33:54+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\baseline_no_web.yaml",
+  "agent_id": "baseline_model_only_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "answer_from_model_knowledge",
+    "state_uncertainty"
+  ],
+  "tools_allowed": [],
+  "web_search_enabled": false,
+  "limits": {
+    "max_search_queries": 0,
+    "max_sources": 0,
+    "max_model_calls": 1,
+    "max_runtime_seconds": 120
+  },
+  "finished_at": "2026-05-04T12:33:57+00:00",
+  "answer": "## Answer\n\nAutonomous agents and workflow-based agents differ mainly in **who controls the next step**.\n\n### Autonomous agents\nThese decide their own actions dynamically based on goals, observations, and feedback.\n\n**Pros**\n- **Flexible**: can handle novel or ambiguous situations.\n- **Adaptive**: can recover from unexpected outcomes and change plans.\n- **Less upfront orchestration**: useful when the task path is hard to predict.\n\n**Cons**\n- **Less predictable**: behavior can vary run to run.\n- **Harder to test and debug**: more branching, more emergent failure modes.\n- **Higher cost/latency risk**: may take extra steps, loop, or over-explore.\n- **Harder to govern**: more difficult to enforce strict business rules and safety constraints.\n\n### Workflow-based agents\nThese follow a predefined sequence, graph, or set of rules. The system controls the flow.\n\n**Pros**\n- **Predictable and testable**: easier to validate, monitor, and reproduce.\n- **More efficient**: fewer unnecessary steps; lower cost and latency.\n- **Easier compliance and auditing**: clear control points and approvals.\n- **Better for stable processes**: ideal when the task structure is known.\n\n**Cons**\n- **Rigid**: struggles with unforeseen cases or changing conditions.\n- **More engineering upfront**: requires designing the flow and edge-case handling.\n- **Can break on novelty**: if the process doesn’t cover a scenario, it may fail or degrade.\n\n### Practical trade-off\n- Choose **autonomous agents** when the problem is open-ended, uncertain, or requires exploration.\n- Choose **workflow-based agents** when correctness, cost, latency, and governance matter more than flexibility.\n- Many real systems use a **hybrid**: workflow for guardrails and critical steps, autonomy for local reasoning or exception handling.\n\n## Sources\n\nNo external sources used.\n\n## Limitations\n\nThis is a high-level summary based on general model knowledge, not a formal benchmark comparison. Exact trade-offs depend on the domain, tool access, failure tolerance, and how much autonomy is allowed.",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {
+    "input_tokens": 115,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 447,
+    "output_tokens_details": {
+      "reasoning_tokens": 8
+    },
+    "total_tokens": 562
+  },
+  "response_id": "resp_0887c06fde22a9660069f89242c07881958d70496ab6d6a1e8",
+  "status": "complete"
+}

@@ -1,0 +1,273 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:44:15+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:45:07+00:00",
+  "answer": "## Answer\n\nThe main failure modes of memory in LLM agents are usually:\n\n1. **Poor retrieval** — the agent stores something but cannot later find the right item, or retrieves the wrong chunk/fact. This is often the dominant bottleneck in practice. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))\n\n2. **False or stale memory** — the agent recalls outdated, contradictory, or hallucinated information instead of the current truth, so “remembering wrong” becomes a trust problem. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))\n\n3. **Weak consolidation / test-time learning** — the agent fails to turn repeated experience into better future behavior, so memory stays as raw logs rather than usable knowledge. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))\n\n4. **Poor long-range understanding** — even if facts are present, the agent cannot connect them across many turns or sessions to infer latent constraints or user intent. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))\n\n5. **Bad forgetting / overwrite control** — the agent either forgets useful information too early or fails to selectively forget obsolete information, leading to clutter, drift, or conflicts. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))\n\nIn short: memory failures are less about “running out of context” and more about **write, store, retrieve, update, and forget** errors across the memory lifecycle. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))\n\n## Sources\n\n- Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers. ([arxiv.org](https://arxiv.org/abs/2603.07670?utm_source=openai))\n- Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions. ([arxiv.org](https://arxiv.org/abs/2507.05257?utm_source=openai))\n- From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents. ([arxiv.org](https://arxiv.org/abs/2604.20006?utm_source=openai))\n- Locomo-Plus: Beyond-Factual Cognitive Memory Evaluation Framework for LLM Agents. ([arxiv.org](https://arxiv.org/abs/2602.10715?utm_source=openai))\n\n## Limitations\n\nThis is a high-level synthesis from recent survey/benchmark papers, not a formal taxonomy accepted by all authors. Different systems split “memory” differently, so some papers emphasize retrieval errors while others emphasize forgetting, consolidation, or stale-state handling.",
+  "citations": [
+    {
+      "end_index": 312,
+      "start_index": 247,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257?utm_source=openai"
+    },
+    {
+      "end_index": 559,
+      "start_index": 494,
+      "title": "Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670?utm_source=openai"
+    },
+    {
+      "end_index": 806,
+      "start_index": 741,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257?utm_source=openai"
+    },
+    {
+      "end_index": 1043,
+      "start_index": 978,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257?utm_source=openai"
+    },
+    {
+      "end_index": 1302,
+      "start_index": 1237,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257?utm_source=openai"
+    },
+    {
+      "end_index": 1533,
+      "start_index": 1468,
+      "title": "Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670?utm_source=openai"
+    },
+    {
+      "end_index": 1696,
+      "start_index": 1631,
+      "title": "Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670?utm_source=openai"
+    },
+    {
+      "end_index": 1837,
+      "start_index": 1772,
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.05257?utm_source=openai"
+    },
+    {
+      "end_index": 1987,
+      "start_index": 1922,
+      "title": "From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.20006?utm_source=openai"
+    },
+    {
+      "end_index": 2137,
+      "start_index": 2072,
+      "title": "Locomo-Plus: Beyond-Factual Cognitive Memory Evaluation Framework for LLM Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.10715?utm_source=openai"
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0410fccbd0010baf0069f886a742a08194b08e2f2e1026bab9",
+      "action": {
+        "query": "LLM agents memory failure modes survey paper episodic semantic memory retrieval forgetting hallucination official",
+        "type": "search",
+        "queries": [
+          "LLM agents memory failure modes survey paper episodic semantic memory retrieval forgetting hallucination official",
+          "memory in LLM agents failure modes retrieval forgetting context window paper arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.19935"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.29194"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.16334"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.01231"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.09491"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.00200"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0410fccbd0010baf0069f886b0e6888194af7a615831d58b3c",
+      "action": {
+        "query": "LoCoMo benchmark memory agent false memory retrieval forgetting arxiv",
+        "type": "search",
+        "queries": [
+          "LoCoMo benchmark memory agent false memory retrieval forgetting arxiv",
+          "memory agent benchmark selective forgetting accurate retrieval long-range understanding arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.11563"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20006"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.10715"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2402.17753v1"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2506.06326"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.04514"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.10715"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/locomo"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/lancedb/locomo-eval"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://memvid.com/benchmarks"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2603.02473"
+          },
+          {
+            "type": "url",
+            "url": "https://supermemory.ai/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://context7.com/snap-research/locomo"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1s1jlnd/serious_flaws_in_two_popular_ai_memory_benchmarks/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1s1brq3/wmb100k_open_source_benchmark_for_ai_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=DT7JyQC3MR"
+          },
+          {
+            "type": "url",
+            "url": "https://cseweb.ucsd.edu/~jmcauley/reviews/iclr26c.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1slv3c3/context_is_not_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r8rj1e/remembering_wrong_is_worse_than_forgetting_wrong/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1seunbr/d_mempalace_claims_100_on_locomo_and_a_perfect/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1rr9xlk/how_are_you_all_using_benchmarks/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 12709,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 848,
+    "output_tokens_details": {
+      "reasoning_tokens": 282
+    },
+    "total_tokens": 13557
+  },
+  "response_id": "resp_0410fccbd0010baf0069f886a1c8fc81949cb714884ff14d7e",
+  "status": "complete"
+}

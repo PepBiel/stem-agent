@@ -1,0 +1,28 @@
+{
+  "run_type": "baseline",
+  "started_at": "2026-05-04T11:23:43+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\base_agent.yaml",
+  "agent_id": "baseline_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": true,
+  "workflow": [
+    "receive_question",
+    "generate_search_queries",
+    "collect_top_sources",
+    "read_sources",
+    "summarize_with_citations"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 3,
+    "max_runtime_seconds": 180
+  },
+  "finished_at": "2026-05-04T11:23:43+00:00",
+  "answer": "Answer\nThis is a dry-run baseline response for: How do ReAct-style agents differ from planner-executor agents?\n\nSources\n- No external sources were fetched because --dry-run was enabled.\n\nLimitations\n- This output only validates configuration loading, CLI wiring, and trace\n  creation. It is not an evaluated research answer.\n",
+  "citations": [],
+  "web_search_calls": [],
+  "usage": {},
+  "status": "dry_run_complete"
+}
