@@ -29,7 +29,13 @@ self-modifying code.
 
 ## Planned Comparison
 
-Baseline:
+Model-only baseline:
+
+```text
+question -> answer from model knowledge -> state uncertainty
+```
+
+Web-search baseline:
 
 ```text
 question -> search/read top sources -> summarize
@@ -42,9 +48,11 @@ question -> decompose -> search plan -> source triage -> evidence extraction
          -> coverage check -> contradiction check -> synthesis -> citation audit
 ```
 
-The final submission will compare both agents using a fixed set of technical
-research questions and measurable signals such as coverage, citation support,
-source quality, unsupported claims, latency, and cost.
+The final submission will compare model-only, web-search, and evolved-agent
+runs using a fixed set of technical research questions and measurable signals
+such as coverage, citation support, source quality, unsupported claims, latency,
+and cost. This makes the value of retrieval separate from the value of the
+specialized agent workflow.
 
 ## Repository Layout
 
@@ -99,9 +107,10 @@ need.
 
 ## Current Status
 
-The project currently has a runnable baseline, saved traces, a transparent
-heuristic scorer, and a stricter model-assisted judge. The next implementation
-step is the stem agent that proposes and validates evolved genomes.
+The project currently has model-only and web-search baseline variants, saved
+traces, a transparent heuristic scorer, and a stricter model-assisted judge. The
+next implementation step is the stem agent that proposes and validates evolved
+genomes.
 
 Smoke check:
 
@@ -122,8 +131,15 @@ Run the baseline live:
 python -m stem_agent run-baseline --question-id DR-001
 ```
 
-Live runs use the OpenAI Responses API with the `web_search` tool, so the API
-key must have permission for Responses writes.
+By default this uses `configs/base_agent.yaml`, which enables the OpenAI
+Responses API `web_search` tool. To run the model-only baseline for one
+question, pass the no-web config explicitly:
+
+```bash
+python -m stem_agent run-baseline --question-id DR-001 --config configs/baseline_no_web.yaml
+```
+
+Live web-search runs require an API key with permission for Responses writes.
 
 Each run writes a JSON trace under `results/traces/`.
 
@@ -152,15 +168,21 @@ well-cited.
 Run a full evaluation batch:
 
 ```bash
-python -m stem_agent run-eval-batch --agent baseline --dry-run
+python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
+python -m stem_agent run-eval-batch --agent baseline_web --dry-run
 ```
 
 Live batches require explicit confirmation because they make model calls for
 each answer and each judge evaluation:
 
 ```bash
-python -m stem_agent run-eval-batch --agent baseline --confirm-live
+python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
+python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
 ```
+
+`baseline_no_web` makes one answer call per question plus one judge call per
+question. `baseline_web` makes one answer call with `web_search` per question
+plus one judge call per question. The heuristic scorer is local in both cases.
 
 Batch artifacts are written under:
 

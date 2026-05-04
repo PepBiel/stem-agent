@@ -8,6 +8,7 @@ from stem_agent.core.paths import PROJECT_ROOT
 from stem_agent.core.settings import load_settings
 from stem_agent.evaluation.batch import (
     BatchInput,
+    default_config_path,
     default_run_id,
     run_evaluation_batch,
 )
@@ -137,9 +138,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     batch_parser.add_argument(
         "--agent",
-        default="baseline",
-        choices=["baseline"],
-        help="Agent to evaluate. Only baseline is implemented now.",
+        default="baseline_web",
+        choices=["baseline_no_web", "baseline_web", "baseline"],
+        help=(
+            "Agent variant to evaluate. 'baseline' is kept as an alias for "
+            "baseline_web."
+        ),
     )
     batch_parser.add_argument(
         "--run-id",
@@ -157,8 +161,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     batch_parser.add_argument(
         "--config",
-        default="configs/base_agent.yaml",
-        help="Path to the baseline config.",
+        help="Optional path to an agent config. Defaults depend on --agent.",
     )
     batch_parser.add_argument(
         "--output-root",
@@ -192,6 +195,7 @@ def print_status() -> None:
     expected_paths = [
         "configs",
         "configs/base_agent.yaml",
+        "configs/baseline_no_web.yaml",
         "docs",
         "docs/evaluation_plan.md",
         "evals",
@@ -337,6 +341,11 @@ def run_eval_batch_command(args: argparse.Namespace) -> None:
         )
 
     run_id = args.run_id or default_run_id(args.agent, args.dry_run)
+    config_path = (
+        resolve_cli_path(args.config)
+        if args.config
+        else PROJECT_ROOT / default_config_path(args.agent)
+    )
     summary = run_evaluation_batch(
         BatchInput(
             agent=args.agent,
@@ -344,7 +353,7 @@ def run_eval_batch_command(args: argparse.Namespace) -> None:
             output_root=resolve_cli_path(args.output_root),
             questions_path=resolve_cli_path(args.questions),
             rubric_path=resolve_cli_path(args.rubric),
-            config_path=resolve_cli_path(args.config),
+            config_path=config_path,
             settings=settings,
             judge_model=judge_model,
             dry_run=args.dry_run,

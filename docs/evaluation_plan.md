@@ -21,9 +21,21 @@ has:
 The required aspects make coverage more measurable than a generic "good answer"
 judgment.
 
-## Baseline
+## Baselines
 
-The baseline is defined in `configs/base_agent.yaml`.
+The evaluation uses two baseline variants before the evolved agent is
+implemented.
+
+The model-only baseline is defined in `configs/baseline_no_web.yaml`:
+
+```text
+question -> answer from model knowledge -> state uncertainty
+```
+
+It disables external tools. This isolates how much the model can answer without
+fresh retrieval.
+
+The web-search baseline is defined in `configs/base_agent.yaml`:
 
 It is intentionally simple:
 
@@ -42,6 +54,12 @@ Limits are strict:
 
 This gives the evolved agent room to improve through workflow, memory, source
 triage, evidence extraction, and validation.
+
+The official comparison should report all three stages separately:
+
+- `baseline_no_web`: model prior knowledge only
+- `baseline_web`: simple retrieval and summarization
+- evolved agent: specialized deep research workflow
 
 ## Metrics
 
@@ -137,7 +155,8 @@ That limitation should be disclosed in the final write-up.
 Evaluation runs should be stored as immutable-ish batches:
 
 ```bash
-python -m stem_agent run-eval-batch --agent baseline --confirm-live
+python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
+python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
 ```
 
 The command runs every fixed evaluation question through the selected agent,
@@ -159,25 +178,29 @@ The summary records:
 
 - per-question `heuristic_score`, `judge_score`, and `final_score`
 - runtime where available
-- baseline token usage
+- agent token usage
 - judge token usage
 - combined token usage
 
 This gives the final write-up both quality and efficiency metrics.
+
+The command keeps `baseline` as an alias for `baseline_web` for compatibility,
+but new experiment logs should use the explicit `baseline_no_web` and
+`baseline_web` names.
 
 ## Before/After Table
 
 The final comparison should use this shape:
 
 ```text
-Metric                         Baseline      Evolved      Delta
----------------------------------------------------------------
+Metric                         No web        Web          Evolved
+-----------------------------------------------------------------
 Coverage score                 TBD           TBD          TBD
 Citation support score         TBD           TBD          TBD
 Source quality score           TBD           TBD          TBD
 Unsupported claims             TBD           TBD          TBD
 Contradiction handling score    TBD           TBD          TBD
-Human rubric average           TBD           TBD          TBD
+Judge rubric average           TBD           TBD          TBD
 Average runtime seconds         TBD           TBD          TBD
 Estimated cost                  TBD           TBD          TBD
 ```

@@ -191,3 +191,49 @@ Observed smoke result:
   empty usage totals
 - a non-dry-run batch without `--confirm-live` failed before making API calls
 - no smoke batch artifacts were kept in `results/`
+
+## 2026-05-04: Baseline Ablation Split
+
+Hypothesis:
+
+The final comparison will be more credible if it separates the value of model
+prior knowledge from the value of web retrieval before introducing the evolved
+agent.
+
+Planned smoke commands:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run --limit 2
+python -m stem_agent run-eval-batch --agent baseline_web --dry-run --limit 2
+```
+
+Planned live commands:
+
+```bash
+python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
+python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
+```
+
+Expected artifacts:
+
+```text
+results/runs/baseline_no_web/<run_id>/
+results/runs/baseline_web/<run_id>/
+```
+
+Decision criteria:
+
+Use both baselines in the final table. If the evolved agent only beats
+`baseline_no_web` but not `baseline_web`, then the project has mostly shown the
+value of retrieval, not specialization.
+
+Observed smoke result:
+
+- both dry-run commands generated the expected folder structure
+- `baseline_no_web` traces recorded `tools_allowed: []` and
+  `web_search_enabled: false`
+- `baseline_web` traces recorded `web_search_enabled: true`
+- a mismatched `--agent baseline_no_web --config configs/base_agent.yaml`
+  command failed before writing a mislabeled batch
+- a non-dry-run batch without `--confirm-live` failed before making API calls
+- no smoke batch artifacts were kept in `results/`

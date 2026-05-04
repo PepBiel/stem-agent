@@ -25,10 +25,39 @@ class BaselineRunResult:
     dry_run: bool
 
 
+def allowed_tools(config: dict[str, Any]) -> list[str]:
+    tools = config.get("tools", {})
+    allowed = tools.get("allowed", [])
+    if not isinstance(allowed, list):
+        return []
+    return [str(tool) for tool in allowed]
+
+
+def is_web_search_enabled(config: dict[str, Any]) -> bool:
+    return "web_search" in allowed_tools(config)
+
+
 def build_baseline_prompt(question: str, config: dict[str, Any]) -> str:
     limits = config.get("limits", {})
     max_sources = limits.get("max_sources", 4)
     max_search_queries = limits.get("max_search_queries", 2)
+
+    if not is_web_search_enabled(config):
+        return f"""You are the model-only baseline research agent for a controlled evaluation.
+
+Answer the technical research question from your existing model knowledge only.
+Do not browse, do not use external tools, and do not invent citations.
+
+Constraints:
+- Use no external sources.
+- Be explicit about uncertainty and possible knowledge gaps.
+- Keep the answer concise and useful for an engineer.
+- Include three sections: Answer, Sources, Limitations.
+- In Sources, write exactly: No external sources used.
+
+Question:
+{question}
+"""
 
     return f"""You are the baseline research agent for a controlled evaluation.
 
@@ -48,12 +77,17 @@ Question:
 """
 
 
-def build_dry_run_answer(question: str) -> str:
+def build_dry_run_answer(question: str, web_search_enabled: bool) -> str:
+    source_note = (
+        "No external sources were fetched because --dry-run was enabled."
+        if web_search_enabled
+        else "No external sources used."
+    )
     return f"""Answer
 This is a dry-run baseline response for: {question}
 
 Sources
-- No external sources were fetched because --dry-run was enabled.
+- {source_note}
 
 Limitations
 - This output only validates configuration loading, CLI wiring, and trace
@@ -71,23 +105,28 @@ def run_baseline(
 ) -> BaselineRunResult:
     config = load_yaml(config_path)
     model = resolve_model(config, settings.openai_model)
+    web_search_enabled = is_web_search_enabled(config)
     prompt = build_baseline_prompt(question, config)
+    agent_config = config.get("agent", {})
 
     started_at = utc_now_iso()
     trace: dict[str, Any] = {
         "run_type": "baseline",
+        "agent_type": agent_config.get("type", "baseline"),
         "started_at": started_at,
         "question": question,
         "config_path": str(config_path),
-        "agent_id": config.get("agent", {}).get("id"),
+        "agent_id": agent_config.get("id"),
         "model": model,
         "dry_run": dry_run,
         "workflow": config.get("workflow", []),
+        "tools_allowed": allowed_tools(config),
+        "web_search_enabled": web_search_enabled,
         "limits": config.get("limits", {}),
     }
 
     if dry_run:
-        answer = build_dry_run_answer(question)
+        answer = build_dry_run_answer(question, web_search_enabled)
         trace.update(
             {
                 "finished_at": utc_now_iso(),
@@ -110,16 +149,22 @@ def run_baseline(
     client = OpenAI(api_key=settings.openai_api_key)
     model_config = config.get("model", {})
     reasoning_effort = model_config.get("reasoning_effort", "low")
+    request_args: dict[str, Any] = {
+        "model": model,
+        "reasoning": {"effort": reasoning_effort},
+        "input": prompt,
+    }
+    if web_search_enabled:
+        request_args.update(
+            {
+                "tools": [{"type": "web_search"}],
+                "tool_choice": "auto",
+                "include": ["web_search_call.action.sources"],
+            }
+        )
 
     try:
-        response = client.responses.create(
-            model=model,
-            reasoning={"effort": reasoning_effort},
-            tools=[{"type": "web_search"}],
-            tool_choice="auto",
-            include=["web_search_call.action.sources"],
-            input=prompt,
-        )
+        response = client.responses.create(**request_args)
     except AuthenticationError as exc:
         trace.update(
             {

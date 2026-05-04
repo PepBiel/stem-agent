@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from stem_agent.core.config import load_yaml
 from stem_agent.core.settings import Settings
 from stem_agent.core.tracing import safe_slug, utc_now_iso
 from stem_agent.evaluation.judge import JudgeInput, judge_trace
@@ -15,6 +16,17 @@ from stem_agent.evaluation.scoring import (
     write_evaluation,
 )
 from stem_agent.workflows.baseline import run_baseline
+
+SUPPORTED_BASELINE_AGENTS = {
+    "baseline": "baseline_web",
+    "baseline_web": "baseline_web",
+    "baseline_no_web": "baseline_no_web",
+}
+
+DEFAULT_CONFIG_PATHS = {
+    "baseline_web": Path("configs/base_agent.yaml"),
+    "baseline_no_web": Path("configs/baseline_no_web.yaml"),
+}
 
 
 @dataclass(frozen=True)
@@ -29,6 +41,34 @@ class BatchInput:
     judge_model: str
     dry_run: bool
     limit: int | None
+
+
+def normalize_agent(agent: str) -> str:
+    try:
+        return SUPPORTED_BASELINE_AGENTS[agent]
+    except KeyError as exc:
+        known_agents = ", ".join(sorted(SUPPORTED_BASELINE_AGENTS))
+        raise ValueError(f"Unknown agent {agent!r}. Known agents: {known_agents}") from exc
+
+
+def default_config_path(agent: str) -> Path:
+    normalized_agent = normalize_agent(agent)
+    return DEFAULT_CONFIG_PATHS[normalized_agent]
+
+
+def validate_config_agent(agent: str, config_path: Path) -> None:
+    config = load_yaml(config_path)
+    config_agent_type = config.get("agent", {}).get("type")
+    if not config_agent_type:
+        raise ValueError(f"Missing agent.type in config: {config_path}")
+
+    normalized_config_agent = normalize_agent(str(config_agent_type))
+    if normalized_config_agent != agent:
+        raise ValueError(
+            "Batch agent/config mismatch: "
+            f"--agent resolves to {agent!r}, but {config_path} declares "
+            f"{config_agent_type!r}."
+        )
 
 
 def usage_sum(usages: list[dict[str, Any]]) -> dict[str, Any]:
@@ -112,10 +152,10 @@ def average(values: list[float]) -> float:
 
 
 def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
-    if batch_input.agent != "baseline":
-        raise ValueError("Only the baseline agent is implemented for batch runs.")
+    agent = normalize_agent(batch_input.agent)
+    validate_config_agent(agent, batch_input.config_path)
 
-    root = run_dir(batch_input.output_root, batch_input.agent, batch_input.run_id)
+    root = run_dir(batch_input.output_root, agent, batch_input.run_id)
     traces_dir = root / "traces"
     heuristic_dir = root / "heuristic"
     judge_dir = root / "judge"
@@ -125,7 +165,7 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
     questions = load_questions(batch_input.questions_path, batch_input.limit)
     started_at = utc_now_iso()
     question_summaries: list[dict[str, Any]] = []
-    baseline_usages: list[dict[str, Any]] = []
+    agent_usages: list[dict[str, Any]] = []
     judge_usages: list[dict[str, Any]] = []
 
     for question in questions:
@@ -139,7 +179,7 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
         )
         trace_path = stable_trace_path(result.trace_path, traces_dir, question_id)
         trace = load_json(trace_path)
-        baseline_usages.append(trace.get("usage", {}))
+        agent_usages.append(trace.get("usage", {}))
 
         heuristic = evaluate_trace(
             EvaluationInput(
@@ -177,7 +217,7 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
                 "judge_score": float(judge["judge_score"]),
                 "final_score": float(judge["final_score"]),
                 "runtime_seconds": heuristic.get("runtime_seconds"),
-                "baseline_usage": trace.get("usage", {}),
+                "agent_usage": trace.get("usage", {}),
                 "judge_usage": judge.get("judge_usage", {}),
                 "summary": judge["judge_evaluation"].get("summary", ""),
                 "recommended_fix": judge["judge_evaluation"].get(
@@ -190,7 +230,9 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
     summary = {
         "schema_version": "2026-05-04",
         "run_id": batch_input.run_id,
-        "agent": batch_input.agent,
+        "agent": agent,
+        "requested_agent": batch_input.agent,
+        "config_path": str(batch_input.config_path),
         "dry_run": batch_input.dry_run,
         "started_at": started_at,
         "finished_at": utc_now_iso(),
@@ -209,9 +251,9 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
             ),
         },
         "usage_totals": {
-            "baseline": usage_sum(baseline_usages),
+            "agent": usage_sum(agent_usages),
             "judge": usage_sum(judge_usages),
-            "combined": usage_sum([*baseline_usages, *judge_usages]),
+            "combined": usage_sum([*agent_usages, *judge_usages]),
         },
     }
 
@@ -224,4 +266,4 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
 
 def default_run_id(agent: str, dry_run: bool) -> str:
     suffix = "dry-run" if dry_run else "live"
-    return f"{safe_slug(agent)}-{safe_slug(utc_now_iso())}-{suffix}"
+    return f"{safe_slug(normalize_agent(agent))}-{safe_slug(utc_now_iso())}-{suffix}"

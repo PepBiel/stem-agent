@@ -75,3 +75,19 @@ Rationale:
 - lets the write-up cite exact run IDs
 - captures token usage and runtime alongside quality metrics
 - supports future comparison between baseline and evolved agents
+
+## 2026-05-04: Separate Model-Only And Web-Search Baselines
+
+The first baseline with web search is useful, but it hides two effects: the
+base model's prior knowledge and the value of fresh retrieval. The evaluation
+therefore uses two explicit baseline variants:
+
+- `baseline_no_web`: one model answer call, no external tools
+- `baseline_web`: one answer call with the `web_search` tool
+
+Rationale:
+
+- gives the final write-up a stronger ablation story
+- prevents the evolved agent from being compared only against a vague baseline
+- makes cost and token usage easier to attribute
+- shows whether retrieval alone explains most of the improvement

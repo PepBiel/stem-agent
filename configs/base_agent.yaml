@@ -1,6 +1,6 @@
 agent:
   id: baseline_research_agent
-  type: baseline
+  type: baseline_web
   domain: technical_deep_research_llm_agents
   description: >
     Minimal comparison agent for the JetBrains stem-agent task. It answers a

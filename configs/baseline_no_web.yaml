@@ -1,0 +1,52 @@
+agent:
+  id: baseline_model_only_agent
+  type: baseline_no_web
+  domain: technical_deep_research_llm_agents
+  description: >
+    Model-only comparison agent for the JetBrains stem-agent task. It answers a
+    technical research question from the model's existing knowledge without
+    external browsing or source retrieval.
+
+model:
+  provider: openai
+  env_var: OPENAI_MODEL
+  recommended_default: gpt-5.4-mini
+  reasoning_effort: low
+
+workflow:
+  - receive_question
+  - answer_from_model_knowledge
+  - state_uncertainty
+
+tools:
+  allowed: []
+  forbidden:
+    - web_search
+    - fetch_url
+    - arbitrary_code_execution
+    - source_modification
+    - unbounded_web_browsing
+
+limits:
+  max_search_queries: 0
+  max_sources: 0
+  max_model_calls: 1
+  max_runtime_seconds: 120
+
+memory:
+  policy: none
+  rationale: >
+    This ablation should isolate the value of external retrieval, so it should
+    not use persistent memory or previously collected evidence.
+
+output_contract:
+  required_sections:
+    - answer
+    - sources
+    - limitations
+  citation_style: none
+  unsupported_claim_policy: penalize
+
+evaluation:
+  question_set: evals/questions.json
+  rubric: evals/rubric.yaml
