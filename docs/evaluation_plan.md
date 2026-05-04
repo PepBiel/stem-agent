@@ -95,6 +95,43 @@ first signal and expose detailed diagnostics. The final comparison should still
 include manual or model-assisted review for factual accuracy and citation
 correctness.
 
+## Model-Assisted Judge V1
+
+The v0 scorer overestimated a baseline answer because it checked citation
+presence and source domains, not whether citations actually supported the
+answer. The v1 judge adds a stricter semantic layer:
+
+```bash
+python -m stem_agent judge-trace --trace results/traces/<trace>.json
+```
+
+It asks a model to grade the saved answer with the fixed rubric:
+
+- factual accuracy
+- substantive coverage of each required aspect
+- evidence and citation quality
+- uncertainty handling
+- usefulness for an engineer
+- conciseness and structure
+
+It also asks for:
+
+- per-aspect coverage audit
+- per-claim citation audit
+- per-source quality audit
+- failure tags
+- a recommended fix
+
+Official before/after reporting should separate:
+
+- `heuristic_score`: cheap reproducible signal
+- `judge_score`: stricter model-assisted rubric score
+- `final_score`: weighted combination, currently 35% heuristic and 65% judge
+
+The judge is still not perfect. It does not fetch every cited source itself, so
+claim-level support remains an estimate from answer text and citation metadata.
+That limitation should be disclosed in the final write-up.
+
 ## Before/After Table
 
 The final comparison should use this shape:

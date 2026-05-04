@@ -90,6 +90,7 @@ Recommended starting model:
 
 ```bash
 OPENAI_MODEL=gpt-5.4-mini
+OPENAI_EVAL_MODEL=gpt-5.4-mini
 ```
 
 This keeps early experiments cheaper and faster. A stronger model can be used
@@ -98,8 +99,9 @@ need.
 
 ## Current Status
 
-Step 2 defines the baseline agent and the fixed evaluation shape before adding
-more complex evolution logic.
+The project currently has a runnable baseline, saved traces, a transparent
+heuristic scorer, and a stricter model-assisted judge. The next implementation
+step is the stem agent that proposes and validates evolved genomes.
 
 Smoke check:
 
@@ -135,3 +137,14 @@ The automatic scorer is intentionally transparent. It estimates coverage,
 citation support, source quality, unsupported claims, uncertainty handling, and
 redundancy from the saved trace. Later evaluations will combine this with
 manual or model-assisted review for the final before/after comparison.
+
+Run the stricter model-assisted judge:
+
+```bash
+python -m stem_agent judge-trace --trace results/traces/<trace>.json
+```
+
+This second layer grades factual accuracy, real coverage, evidence quality,
+uncertainty handling, engineer usefulness, and structure using the fixed rubric.
+It exists because the heuristic scorer can overestimate answers that merely look
+well-cited.

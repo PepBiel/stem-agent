@@ -9,6 +9,7 @@ from pathlib import Path
 class Settings:
     openai_api_key: str | None
     openai_model: str | None
+    openai_eval_model: str | None
 
 
 def load_dotenv(path: Path) -> None:
@@ -31,4 +32,5 @@ def load_settings(project_root: Path) -> Settings:
     return Settings(
         openai_api_key=os.getenv("OPENAI_API_KEY") or None,
         openai_model=os.getenv("OPENAI_MODEL") or None,
+        openai_eval_model=os.getenv("OPENAI_EVAL_MODEL") or None,
     )

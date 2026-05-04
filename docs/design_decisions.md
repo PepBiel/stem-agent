@@ -44,3 +44,21 @@ Rationale:
 - prevents longer answers from winning by default
 - makes failures useful for genome evolution
 - gives the final write-up a stronger before/after story
+
+## 2026-05-04: Use A Two-Layer Evaluator
+
+The first heuristic scorer overestimated a baseline answer because it rewarded
+surface signals such as citation presence and reputable domains. The official
+comparison should therefore use two separate signals:
+
+- a cheap heuristic score for transparent diagnostics
+- a model-assisted judge score for semantic coverage, evidence quality, and
+  usefulness
+
+Rationale:
+
+- keeps fast automatic checks available during development
+- makes evaluator optimism visible instead of hidden
+- allows the final write-up to discuss a real evaluation failure and correction
+- reduces the chance that the evolved agent wins by formatting answers to match
+  shallow heuristics

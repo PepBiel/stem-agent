@@ -11,6 +11,7 @@ from stem_agent.evaluation.scoring import (
     evaluate_trace,
     write_evaluation,
 )
+from stem_agent.evaluation.judge import JudgeInput, judge_trace
 from stem_agent.workflows.baseline import run_baseline
 
 
@@ -86,6 +87,43 @@ def build_parser() -> argparse.ArgumentParser:
     score_parser.add_argument(
         "--output",
         help="Optional path where the score JSON should be written.",
+    )
+
+    judge_parser = subparsers.add_parser(
+        "judge-trace",
+        help="Run a stricter model-assisted evaluation for one trace.",
+    )
+    judge_parser.add_argument(
+        "--trace",
+        required=True,
+        help="Path to a trace JSON file.",
+    )
+    judge_parser.add_argument(
+        "--question-id",
+        help="Question ID from evals/questions.json. Inferred when omitted.",
+    )
+    judge_parser.add_argument(
+        "--questions",
+        default="evals/questions.json",
+        help="Path to the fixed question set.",
+    )
+    judge_parser.add_argument(
+        "--rubric",
+        default="evals/rubric.yaml",
+        help="Path to the scoring rubric.",
+    )
+    judge_parser.add_argument(
+        "--model",
+        help="Judge model. Defaults to OPENAI_EVAL_MODEL, then OPENAI_MODEL.",
+    )
+    judge_parser.add_argument(
+        "--output",
+        help="Optional path where the judge JSON should be written.",
+    )
+    judge_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate judge wiring without calling the OpenAI API.",
     )
 
     return parser
@@ -191,6 +229,38 @@ def score_trace_command(args: argparse.Namespace) -> None:
     print(f"Failure tags: {', '.join(evaluation['failure_tags']) or 'none'}")
 
 
+def judge_trace_command(args: argparse.Namespace) -> None:
+    settings = load_settings(PROJECT_ROOT)
+    judge_model = args.model or settings.openai_eval_model or settings.openai_model
+    if not judge_model:
+        raise RuntimeError(
+            "A judge model is required. Set OPENAI_EVAL_MODEL or pass --model."
+        )
+
+    evaluation = judge_trace(
+        JudgeInput(
+            trace_path=resolve_cli_path(args.trace),
+            questions_path=resolve_cli_path(args.questions),
+            rubric_path=resolve_cli_path(args.rubric),
+            question_id=args.question_id,
+            output_path=resolve_cli_path(args.output) if args.output else None,
+            settings=settings,
+            judge_model=judge_model,
+            dry_run=args.dry_run,
+        )
+    )
+
+    judge = evaluation["judge_evaluation"]
+    print("Model-assisted trace evaluation")
+    print(f"Question: {evaluation['question_id']}")
+    print(f"Heuristic score: {evaluation['heuristic_score']}")
+    print(f"Judge score: {evaluation['judge_score']}")
+    print(f"Final score: {evaluation['final_score']}")
+    print(f"Judge model: {evaluation['judge_model']}")
+    print(f"Summary: {judge['summary']}")
+    print(f"Recommended fix: {judge['recommended_fix']}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -213,6 +283,13 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "score-trace":
         try:
             score_trace_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
+            parser.exit(1, f"error: {exc}\n")
+        return
+
+    if args.command == "judge-trace":
+        try:
+            judge_trace_command(args)
         except (OSError, RuntimeError, ValueError) as exc:
             parser.exit(1, f"error: {exc}\n")
         return
