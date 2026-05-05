@@ -1,0 +1,315 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:37:08+00:00",
+  "finished_at": "2026-05-05T09:37:17+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.6972,
+  "judge_score": 0.5833,
+  "final_score": 0.6232,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-002.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.5556,
+      "source_quality_score": 0.1667,
+      "unsupported_claim_count": 4,
+      "unsupported_claim_score": 0.5556,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.6972,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 27.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "implications",
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": true,
+          "matched_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents differ from planner-executor agents mainly in **when planning happens** and **how tightly it is coupled to action**. ReAct alternates between internal reasoning and external actions in a single loop, using observations to update the next thought/action step. By contrast, planner-executor systems first produce an explicit plan, then execute that plan step-by-step, often with a separate execution phase and optional replanning.",
+        "**Tool-use implications:** ReAct is naturally tool-centric: reasoning and tool calls are interleaved, so the model can inspect tool results immediately and adjust its next move. Planner-executor architectures are better when tools should be used within a controlled workflow, because the planner can decide the sequence up front and the executor can carry it out with more structure and guardrails. LangGraph’s docs emphasize controllable orchestration, persistence, interrupts, and stepwise execution, which matches this planner-executor style.",
+        "**Failure modes:** ReAct can be brittle on long-horizon or asynchronous tasks because it may lose the global objective and fail to self-audit across many steps. A benchmark on asynchronous planning found ReAct performing much worse on asynchronous than synchronous tasks and explicitly called for better long-horizon feedback and self-audit. Planner-executor systems can fail when the initial plan is wrong or stale, but they are often easier to monitor and revise because the plan is explicit.",
+        "**When each is preferable:** Use **ReAct** when the task is short-horizon, interactive, and benefits from frequent correction after each tool observation. Use **planner-executor** when the task is long-horizon, multi-step, or workflow-like, where upfront structure, checkpoints, and predictable execution matter more than rapid improvisation.",
+        "- interleaved reasoning and acting — covered: ReAct explicitly interleaves reasoning traces and actions. https://arxiv.org/abs/2210.03629",
+        "- explicit planning stage — covered: planner-executor starts with an explicit plan before execution. https://langchain-ai.github.io/langgraph/tutorials/sql-agent/",
+        "- tool-use implications — covered: ReAct uses tools inside the reasoning loop; planner-executor uses tools inside a controlled workflow. https://arxiv.org/abs/2210.03629",
+        "- failure modes — covered: ReAct degrades on asynchronous/long-horizon tasks and can lose global coherence. https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning",
+        "- when each architecture is preferable — covered: ReAct for short-horizon/dynamic tasks; planner-executor for long-horizon/workflow tasks. https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning"
+      ],
+      "unsupported_claim_lines": [
+        "ReAct-style agents differ from planner-executor agents mainly in **when planning happens** and **how tightly it is coupled to action**. ReAct alternates between internal reasoning and external actions in a single loop, using observations to update the next thought/action step. By contrast, planner-executor systems first produce an explicit plan, then execute that plan step-by-step, often with a separate execution phase and optional replanning.",
+        "**Tool-use implications:** ReAct is naturally tool-centric: reasoning and tool calls are interleaved, so the model can inspect tool results immediately and adjust its next move. Planner-executor architectures are better when tools should be used within a controlled workflow, because the planner can decide the sequence up front and the executor can carry it out with more structure and guardrails. LangGraph’s docs emphasize controllable orchestration, persistence, interrupts, and stepwise execution, which matches this planner-executor style.",
+        "**Failure modes:** ReAct can be brittle on long-horizon or asynchronous tasks because it may lose the global objective and fail to self-audit across many steps. A benchmark on asynchronous planning found ReAct performing much worse on asynchronous than synchronous tasks and explicitly called for better long-horizon feedback and self-audit. Planner-executor systems can fail when the initial plan is wrong or stale, but they are often easier to monitor and revise because the plan is explicit.",
+        "**When each is preferable:** Use **ReAct** when the task is short-horizon, interactive, and benefits from frequent correction after each tool observation. Use **planner-executor** when the task is long-horizon, multi-step, or workflow-like, where upfront structure, checkpoints, and predictable execution matter more than rapid improvisation."
+      ],
+      "sources": [
+        {
+          "url": "https://agentmarketcap.ai/blog/2026/04/12/react-vs-plan-execute-vs-tree-of-thought-production-2026",
+          "domain": "agentmarketcap.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/",
+          "domain": "langchain-ai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html",
+          "domain": "langchain-ai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning",
+          "domain": "catalyzex.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.researchgate.net/publication/364290390_ReAct_Synergizing_Reasoning_and_Acting_in_Language_Models",
+          "domain": "researchgate.net",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 4,
+      "evidence_quality": 2,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains ReAct as alternating reasoning and action in a single loop."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "States planner-executor systems first produce an explicit plan and then execute it."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explains immediate tool feedback for ReAct versus more controlled tool workflows for planner-executor, though the trade-off discussion is somewhat generic."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions ReAct brittleness on long-horizon/asynchronous tasks and plan staleness for planner-executor, but the failure analysis is brief."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Gives a reasonable short-horizon vs long-horizon heuristic, but it is somewhat simplified and not strongly evidenced."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct alternates between internal reasoning and external actions in a single loop, using observations to update the next thought/action step.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629"
+        ],
+        "reason": "This is the core ReAct framing and is plausibly supported by the paper."
+      },
+      {
+        "claim": "Planner-executor systems first produce an explicit plan, then execute that plan step-by-step, often with a separate execution phase and optional replanning.",
+        "support": "weak",
+        "cited_urls": [
+          "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/"
+        ],
+        "reason": "The LangGraph tutorial may illustrate this workflow, but it is not a canonical definition of planner-executor architecture."
+      },
+      {
+        "claim": "LangGraph’s docs emphasize controllable orchestration, persistence, interrupts, and stepwise execution, which matches this planner-executor style.",
+        "support": "weak",
+        "cited_urls": [
+          "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html",
+          "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/"
+        ],
+        "reason": "The documentation may support some orchestration features, but the specific mapping to planner-executor style is interpretive rather than directly established."
+      },
+      {
+        "claim": "ReAct can be brittle on long-horizon or asynchronous tasks because it may lose the global objective and fail to self-audit across many steps.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning"
+        ],
+        "reason": "The benchmark link may support asynchronous-planning performance issues, but the broader claim about losing global objective and self-audit is not directly substantiated."
+      },
+      {
+        "claim": "A benchmark on asynchronous planning found ReAct performing much worse on asynchronous than synchronous tasks and explicitly called for better long-horizon feedback and self-audit.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning"
+        ],
+        "reason": "Plausible, but the cited source is a secondary aggregator page, so support is indirect."
+      },
+      {
+        "claim": "Use ReAct when the task is short-horizon, interactive, and benefits from frequent correction after each tool observation; use planner-executor when the task is long-horizon, multi-step, or workflow-like.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning"
+        ],
+        "reason": "This is a reasonable engineering heuristic, but the cited source does not cleanly justify the full recommendation."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "quality": "strong",
+        "reason": "Primary source for ReAct and highly relevant."
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/",
+        "quality": "acceptable",
+        "reason": "Relevant framework documentation, but it is an example/tutorial rather than a definitive source on the architecture category."
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html",
+        "quality": "acceptable",
+        "reason": "Relevant documentation, though still framework-specific rather than a general comparison source."
+      },
+      {
+        "url": "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning",
+        "quality": "weak",
+        "reason": "Secondary aggregator page, not the underlying technical paper; weak for precise claims."
+      },
+      {
+        "url": "https://www.researchgate.net/publication/364290390_ReAct_Synergizing_Reasoning_and_Acting_in_Language_Models",
+        "quality": "weak",
+        "reason": "Not a primary publication venue and generally inferior to the arXiv source already cited."
+      },
+      {
+        "url": "https://agentmarketcap.ai/blog/2026/04/12/react-vs-plan-execute-vs-tree-of-thought-production-2026",
+        "quality": "irrelevant",
+        "reason": "Blog-style comparison site with unclear authority; not a strong source for benchmark-grade technical claims."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "unsupported_claim",
+      "overgeneralization"
+    ],
+    "summary": "The answer is directionally correct and covers all required aspects, but several important claims rely on weak or indirect sources, especially for planner-executor behavior and failure-mode recommendations.",
+    "recommended_fix": "Replace weak secondary sources with a canonical planner-executor reference or framework docs that directly define the pattern, and tighten claims so each recommendation is explicitly supported by the cited evidence.",
+    "average_score": 3.3333,
+    "normalized_score": 0.5833
+  },
+  "judge_usage": {
+    "input_tokens": 4103,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1552,
+    "output_tokens_details": {
+      "reasoning_tokens": 90
+    },
+    "total_tokens": 5655
+  },
+  "response_id": "resp_02022e5a34ff13930069f9ba4c47f8819390306e4828c58aec"
+}

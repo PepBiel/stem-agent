@@ -1,0 +1,153 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-003.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.375,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9062,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 135.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "task success",
+        "covered": true,
+        "matched_terms": [
+          "success",
+          "task"
+        ],
+        "expected_terms": [
+          "success",
+          "task"
+        ]
+      },
+      {
+        "aspect": "tool-call correctness",
+        "covered": true,
+        "matched_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ],
+        "expected_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "argument validity",
+        "covered": true,
+        "matched_terms": [
+          "argument",
+          "validity"
+        ],
+        "expected_terms": [
+          "argument",
+          "validity"
+        ]
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "covered": true,
+        "matched_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ],
+        "expected_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "cost and latency",
+        "covered": true,
+        "matched_terms": [
+          "cost",
+          "latency"
+        ],
+        "expected_terms": [
+          "cost",
+          "latency"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Current tool-use evaluation is mostly hybrid. The common pattern is to combine benchmarked task success on interactive environments, trajectory or state-based scoring of tool use, explicit checks for tool-call and argument correctness, fault-injection tests for recovery, and operational metrics such as cost and latency. Surveys describe a shift toward more realistic, continuously updated benchmarks, while still flagging cost-efficiency, robustness, and fine-grained scalable methods as open gaps. ([arxiv.org](https://arxiv.org/abs/2503.16416))",
+      "- task success — τ-bench scores success by comparing the final database state to the annotated goal state and adds pass^k for repeated-trial reliability. ([arxiv.org](https://arxiv.org/abs/2406.12045))",
+      "- tool-call correctness — Microsoft's framework checks whether the expected tool was called and Docker Evals adds a tool trajectory score for using the same tools in the same order. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/agents/evaluation))",
+      "- argument validity — Microsoft's `tool_call_args_match` checks name plus argument matching, and ToolMisuseBench reports invalid call behavior. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/agents/evaluation))",
+      "- recovery from tool errors — ToolMisuseBench uses replayable fault injection and reports recovery quality and retry behavior. ([arxiv.org](https://arxiv.org/abs/2604.01508))",
+      "- cost and latency — Docker Evals reports run cost, and OpenAI advises setting eval baselines while optimizing for cost and latency in agent design. ([docs.docker.com](https://docs.docker.com/ai/docker-agent/evals/))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://agentv.dev/",
+        "domain": "agentv.dev",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.12045",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2503.16416",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.01508",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf",
+        "domain": "cdn.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.docker.com/ai/docker-agent/evals/",
+        "domain": "docs.docker.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.emergentmind.com/topics/toolbench",
+        "domain": "emergentmind.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 8,
+    "unique_citation_count": 8
+  }
+}

@@ -1,0 +1,450 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v3",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 3,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v3.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:38:46+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 4,
+    "max_runtime_seconds": 180,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "source_expectations": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:39:04+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCommon failure modes in multi-agent systems cluster around orchestration, role assignment, state tracking, and judging whether a coordinated outcome is actually correct. Framework docs emphasize that multi-agent setups add routing and context-management burden, while empirical work shows that collaboration can still fail because agents lose track of task state or hallucinate about it. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\n\n**Required aspect coverage**\n- **coordination overhead** — Multi-agent systems need routing, state management, and subagent selection, which adds orchestration cost and complexity. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\n- **role confusion** — When tasks are split across specialists, systems can struggle to choose the right agent/tool or keep responsibilities cleanly separated. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\n- **error propagation** — Mistakes in task state, long-horizon context, or hallucinated beliefs can cascade through later agent steps. ([arxiv.org](https://arxiv.org/abs/2310.10701?utm_source=openai))\n- **consensus without correctness** — Agents may appear aligned or cooperative while still failing the underlying objective; cooperation can be weak even when helping is inexpensive. ([arxiv.org](https://arxiv.org/abs/2310.03903?utm_source=openai))\n- **evaluation difficulty** — Long-running, stateful agent workflows are hard to debug and evaluate, and benchmark results still leave room for improvement in coordination reasoning. ([docs.langchain.com](https://docs.langchain.com/langgraph?utm_source=openai))\n\n## Sources\n- LangChain Multi-agent docs: https://docs.langchain.com/oss/python/langchain/multi-agent/index\n- LangGraph overview: https://docs.langchain.com/langgraph\n- Theory of Mind for Multi-Agent Collaboration via Large Language Models: https://arxiv.org/abs/2310.10701\n- More Capable, Less Cooperative? When LLMs Fail At Zero-Cost Collaboration: https://arxiv.org/abs/2604.07821\n\n## Limitations\nThe evidence is sufficient for the five required aspects, but two labels are inferential rather than verbatim source terms: **role confusion** and **consensus without correctness**. The sources clearly support the underlying phenomena, yet they do not always use those exact phrases. The answer is also weighted toward LLM-based multi-agent systems, so it may underrepresent other multi-agent paradigms.",
+  "decomposition": {
+    "subquestions": [
+      "What recurring failure modes are reported for multi-agent systems?",
+      "Which sources directly support coordination, role, and evaluation problems?",
+      "Can the failures be summarized into the five required aspects without adding unsupported claims?"
+    ],
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "expected_source_types": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:arxiv.org multi-agent systems failure modes coordination overhead role confusion error propagation evaluation difficulty",
+      "site:docs.langchain.com multi-agent documentation coordination handoffs subagents evaluation"
+    ],
+    "rationale_per_query": [
+      "Find a survey/benchmark or empirical paper that names common multi-agent failure modes.",
+      "Find official framework docs describing orchestration, handoffs, context limits, and evaluation/debugging concerns."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+      "title": "Multi-agent - Docs by LangChain",
+      "type": "agent framework documentation"
+    },
+    {
+      "url": "https://docs.langchain.com/langgraph",
+      "title": "LangGraph overview - Docs by LangChain",
+      "type": "agent framework documentation"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.10701",
+      "title": "Theory of Mind for Multi-Agent Collaboration via Large Language Models",
+      "type": "multi-agent system paper"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.07821",
+      "title": "More Capable, Less Cooperative? When LLMs Fail At Zero-Cost Collaboration",
+      "type": "empirical failure analysis"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+      "https://docs.langchain.com/langgraph",
+      "https://arxiv.org/abs/2310.10701",
+      "https://arxiv.org/abs/2604.07821"
+    ],
+    "rejected_sources": [],
+    "rejection_reasons": []
+  },
+  "evidence_table": [
+    {
+      "claim": "Multi-agent systems add orchestration burden because a main agent must route tasks, manage context, and decide when to invoke specialized subagents.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "coordination overhead",
+      "confidence": "high"
+    },
+    {
+      "claim": "Framework docs explicitly warn that a single agent can make poor decisions about which tool to use, motivating multi-agent routing and specialization.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "role confusion",
+      "confidence": "medium"
+    },
+    {
+      "claim": "LangGraph emphasizes stateful orchestration, debugging, and evaluation because long-running agent workflows are difficult to manage and inspect.",
+      "source_url": "https://docs.langchain.com/langgraph",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "evaluation difficulty",
+      "confidence": "high"
+    },
+    {
+      "claim": "LLM agents in multi-agent collaboration can fail due to long-horizon context management problems and hallucination about task state.",
+      "source_url": "https://arxiv.org/abs/2310.10701",
+      "source_type": "multi-agent system paper",
+      "supported_aspect": "error propagation",
+      "confidence": "high"
+    },
+    {
+      "claim": "The coordination benchmark finds large room for improvement in theory-of-mind reasoning and joint planning, indicating that agents may reach agreement or appear coordinated without actually being correct.",
+      "source_url": "https://arxiv.org/abs/2310.10701",
+      "source_type": "multi-agent system paper",
+      "supported_aspect": "consensus without correctness",
+      "confidence": "medium"
+    },
+    {
+      "claim": "A recent empirical study on zero-cost collaboration argues that cooperation failures persist even when helping is cheap, and that explicit protocols can materially change outcomes.",
+      "source_url": "https://arxiv.org/abs/2604.07821",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "consensus without correctness",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "",
+    "uncertainty_notes": [
+      "Some aspects are inferred across sources rather than named verbatim, especially 'consensus without correctness' and 'role confusion'.",
+      "The evidence base is narrow: one framework documentation source, one benchmark paper, and one recent failure analysis."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Multi-agent systems require orchestration and context management.",
+      "Single-agent routing can be error-prone.",
+      "Stateful workflows need debugging and evaluation support.",
+      "LLMs can fail at maintaining task state and long-horizon context in collaboration.",
+      "Cooperation failures can persist even when helping is low-cost."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The phrase 'consensus without correctness' is an inference from coordination and cooperation failure findings, not a direct quoted term from sources.",
+      "The phrase 'role confusion' is an inference from routing/tool-selection failures and specialization boundaries in docs."
+    ]
+  },
+  "finished_at": "2026-05-05T09:39:04+00:00",
+  "citations": [
+    {
+      "end_index": 6601,
+      "start_index": 6494,
+      "title": "Multi-agent - Docs by LangChain",
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai"
+    },
+    {
+      "end_index": 7365,
+      "start_index": 7300,
+      "title": "Theory of Mind for Multi-Agent Collaboration via Large Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.10701?utm_source=openai"
+    },
+    {
+      "end_index": 7615,
+      "start_index": 7550,
+      "title": "LLM-Coordination: Evaluating and Analyzing Multi-agent Coordination Abilities in Large Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.03903?utm_source=openai"
+    },
+    {
+      "end_index": 7878,
+      "start_index": 7800,
+      "title": "LangGraph overview - Docs by LangChain",
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/langgraph?utm_source=openai"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.10701",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.07821",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/langgraph",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_046ec9fc369841060069f9bab00694819095e65d58c90b594f",
+      "action": {
+        "query": "multi-agent systems failure modes survey coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper",
+        "type": "search",
+        "queries": [
+          "multi-agent systems failure modes survey coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper",
+          "empirical failure analysis multi-agent collaboration large language models coordination overhead role confusion error propagation evaluation difficulty paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2407.12532"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.03903"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07821"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.10701"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.01637"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.17755"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/1612.08220.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2201.04122"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.10707"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09101"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_046ec9fc369841060069f9bab16e9c81908dd14f37393fd726",
+      "action": {
+        "query": "site:langchain.com/docs langgraph multi-agent coordination documentation",
+        "type": "search",
+        "queries": [
+          "site:langchain.com/docs langgraph multi-agent coordination documentation",
+          "site:docs.crewai.com multi-agent framework roles coordination documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/blog/langgraph-multi-agent-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/router-knowledge-base"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/router"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/choosing-apis"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph/guides/models"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/custom-workflow"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/subagents"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.langchain.com/content/files/camel.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 13432,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 2782,
+    "output_tokens_details": {
+      "reasoning_tokens": 885
+    },
+    "total_tokens": 16214
+  },
+  "response_id": "resp_046ec9fc369841060069f9baaea19081909a5529ac1b2ec3e6",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What recurring failure modes are reported for multi-agent systems?\",\n      \"Which sources directly support coordination, role, and evaluation problems?\",\n      \"Can the failures be summarized into the five required aspects without adding unsupported claims?\"\n    ],\n    \"required_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"expected_source_types\": [\n      \"multi-agent system paper or survey\",\n      \"agent framework documentation\",\n      \"empirical failure analysis\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:arxiv.org multi-agent systems failure modes coordination overhead role confusion error propagation evaluation difficulty\",\n      \"site:docs.langchain.com multi-agent documentation coordination handoffs subagents evaluation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey/benchmark or empirical paper that names common multi-agent failure modes.\",\n      \"Find official framework docs describing orchestration, handoffs, context limits, and evaluation/debugging concerns.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/multi-agent/index\",\n      \"title\": \"Multi-agent - Docs by LangChain\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"url\": \"https://docs.langchain.com/langgraph\",\n      \"title\": \"LangGraph overview - Docs by LangChain\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2310.10701\",\n      \"title\": \"Theory of Mind for Multi-Agent Collaboration via Large Language Models\",\n      \"type\": \"multi-agent system paper\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2604.07821\",\n      \"title\": \"More Capable, Less Cooperative? When LLMs Fail At Zero-Cost Collaboration\",\n      \"type\": \"empirical failure analysis\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://docs.langchain.com/oss/python/langchain/multi-agent/index\",\n      \"https://docs.langchain.com/langgraph\",\n      \"https://arxiv.org/abs/2310.10701\",\n      \"https://arxiv.org/abs/2604.07821\"\n    ],\n    \"rejected_sources\": [],\n    \"rejection_reasons\": []\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Multi-agent systems add orchestration burden because a main agent must route tasks, manage context, and decide when to invoke specialized subagents.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/multi-agent/index\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Framework docs explicitly warn that a single agent can make poor decisions about which tool to use, motivating multi-agent routing and specialization.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/multi-agent/index\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"role confusion\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"LangGraph emphasizes stateful orchestration, debugging, and evaluation because long-running agent workflows are difficult to manage and inspect.\",\n      \"source_url\": \"https://docs.langchain.com/langgraph\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LLM agents in multi-agent collaboration can fail due to long-horizon context management problems and hallucination about task state.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.10701\",\n      \"source_type\": \"multi-agent system paper\",\n      \"supported_aspect\": \"error propagation\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The coordination benchmark finds large room for improvement in theory-of-mind reasoning and joint planning, indicating that agents may reach agreement or appear coordinated without actually being correct.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.10701\",\n      \"source_type\": \"multi-agent system paper\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"A recent empirical study on zero-cost collaboration argues that cooperation failures persist even when helping is cheap, and that explicit protocols can materially change outcomes.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.07821\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"\",\n    \"uncertainty_notes\": [\n      \"Some aspects are inferred across sources rather than named verbatim, especially 'consensus without correctness' and 'role confusion'.\",\n      \"The evidence base is narrow: one framework documentation source, one benchmark paper, and one recent failure analysis.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Multi-agent systems require orchestration and context management.\",\n      \"Single-agent routing can be error-prone.\",\n      \"Stateful workflows need debugging and evaluation support.\",\n      \"LLMs can fail at maintaining task state and long-horizon context in collaboration.\",\n      \"Cooperation failures can persist even when helping is low-cost.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The phrase 'consensus without correctness' is an inference from coordination and cooperation failure findings, not a direct quoted term from sources.\",\n      \"The phrase 'role confusion' is an inference from routing/tool-selection failures and specialization boundaries in docs.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nCommon failure modes in multi-agent systems cluster around orchestration, role assignment, state tracking, and judging whether a coordinated outcome is actually correct. Framework docs emphasize that multi-agent setups add routing and context-management burden, while empirical work shows that collaboration can still fail because agents lose track of task state or hallucinate about it. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\\n\\n**Required aspect coverage**\\n- **coordination overhead** — Multi-agent systems need routing, state management, and subagent selection, which adds orchestration cost and complexity. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\\n- **role confusion** — When tasks are split across specialists, systems can struggle to choose the right agent/tool or keep responsibilities cleanly separated. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))\\n- **error propagation** — Mistakes in task state, long-horizon context, or hallucinated beliefs can cascade through later agent steps. ([arxiv.org](https://arxiv.org/abs/2310.10701?utm_source=openai))\\n- **consensus without correctness** — Agents may appear aligned or cooperative while still failing the underlying objective; cooperation can be weak even when helping is inexpensive. ([arxiv.org](https://arxiv.org/abs/2310.03903?utm_source=openai))\\n- **evaluation difficulty** — Long-running, stateful agent workflows are hard to debug and evaluate, and benchmark results still leave room for improvement in coordination reasoning. ([docs.langchain.com](https://docs.langchain.com/langgraph?utm_source=openai))\\n\\n## Sources\\n- LangChain Multi-agent docs: https://docs.langchain.com/oss/python/langchain/multi-agent/index\\n- LangGraph overview: https://docs.langchain.com/langgraph\\n- Theory of Mind for Multi-Agent Collaboration via Large Language Models: https://arxiv.org/abs/2310.10701\\n- More Capable, Less Cooperative? When LLMs Fail At Zero-Cost Collaboration: https://arxiv.org/abs/2604.07821\\n\\n## Limitations\\nThe evidence is sufficient for the five required aspects, but two labels are inferential rather than verbatim source terms: **role confusion** and **consensus without correctness**. The sources clearly support the underlying phenomena, yet they do not always use those exact phrases. The answer is also weighted toward LLM-based multi-agent systems, so it may underrepresent other multi-agent paradigms.\"\n}",
+  "status": "complete"
+}

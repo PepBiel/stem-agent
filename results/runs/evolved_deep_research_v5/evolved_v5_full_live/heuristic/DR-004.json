@@ -1,0 +1,144 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-004.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.9167,
+    "source_quality_score": 0.5,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.9167,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.8917,
+  "failure_tags": [
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 47.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "covered": true,
+        "matched_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ],
+        "expected_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "covered": true,
+        "matched_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ],
+        "expected_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ]
+      },
+      {
+        "aspect": "tool use",
+        "covered": true,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "tool"
+        ]
+      },
+      {
+        "aspect": "reflection or verification",
+        "covered": true,
+        "matched_terms": [
+          "reflection",
+          "verification"
+        ],
+        "expected_terms": [
+          "reflection",
+          "verification"
+        ]
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "covered": true,
+        "matched_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "**Direct source-backed facts**",
+      "- Standard RAG is a retrieve-then-generate pattern: the model retrieves relevant passages from an external index and then conditions generation on that retrieved context. https://arxiv.org/abs/2005.11401",
+      "- Agentic RAG is a RAG variant that inserts autonomous agents into the retrieval-generation pipeline so the system can do multi-step reasoning and manage retrieval more dynamically. https://arxiv.org/abs/2501.09136",
+      "- Official implementation docs show this in practice: LlamaIndex lets agents use RAG query engines as tools, with query planning and step-wise execution. https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+      "- LlamaIndex workflows also support reflection, loops, branches, and query planning, which are common building blocks for agentic RAG. https://developers.llamaindex.ai/python/llamaagents/workflows/",
+      "- So, the core difference is control: standard RAG usually retrieves once and answers, while agentic RAG can decide what to retrieve, retry retrieval, call tools, and verify or refine intermediate results before answering. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/",
+      "- That extra control can improve harder queries, but it also adds orchestration complexity and new failure modes such as looping, branching mistakes, tool/API errors, coordination issues, and harder debugging. This is an inference from the survey's open challenges plus the workflow docs' discussion of loops and complexity. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/",
+      "- standard retrieve-then-generate workflow: standard RAG retrieves relevant passages and then generates from them. https://arxiv.org/abs/2005.11401",
+      "- planning or iterative retrieval: agentic RAG uses planning and iterative retrieval strategies rather than a single fixed fetch step. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+      "- tool use: agentic workflows can call RAG query engines and other tools as part of the loop. https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/ https://developers.llamaindex.ai/python/llamaagents/workflows/",
+      "- reflection or verification: workflows support reflection loops that improve or judge queries and responses before final output. https://developers.llamaindex.ai/python/llamaagents/workflows/",
+      "- added complexity and failure modes: multi-step loops, branches, memory, and routing make agentic RAG more complex and create more places for errors; this is an inference supported by the docs and survey. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/"
+    ],
+    "unsupported_claim_lines": [
+      "**Direct source-backed facts**"
+    ],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+        "domain": "developers.llamaindex.ai",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "domain": "developers.llamaindex.ai",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 4,
+    "unique_citation_count": 4
+  }
+}

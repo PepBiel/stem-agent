@@ -1,0 +1,343 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:36:31+00:00",
+  "finished_at": "2026-05-05T09:36:41+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8106,
+  "judge_score": 0.5,
+  "final_score": 0.6087,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-001.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.8333,
+      "source_quality_score": 0.1818,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.8333,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8106,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 19.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "The main failure modes of memory in LLM agents are: (1) **context pollution** from injecting too much or irrelevant memory into the prompt, (2) **retrieving stale or irrelevant memories** when the current task has changed, (3) **over-trusting prior agent outputs or stored memories** instead of the current environment, and (4) the core **short-term vs. long-term memory trade-off**: keeping more history improves recall but increases drift, latency, and the risk of wrong recall or outdated guidance. Memory quality is therefore usually evaluated with retrieval accuracy, update/conflict handling, long-range understanding, and benchmark designs that simulate incremental multi-turn interactions.",
+        "- **context pollution** — covered via selective/progressive disclosure and the risk of irrelevant memory injection; see https://openai.github.io/openai-agents-python/sandbox/memory/ and https://huggingface.co/papers/2602.01146.",
+        "- **retrieval of stale or irrelevant memories** — covered by explicit stale-memory handling and conflict-resolution benchmarks; see https://openai.github.io/openai-agents-python/sandbox/memory/ and https://huggingface.co/papers/2507.05257.",
+        "- **over-trusting previous agent outputs** — covered by the SDK instruction to treat memories as guidance only and trust the current environment; see https://openai.github.io/openai-agents-python/sandbox/memory/.",
+        "- **trade-offs between short-term and long-term memory** — covered by the survey’s discussion of limited context windows and memory management stages; see https://openreview.net/forum?id=KPs1EgGKcT.",
+        "- **evaluation methods for memory quality** — covered by benchmark competencies and the survey’s discussion of metric validity and judge sensitivity; see https://huggingface.co/papers/2507.05257 and https://huggingface.co/papers/2602.19320."
+      ],
+      "unsupported_claim_lines": [
+        "The main failure modes of memory in LLM agents are: (1) **context pollution** from injecting too much or irrelevant memory into the prompt, (2) **retrieving stale or irrelevant memories** when the current task has changed, (3) **over-trusting prior agent outputs or stored memories** instead of the current environment, and (4) the core **short-term vs. long-term memory trade-off**: keeping more history improves recall but increases drift, latency, and the risk of wrong recall or outdated guidance. Memory quality is therefore usually evaluated with retrieval accuracy, update/conflict handling, long-range understanding, and benchmark designs that simulate incremental multi-turn interactions."
+      ],
+      "sources": [
+        {
+          "url": "https://chatpaper.com/paper/269676",
+          "domain": "chatpaper.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://huggingface.co/papers/2507.05257",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://huggingface.co/papers/2507.05257.",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://huggingface.co/papers/2602.01146",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://huggingface.co/papers/2602.01146.",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://huggingface.co/papers/2602.19320",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://huggingface.co/papers/2602.19320.",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+          "domain": "openai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openai.github.io/openai-agents-python/sandbox/memory/.",
+          "domain": "openai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=KPs1EgGKcT.",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 11,
+      "unique_citation_count": 11
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 4,
+      "evidence_quality": 2,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Directly named and described as irrelevant or excessive memory injected into the prompt."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explicitly stated as stale/irrelevant retrieval when the task changes."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Clearly identified as a failure mode, with guidance to prefer the current environment over prior outputs."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions the core trade-off and gives reasonable consequences such as drift, latency, and outdated guidance."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 3,
+        "verdict": "covered",
+        "reason": "Lists retrieval accuracy, conflict handling, long-range understanding, and benchmark designs, but remains high-level and not methodologically specific."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Memory quality is therefore usually evaluated with retrieval accuracy, update/conflict handling, long-range understanding, and benchmark designs that simulate incremental multi-turn interactions.",
+        "support": "weak",
+        "cited_urls": [
+          "https://huggingface.co/papers/2507.05257",
+          "https://huggingface.co/papers/2602.19320"
+        ],
+        "reason": "Plausible for an evaluation paper, but the answer does not show that these exact metrics are supported by the cited sources; the claim is broader than the visible citation support."
+      },
+      {
+        "claim": "Context pollution is covered via selective/progressive disclosure and the risk of irrelevant memory injection.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.github.io/openai-agents-python/sandbox/memory/",
+          "https://huggingface.co/papers/2602.01146"
+        ],
+        "reason": "Reasonable inference, but the answer itself admits the phrase is mostly inferred rather than directly sourced."
+      },
+      {
+        "claim": "Retrieving stale or irrelevant memories is covered by explicit stale-memory handling and conflict-resolution benchmarks.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.github.io/openai-agents-python/sandbox/memory/",
+          "https://huggingface.co/papers/2507.05257"
+        ],
+        "reason": "Likely relevant, but the support for both stale-memory handling and benchmark conflict resolution is not demonstrated in the answer."
+      },
+      {
+        "claim": "Over-trusting prior agent outputs is covered by the SDK instruction to treat memories as guidance only and trust the current environment.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.github.io/openai-agents-python/sandbox/memory/"
+        ],
+        "reason": "Framework docs may support general memory handling, but the exact prescriptive claim is not substantiated here."
+      },
+      {
+        "claim": "Trade-offs between short-term and long-term memory are covered by the survey’s discussion of limited context windows and memory management stages.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/forum?id=KPs1EgGKcT"
+        ],
+        "reason": "Plausible survey source, but the answer does not provide direct evidence that this exact trade-off framing comes from the cited paper."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://chatpaper.com/paper/269676",
+        "quality": "weak",
+        "reason": "Unclear provenance and not one of the benchmark's expected source types; likely a secondary aggregation page."
+      },
+      {
+        "url": "https://huggingface.co/papers/2507.05257",
+        "quality": "weak",
+        "reason": "Hugging Face paper pages are secondary and only moderately useful for source grounding without the underlying paper text."
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.01146",
+        "quality": "weak",
+        "reason": "Secondary paper listing rather than primary paper text; relevance may be good but support quality is limited."
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.19320",
+        "quality": "weak",
+        "reason": "Secondary listing page, not the primary paper or benchmark artifact."
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "quality": "acceptable",
+        "reason": "Relevant framework documentation and implementation notes; useful for agent memory behavior, though not a research source."
+      },
+      {
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+        "quality": "strong",
+        "reason": "OpenReview entry for a survey/paper is a relevant primary venue for memory trade-offs."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "unsupported_claim",
+      "generic_evidence"
+    ],
+    "summary": "The answer covers all required aspects, but the support is mostly high-level and partly inferential. It is usable as a compact overview, yet the evidence base is weak and the evaluation-methods claim is under-specified.",
+    "recommended_fix": "Replace secondary or inferential citations with primary survey/benchmark evidence and add concrete memory evaluation methods and trade-off details tied to specific sources.",
+    "average_score": 3.0,
+    "normalized_score": 0.5
+  },
+  "judge_usage": {
+    "input_tokens": 3916,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1433,
+    "output_tokens_details": {
+      "reasoning_tokens": 95
+    },
+    "total_tokens": 5349
+  },
+  "response_id": "resp_0c6e230675c0f9af0069f9ba277b188193950adad5fe026829"
+}

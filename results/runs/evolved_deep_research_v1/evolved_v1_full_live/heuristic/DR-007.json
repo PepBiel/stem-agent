@@ -1,0 +1,174 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-007.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 0.6667,
+    "source_quality_score": 0.5833,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.6667,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.7542,
+  "failure_tags": [
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 60.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": false,
+        "matched_terms": [
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Audit citations in deep research agents **at the claim level, not the paragraph level**. Break the output into atomic facts, then verify for each fact that the cited source is retrievable, the cited passage actually supports the claim, and the citation is specific enough to cover all subclaims. OpenAI’s deep research docs say outputs include citations/source links, a sources-used section, and activity history for reference checking (`https://help.openai.com/en/articles/10500283`), and the API docs show inline citations with visible annotations (`https://developers.openai.com/api/docs/guides/deep-research`).",
+      "Use a **multi-part audit**, not just a yes/no support check. ALCE evaluates citation systems on fluency, correctness, and citation quality, and reports that even strong systems still miss complete citation support often (`https://aclanthology.org/2023.emnlp-main.398/`). FActScore shows why you should decompose generated text into atomic facts and score each fact against a reliable knowledge source (`https://arxiv.org/abs/2305.14251`). CiteEval adds that binary NLI-style support is too coarse; auditors should inspect the full retrieval context, user query, and generated text together (`https://arxiv.org/abs/2506.01829`).",
+      "Practical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory."
+    ],
+    "unsupported_claim_lines": [
+      "Practical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory."
+    ],
+    "sources": [
+      {
+        "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research",
+        "domain": "academy.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://aclanthology.org/2023.emnlp-main.398/",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://aclanthology.org/2023.emnlp-main.398/`",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.14251",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.14251`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2506.01829",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2506.01829`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research`",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283`",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/introducing-deep-research/`",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 12,
+    "unique_citation_count": 12
+  }
+}

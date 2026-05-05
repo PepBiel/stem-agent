@@ -1,0 +1,126 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-006.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 0.2,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.1667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.675,
+  "failure_tags": [
+    "missing_required_aspect",
+    "weak_source"
+  ],
+  "runtime_seconds": 46.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "1. **Non-stationarity** — one agent’s policy updates change the environment for the others, so the learning target keeps moving (https://arxiv.org/abs/1707.09183).",
+      "2. **Partial observability / hidden state** — agents often act from local views or histories, which makes decisions myopic or inconsistent (https://link.springer.com/article/10.1007/s10458-023-09633-6).",
+      "3. **Credit assignment failure** — with shared outcomes, it is hard to tell which agent or action caused success/failure, so learning signals get noisy (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+      "4. **Communication and coordination breakdowns** — agents fail to learn useful communication protocols or coherent joint action plans (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+      "5. **Deadlock / stalled interaction** — agents can get stuck waiting on each other or issuing incompatible messages; this is explicitly formalized as communication deadlock in the literature (https://www.sciencedirect.com/science/article/pii/S1474667017570287).",
+      "6. **Scalability blow-up** — joint action/observation spaces grow quickly with agent count, making training and execution expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6)."
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/1707.09183",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning",
+        "domain": "en.wikipedia.org",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+        "domain": "link.springer.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+        "domain": "link.springer.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+        "domain": "link.springer.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+        "domain": "sciencedirect.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

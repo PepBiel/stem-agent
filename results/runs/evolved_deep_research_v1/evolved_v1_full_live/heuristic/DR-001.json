@@ -1,0 +1,148 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.7143,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9071,
+  "failure_tags": [],
+  "runtime_seconds": 77.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": false,
+        "matched_terms": [
+          "outputs"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- **Capacity / compression loss**: long interaction histories overflow the context window, and lossy summarization or pruning can discard important details or leave irrelevant errors in play ([Active Context Compression](https://arxiv.org/abs/2601.07190); [Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2601.07190))",
+      "- **Retrieval / organization failure**: the agent retrieves the wrong past experience, or fails to recognize the structure needed to organize memory, so similar inputs trigger misleading outputs ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067); [Evaluating Memory Structure in LLM Agents](https://arxiv.org/abs/2602.11243)). ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+      "- **Error propagation / misaligned replay**: once a bad experience is stored, later retrieval can compound the mistake or replay a seemingly valid trace that is actually misleading ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067)). ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+      "- **Staleness / contradiction drift**: memories are not reliably updated, forgotten, or reconciled, so outdated or conflicting state persists; surveys flag contradiction handling and learned forgetting as open problems ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2603.07670))",
+      "- **Contamination / poisoning**: malicious or noisy memories can be injected and later retrieved to steer behavior ([AGENTPOISON](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf)). ([papers.nips.cc](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf))",
+      "A compact summary is: memory usually fails at **write** (bad info gets stored), **manage** (bad info is not cleaned up or structured), or **read** (the wrong thing is retrieved). ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)) ([arxiv.org](https://arxiv.org/abs/2603.07670))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.07190",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.11243",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.19320",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf",
+        "domain": "papers.nips.cc",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 7,
+    "unique_citation_count": 7
+  }
+}

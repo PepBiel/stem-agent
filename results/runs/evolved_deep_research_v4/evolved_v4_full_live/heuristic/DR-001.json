@@ -1,0 +1,181 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.7273,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9591,
+  "failure_tags": [],
+  "runtime_seconds": 75.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "The main failure modes of memory in LLM agents are usually not a single bug, but a cluster of related issues: memory can get polluted with noisy/irrelevant content, retrieval can surface stale facts, agents can over-weight their own past outputs, and the STM/LTM design space forces trade-offs between completeness, latency, and robustness. Evaluation is also still fragmented, so different benchmarks often measure different slices of memory quality. ([ar5iv.org](https://ar5iv.org/pdf/2404.13501))",
+      "- **Context pollution** — memory can become “lengthy and noisy,” and naïvely stuffing all history into context can introduce irrelevant content, bias, and unrobust inference. ([ar5iv.org](https://ar5iv.org/pdf/2404.13501))",
+      "- **Retrieval of stale or irrelevant memories** — memory management needs to forget unimportant/irrelevant items, and long-term benchmarks explicitly test knowledge updates and abstention because outdated facts remain a recurring failure point. ([ar5iv.org](https://ar5iv.org/pdf/2404.13501))",
+      "- **Over-trusting previous agent outputs** — the empirical literature finds an experience-following property: retrieved prior experiences strongly shape current outputs, which can propagate past errors and make misleading experiences influential. ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+      "- **Trade-offs between short-term and long-term memory** — short-term memory is scoped to a single thread/session, while long-term memory persists across threads; keeping everything in-context improves completeness but increases latency, cost, truncation risk, and brittleness, so unified memory management is preferable. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/long-term-memory))",
+      "- **Evaluation methods for memory quality** — memory is evaluated with direct methods (human judgments and objective metrics like accuracy/F1) and indirect methods via downstream tasks; newer benchmarks add competencies such as accurate retrieval, test-time learning, long-range understanding, selective forgetting, knowledge updates, and abstention. ([ar5iv.org](https://ar5iv.org/pdf/2404.13501))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://ar5iv.org/pdf/2404.13501",
+        "domain": "ar5iv.org",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2404.13501",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2410.10813",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2507.05257",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.01885",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/long-term-memory",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/memory",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/long-term-memory",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://papers.cool/arxiv/2410.10813",
+        "domain": "papers.cool",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://www.reddit.com/r/LocalLLaMA/comments/1s1jb94/we_audited_locomo_64_of_the_answer_key_is_wrong/",
+        "domain": "reddit.com",
+        "authoritative": false,
+        "weak": true
+      }
+    ],
+    "citation_count": 11,
+    "unique_citation_count": 11
+  }
+}

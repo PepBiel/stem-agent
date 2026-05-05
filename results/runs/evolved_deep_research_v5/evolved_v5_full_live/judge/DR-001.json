@@ -1,0 +1,327 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:42:15+00:00",
+  "finished_at": "2026-05-05T15:42:26+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9786,
+  "judge_score": 0.7083,
+  "final_score": 0.8029,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-001.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.8571,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9786,
+    "failure_tags": [],
+    "runtime_seconds": 73.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "The main failure modes of memory in LLM agents are: **context pollution**, **stale/irrelevant retrieval**, **error amplification from trusting prior outputs too much**, and **poor partitioning between short-term working context and long-term storage**. A good mental model is that agent memory is a **write–manage–read loop**; failures happen when writes are noisy, retrieval returns the wrong items, or the system keeps old state around without enough filtering or forgetting. https://arxiv.org/abs/2603.07670 https://arxiv.org/abs/2505.16067",
+        "- **context pollution** — Multi-agent systems can let one agent’s partial outputs and pending questions contaminate another agent’s context, degrading decisions. https://arxiv.org/abs/2604.07911",
+        "- **retrieval of stale or irrelevant memories** — Empirical evidence shows outdated or misaligned experiences can negatively influence current tasks, so retrieval quality matters as much as storage. https://arxiv.org/abs/2505.16067",
+        "- **over-trusting previous agent outputs** — Reusing earlier outputs can cause experience-following and error propagation; this is best treated as an inference from the empirical findings, not as a separately named theorem. https://arxiv.org/abs/2505.16067",
+        "- **trade-offs between short-term and long-term memory** — Short-term memory is thread-scoped but fragile to overflow and distraction; long-term memory persists across threads/sessions but needs explicit management to stay useful. https://docs.langchain.com/oss/python/concepts/memory https://docs.langchain.com/oss/python/langchain/long-term-memory",
+        "- **evaluation methods for memory quality** — Better evals are multi-turn and stateful, measuring accurate retrieval, test-time learning, long-range understanding, and selective forgetting; frameworks like Letta Evals inspect memory blocks and trajectories directly. https://arxiv.org/abs/2507.05257 https://docs.letta.com/guides/evals/concepts/overview"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2505.16067",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2507.05257",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.07670",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.07911",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/concepts/memory",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/long-term-memory",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.letta.com/guides/evals/concepts/overview",
+          "domain": "docs.letta.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 7,
+      "unique_citation_count": 7
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified and explained as contamination of another agent’s context."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly named and tied to outdated or misaligned experiences affecting current tasks."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Addressed as error amplification/error propagation from reusing prior outputs."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explained the distinction and practical trade-offs between fragile short-term context and persistent long-term storage."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Mentioned multi-turn/stateful evaluation and specific criteria like retrieval, learning, understanding, and forgetting."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "The main failure modes of memory in LLM agents are context pollution, stale/irrelevant retrieval, error amplification from trusting prior outputs too much, and poor partitioning between short-term working context and long-term storage.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.07670",
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "The claim is broadly plausible, but the citations are only generic URL references with no title/metadata, and one appears to be a future-dated arXiv identifier, reducing confidence in support."
+      },
+      {
+        "claim": "Multi-agent systems can let one agent’s partial outputs and pending questions contaminate another agent’s context, degrading decisions.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2604.07911"
+        ],
+        "reason": "Plausible if this is a context pollution paper, but the citation metadata is too thin to verify that it supports the specific mechanism described."
+      },
+      {
+        "claim": "Empirical evidence shows outdated or misaligned experiences can negatively influence current tasks, so retrieval quality matters as much as storage.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "This is a reasonable inference, but the exact support is not demonstrable from the provided citation metadata."
+      },
+      {
+        "claim": "Reusing earlier outputs can cause experience-following and error propagation.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "The answer itself notes this is an inference, not a directly named theorem; citation support is therefore indirect."
+      },
+      {
+        "claim": "Short-term memory is thread-scoped but fragile to overflow and distraction; long-term memory persists across threads/sessions but needs explicit management to stay useful.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/concepts/memory",
+          "https://docs.langchain.com/oss/python/langchain/long-term-memory"
+        ],
+        "reason": "Framework documentation is an appropriate source type for this implementation-oriented trade-off, though the exact phrasing is still somewhat interpretive."
+      },
+      {
+        "claim": "Better evals are multi-turn and stateful, measuring accurate retrieval, test-time learning, long-range understanding, and selective forgetting; frameworks like Letta Evals inspect memory blocks and trajectories directly.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2507.05257",
+          "https://docs.letta.com/guides/evals/concepts/overview"
+        ],
+        "reason": "This matches the expected source types for evaluation methods and is directionally aligned with benchmark/documentation style evidence."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "quality": "acceptable",
+        "reason": "An arXiv paper is a reasonable source type for empirical findings, but the missing title/metadata limits verifiability."
+      },
+      {
+        "url": "https://arxiv.org/abs/2507.05257",
+        "quality": "acceptable",
+        "reason": "Likely an empirical or benchmark paper relevant to evaluation methods, but citation metadata is insufficient."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670",
+        "quality": "weak",
+        "reason": "The identifier appears future-dated relative to the benchmark date, making it suspicious despite the arXiv domain."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.07911",
+        "quality": "weak",
+        "reason": "Same issue: future-dated identifier and no metadata make relevance and authenticity hard to trust."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/concepts/memory",
+        "quality": "strong",
+        "reason": "Relevant framework documentation for memory architecture and short-term/long-term trade-offs."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/long-term-memory",
+        "quality": "strong",
+        "reason": "Direct implementation notes for long-term memory behavior and management."
+      },
+      {
+        "url": "https://docs.letta.com/guides/evals/concepts/overview",
+        "quality": "strong",
+        "reason": "Directly relevant documentation for memory evaluation methods."
+      }
+    ],
+    "failure_tags": [
+      "thin_metadata",
+      "potentially_suspicious_citations",
+      "indirect_support"
+    ],
+    "summary": "The answer covers all required aspects and is well structured, but several citations are too thin to fully verify the specific claims, and two arXiv references look suspiciously future-dated.",
+    "recommended_fix": "Replace the generic URL citations with clearly identified, directly relevant sources (titles/authors/years) and ground each failure mode in a specific passage or result rather than broad inference.",
+    "average_score": 3.8333,
+    "normalized_score": 0.7083
+  },
+  "judge_usage": {
+    "input_tokens": 3492,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1663,
+    "output_tokens_details": {
+      "reasoning_tokens": 159
+    },
+    "total_tokens": 5155
+  },
+  "response_id": "resp_0f4fa1578433d5760069fa0fd76d4881968894fd201223c8cb"
+}

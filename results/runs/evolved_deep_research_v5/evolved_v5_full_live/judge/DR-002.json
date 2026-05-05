@@ -1,0 +1,277 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:43:12+00:00",
+  "finished_at": "2026-05-05T15:43:20+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9625,
+  "judge_score": 0.8333,
+  "final_score": 0.8785,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-002.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.75,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9625,
+    "failure_tags": [],
+    "runtime_seconds": 46.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "implications",
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": true,
+          "matched_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents and planner-executor agents differ mainly in **when planning happens** and **how tightly tool use is coupled to reasoning**. ReAct interleaves thought and action at each step: the model reasons, takes an action, observes the result, and repeats. https://arxiv.org/abs/2210.03629",
+        "Planner-executor agents add an **explicit planning stage** first: a planner produces a multi-step plan, then separate executors carry out the steps, often with re-planning only after a chunk of work finishes. https://www.langchain.com/blog/planning-agents https://docs.langchain.com/oss/python/langgraph/overview",
+        "The tool-use implication is that ReAct is more reactive but usually requires an LLM call per tool invocation, while planner-executor can reduce large-model calls, shift subtasks to smaller models, and in ReWOO-style variants avoid re-planning on every step. https://www.langchain.com/blog/planning-agents https://arxiv.org/abs/2305.18323",
+        "Failure modes also differ: ReAct’s paper highlights hallucination and error propagation, while planner-execute docs note serial tool-calling/runtime limits and the risk of sub-optimal trajectories if the initial plan is weak. https://arxiv.org/abs/2210.03629 https://www.langchain.com/blog/planning-agents",
+        "**Practical takeaway:** use ReAct when the task is uncertain, fast-changing, or needs tight step-by-step feedback; use planner-executor when the task is long-horizon, tool-heavy, and benefits from upfront decomposition and lower cost/latency. This is a recommendation inferred from the cited sources, not a universal rule. https://www.langchain.com/blog/planning-agents https://arxiv.org/abs/2305.18323",
+        "- **interleaved reasoning and acting** — ReAct explicitly alternates reasoning and actions each step. https://arxiv.org/abs/2210.03629",
+        "- **explicit planning stage** — planner-executor starts with a multi-step plan before execution. https://www.langchain.com/blog/planning-agents",
+        "- **tool-use implications** — ReAct typically pays an LLM call per tool step; planner-executor can amortize planning and use smaller executors. https://www.langchain.com/blog/planning-agents https://arxiv.org/abs/2305.18323",
+        "- **failure modes** — ReAct can suffer hallucination/error propagation; planner-execute can be slow or sub-optimal if the plan is poor. https://arxiv.org/abs/2210.03629 https://www.langchain.com/blog/planning-agents",
+        "- **when each architecture is preferable** — ReAct fits rapidly changing tasks; planner-executor fits longer, tool-heavy workflows where cost and latency matter. https://www.langchain.com/blog/planning-agents https://arxiv.org/abs/2305.18323"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.18323",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://www.langchain.com/blog/planning-agents",
+          "domain": "langchain.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 4,
+      "unique_citation_count": 4
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains ReAct as alternating reasoning, action, observation, and repetition."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "States that planner-executor begins with an explicit multi-step planning phase before execution."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Addresses tool-call frequency, separation of planning vs execution, and smaller executors, though some details are framed somewhat broadly."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions hallucination/error propagation for ReAct and weak-plan/suboptimal trajectory risks for planner-executor, but the failure analysis is brief."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Gives a practical recommendation for uncertain/fast-changing tasks vs long-horizon/tool-heavy workflows with cost/latency concerns."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct interleaves thought and action at each step: the model reasons, takes an action, observes the result, and repeats.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629"
+        ],
+        "reason": "This is the core ReAct framing and is plausibly supported by the ReAct paper."
+      },
+      {
+        "claim": "Planner-executor agents add an explicit planning stage first: a planner produces a multi-step plan, then separate executors carry out the steps.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.langchain.com/blog/planning-agents",
+          "https://docs.langchain.com/oss/python/langgraph/overview"
+        ],
+        "reason": "LangChain planning-agent documentation plausibly supports the described planner/executor structure."
+      },
+      {
+        "claim": "ReAct usually requires an LLM call per tool invocation, while planner-executor can reduce large-model calls and shift subtasks to smaller models.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.langchain.com/blog/planning-agents",
+          "https://arxiv.org/abs/2305.18323"
+        ],
+        "reason": "Directionally plausible, but 'usually requires' and the per-tool-call generalization are stronger than what the citations clearly establish."
+      },
+      {
+        "claim": "ReAct can suffer hallucination and error propagation, while planner-execute can be slow or sub-optimal if the plan is poor.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629",
+          "https://www.langchain.com/blog/planning-agents"
+        ],
+        "reason": "These are reasonable, architecture-level failure modes and fit the cited sources."
+      },
+      {
+        "claim": "Use ReAct when the task is uncertain, fast-changing, or needs tight step-by-step feedback; use planner-executor when the task is long-horizon, tool-heavy, and benefits from upfront decomposition and lower cost/latency.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.langchain.com/blog/planning-agents",
+          "https://arxiv.org/abs/2305.18323"
+        ],
+        "reason": "This is a useful engineering inference, but it is presented as a recommendation rather than a directly evidenced claim."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "quality": "strong",
+        "reason": "Primary source for ReAct; directly relevant and authoritative."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.18323",
+        "quality": "strong",
+        "reason": "Relevant paper for a planner-style variant and useful for trade-off discussion."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+        "quality": "strong",
+        "reason": "Framework documentation is relevant for planner-executor implementation patterns."
+      },
+      {
+        "url": "https://www.langchain.com/blog/planning-agents",
+        "quality": "acceptable",
+        "reason": "Relevant technical comparison/documentation, but blog-level and less authoritative than a paper or formal docs."
+      }
+    ],
+    "failure_tags": [],
+    "summary": "A largely correct and well-covered answer with good structure and mostly relevant citations. The main weakness is that some tool-use and preference claims are a bit inferential and lean on a blog source.",
+    "recommended_fix": "Tighten the tool-use and 'when preferable' statements by separating directly supported facts from inference, and rely more on primary or framework documentation for those trade-offs.",
+    "average_score": 4.3333,
+    "normalized_score": 0.8333
+  },
+  "judge_usage": {
+    "input_tokens": 3635,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1296,
+    "output_tokens_details": {
+      "reasoning_tokens": 113
+    },
+    "total_tokens": 4931
+  },
+  "response_id": "resp_0d01bff7a33be8560069fa1010d0608193a6fc1ca49148d1a5"
+}

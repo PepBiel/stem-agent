@@ -1,0 +1,368 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T14:51:09+00:00",
+  "finished_at": "2026-05-05T14:51:19+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-005.json",
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9571,
+  "judge_score": 0.8333,
+  "final_score": 0.8766,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-005.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-005",
+    "question": "What techniques exist for self-improving agents without fine-tuning?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.7143,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9571,
+    "failure_tags": [],
+    "runtime_seconds": 95.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "verbal feedback",
+          "covered": true,
+          "matched_terms": [
+            "feedback",
+            "verbal"
+          ],
+          "expected_terms": [
+            "feedback",
+            "verbal"
+          ]
+        },
+        {
+          "aspect": "reflection",
+          "covered": true,
+          "matched_terms": [
+            "reflection"
+          ],
+          "expected_terms": [
+            "reflection"
+          ]
+        },
+        {
+          "aspect": "self-refinement",
+          "covered": true,
+          "matched_terms": [
+            "refinement",
+            "self"
+          ],
+          "expected_terms": [
+            "refinement",
+            "self"
+          ]
+        },
+        {
+          "aspect": "prompt or workflow optimization",
+          "covered": true,
+          "matched_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ],
+          "expected_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "limits of self-improvement without external feedback",
+          "covered": true,
+          "matched_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ],
+          "expected_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Self-improving agents without fine-tuning usually fall into three evidence-backed patterns: (1) **verbal self-feedback/reflection loops** that store lessons in memory, (2) **iterative self-refinement** where the same model critiques and revises its own output, and (3) **prompt/workflow optimization** that searches over prompts or declarative pipelines instead of changing weights. A key caveat is that self-improvement can drift into **reward hacking** or **self-bias**, so external or independent evaluation often matters for reliable gains. ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+        "- verbal feedback — Reflexion converts task feedback into verbal summaries and uses them as extra context for later trials. `https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf` ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+        "- reflection — Reflexion is explicitly built around self-reflection on prior failures to improve future decisions. `https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf` ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+        "- self-refinement — Self-Refine alternates FEEDBACK and REFINE steps, using one LLM to generate, critique, and revise outputs without extra training. `https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf))",
+        "- prompt or workflow optimization — APO edits prompts via natural-language gradients plus beam search, and DSPy optimizes declarative LM pipelines and agent loops to maximize a metric. `https://arxiv.org/abs/2305.03495` `https://arxiv.org/abs/2310.03714` ([arxiv.org](https://arxiv.org/abs/2305.03495))",
+        "- limits of self-improvement without external feedback — Iterative self-refinement can reward-hack its own evaluator, and self-bias can increase unless external feedback or better assessment is added. `https://arxiv.org/abs/2407.04549` `https://arxiv.org/abs/2402.11436` ([arxiv.org](https://arxiv.org/abs/2407.04549))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2305.03495",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.03495`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.03714",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.03714`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2402.11436",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2402.11436`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2407.04549",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2407.04549`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://papers.cool/arxiv/2303.17651",
+          "domain": "papers.cool",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+          "domain": "proceedings.neurips.cc",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf`",
+          "domain": "proceedings.neurips.cc",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+          "domain": "proceedings.nips.cc",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf`",
+          "domain": "proceedings.nips.cc",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.reddit.com/r/MachineLearning/comments/1215dbl",
+          "domain": "reddit.com",
+          "authoritative": false,
+          "weak": true
+        }
+      ],
+      "citation_count": 14,
+      "unique_citation_count": 14
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 5,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "verbal feedback",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly identifies verbal self-feedback/reflection loops and ties them to Reflexion."
+      },
+      {
+        "aspect": "reflection",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explains reflection over prior failures as a core mechanism, not just a buzzword mention."
+      },
+      {
+        "aspect": "self-refinement",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Describes iterative critique-and-revise behavior and cites Self-Refine."
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Covers prompt search and declarative pipeline/workflow optimization with APO and DSPy."
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions reward hacking, self-bias, and need for external evaluation, though the limitation discussion is somewhat brief."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Self-improving agents without fine-tuning usually fall into three evidence-backed patterns: verbal self-feedback/reflection loops, iterative self-refinement, and prompt/workflow optimization.",
+        "support": "supported",
+        "cited_urls": [
+          "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+          "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+          "https://arxiv.org/abs/2305.03495",
+          "https://arxiv.org/abs/2310.03714"
+        ],
+        "reason": "The cited papers plausibly support these three technique families."
+      },
+      {
+        "claim": "Reflexion converts task feedback into verbal summaries and uses them as extra context for later trials.",
+        "support": "supported",
+        "cited_urls": [
+          "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf"
+        ],
+        "reason": "This is directly aligned with Reflexion's verbal feedback mechanism."
+      },
+      {
+        "claim": "Reflexion is explicitly built around self-reflection on prior failures to improve future decisions.",
+        "support": "supported",
+        "cited_urls": [
+          "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf"
+        ],
+        "reason": "Plausibly supported by the Reflexion paper."
+      },
+      {
+        "claim": "Self-Refine alternates FEEDBACK and REFINE steps, using one LLM to generate, critique, and revise outputs without extra training.",
+        "support": "supported",
+        "cited_urls": [
+          "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf"
+        ],
+        "reason": "This is the central mechanism of Self-Refine."
+      },
+      {
+        "claim": "APO edits prompts via natural-language gradients plus beam search, and DSPy optimizes declarative LM pipelines and agent loops to maximize a metric.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2305.03495",
+          "https://arxiv.org/abs/2310.03714"
+        ],
+        "reason": "These titles and associated methods plausibly support prompt optimization and pipeline optimization claims."
+      },
+      {
+        "claim": "Iterative self-refinement can reward-hack its own evaluator, and self-bias can increase unless external feedback or better assessment is added.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2407.04549",
+          "https://arxiv.org/abs/2402.11436"
+        ],
+        "reason": "These papers are directly about reward hacking and self-bias in self-refinement."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+        "quality": "strong",
+        "reason": "Primary NeurIPS paper for Reflexion; highly relevant and authoritative."
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+        "quality": "strong",
+        "reason": "Primary NeurIPS paper for Self-Refine; highly relevant and authoritative."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.03495",
+        "quality": "strong",
+        "reason": "Relevant prompt optimization paper, directly supports the workflow optimization section."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.03714",
+        "quality": "strong",
+        "reason": "Relevant DSPy paper on self-improving pipelines."
+      },
+      {
+        "url": "https://arxiv.org/abs/2407.04549",
+        "quality": "strong",
+        "reason": "Relevant limit paper on reward hacking in iterative self-refinement."
+      },
+      {
+        "url": "https://arxiv.org/abs/2402.11436",
+        "quality": "strong",
+        "reason": "Relevant limit paper on self-bias in self-refinement."
+      },
+      {
+        "url": "https://papers.cool/arxiv/2303.17651",
+        "quality": "weak",
+        "reason": "Not clearly necessary or central to the answer; low-value citation source."
+      },
+      {
+        "url": "https://www.reddit.com/r/MachineLearning/comments/1215dbl",
+        "quality": "irrelevant",
+        "reason": "Not an appropriate source for a benchmark answer requiring research-grade evidence."
+      }
+    ],
+    "failure_tags": [
+      "some_weak_sources",
+      "some_irrelevant_sources",
+      "citation_formatting_noise"
+    ],
+    "summary": "A strong, mostly well-supported answer that covers all required techniques and the main limitation, but it includes some low-quality/irrelevant citations and only a brief treatment of the limits.",
+    "recommended_fix": "Remove weak/irrelevant sources and expand the limitations section with more precise trade-offs, especially when self-feedback is reliable versus when it tends to collapse or overfit its own evaluator.",
+    "average_score": 4.3333,
+    "normalized_score": 0.8333
+  },
+  "judge_usage": {
+    "input_tokens": 5801,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1864,
+    "output_tokens_details": {
+      "reasoning_tokens": 207
+    },
+    "total_tokens": 7665
+  },
+  "response_id": "resp_0c6c4a44f7ab332e0069fa03e859708196ad74b3cec333b788"
+}

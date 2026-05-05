@@ -1,0 +1,151 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 1.0,
+  "failure_tags": [],
+  "runtime_seconds": 82.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "The main failure modes of memory in LLM agents are less about “not storing enough” and more about **badly managing what gets recalled, when, and with what confidence**. Across the sources, the recurring problems are: polluted context from irrelevant retrieval, stale or contradictory memories resurfacing, over-reliance on prior agent outputs, and the classic short-term-vs-long-term memory trade-off where compression helps budget but hurts faithful recall. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://openreview.net/pdf?id=W1vKCYeAM1",
+      "- **context pollution** — Retrieval can inject irrelevant or unhelpful items that add noise and reduce utility, which is essentially context pollution. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "- **retrieval of stale or irrelevant memories** — Similarity-based retrieval can surface stale observations or failed tool logs, and long-term benchmarks report reuse of invalid memories. https://openreview.net/pdf?id=W1vKCYeAM1 https://openreview.net/forum?id=YzFNBzlQbo",
+      "- **over-trusting previous agent outputs** — Empirically, similar retrieved memories often lead to similar current outputs, so past errors can be replayed and amplified. https://arxiv.org/abs/2505.16067",
+      "- **trade-offs between short-term and long-term memory** — Summarization and sliding windows improve scalability, but they can discard decisive constraints and reduce long-term recall reliability. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "- **evaluation methods for memory quality** — MemAE uses accurate retrieval, test-time learning, long-range understanding, and conflict resolution; Memora adds grounding checks, human eval, and FAMA for obsolete memory. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://github.com/letta-ai/ai-memory-sdk",
+        "domain": "github.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/forum?id=YzFNBzlQbo",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-002.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "metrics": {
+    "coverage_score": 0.4,
+    "citation_support_score": 0.75,
+    "source_quality_score": 0.75,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.75,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.7125,
+  "failure_tags": [
+    "missing_required_aspect",
+    "unsupported_claim"
+  ],
+  "runtime_seconds": 37.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "covered": true,
+        "matched_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ],
+        "expected_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ]
+      },
+      {
+        "aspect": "explicit planning stage",
+        "covered": false,
+        "matched_terms": [
+          "planning"
+        ],
+        "expected_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ]
+      },
+      {
+        "aspect": "tool-use implications",
+        "covered": true,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "implications",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "failure modes",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "failure",
+          "modes"
+        ]
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "ReAct-style agents and planner-executor agents differ mainly in **where planning lives**.",
+      "- **ReAct** keeps reasoning and acting in the same loop: the model alternates between a thought/reasoning trace and a tool/action, then uses the observation to decide the next step. The original paper describes this as generating “reasoning traces and task-specific actions in an interleaved manner.” [ReAct paper](https://arxiv.org/abs/2210.03629)",
+      "- **Planner-executor** systems separate those roles: one component produces a plan, and another component executes subtasks and returns results for synthesis. LangGraph’s orchestrator-worker docs describe the orchestrator generating a plan, dispatching workers, and then synthesizing their outputs. [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)",
+      "Practical takeaway: **ReAct is more reactive and step-by-step**, which is good when the next move depends heavily on fresh observations; **planner-executor is more structured**, which is good when you want clearer decomposition, easier debugging, and potentially parallel execution of subtasks. That last sentence is a synthesis from the sources, not a direct quote. [LangChain agents docs](https://docs.langchain.com/oss/python/langchain/agents) [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)"
+    ],
+    "unsupported_claim_lines": [
+      "ReAct-style agents and planner-executor agents differ mainly in **where planning lives**."
+    ],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/agents",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://esy.com/agents/patterns/planner-executor/",
+        "domain": "esy.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 4,
+    "unique_citation_count": 4
+  }
+}

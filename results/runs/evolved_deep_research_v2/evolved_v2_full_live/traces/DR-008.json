@@ -1,0 +1,829 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:49:28+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "source_expectations": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:50:49+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents are best when the problem is open-ended and the model needs to choose tools, adapt mid-flight, and recover from wrong turns. Workflow-based agents are best when the task is well-defined and you want tighter control, clearer inspection, and more repeatable execution. In short: more autonomy buys flexibility, but usually at the cost of more latency, cost, and variance; more workflow structure reduces flexibility, but improves controllability, observability, reproducibility, and failure recovery. `https://www.anthropic.com/engineering/building-effective-agents` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n\n### Required aspect coverage\n- Flexibility: autonomous agents fit ambiguous work that needs model-driven adaptation; workflows fit well-defined tasks. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- Controllability: workflows use predefined code paths, typed edges, and versioned snapshots; autonomous agents decide their own tool use within guardrails. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- Observability: OpenAI explicitly adds observability tools plus trace graders, and notes that production agents previously lacked sufficient visibility. `https://openai.com/index/new-tools-for-building-agents/` `https://developers.openai.com/api/docs/guides/agent-builder` ([openai.com](https://openai.com/index/new-tools-for-building-agents/))\n- Cost: Anthropic says agentic systems often trade latency and cost for better task performance. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- Reproducibility: workflow versioning, preview/debug, and durable execution make outcomes more repeatable than fully autonomous loops. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/index/equip-responses-api-computer-environment/` `https://docs.temporal.io/` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\n- Failure recovery: agents can halt and hand control back to the user, but workflow engines like Temporal can resume after crashes, network failures, or outages. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://docs.temporal.io/` `https://openai.com/index/inside-our-in-house-data-agent/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n## Sources\n- Anthropic — Building Effective AI Agents `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- OpenAI — A practical guide to building agents `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n- OpenAI — New tools for building agents `https://openai.com/index/new-tools-for-building-agents/` ([openai.com](https://openai.com/index/new-tools-for-building-agents/))\n- OpenAI — Agent Builder docs `https://developers.openai.com/api/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\n- OpenAI — Inside OpenAI’s in-house data agent `https://openai.com/index/inside-our-in-house-data-agent/` ([openai.com](https://openai.com/index/inside-our-in-house-data-agent/))\n- Temporal Docs homepage `https://docs.temporal.io/` ([docs.temporal.io](https://docs.temporal.io/))\n\n## Limitations\nThe evidence is strong on architectural trade-offs, but it is mostly vendor documentation plus one engineering case study rather than an independent benchmark. The cost claim is directional rather than quantified. Also, the line between an \"autonomous agent\" and a \"workflow-based agent\" is fuzzy in practice; several sources treat them as points on a spectrum rather than a strict binary. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+  "decomposition": {
+    "subquestions": [
+      "How do autonomous agents differ from workflow-based agents in architecture and control?",
+      "What are the trade-offs across flexibility, controllability, observability, cost, reproducibility, and failure recovery?",
+      "Which primary docs and case studies provide evidence for those trade-offs?"
+    ],
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "expected_source_types": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "Anthropic building effective AI agents workflows vs agents cost latency predictability",
+      "OpenAI practical guide to building AI agents failure recovery guardrails",
+      "OpenAI agent builder observability trace graders versioning",
+      "Temporal docs crash-proof execution retries workflow recovery"
+    ],
+    "rationale_per_query": [
+      "Find a primary comparison of workflows versus autonomous agents, especially flexibility vs cost/predictability.",
+      "Find an official agent-framework definition of control, guardrails, and failure handling.",
+      "Find workflow/orchestration docs showing versioning, debugging, and observability.",
+      "Find durable-execution evidence for failure recovery and reproducibility in workflow engines."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Anthropic — Building Effective AI Agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "note": "Direct comparison of workflows vs agents; includes latency/cost and predictability trade-offs."
+    },
+    {
+      "title": "OpenAI — A practical guide to building agents",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "note": "Defines agents, guardrails, and failure behavior."
+    },
+    {
+      "title": "OpenAI — New tools for building agents",
+      "url": "https://openai.com/index/new-tools-for-building-agents/",
+      "note": "States that production agents often lack visibility and introduces observability tools."
+    },
+    {
+      "title": "OpenAI — Agent Builder docs",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "note": "Workflow composition, versioning, preview/debug, and trace graders."
+    },
+    {
+      "title": "OpenAI — Inside OpenAI’s in-house data agent",
+      "url": "https://openai.com/index/inside-our-in-house-data-agent/",
+      "note": "Engineering case study showing self-correction, evals, and closed-loop iteration."
+    },
+    {
+      "title": "Temporal Docs homepage",
+      "url": "https://docs.temporal.io/",
+      "note": "Durable execution and crash-proof recovery for workflow-based systems."
+    },
+    {
+      "title": "OpenAI — Build every step of agents on one platform",
+      "url": "https://openai.com/agent-platform/",
+      "note": "High-level marketing summary; redundant with more technical docs."
+    },
+    {
+      "title": "Anthropic — Building Effective AI Agents landing page",
+      "url": "https://resources.anthropic.com/building-effective-ai-agents",
+      "note": "Landing page; redundant with the underlying article."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Anthropic — Building Effective AI Agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "source_type": "agent framework documentation"
+      },
+      {
+        "title": "OpenAI — A practical guide to building agents",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "source_type": "agent framework documentation"
+      },
+      {
+        "title": "OpenAI — New tools for building agents",
+        "url": "https://openai.com/index/new-tools-for-building-agents/",
+        "source_type": "agent framework documentation"
+      },
+      {
+        "title": "OpenAI — Agent Builder docs",
+        "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+        "source_type": "workflow or orchestration guide"
+      },
+      {
+        "title": "OpenAI — Inside OpenAI’s in-house data agent",
+        "url": "https://openai.com/index/inside-our-in-house-data-agent/",
+        "source_type": "engineering case study"
+      },
+      {
+        "title": "Temporal Docs homepage",
+        "url": "https://docs.temporal.io/",
+        "source_type": "workflow or orchestration guide"
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "OpenAI — Build every step of agents on one platform",
+        "url": "https://openai.com/agent-platform/"
+      },
+      {
+        "title": "Anthropic — Building Effective AI Agents landing page",
+        "url": "https://resources.anthropic.com/building-effective-ai-agents"
+      }
+    ],
+    "rejection_reasons": [
+      "Rejected as redundant/high-level marketing; the underlying technical docs provide stronger, more precise evidence.",
+      "Rejected as a landing page that duplicates the underlying article and adds no new evidence."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Anthropic distinguishes workflows as predefined code paths and agents as systems where LLMs dynamically direct their own processes; it also says agentic systems often trade latency and cost for better task performance, while workflows are better for predictability and consistency and agents are better for flexibility and model-driven decision-making.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "flexibility",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI says agents use an LLM to manage workflow execution, can proactively correct actions, and can halt execution and transfer control back to the user on failure.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "failure recovery",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI says production-ready agents can be hard to build because they require custom orchestration logic without sufficient visibility, and it adds integrated observability tools to trace and inspect workflow execution.",
+      "source_url": "https://openai.com/index/new-tools-for-building-agents/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "observability",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI Agent Builder supports typed edges, versioned workflow snapshots, preview runs, and trace graders, which improve control and repeatability of agent workflows.",
+      "source_url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "reproducibility",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI's in-house data agent uses a closed-loop process that checks intermediate results, adjusts its approach, retains context, and runs evals like unit tests or canaries to catch regressions.",
+      "source_url": "https://openai.com/index/inside-our-in-house-data-agent/",
+      "source_type": "engineering case study",
+      "supported_aspect": "observability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Temporal says its platform provides crash-proof execution so applications resume after crashes, network failures, or infrastructure outages.",
+      "source_url": "https://docs.temporal.io/",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "failure recovery",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources align: autonomous agents emphasize adaptive, model-driven execution, while workflow-based systems emphasize predefined control flow, versioning, and durable execution.",
+    "uncertainty_notes": [
+      "The boundary between 'agent' and 'workflow-based agent' is architectural rather than absolute; some vendor docs use overlapping terminology.",
+      "Cost evidence is qualitative, not a precise benchmarked dollar comparison."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Autonomous agents are more flexible but generally less predictable than workflow-based systems.",
+      "Workflow-based systems improve controllability via predefined paths, versioning, and typed steps.",
+      "Observability is a known pain point for production agents and is improved by tracing/inspection tooling.",
+      "Agentic systems often trade latency and cost for better task performance.",
+      "Durable workflow engines improve reproducibility and failure recovery.",
+      "Real systems can self-correct and use evals to catch regressions."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The cost trade-off is supported directionally, but not with a direct benchmark comparing dollars spent by autonomous vs workflow-based agents."
+    ]
+  },
+  "finished_at": "2026-05-05T09:50:49+00:00",
+  "citations": [
+    {
+      "end_index": 10344,
+      "start_index": 10264,
+      "title": "Building Effective AI Agents \\ Anthropic",
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/research/building-effective-agents/"
+    },
+    {
+      "end_index": 11386,
+      "start_index": 11315,
+      "title": "New tools for building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/new-tools-for-building-agents/"
+    },
+    {
+      "end_index": 12006,
+      "start_index": 11928,
+      "title": "Agent Builder | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-builder"
+    },
+    {
+      "end_index": 12454,
+      "start_index": 12349,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 13430,
+      "start_index": 13358,
+      "title": "Inside OpenAI’s in-house data agent | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/inside-our-in-house-data-agent/"
+    },
+    {
+      "end_index": 13532,
+      "start_index": 13485,
+      "title": "Temporal Docs | Temporal Platform Documentation",
+      "type": "url_citation",
+      "url": "https://docs.temporal.io/"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.temporal.io/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/agent-platform/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/inside-our-in-house-data-agent/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/new-tools-for-building-agents/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://resources.anthropic.com/building-effective-ai-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents`",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd34ca8c8197a14329bdb84d614d",
+      "action": {
+        "query": "site:openai.com/docs agents workflow docs autonomous agents workflow-based agents",
+        "type": "search",
+        "queries": [
+          "site:openai.com/docs agents workflow docs autonomous agents workflow-based agents",
+          "site:docs.langchain.com workflows agents guide observability controllability reproducibility",
+          "site:temporal.io workflow agents engineering case study failure recovery reproducibility"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openai.com/solutions/use-case/agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents/agent-builder%20rel%3D"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-agentkit/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/academy/workspace-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/20001143/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/en-GB/agent-platform/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-chatgpt-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-business-leaders-guide-to-working-with-agents.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd37dc54819790b11127a4a1759b",
+      "action": {
+        "query": "site:temporal.io/docs workflow observability retries failure recovery deterministic workflow",
+        "type": "search",
+        "queries": [
+          "site:temporal.io/docs workflow observability retries failure recovery deterministic workflow",
+          "site:temporal.io/blog agent workflow case study retries observability",
+          "site:openai.com/index case study agents production workflow reliability"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openai.com/agent-platform/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/new-tools-for-building-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-openai-frontier/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/inside-our-in-house-data-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-the-stateful-runtime-environment-for-agents-in-amazon-bedrock//"
+          },
+          {
+            "type": "url",
+            "url": "https://temporal.io/home"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/rakuten/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-chatgpt-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://api-docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.temporal.io/assets/files/temporal-102-with-go-replay2025-37d6b2a2393d1e6e2523f55ee0aa9f70.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.temporal.io/assets/files/temporal-102-with-java-replay2025-468b8109d5a9ce33b36c2910c48433d9.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://pages.temporal.io/rs/250-WIU-007/images/Temporal-AI-Enterprise-WP.pdf?version=0"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.temporal.io/assets/files/temporal-101-with-typescript-for-replay-2023-bbf2d108b99a1d9f1635ecb2e307e0ee.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd39b6188197b3f46a0ed38ca56f",
+      "action": {
+        "query": "site:docs.temporal.io visibility observability workflows retries failure recovery Temporal docs",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io visibility observability workflows retries failure recovery Temporal docs",
+          "site:docs.temporal.io workflow execution deterministic retry policy observability Temporal docs",
+          "site:docs.temporal.io /develop/typescript observability workflow search histories"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-6-7-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-9-1-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/temporal-tos-2021-01-19.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal_Terms_of_Service_8-30-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd3b2cd88197928fe777e4c8384a",
+      "action": {
+        "query": "site:docs.temporal.io visibility search workflows observability temporal docs",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io visibility search workflows observability temporal docs",
+          "site:docs.temporal.io monitoring workflow history observability temporal docs",
+          "site:docs.temporal.io Web UI visibility workflow search observability"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-6-7-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-9-1-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/temporal-tos-2021-01-19.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal_Terms_of_Service_8-30-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd3ead488197aed8cfe0b53f2212",
+      "action": {
+        "query": "site:anthropic.com engineering blog building effective agents workflows agents observability control cost",
+        "type": "search",
+        "queries": [
+          "site:anthropic.com engineering blog building effective agents workflows agents observability control cost",
+          "site:anthropic.com agents workflows blog controllability observability reproducibility"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/building-effective-ai-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/writing-tools-for-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/grafana?type=research"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents?_bhlid=1ba3bf95247bd689b5d1b76ed18f996f167a8d63"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/code-execution-with-mcp?_hsmi=390282592"
+          },
+          {
+            "type": "url",
+            "url": "https://alignment.anthropic.com/2025/automated-auditing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/solutions/agents?via=AISolvesThat"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/futurehouse"
+          },
+          {
+            "type": "url",
+            "url": "https://alignment.anthropic.com/2026/ai-organizations/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/research/building-effective-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/research/trustworthy-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/ANTH-2551_Anthropic_AWS_FinServ_Agents_ebook_092325.pdf?hsLang=en"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/The%202026%20State%20of%20AI%20Agents%20Report.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd415a3c8197a237e8c56d9f7de7",
+      "action": {
+        "query": "site:docs.temporal.io deterministic workflow replay retries exactly once temporal docs",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io deterministic workflow replay retries exactly once temporal docs",
+          "site:docs.temporal.io workflows are deterministic temporal docs replay history"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-9-1-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-6-7-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/temporal-tos-2021-01-19.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal_Terms_of_Service_8-30-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd431da88197a6f863bb32602658",
+      "action": {
+        "query": "site:docs.temporal.io workflow history search attributes visibility temporal docs observability",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io workflow history search attributes visibility temporal docs observability",
+          "site:docs.temporal.io web ui workflow history temporal docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-6-7-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-9-1-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/temporal-tos-2021-01-19.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal_Terms_of_Service_8-30-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd48b1648197861a495851a573a6",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.anthropic.com/research/building-effective-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_08c053b30fd553ec0069f9bd4aa6988197bf2cc6fef8e9e92d",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/index/new-tools-for-building-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 41331,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11018,
+    "output_tokens_details": {
+      "reasoning_tokens": 7887
+    },
+    "total_tokens": 52349
+  },
+  "response_id": "resp_08c053b30fd553ec0069f9bd308d148197baa2377376388ed4",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"How do autonomous agents differ from workflow-based agents in architecture and control?\",\n      \"What are the trade-offs across flexibility, controllability, observability, cost, reproducibility, and failure recovery?\",\n      \"Which primary docs and case studies provide evidence for those trade-offs?\"\n    ],\n    \"required_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"expected_source_types\": [\n      \"agent framework documentation\",\n      \"workflow or orchestration guide\",\n      \"engineering case study\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"Anthropic building effective AI agents workflows vs agents cost latency predictability\",\n      \"OpenAI practical guide to building AI agents failure recovery guardrails\",\n      \"OpenAI agent builder observability trace graders versioning\",\n      \"Temporal docs crash-proof execution retries workflow recovery\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a primary comparison of workflows versus autonomous agents, especially flexibility vs cost/predictability.\",\n      \"Find an official agent-framework definition of control, guardrails, and failure handling.\",\n      \"Find workflow/orchestration docs showing versioning, debugging, and observability.\",\n      \"Find durable-execution evidence for failure recovery and reproducibility in workflow engines.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Anthropic — Building Effective AI Agents\",\n      \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"note\": \"Direct comparison of workflows vs agents; includes latency/cost and predictability trade-offs.\"\n    },\n    {\n      \"title\": \"OpenAI — A practical guide to building agents\",\n      \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"note\": \"Defines agents, guardrails, and failure behavior.\"\n    },\n    {\n      \"title\": \"OpenAI — New tools for building agents\",\n      \"url\": \"https://openai.com/index/new-tools-for-building-agents/\",\n      \"note\": \"States that production agents often lack visibility and introduces observability tools.\"\n    },\n    {\n      \"title\": \"OpenAI — Agent Builder docs\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n      \"note\": \"Workflow composition, versioning, preview/debug, and trace graders.\"\n    },\n    {\n      \"title\": \"OpenAI — Inside OpenAI’s in-house data agent\",\n      \"url\": \"https://openai.com/index/inside-our-in-house-data-agent/\",\n      \"note\": \"Engineering case study showing self-correction, evals, and closed-loop iteration.\"\n    },\n    {\n      \"title\": \"Temporal Docs homepage\",\n      \"url\": \"https://docs.temporal.io/\",\n      \"note\": \"Durable execution and crash-proof recovery for workflow-based systems.\"\n    },\n    {\n      \"title\": \"OpenAI — Build every step of agents on one platform\",\n      \"url\": \"https://openai.com/agent-platform/\",\n      \"note\": \"High-level marketing summary; redundant with more technical docs.\"\n    },\n    {\n      \"title\": \"Anthropic — Building Effective AI Agents landing page\",\n      \"url\": \"https://resources.anthropic.com/building-effective-ai-agents\",\n      \"note\": \"Landing page; redundant with the underlying article.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Anthropic — Building Effective AI Agents\",\n        \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n        \"source_type\": \"agent framework documentation\"\n      },\n      {\n        \"title\": \"OpenAI — A practical guide to building agents\",\n        \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n        \"source_type\": \"agent framework documentation\"\n      },\n      {\n        \"title\": \"OpenAI — New tools for building agents\",\n        \"url\": \"https://openai.com/index/new-tools-for-building-agents/\",\n        \"source_type\": \"agent framework documentation\"\n      },\n      {\n        \"title\": \"OpenAI — Agent Builder docs\",\n        \"url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n        \"source_type\": \"workflow or orchestration guide\"\n      },\n      {\n        \"title\": \"OpenAI — Inside OpenAI’s in-house data agent\",\n        \"url\": \"https://openai.com/index/inside-our-in-house-data-agent/\",\n        \"source_type\": \"engineering case study\"\n      },\n      {\n        \"title\": \"Temporal Docs homepage\",\n        \"url\": \"https://docs.temporal.io/\",\n        \"source_type\": \"workflow or orchestration guide\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"OpenAI — Build every step of agents on one platform\",\n        \"url\": \"https://openai.com/agent-platform/\"\n      },\n      {\n        \"title\": \"Anthropic — Building Effective AI Agents landing page\",\n        \"url\": \"https://resources.anthropic.com/building-effective-ai-agents\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Rejected as redundant/high-level marketing; the underlying technical docs provide stronger, more precise evidence.\",\n      \"Rejected as a landing page that duplicates the underlying article and adds no new evidence.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Anthropic distinguishes workflows as predefined code paths and agents as systems where LLMs dynamically direct their own processes; it also says agentic systems often trade latency and cost for better task performance, while workflows are better for predictability and consistency and agents are better for flexibility and model-driven decision-making.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"flexibility\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI says agents use an LLM to manage workflow execution, can proactively correct actions, and can halt execution and transfer control back to the user on failure.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"failure recovery\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI says production-ready agents can be hard to build because they require custom orchestration logic without sufficient visibility, and it adds integrated observability tools to trace and inspect workflow execution.\",\n      \"source_url\": \"https://openai.com/index/new-tools-for-building-agents/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"observability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI Agent Builder supports typed edges, versioned workflow snapshots, preview runs, and trace graders, which improve control and repeatability of agent workflows.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"reproducibility\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI's in-house data agent uses a closed-loop process that checks intermediate results, adjusts its approach, retains context, and runs evals like unit tests or canaries to catch regressions.\",\n      \"source_url\": \"https://openai.com/index/inside-our-in-house-data-agent/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"observability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Temporal says its platform provides crash-proof execution so applications resume after crashes, network failures, or infrastructure outages.\",\n      \"source_url\": \"https://docs.temporal.io/\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"failure recovery\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources align: autonomous agents emphasize adaptive, model-driven execution, while workflow-based systems emphasize predefined control flow, versioning, and durable execution.\",\n    \"uncertainty_notes\": [\n      \"The boundary between 'agent' and 'workflow-based agent' is architectural rather than absolute; some vendor docs use overlapping terminology.\",\n      \"Cost evidence is qualitative, not a precise benchmarked dollar comparison.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Autonomous agents are more flexible but generally less predictable than workflow-based systems.\",\n      \"Workflow-based systems improve controllability via predefined paths, versioning, and typed steps.\",\n      \"Observability is a known pain point for production agents and is improved by tracing/inspection tooling.\",\n      \"Agentic systems often trade latency and cost for better task performance.\",\n      \"Durable workflow engines improve reproducibility and failure recovery.\",\n      \"Real systems can self-correct and use evals to catch regressions.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The cost trade-off is supported directionally, but not with a direct benchmark comparing dollars spent by autonomous vs workflow-based agents.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAutonomous agents are best when the problem is open-ended and the model needs to choose tools, adapt mid-flight, and recover from wrong turns. Workflow-based agents are best when the task is well-defined and you want tighter control, clearer inspection, and more repeatable execution. In short: more autonomy buys flexibility, but usually at the cost of more latency, cost, and variance; more workflow structure reduces flexibility, but improves controllability, observability, reproducibility, and failure recovery. `https://www.anthropic.com/engineering/building-effective-agents` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n\\n### Required aspect coverage\\n- Flexibility: autonomous agents fit ambiguous work that needs model-driven adaptation; workflows fit well-defined tasks. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- Controllability: workflows use predefined code paths, typed edges, and versioned snapshots; autonomous agents decide their own tool use within guardrails. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- Observability: OpenAI explicitly adds observability tools plus trace graders, and notes that production agents previously lacked sufficient visibility. `https://openai.com/index/new-tools-for-building-agents/` `https://developers.openai.com/api/docs/guides/agent-builder` ([openai.com](https://openai.com/index/new-tools-for-building-agents/))\\n- Cost: Anthropic says agentic systems often trade latency and cost for better task performance. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- Reproducibility: workflow versioning, preview/debug, and durable execution make outcomes more repeatable than fully autonomous loops. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/index/equip-responses-api-computer-environment/` `https://docs.temporal.io/` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\\n- Failure recovery: agents can halt and hand control back to the user, but workflow engines like Temporal can resume after crashes, network failures, or outages. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://docs.temporal.io/` `https://openai.com/index/inside-our-in-house-data-agent/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\n## Sources\\n- Anthropic — Building Effective AI Agents `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- OpenAI — A practical guide to building agents `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n- OpenAI — New tools for building agents `https://openai.com/index/new-tools-for-building-agents/` ([openai.com](https://openai.com/index/new-tools-for-building-agents/))\\n- OpenAI — Agent Builder docs `https://developers.openai.com/api/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\\n- OpenAI — Inside OpenAI’s in-house data agent `https://openai.com/index/inside-our-in-house-data-agent/` ([openai.com](https://openai.com/index/inside-our-in-house-data-agent/))\\n- Temporal Docs homepage `https://docs.temporal.io/` ([docs.temporal.io](https://docs.temporal.io/))\\n\\n## Limitations\\nThe evidence is strong on architectural trade-offs, but it is mostly vendor documentation plus one engineering case study rather than an independent benchmark. The cost claim is directional rather than quantified. Also, the line between an \\\"autonomous agent\\\" and a \\\"workflow-based agent\\\" is fuzzy in practice; several sources treat them as points on a spectrum rather than a strict binary. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\"\n}",
+  "status": "complete"
+}

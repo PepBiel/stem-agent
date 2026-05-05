@@ -1,0 +1,558 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T15:50:11+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "source_expectations": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T15:51:07+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents trade predictability for adaptability. Workflow-based agents are better when you want a fixed path, stronger control, and easier debugging; autonomous agents are better when the task is open-ended and the system must decide what to do next on the fly. Source-backed framing: workflows are predetermined code paths, while agents are dynamic and define their own processes/tool usage, and agents can run in continuous feedback loops with more autonomy than workflows. https://docs.langchain.com/oss/python/langgraph/workflows-agents\n\n**Inference:** if your task is messy, novel, or requires adaptive tool selection, use an autonomous agent; if the task is repeatable, policy-heavy, or must be easy to audit, use a workflow. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/\n\n## Required aspect coverage\n- **flexibility** — Autonomous agents are more flexible because they choose processes and tools dynamically; workflows are more rigid because they follow predetermined paths. https://docs.langchain.com/oss/python/langgraph/workflows-agents\n- **controllability** — Workflow-based patterns are easier to control; autonomous agents need explicit guardrails, and OpenAI notes they should halt and transfer control on failure. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\n- **observability** — Autonomous agents need more instrumentation because monitoring decision making matters for safety; Symphony adds observability to debug concurrent runs. https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf https://openai.com/index/open-source-codex-orchestration-symphony/\n- **cost** — Autonomous agents can be costlier in practice because model choice, multi-step execution, and monitoring add overhead; OpenAI explicitly calls out cost/latency trade-offs. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\n- **reproducibility** — Workflow-based systems are more reproducible because the path is predetermined and Symphony keeps workflow policy in-repo. https://docs.langchain.com/oss/python/langgraph/workflows-agents https://openai.com/index/open-source-codex-orchestration-symphony/\n- **failure recovery** — Workflow orchestration makes recovery easier to operationalize; OpenAI's agent guide says an agent can halt and hand control back, and Symphony restarts crashed or stalled agents. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/\n\n## Sources\n- OpenAI, \"A practical guide to building agents\": https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\n- LangChain docs, \"Workflows and agents\": https://docs.langchain.com/oss/python/langgraph/workflows-agents\n- OpenAI, \"An open-source spec for Codex orchestration: Symphony\": https://openai.com/index/open-source-codex-orchestration-symphony/\n- OpenAI research, \"Monitoring Monitorability\": https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\n\n## Limitations\nThe cost conclusion is an engineering inference, not a direct benchmark across both architectures. The sources strongly support the direction of the trade-off, but they do not provide a universal numeric comparison. Also, the strongest reproducibility/failure-recovery evidence comes from workflow orchestration patterns; fully autonomous systems can add their own guardrails, but that is implementation-dependent.",
+  "decomposition": {
+    "subquestions": [
+      "How do autonomous agents differ from workflow-based agents on flexibility, controllability, observability, cost, reproducibility, and failure recovery?",
+      "When is each pattern preferable in production systems?"
+    ],
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "expected_source_types": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:openai.com practical guide building agents workflows trade-offs controllability observability cost failure recovery",
+      "site:docs.langchain.com workflows agents predetermined code paths dynamic tool usage observability persistence debugging",
+      "site:openai.com open-source codex orchestration Symphony state machine restart observability versioned workflow",
+      "site:openai.com monitorability observability decision making agents cost inference compute"
+    ],
+    "rationale_per_query": [
+      "Find official agent guidance that explicitly contrasts agents and workflows and mentions guardrails/failure handling/cost.",
+      "Find framework documentation that defines workflows vs agents and exposes orchestration properties like persistence/debugging.",
+      "Find a primary engineering case study showing real production orchestration, recovery, and reproducibility mechanisms.",
+      "Find primary research on observability/monitoring and any cost implications for agentic systems."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "A practical guide to building agents",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "type": "official docs"
+    },
+    {
+      "title": "Workflows and agents - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "type": "framework documentation"
+    },
+    {
+      "title": "An open-source spec for Codex orchestration: Symphony.",
+      "url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "type": "engineering case study"
+    },
+    {
+      "title": "Monitoring Monitorability",
+      "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf",
+      "type": "primary research"
+    },
+    {
+      "title": "Workspace agents",
+      "url": "https://openai.com/academy/workspace-agents//",
+      "type": "product guide"
+    },
+    {
+      "title": "Embodied Question Answering: A goal-driven approach to autonomous agents - Engineering at Meta",
+      "url": "https://engineering.fb.com/2018/05/02/ai-research/embodied-question-answering-a-goal-driven-approach-to-autonomous-agents/",
+      "type": "engineering case study"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+    ],
+    "rejected_sources": [
+      "https://openai.com/academy/workspace-agents//",
+      "https://engineering.fb.com/2018/05/02/ai-research/embodied-question-answering-a-goal-driven-approach-to-autonomous-agents/"
+    ],
+    "rejection_reasons": [
+      "Rejected because it is a ChatGPT workspace product guide; useful context, but not a focused source on the trade-offs between autonomous agents and workflow-based agents.",
+      "Rejected because it is about embodied navigation agents, which is a narrower and less directly comparable domain than software/workflow agents."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Workflows are predetermined code paths, while agents are dynamic and define their own processes and tool usage; this is the core flexibility trade-off.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "source_type": "framework documentation",
+      "supported_aspect": "flexibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agents can manage workflow execution, dynamically select tools within guardrails, and halt or transfer control on failure; that raises autonomy but also constrains controllability through explicit safeguards.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "official docs",
+      "supported_aspect": "controllability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI's Symphony keeps workflow policy in-repo, uses a state machine, and provides enough observability to operate and debug concurrent runs; this supports reproducibility and failure recovery.",
+      "source_url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "source_type": "engineering case study",
+      "supported_aspect": "reproducibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Observability into agent decision making may be required to safely deploy increasingly capable agents, and the monitoring work notes higher inference compute cost.",
+      "source_url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf",
+      "source_type": "primary research",
+      "supported_aspect": "observability",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Model selection for agents has explicit complexity/latency/cost trade-offs, and smaller models can replace larger ones where possible; in practice this means autonomous systems often have higher operating cost than fixed workflows.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "official docs",
+      "supported_aspect": "cost",
+      "support_directness": "inference",
+      "source_authority": "official",
+      "confidence": "medium"
+    },
+    {
+      "claim": "If a task is open-ended and uncertain, autonomous agents are more flexible; if the task needs repeatability, auditability, and easier debugging, workflow-based agents are preferable.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "source_type": "framework documentation",
+      "supported_aspect": "failure recovery",
+      "support_directness": "inference",
+      "source_authority": "official",
+      "confidence": "medium"
+    },
+    {
+      "claim": "When an agent crashes or stalls, Symphony restarts it; this shows workflow orchestration can make recovery explicit and operationally simple.",
+      "source_url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "source_type": "engineering case study",
+      "supported_aspect": "failure recovery",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "missing_aspects": [],
+    "followup_needed": [
+      "A direct apples-to-apples benchmark comparing autonomous vs workflow-based agents on cost and recovery time would strengthen the cost inference."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradiction found. The sources consistently frame workflows as predetermined/controlled and agents as more dynamic/autonomous.",
+    "uncertainty_notes": [
+      "Cost is the least directly measured aspect here; the cost statement is an engineering inference from official guidance and monitoring research, not a benchmark result.",
+      "Reproducibility and failure-recovery claims are strongest for workflow orchestration patterns, not for all possible autonomous-agent implementations."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Workflows are predetermined code paths; agents are dynamic and define their own processes/tool usage.",
+      "Agents can dynamically select tools within guardrails and halt/transfer control on failure.",
+      "Workflow orchestration can version policy in-repo, improve observability, and restart stalled runs.",
+      "Observability into agent decision making matters for safe deployment.",
+      "Cost/latency trade-offs exist across model choices in agent systems."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T15:51:07+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0416fa2e081b20aa0069fa11b65fb48194877c37f1ff1cc7ea",
+      "action": {
+        "query": "site:anthropic.com workflows agents trade-offs observability controllability reproducibility cost failure recovery",
+        "type": "search",
+        "queries": [
+          "site:anthropic.com workflows agents trade-offs observability controllability reproducibility cost failure recovery",
+          "site:openai.com agents workflows guide observability controllability reproducibility cost failure recovery",
+          "site:langchain-ai.github.io LangGraph workflows agents documentation trade-offs",
+          "site:engineering.fb.com agents workflows case study autonomous agents workflow-based"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/agent-protocol/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://engineering.fb.com/2018/05/02/ai-research/embodied-question-answering-a-goal-driven-approach-to-autonomous-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/es-ES/index/the-five-ai-value-models-driving-business-reinvention/"
+          },
+          {
+            "type": "url",
+            "url": "https://engineering.fb.com/2026/04/16/developer-tools/capacity-efficiency-at-meta-how-unified-ai-agents-optimize-performance-at-hyperscale/"
+          },
+          {
+            "type": "url",
+            "url": "https://engineering.fb.com/2026/03/17/developer-tools/ranking-engineer-agent-rea-autonomous-ai-system-accelerating-meta-ads-ranking-innovation/"
+          },
+          {
+            "type": "url",
+            "url": "https://engineering.fb.com/2026/04/06/developer-tools/how-meta-used-ai-to-map-tribal-knowledge-in-large-scale-data-pipelines/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/hot_path_quickstart/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/troubleshooting/errors/"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/a21c39c1-fa07-41db-9078-973a12620117/cot_controllability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/6dc7175d-d9e7-4b8d-96b8-48fe5798cd5b/oai_genebench_benchmark.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0416fa2e081b20aa0069fa11b8ff948194bedc99e8d5258f81",
+      "action": {
+        "query": "site:anthropic.com agentic workflows workflows agents official documentation",
+        "type": "search",
+        "queries": [
+          "site:anthropic.com agentic workflows workflows agents official documentation",
+          "site:docs.anthropic.com workflows agents official documentation",
+          "site:docs.langchain.com agents vs workflows official docs",
+          "site:openai.com workflow-based agents controllability observability reproducibility"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/reasoning-models-chain-of-thought-controllability//"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/pl-PL/index/netomi/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-agentkit/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/solutions/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/claude/opus?pubDate=20260410"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/open-source-codex-orchestration-symphony/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-the-stateful-runtime-environment-for-agents-in-amazon-bedrock//"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/rox/"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/The%202026%20State%20of%20AI%20Agents%20Report.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/a21c39c1-fa07-41db-9078-973a12620117/cot_controllability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0416fa2e081b20aa0069fa11be9f3c8194a80fe2943a6fdafc",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/index/open-source-codex-orchestration-symphony/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 18950,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8387,
+    "output_tokens_details": {
+      "reasoning_tokens": 5507
+    },
+    "total_tokens": 27337
+  },
+  "response_id": "resp_0416fa2e081b20aa0069fa11b3f4188194a3809e59b4205e5b",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"How do autonomous agents differ from workflow-based agents on flexibility, controllability, observability, cost, reproducibility, and failure recovery?\",\n      \"When is each pattern preferable in production systems?\"\n    ],\n    \"required_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"expected_source_types\": [\n      \"agent framework documentation\",\n      \"workflow or orchestration guide\",\n      \"engineering case study\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:openai.com practical guide building agents workflows trade-offs controllability observability cost failure recovery\",\n      \"site:docs.langchain.com workflows agents predetermined code paths dynamic tool usage observability persistence debugging\",\n      \"site:openai.com open-source codex orchestration Symphony state machine restart observability versioned workflow\",\n      \"site:openai.com monitorability observability decision making agents cost inference compute\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official agent guidance that explicitly contrasts agents and workflows and mentions guardrails/failure handling/cost.\",\n      \"Find framework documentation that defines workflows vs agents and exposes orchestration properties like persistence/debugging.\",\n      \"Find a primary engineering case study showing real production orchestration, recovery, and reproducibility mechanisms.\",\n      \"Find primary research on observability/monitoring and any cost implications for agentic systems.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"A practical guide to building agents\",\n      \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"type\": \"official docs\"\n    },\n    {\n      \"title\": \"Workflows and agents - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"type\": \"framework documentation\"\n    },\n    {\n      \"title\": \"An open-source spec for Codex orchestration: Symphony.\",\n      \"url\": \"https://openai.com/index/open-source-codex-orchestration-symphony/\",\n      \"type\": \"engineering case study\"\n    },\n    {\n      \"title\": \"Monitoring Monitorability\",\n      \"url\": \"https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\",\n      \"type\": \"primary research\"\n    },\n    {\n      \"title\": \"Workspace agents\",\n      \"url\": \"https://openai.com/academy/workspace-agents//\",\n      \"type\": \"product guide\"\n    },\n    {\n      \"title\": \"Embodied Question Answering: A goal-driven approach to autonomous agents - Engineering at Meta\",\n      \"url\": \"https://engineering.fb.com/2018/05/02/ai-research/embodied-question-answering-a-goal-driven-approach-to-autonomous-agents/\",\n      \"type\": \"engineering case study\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"https://openai.com/index/open-source-codex-orchestration-symphony/\",\n      \"https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\"\n    ],\n    \"rejected_sources\": [\n      \"https://openai.com/academy/workspace-agents//\",\n      \"https://engineering.fb.com/2018/05/02/ai-research/embodied-question-answering-a-goal-driven-approach-to-autonomous-agents/\"\n    ],\n    \"rejection_reasons\": [\n      \"Rejected because it is a ChatGPT workspace product guide; useful context, but not a focused source on the trade-offs between autonomous agents and workflow-based agents.\",\n      \"Rejected because it is about embodied navigation agents, which is a narrower and less directly comparable domain than software/workflow agents.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Workflows are predetermined code paths, while agents are dynamic and define their own processes and tool usage; this is the core flexibility trade-off.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"flexibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agents can manage workflow execution, dynamically select tools within guardrails, and halt or transfer control on failure; that raises autonomy but also constrains controllability through explicit safeguards.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"controllability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI's Symphony keeps workflow policy in-repo, uses a state machine, and provides enough observability to operate and debug concurrent runs; this supports reproducibility and failure recovery.\",\n      \"source_url\": \"https://openai.com/index/open-source-codex-orchestration-symphony/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"reproducibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Observability into agent decision making may be required to safely deploy increasingly capable agents, and the monitoring work notes higher inference compute cost.\",\n      \"source_url\": \"https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\",\n      \"source_type\": \"primary research\",\n      \"supported_aspect\": \"observability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Model selection for agents has explicit complexity/latency/cost trade-offs, and smaller models can replace larger ones where possible; in practice this means autonomous systems often have higher operating cost than fixed workflows.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"cost\",\n      \"support_directness\": \"inference\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"If a task is open-ended and uncertain, autonomous agents are more flexible; if the task needs repeatability, auditability, and easier debugging, workflow-based agents are preferable.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"inference\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"When an agent crashes or stalls, Symphony restarts it; this shows workflow orchestration can make recovery explicit and operationally simple.\",\n      \"source_url\": \"https://openai.com/index/open-source-codex-orchestration-symphony/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": [\n      \"A direct apples-to-apples benchmark comparing autonomous vs workflow-based agents on cost and recovery time would strengthen the cost inference.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradiction found. The sources consistently frame workflows as predetermined/controlled and agents as more dynamic/autonomous.\",\n    \"uncertainty_notes\": [\n      \"Cost is the least directly measured aspect here; the cost statement is an engineering inference from official guidance and monitoring research, not a benchmark result.\",\n      \"Reproducibility and failure-recovery claims are strongest for workflow orchestration patterns, not for all possible autonomous-agent implementations.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Workflows are predetermined code paths; agents are dynamic and define their own processes/tool usage.\",\n      \"Agents can dynamically select tools within guardrails and halt/transfer control on failure.\",\n      \"Workflow orchestration can version policy in-repo, improve observability, and restart stalled runs.\",\n      \"Observability into agent decision making matters for safe deployment.\",\n      \"Cost/latency trade-offs exist across model choices in agent systems.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAutonomous agents trade predictability for adaptability. Workflow-based agents are better when you want a fixed path, stronger control, and easier debugging; autonomous agents are better when the task is open-ended and the system must decide what to do next on the fly. Source-backed framing: workflows are predetermined code paths, while agents are dynamic and define their own processes/tool usage, and agents can run in continuous feedback loops with more autonomy than workflows. https://docs.langchain.com/oss/python/langgraph/workflows-agents\\n\\n**Inference:** if your task is messy, novel, or requires adaptive tool selection, use an autonomous agent; if the task is repeatable, policy-heavy, or must be easy to audit, use a workflow. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/\\n\\n## Required aspect coverage\\n- **flexibility** — Autonomous agents are more flexible because they choose processes and tools dynamically; workflows are more rigid because they follow predetermined paths. https://docs.langchain.com/oss/python/langgraph/workflows-agents\\n- **controllability** — Workflow-based patterns are easier to control; autonomous agents need explicit guardrails, and OpenAI notes they should halt and transfer control on failure. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\\n- **observability** — Autonomous agents need more instrumentation because monitoring decision making matters for safety; Symphony adds observability to debug concurrent runs. https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf https://openai.com/index/open-source-codex-orchestration-symphony/\\n- **cost** — Autonomous agents can be costlier in practice because model choice, multi-step execution, and monitoring add overhead; OpenAI explicitly calls out cost/latency trade-offs. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\\n- **reproducibility** — Workflow-based systems are more reproducible because the path is predetermined and Symphony keeps workflow policy in-repo. https://docs.langchain.com/oss/python/langgraph/workflows-agents https://openai.com/index/open-source-codex-orchestration-symphony/\\n- **failure recovery** — Workflow orchestration makes recovery easier to operationalize; OpenAI's agent guide says an agent can halt and hand control back, and Symphony restarts crashed or stalled agents. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/\\n\\n## Sources\\n- OpenAI, \\\"A practical guide to building agents\\\": https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\\n- LangChain docs, \\\"Workflows and agents\\\": https://docs.langchain.com/oss/python/langgraph/workflows-agents\\n- OpenAI, \\\"An open-source spec for Codex orchestration: Symphony\\\": https://openai.com/index/open-source-codex-orchestration-symphony/\\n- OpenAI research, \\\"Monitoring Monitorability\\\": https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf\\n\\n## Limitations\\nThe cost conclusion is an engineering inference, not a direct benchmark across both architectures. The sources strongly support the direction of the trade-off, but they do not provide a universal numeric comparison. Also, the strongest reproducibility/failure-recovery evidence comes from workflow orchestration patterns; fully autonomous systems can add their own guardrails, but that is implementation-dependent.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

@@ -1,0 +1,710 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:41:59+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "source_expectations": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:43:16+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nReAct-style agents keep reasoning and acting in a single interleaved loop: the model emits thoughts that can create, track, and update action plans, then acts to fetch new information from the environment. Planner-executor agents split that loop into a planning phase and an execution phase. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n\nTool-use implication: ReAct treats tool calls as part of the same thought-action-observation trace, so the model can revise after each observation; planner-executor makes tool calls downstream of a prior plan, which is easier to route, chain, checkpoint, and subject to approval. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n\nFailure modes differ: ReAct’s paper explicitly discusses prompting limits and notes hallucination/error propagation in reasoning-heavy settings, while PEAR reports that planner quality matters more than executor quality and that prompt-injection on planner-executor communication or planner prompts can cause substantial end-to-end failures. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n\nPrefer ReAct when the task is open-ended, information is uncertain, and you want a tight think-act-observe loop; prefer planner-executor when the task benefits from upfront decomposition, sequential handoff, observability, or human approval before tool use. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n\n### Required aspect coverage\n- interleaved reasoning and acting — ReAct generates reasoning traces and actions in an interleaved manner. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n- explicit planning stage — planner-executor separates a planner that decomposes the request into subtasks from an executor that performs them. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))\n- tool-use implications — ReAct uses tools inside the same loop; planner-executor centralizes tool calls in the executor and supports chaining/approval. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai))\n- failure modes — ReAct can suffer hallucination/error propagation; planner-executor is vulnerable to weak planners and planner-channel injection. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n- when each architecture is preferable — ReAct for uncertain, reactive tasks; planner-executor for multi-stage workflows needing control and review. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n\n## Sources\n- ReAct paper (Yao et al., ICLR 2023): interleaved reasoning/acting and noted limitations. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n- Microsoft Agent Executor docs: executor wrapping, routing, state, chaining, checkpointing. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai))\n- Microsoft Sequential orchestration docs: pipeline execution, full-history handoff, human-in-the-loop approvals. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential))\n- Microsoft orchestrations overview: sequential/handoff/magentic patterns and approval support. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))\n- PEAR benchmark paper: planner/executor setup, tool usage, utility, and injection robustness findings. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))\n\n## Limitations\n- “Planner-executor” is a family of architectures, not one universal standard; the docs here describe Microsoft Agent Framework sequential/orchestration patterns, so the comparison is pattern-level rather than vendor-independent. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))\n- The ReAct paper is strongest evidence for the interleaved-loop side; the claim that it lacks a separate planning stage is an inference from its design, not a verbatim statement. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\n- Benchmark results from PEAR reflect its own task suite and threat model, so robustness conclusions may not transfer unchanged to every agent stack. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))",
+  "decomposition": {
+    "subquestions": [
+      "How do ReAct agents structure reasoning and action over time?",
+      "What does a planner-executor split add that ReAct lacks?",
+      "How do the architectures differ in tool use and control flow?",
+      "What are the main failure modes of each?",
+      "Which tasks favor each architecture?"
+    ],
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "expected_source_types": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "ReAct paper arXiv reasoning and acting paper",
+      "planner executor agent framework documentation planning execution agents",
+      "planner executor vs ReAct benchmark comparison",
+      "site:learn.microsoft.com agent framework orchestrations sequential handoff"
+    ],
+    "rationale_per_query": [
+      "Get the primary ReAct definition and its stated limitations from the original paper.",
+      "Get official agent-framework docs describing executor/planner or sequential orchestration behavior.",
+      "Find a benchmark or comparison that reports planner/executor robustness or failure modes.",
+      "Confirm preferred use cases and control-flow details from official orchestration documentation."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/pdf/2210.03629",
+      "type": "primary paper"
+    },
+    {
+      "title": "Agent Executor | Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor",
+      "type": "agent framework documentation"
+    },
+    {
+      "title": "Microsoft Agent Framework Workflows Orchestrations - Sequential",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential",
+      "type": "agent framework documentation"
+    },
+    {
+      "title": "Workflow orchestrations in Agent Framework | Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/",
+      "type": "agent framework documentation"
+    },
+    {
+      "title": "PEAR: Planner-Executor Agent Robustness Benchmark",
+      "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "type": "technical comparison or benchmark"
+    },
+    {
+      "title": "Planner-Executor Agentic Framework | EmergentMind",
+      "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework",
+      "type": "secondary summary"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/pdf/2210.03629",
+      "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor",
+      "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential",
+      "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/",
+      "https://aclanthology.org/2026.findings-eacl.237.pdf"
+    ],
+    "rejected_sources": [
+      "https://www.emergentmind.com/topics/planner-executor-agentic-framework"
+    ],
+    "rejection_reasons": [
+      "Secondary summary rather than a primary paper or official documentation; used only if necessary, but not needed here."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "ReAct prompts LLMs to generate reasoning traces and task-specific actions in an interleaved manner; thoughts help create, track, and update action plans, while actions gather external information.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "interleaved reasoning and acting",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct embeds planning inside the reasoning-action loop rather than defining a separate planner stage; this is an inference from the paper's interleaved design.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "explicit planning stage",
+      "confidence": "medium"
+    },
+    {
+      "claim": "Microsoft's Agent Executor wraps an agent, routes messages, manages session state, emits outputs, supports chaining, and checkpointing.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "tool-use implications",
+      "confidence": "high"
+    },
+    {
+      "claim": "Sequential orchestration organizes agents in a pipeline where each agent processes the task in turn and passes output to the next; it is ideal when each step builds on the previous one.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "when each architecture is preferable",
+      "confidence": "high"
+    },
+    {
+      "claim": "PEAR describes a planner that decomposes the request into subtasks and a step-by-step strategy, and an executor that carries them out via tools and environment interaction, with replanning from updated state.",
+      "source_url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "source_type": "technical comparison or benchmark",
+      "supported_aspect": "explicit planning stage",
+      "confidence": "high"
+    },
+    {
+      "claim": "PEAR finds planner quality matters more than executor quality, and injection attacks on planner-executor communication or planner prompts can cause substantial failures.",
+      "source_url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "source_type": "technical comparison or benchmark",
+      "supported_aspect": "failure modes",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct's paper notes limitations under the prompting setup and highlights hallucination/error propagation issues in reasoning-heavy settings.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "failure modes",
+      "confidence": "high"
+    },
+    {
+      "claim": "Microsoft's orchestration docs list multiple built-in patterns, including sequential, concurrent, handoff, group chat, and magentic, and note human-in-the-loop tool approval support.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "when each architecture is preferable",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradiction: ReAct embeds planning inside the same thought-action loop, while planner-executor externalizes planning into a separate stage and execution path. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+    "uncertainty_notes": [
+      "‘Planner-executor’ is an architecture family, not a single standard implementation, so details vary across frameworks. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))",
+      "The claim that ReAct lacks a separate planner is inferential rather than verbatim from the paper. ([arxiv.org](https://arxiv.org/pdf/2210.03629))"
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "ReAct interleaves reasoning and acting.",
+      "Planner-executor separates planning from execution.",
+      "Tool calls are handled differently across the two architectures.",
+      "ReAct can fail via hallucination/error propagation.",
+      "Planner-executor can fail via weak planning and prompt injection.",
+      "ReAct is better for reactive/uncertain tasks; planner-executor for staged workflows."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The statement that ReAct does not have a separate planning stage is an inference from its interleaved design. ([arxiv.org](https://arxiv.org/pdf/2210.03629))"
+    ]
+  },
+  "finished_at": "2026-05-05T09:43:16+00:00",
+  "citations": [
+    {
+      "end_index": 7373,
+      "start_index": 7326,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2210.03629"
+    },
+    {
+      "end_index": 7629,
+      "start_index": 7529,
+      "title": "Workflow orchestrations in Agent Framework | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/"
+    },
+    {
+      "end_index": 10300,
+      "start_index": 10227,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+    },
+    {
+      "end_index": 10581,
+      "start_index": 10455,
+      "title": "Agent Executor | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai"
+    },
+    {
+      "end_index": 11587,
+      "start_index": 11466,
+      "title": "Microsoft Agent Framework Workflows Orchestrations - Sequential | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb711e108197b2cf5fbc6e2c45da",
+      "action": {
+        "query": "ReAct paper arXiv reasoning and acting paper",
+        "type": "search",
+        "queries": [
+          "ReAct paper arXiv reasoning and acting paper",
+          "planner executor agent framework documentation planning execution agents",
+          "ReAct vs planner executor benchmark comparison agents"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.01262"
+          },
+          {
+            "type": "url",
+            "url": "https://esy.com/agents/patterns/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.09970"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2401.02777"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11381"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2402.11534"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/"
+          },
+          {
+            "type": "url",
+            "url": "https://engineersofai.com/docs/research/paper-breakdowns/react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2411.00927"
+          },
+          {
+            "type": "url",
+            "url": "https://www.doairight.org/posts/pat-multiagent-planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2312.10003"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/react-synergizing-reasoning-and-acting-in-language-models--arxiv-2210.03629/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/y1mosn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1shafwz/finally_a_planner_executor_setup_for_ai_agents_is/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/JACK_Intelligent_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1svz2cz/model_orchestration_in_codex_separate_planner_and/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/19ek3jk"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MLQuestions/comments/1c08ca1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1rxz4xk/d_breaking_down_mirothinker_h1s_verification/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMPhysics/comments/1sg32g7/not_a_physicist_is_this_arxiv_paper_genuine/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LightAPILLM/comments/1s1avub/creating_a_multiagent_system_with_rolebased/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb74282c8197b6023c74e11d9881",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/pdf/2210.03629"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb75f6548197bdc5729807e60399",
+      "action": {
+        "query": "site:learn.microsoft.com planner executor agent framework documentation planning executor",
+        "type": "search",
+        "queries": [
+          "site:learn.microsoft.com planner executor agent framework documentation planning executor",
+          "site:docs.opensearch.org planner executor agent documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/cs-cz/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/de-de/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/ja-jp/agent-framework/user-guide/workflows/core-concepts/executors"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-pt/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/python/api/agent-framework-core/agent_framework.magenticorchestratorexecutor?view=agent-framework-python-latest"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-br/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/python/api/agent-framework-core/agent_framework.agentexecutor?view=agent-framework-python-latest"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/it-it/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/core-concepts/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/ja-jp/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/fr-fr/agent-framework/user-guide/workflows/core-concepts/executors"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/office365/enterprise/downloads/msft-m365-groups.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/vnext/health/pdfs/assessment-prereq-docs/prereqsexassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/health/assessment_prereq_docs/prereqsspassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/sfbus/health/getting-started-sccm/prereqscmassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-gb/azure/databricks/_extras/documents/reference-use-case-gen-ai-agent-for-azure.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/health/getting-started-SQL/Prerequisites_RAPasaService_SQL.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb78c94c8197a27bb6fed7149e6b",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb7b29bc8197acf62cd646b2b9c8",
+      "action": {
+        "query": "site:learn.microsoft.com agent framework orchestrator planning task ledger creation",
+        "type": "search",
+        "queries": [
+          "site:learn.microsoft.com agent framework orchestrator planning task ledger creation",
+          "site:learn.microsoft.com agent framework planner executor orchestration docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/es-es/agent-framework/user-guide/workflows/core-concepts/executors"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/handoff"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/concurrent"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/python/api/agent-framework-core/agent_framework.magenticorchestratorexecutor?view=agent-framework-python-latest"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/core-concepts/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/overview/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/openspecs/interopevents/interopevents/media/index/pdfs/whatsnewinsharepointframework_mingyuanyu.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-gb/azure/databricks/_extras/documents/reference-use-case-gen-ai-agent-for-azure.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/is-is/services-hub/microsoft-engage-center/health/pdfs/assessment-prereq-docs/prereqsazureadassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/azure/databricks/_extras/documents/reference-use-case-collaboration-for-azure.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/services-hub/unified/health/assessment_prereq_docs/prereqsadassessment.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/databricks/_extras/documents/reference-use-case-gen-ai-agent-for-azure.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb80df6c8197842046120996dddd",
+      "action": {
+        "pattern": "limitations",
+        "type": "find_in_page",
+        "url": "https://arxiv.org/pdf/2210.03629"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb82a11881979642206ce56c1117",
+      "action": {
+        "type": "open_page",
+        "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0bc5552bf6ea67fa0069f9bb84a12c819781ab5dc25b135b8e",
+      "action": {
+        "pattern": "injection attacks",
+        "type": "find_in_page",
+        "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 34446,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11080,
+    "output_tokens_details": {
+      "reasoning_tokens": 8151
+    },
+    "total_tokens": 45526
+  },
+  "response_id": "resp_0bc5552bf6ea67fa0069f9bb6fe58c8197b88901694dbc01e7",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"How do ReAct agents structure reasoning and action over time?\",\n      \"What does a planner-executor split add that ReAct lacks?\",\n      \"How do the architectures differ in tool use and control flow?\",\n      \"What are the main failure modes of each?\",\n      \"Which tasks favor each architecture?\"\n    ],\n    \"required_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"expected_source_types\": [\n      \"ReAct paper\",\n      \"agent framework documentation\",\n      \"technical comparison or benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"ReAct paper arXiv reasoning and acting paper\",\n      \"planner executor agent framework documentation planning execution agents\",\n      \"planner executor vs ReAct benchmark comparison\",\n      \"site:learn.microsoft.com agent framework orchestrations sequential handoff\"\n    ],\n    \"rationale_per_query\": [\n      \"Get the primary ReAct definition and its stated limitations from the original paper.\",\n      \"Get official agent-framework docs describing executor/planner or sequential orchestration behavior.\",\n      \"Find a benchmark or comparison that reports planner/executor robustness or failure modes.\",\n      \"Confirm preferred use cases and control-flow details from official orchestration documentation.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Agent Executor | Microsoft Learn\",\n      \"url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"title\": \"Microsoft Agent Framework Workflows Orchestrations - Sequential\",\n      \"url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"title\": \"Workflow orchestrations in Agent Framework | Microsoft Learn\",\n      \"url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"title\": \"PEAR: Planner-Executor Agent Robustness Benchmark\",\n      \"url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n      \"type\": \"technical comparison or benchmark\"\n    },\n    {\n      \"title\": \"Planner-Executor Agentic Framework | EmergentMind\",\n      \"url\": \"https://www.emergentmind.com/topics/planner-executor-agentic-framework\",\n      \"type\": \"secondary summary\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://arxiv.org/pdf/2210.03629\",\n      \"https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor\",\n      \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential\",\n      \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/\",\n      \"https://aclanthology.org/2026.findings-eacl.237.pdf\"\n    ],\n    \"rejected_sources\": [\n      \"https://www.emergentmind.com/topics/planner-executor-agentic-framework\"\n    ],\n    \"rejection_reasons\": [\n      \"Secondary summary rather than a primary paper or official documentation; used only if necessary, but not needed here.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"ReAct prompts LLMs to generate reasoning traces and task-specific actions in an interleaved manner; thoughts help create, track, and update action plans, while actions gather external information.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"interleaved reasoning and acting\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct embeds planning inside the reasoning-action loop rather than defining a separate planner stage; this is an inference from the paper's interleaved design.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"Microsoft's Agent Executor wraps an agent, routes messages, manages session state, emits outputs, supports chaining, and checkpointing.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Sequential orchestration organizes agents in a pipeline where each agent processes the task in turn and passes output to the next; it is ideal when each step builds on the previous one.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"PEAR describes a planner that decomposes the request into subtasks and a step-by-step strategy, and an executor that carries them out via tools and environment interaction, with replanning from updated state.\",\n      \"source_url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n      \"source_type\": \"technical comparison or benchmark\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"PEAR finds planner quality matters more than executor quality, and injection attacks on planner-executor communication or planner prompts can cause substantial failures.\",\n      \"source_url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n      \"source_type\": \"technical comparison or benchmark\",\n      \"supported_aspect\": \"failure modes\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct's paper notes limitations under the prompting setup and highlights hallucination/error propagation issues in reasoning-heavy settings.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Microsoft's orchestration docs list multiple built-in patterns, including sequential, concurrent, handoff, group chat, and magentic, and note human-in-the-loop tool approval support.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradiction: ReAct embeds planning inside the same thought-action loop, while planner-executor externalizes planning into a separate stage and execution path. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\",\n    \"uncertainty_notes\": [\n      \"‘Planner-executor’ is an architecture family, not a single standard implementation, so details vary across frameworks. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))\",\n      \"The claim that ReAct lacks a separate planner is inferential rather than verbatim from the paper. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"ReAct interleaves reasoning and acting.\",\n      \"Planner-executor separates planning from execution.\",\n      \"Tool calls are handled differently across the two architectures.\",\n      \"ReAct can fail via hallucination/error propagation.\",\n      \"Planner-executor can fail via weak planning and prompt injection.\",\n      \"ReAct is better for reactive/uncertain tasks; planner-executor for staged workflows.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The statement that ReAct does not have a separate planning stage is an inference from its interleaved design. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\"\n    ]\n  },\n  \"answer\": \"## Answer\\nReAct-style agents keep reasoning and acting in a single interleaved loop: the model emits thoughts that can create, track, and update action plans, then acts to fetch new information from the environment. Planner-executor agents split that loop into a planning phase and an execution phase. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n\\nTool-use implication: ReAct treats tool calls as part of the same thought-action-observation trace, so the model can revise after each observation; planner-executor makes tool calls downstream of a prior plan, which is easier to route, chain, checkpoint, and subject to approval. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n\\nFailure modes differ: ReAct’s paper explicitly discusses prompting limits and notes hallucination/error propagation in reasoning-heavy settings, while PEAR reports that planner quality matters more than executor quality and that prompt-injection on planner-executor communication or planner prompts can cause substantial end-to-end failures. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n\\nPrefer ReAct when the task is open-ended, information is uncertain, and you want a tight think-act-observe loop; prefer planner-executor when the task benefits from upfront decomposition, sequential handoff, observability, or human approval before tool use. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n\\n### Required aspect coverage\\n- interleaved reasoning and acting — ReAct generates reasoning traces and actions in an interleaved manner. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n- explicit planning stage — planner-executor separates a planner that decomposes the request into subtasks from an executor that performs them. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))\\n- tool-use implications — ReAct uses tools inside the same loop; planner-executor centralizes tool calls in the executor and supports chaining/approval. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai))\\n- failure modes — ReAct can suffer hallucination/error propagation; planner-executor is vulnerable to weak planners and planner-channel injection. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n- when each architecture is preferable — ReAct for uncertain, reactive tasks; planner-executor for multi-stage workflows needing control and review. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n\\n## Sources\\n- ReAct paper (Yao et al., ICLR 2023): interleaved reasoning/acting and noted limitations. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n- Microsoft Agent Executor docs: executor wrapping, routing, state, chaining, checkpointing. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai))\\n- Microsoft Sequential orchestration docs: pipeline execution, full-history handoff, human-in-the-loop approvals. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential))\\n- Microsoft orchestrations overview: sequential/handoff/magentic patterns and approval support. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))\\n- PEAR benchmark paper: planner/executor setup, tool usage, utility, and injection robustness findings. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))\\n\\n## Limitations\\n- “Planner-executor” is a family of architectures, not one universal standard; the docs here describe Microsoft Agent Framework sequential/orchestration patterns, so the comparison is pattern-level rather than vendor-independent. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/))\\n- The ReAct paper is strongest evidence for the interleaved-loop side; the claim that it lacks a separate planning stage is an inference from its design, not a verbatim statement. ([arxiv.org](https://arxiv.org/pdf/2210.03629))\\n- Benchmark results from PEAR reflect its own task suite and threat model, so robustness conclusions may not transfer unchanged to every agent stack. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))\"\n}",
+  "status": "complete"
+}

@@ -1,0 +1,1003 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T15:45:48+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "source_expectations": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T15:47:11+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nSelf-improving agents without fine-tuning usually fall into a few no-weight-update patterns:\n\n- **Verbal feedback / reflection loops:** the agent turns task feedback into natural-language reflections and stores them for later attempts. Reflexion is the canonical example. https://arxiv.org/abs/2303.11366\n- **Self-refinement loops:** the same model critiques its own draft and revises iteratively; Self-Refine does this without supervised training, extra training, or RL. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\n- **Prompt/workflow optimization:** instead of changing weights, the system searches over prompts or instruction variants and keeps higher-scoring candidates. OPRO is the canonical prompt-optimization approach, and later ACL work shows small models may only get modest gains. https://arxiv.org/abs/2309.03409 https://aclanthology.org/2024.findings-acl.100/\n- **Limits without external feedback:** purely intrinsic self-correction is fragile; one paper finds it can fail or degrade, while another says it can work only under careful settings like zero temperature and fair prompts. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673\n\n**Required aspect coverage**\n- verbal feedback — Reflexion explicitly uses verbal feedback signals and episodic memory to improve later actions. https://arxiv.org/abs/2303.11366\n- reflection — Reflexion’s core mechanism is self-reflection on failures before the next attempt. https://arxiv.org/abs/2303.11366\n- self-refinement — Self-Refine iteratively critiques and revises its own output without extra training. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\n- prompt or workflow optimization — OPRO iteratively optimizes instructions/prompts using prior candidates and scores. https://arxiv.org/abs/2309.03409\n- limits of self-improvement without external feedback — self-correction is not reliably strong on its own and may require careful prompts/decoding. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673\n\n## Sources\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366\n- Self-Refine: Iterative Refinement with Self-Feedback — https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\n- Large Language Models as Optimizers (OPRO) — https://arxiv.org/abs/2309.03409\n- Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers — https://aclanthology.org/2024.findings-acl.100/\n- Large Language Models Cannot Self-Correct Reasoning Yet — https://arxiv.org/abs/2310.01798\n- Large Language Models have Intrinsic Self-Correction Ability — https://arxiv.org/abs/2406.15673\n\n## Limitations\n- This is a compact, paper-driven taxonomy, not an exhaustive survey.\n- The strongest evidence here is for LLM agents, reasoning, and prompt workflows; other autonomous systems may use different self-improvement mechanisms.\n- The literature is mixed on intrinsic self-correction: benefits exist in some settings, but they are setup-sensitive and not guaranteed.",
+  "decomposition": {
+    "subquestions": [
+      "What no-fine-tuning techniques let an agent improve its own outputs at test time?",
+      "How do these techniques use feedback, reflection, or memory?",
+      "How do prompt/workflow optimization methods differ from direct self-critique?",
+      "What are the known limits when external feedback is absent?"
+    ],
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "expected_source_types": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "Reflexion paper arXiv verbal feedback self-improvement without fine-tuning",
+      "Self-Refine paper NeurIPS iterative refinement without fine-tuning",
+      "prompt optimization paper agent self-improvement without fine-tuning arXiv",
+      "limits of self-improvement without external feedback LLM self-correction arXiv"
+    ],
+    "rationale_per_query": [
+      "Find a canonical verbal-feedback/memory-based agent paper.",
+      "Find a canonical iterative self-refinement paper.",
+      "Find a canonical prompt/workflow optimization paper that avoids weight updates.",
+      "Find papers on when intrinsic self-correction fails or is fragile without external feedback."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://arxiv.org/abs/2303.11366",
+      "note": "Reflexion preprint; direct evidence for verbal feedback + episodic memory."
+    },
+    {
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+      "note": "Official NeurIPS proceedings page for Self-Refine."
+    },
+    {
+      "url": "https://arxiv.org/abs/2309.03409",
+      "note": "OPRO paper; prompt optimization without fine-tuning."
+    },
+    {
+      "url": "https://aclanthology.org/2024.findings-acl.100/",
+      "note": "Official ACL Anthology page for OPRO limitations on small-scale LLMs."
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.01798",
+      "note": "Negative result on intrinsic self-correction without external feedback."
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.15673",
+      "note": "Counterpoint showing intrinsic self-correction can work under constrained settings."
+    },
+    {
+      "url": "https://papers.cool/arxiv/2303.17651",
+      "note": "Discovery-only aggregator; not used in synthesis."
+    },
+    {
+      "url": "https://www.mdpi.com/2227-7390/12/6/929",
+      "note": "Secondary survey; not used because primary papers were available."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "reason": "Primary preprint with direct claims about verbal feedback, reflection, and memory."
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+        "reason": "Official proceedings page; primary source for iterative self-refinement without training."
+      },
+      {
+        "url": "https://arxiv.org/abs/2309.03409",
+        "reason": "Primary preprint introducing prompt optimization as iterative search."
+      },
+      {
+        "url": "https://aclanthology.org/2024.findings-acl.100/",
+        "reason": "Official proceedings page; primary evidence on prompt optimization limits for smaller models."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.01798",
+        "reason": "Primary preprint on failure modes of self-correction without external feedback."
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.15673",
+        "reason": "Primary preprint showing intrinsic self-correction can work under zero-temperature/fair-prompt conditions."
+      }
+    ],
+    "rejected_sources": [
+      "https://papers.cool/arxiv/2303.17651",
+      "https://www.mdpi.com/2227-7390/12/6/929"
+    ],
+    "rejection_reasons": [
+      "Aggregator/discovery page; replaced by the official NeurIPS proceedings page.",
+      "Secondary survey; lower authority than available primary papers."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Reflexion improves agents by turning task feedback into verbal reflections stored in episodic memory, without updating weights.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "preprint paper",
+      "supported_aspect": "verbal feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Reflexion is a reflection-based loop: the agent reflects on failures and uses those reflections to improve later trials.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "preprint paper",
+      "supported_aspect": "reflection",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Refine uses the same LLM to generate feedback on its own output and iteratively refine that output, with no supervised training, extra training, or RL.",
+      "source_url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+      "source_type": "conference proceedings",
+      "supported_aspect": "self-refinement",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "OPRO treats prompt writing as an optimization problem by generating new candidate prompts from prior prompts and their scores.",
+      "source_url": "https://arxiv.org/abs/2309.03409",
+      "source_type": "preprint paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Revisiting OPRO reports that small-scale LLMs have limited self-optimization ability, and that prompt automation can offer only marginal gains relative to simpler prompt baselines.",
+      "source_url": "https://aclanthology.org/2024.findings-acl.100/",
+      "source_type": "conference proceedings",
+      "supported_aspect": "prompt or workflow optimization",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Without external feedback, intrinsic self-correction on reasoning tasks can fail or even degrade performance.",
+      "source_url": "https://arxiv.org/abs/2310.01798",
+      "source_type": "preprint paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Intrinsic self-correction can still appear under constrained conditions, especially zero temperature and fair prompts, across multiple LLMs.",
+      "source_url": "https://arxiv.org/abs/2406.15673",
+      "source_type": "preprint paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      {
+        "aspect": "verbal feedback",
+        "status": "covered",
+        "evidence": [
+          "https://arxiv.org/abs/2303.11366"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "status": "covered",
+        "evidence": [
+          "https://arxiv.org/abs/2303.11366"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "status": "covered",
+        "evidence": [
+          "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "status": "covered",
+        "evidence": [
+          "https://arxiv.org/abs/2309.03409",
+          "https://aclanthology.org/2024.findings-acl.100/"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "status": "covered",
+        "evidence": [
+          "https://arxiv.org/abs/2310.01798",
+          "https://arxiv.org/abs/2406.15673"
+        ]
+      }
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [
+      {
+        "topic": "Intrinsic self-correction without external feedback",
+        "claim_a": "LLMs struggle to self-correct reasoning without external feedback and may degrade after self-correction. https://arxiv.org/abs/2310.01798",
+        "claim_b": "Intrinsic self-correction can work under zero temperature and fair prompts across multiple LLMs. https://arxiv.org/abs/2406.15673"
+      }
+    ],
+    "resolution": "Treat self-correction without external feedback as fragile and setup-dependent rather than universally reliable. The negative paper covers reasoning settings broadly; the positive paper shows gains only under careful decoding and prompt conditions.",
+    "uncertainty_notes": [
+      "Results appear sensitive to prompt fairness, decoding temperature, task type, and model scale.",
+      "The evidence base is strongest for LLM reasoning and agent loops, not all autonomous systems."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Verbal feedback and reflection loops can improve agents without weight updates.",
+      "Iterative self-refinement can be done with one LLM acting as generator, critic, and refiner.",
+      "Prompt optimization can be done by iterative search over prompts rather than fine-tuning.",
+      "Self-improvement without external feedback is limited and often unstable."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T15:47:11+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2024.findings-acl.100/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2309.03409",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2406.15673",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_09fb0d431da6cec60069fa10b17c988190af00eb2deb7d63b0",
+      "action": {
+        "query": "Reflexion paper arXiv verbal feedback self-improvement without fine-tuning",
+        "type": "search",
+        "queries": [
+          "Reflexion paper arXiv verbal feedback self-improvement without fine-tuning",
+          "Self-Refine paper arXiv iterative refinement without fine-tuning",
+          "prompt optimization paper agent self-improvement without fine-tuning large language model",
+          "limits of self-improvement without external feedback LLM self-refinement paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.15509"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.04055"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.ssrn.com/sol3/Delivery.cfm/6073587.pdf?abstractid=6073587&mirid=1"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.00402"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.18577"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.05605"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2227-7390/12/6/929"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/paper/rethinking-prompt-optimizers-from-prompt"
+          },
+          {
+            "type": "url",
+            "url": "https://ai-paper-delta.vercel.app/en/papers/2503.12434"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/389391776_Automatic_Prompt_Optimization_via_Heuristic_Search_A_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.07611"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=S37hOerQLB&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.01335"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Prompt_engineering"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Recursive_self-improvement"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Large_language_model"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10b491b881909627ce319890dff9",
+      "action": {
+        "query": "site:arxiv.org Reflexion Language Agents with Verbal Reinforcement Learning arXiv",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org Reflexion Language Agents with Verbal Reinforcement Learning arXiv",
+          "site:arxiv.org Self-Refine: Iterative Refinement with Self-Feedback arXiv",
+          "site:arxiv.org prompt optimization large language models OPRO arXiv",
+          "site:arxiv.org Large Language Models Cannot Self-Correct Reasoning Yet arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.14241"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10b6ee8c8190ab03ae591eb7b0dc",
+      "action": {
+        "query": "site:arxiv.org Optimization by PROmpting OPRO arXiv",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org Optimization by PROmpting OPRO arXiv",
+          "site:arxiv.org Automatic Prompt Engineer arXiv prompt optimization",
+          "site:arxiv.org GEPA prompt optimizer agent optimization arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.14241"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.19457"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.11560"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.00023"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2308.06374"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10c07210819099be30ba5ee5e7a4",
+      "action": {
+        "query": "\"Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers\" arXiv abs",
+        "type": "search",
+        "queries": [
+          "\"Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers\" arXiv abs",
+          "\"Revisiting OPRO\" arXiv abstract small-scale LLMs as optimizers"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/revisiting-opro-limitations-small-scale-llms-as"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/384212804_Revisiting_OPRO_The_Limitations_of_Small-Scale_LLMs_as_Optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/revisiting-opro-limitations-smallscale-llms-as-optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2405-10276"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/380635239_Revisiting_OPRO_The_Limitations_of_Small-Scale_LLMs_as_Optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.findings-acl.100/"
+          },
+          {
+            "type": "url",
+            "url": "https://axi.lims.ac.uk/paper/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://www.themoonlight.io/en/review/revisiting-opro-the-limitations-of-small-scale-llms-as-optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/chatpaper/paper/21178"
+          },
+          {
+            "type": "url",
+            "url": "https://hub.baai.ac.cn/paper/6a02ae55-b80f-42dd-b98f-7b24ae679b40"
+          },
+          {
+            "type": "url",
+            "url": "https://www.themoonlight.io/zh/review/revisiting-opro-the-limitations-of-small-scale-llms-as-optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://researchr.org/publication/ZhangYA24-1"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10c327f081909b7df8ac709b7aae",
+      "action": {
+        "type": "open_page",
+        "url": "https://aclanthology.org/2024.findings-acl.100/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10c73e388190ba18a3a50dd9c987",
+      "action": {
+        "query": "\"Self-Refine: Iterative Refinement with Self-Feedback\" NeurIPS proceedings",
+        "type": "search",
+        "queries": [
+          "\"Self-Refine: Iterative Refinement with Self-Feedback\" NeurIPS proceedings",
+          "\"Self-Refine: Iterative Refinement with Self-Feedback\" openreview"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.proceedings.com/075280-2019.html"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/selfrefine-iterative-refinement-with-selffeedback"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401454370_Self-Refine_Iterative_Refinement_with_Self-Feedback"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2303.17651v2"
+          },
+          {
+            "type": "url",
+            "url": "https://neurips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://selfrefine.info/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/paper/self-refine-iterative-refinement-with-self"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/conf/nips/MadaanTGHGW0DPY23"
+          },
+          {
+            "type": "url",
+            "url": "https://codeofpaper.com/paper/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2303-17651"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers?q=iterative+critique+loops"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.toronto.edu/~cmaddis/courses/csc2541_w25/presentations/artru_glukhov_selfrefine.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2024/Slides/96188_FOn1kRa.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/pdf?url=https%3A%2F%2Fopenreview.net%2Fpdf%3Fid%3DNHxwxc3ql6"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/1da9ca7e9cef4b1af63913f05d1630a4-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/12mqmtn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1so6432/removed/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10ca498c8190bf32d1eb0f932ad3",
+      "action": {
+        "query": "\"Reflexion: Language Agents with Verbal Reinforcement Learning\" proceedings",
+        "type": "search",
+        "queries": [
+          "\"Reflexion: Language Agents with Verbal Reinforcement Learning\" proceedings",
+          "\"Reflexion: Language Agents with Verbal Reinforcement Learning\" arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2303.11366v4"
+          },
+          {
+            "type": "url",
+            "url": "https://www.proceedings.com/075280-0377.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://collaborate.princeton.edu/en/publications/reflexion-language-agents-with-verbal-reinforcement-learning-2/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://aievidencehub.org/lib/YHJF8432"
+          },
+          {
+            "type": "url",
+            "url": "https://agifrontier.github.io/tutorials/reflexion-language-agents-with-verbal-reinforcement-learning/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scixplorer.org/abs/2023arXiv230311366S/references?p=1"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/reflexion-language-agents-with-verbal-reinforcement-learning"
+          },
+          {
+            "type": "url",
+            "url": "https://monkemanx.github.io/paper-summary/reflexion_language_agents_with_verbal_reinforcement/"
+          },
+          {
+            "type": "url",
+            "url": "https://aipapernotes.alphaavatar.io/llm/agent/Reflection/2023/Reflexion"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Feedback_neural_network"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/29f421fbdcc82aeb349d784d3aaccdb3-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://deepblue.lib.umich.edu/bitstream/handle/2027.42/197133/anthliu_1.pdf?isAllowed=y&sequence=1"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=TAthdtPe7k"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=K9GxQKEJzS"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/6882dbdc34bcd094e6f858c06ce30edb-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=SoEmgM1ioC"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPT/comments/15bhnjv"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1am3ior"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/generativeAI/comments/1btstp3"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_09fb0d431da6cec60069fa10d4a3e081909b62e499c929ae63",
+      "action": {
+        "query": "\"Large Language Models have Intrinsic Self-Correction Ability\" arXiv",
+        "type": "search",
+        "queries": [
+          "\"Large Language Models have Intrinsic Self-Correction Ability\" arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/large-language-models-have-intrinsic-self-correction"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/381666170_Large_Language_Models_have_Intrinsic_Self-Correction_Ability"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2406-15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2402.12563"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/paper/large-language-models-have-intrinsic-self"
+          },
+          {
+            "type": "url",
+            "url": "https://fugumt.com/fugumt/paper_check/2406.15673v1_enmode"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=pTyEnkuSQ0"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers?q=self-correction+capabilities"
+          },
+          {
+            "type": "url",
+            "url": "https://hub.baai.ac.cn/paper/e08128c9-bc84-41c6-9fd8-2218ba2a5a0b"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers?q=self-correcting+ability"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 39486,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8634,
+    "output_tokens_details": {
+      "reasoning_tokens": 5346
+    },
+    "total_tokens": 48120
+  },
+  "response_id": "resp_09fb0d431da6cec60069fa10ad18248190bf63770a7587c45a",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What no-fine-tuning techniques let an agent improve its own outputs at test time?\",\n      \"How do these techniques use feedback, reflection, or memory?\",\n      \"How do prompt/workflow optimization methods differ from direct self-critique?\",\n      \"What are the known limits when external feedback is absent?\"\n    ],\n    \"required_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"expected_source_types\": [\n      \"Reflexion paper\",\n      \"Self-Refine paper\",\n      \"agent design or optimization paper\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"Reflexion paper arXiv verbal feedback self-improvement without fine-tuning\",\n      \"Self-Refine paper NeurIPS iterative refinement without fine-tuning\",\n      \"prompt optimization paper agent self-improvement without fine-tuning arXiv\",\n      \"limits of self-improvement without external feedback LLM self-correction arXiv\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a canonical verbal-feedback/memory-based agent paper.\",\n      \"Find a canonical iterative self-refinement paper.\",\n      \"Find a canonical prompt/workflow optimization paper that avoids weight updates.\",\n      \"Find papers on when intrinsic self-correction fails or is fragile without external feedback.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://arxiv.org/abs/2303.11366\",\n      \"note\": \"Reflexion preprint; direct evidence for verbal feedback + episodic memory.\"\n    },\n    {\n      \"url\": \"https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\",\n      \"note\": \"Official NeurIPS proceedings page for Self-Refine.\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2309.03409\",\n      \"note\": \"OPRO paper; prompt optimization without fine-tuning.\"\n    },\n    {\n      \"url\": \"https://aclanthology.org/2024.findings-acl.100/\",\n      \"note\": \"Official ACL Anthology page for OPRO limitations on small-scale LLMs.\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2310.01798\",\n      \"note\": \"Negative result on intrinsic self-correction without external feedback.\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2406.15673\",\n      \"note\": \"Counterpoint showing intrinsic self-correction can work under constrained settings.\"\n    },\n    {\n      \"url\": \"https://papers.cool/arxiv/2303.17651\",\n      \"note\": \"Discovery-only aggregator; not used in synthesis.\"\n    },\n    {\n      \"url\": \"https://www.mdpi.com/2227-7390/12/6/929\",\n      \"note\": \"Secondary survey; not used because primary papers were available.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://arxiv.org/abs/2303.11366\",\n        \"reason\": \"Primary preprint with direct claims about verbal feedback, reflection, and memory.\"\n      },\n      {\n        \"url\": \"https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\",\n        \"reason\": \"Official proceedings page; primary source for iterative self-refinement without training.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2309.03409\",\n        \"reason\": \"Primary preprint introducing prompt optimization as iterative search.\"\n      },\n      {\n        \"url\": \"https://aclanthology.org/2024.findings-acl.100/\",\n        \"reason\": \"Official proceedings page; primary evidence on prompt optimization limits for smaller models.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2310.01798\",\n        \"reason\": \"Primary preprint on failure modes of self-correction without external feedback.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2406.15673\",\n        \"reason\": \"Primary preprint showing intrinsic self-correction can work under zero-temperature/fair-prompt conditions.\"\n      }\n    ],\n    \"rejected_sources\": [\n      \"https://papers.cool/arxiv/2303.17651\",\n      \"https://www.mdpi.com/2227-7390/12/6/929\"\n    ],\n    \"rejection_reasons\": [\n      \"Aggregator/discovery page; replaced by the official NeurIPS proceedings page.\",\n      \"Secondary survey; lower authority than available primary papers.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Reflexion improves agents by turning task feedback into verbal reflections stored in episodic memory, without updating weights.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"preprint paper\",\n      \"supported_aspect\": \"verbal feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Reflexion is a reflection-based loop: the agent reflects on failures and uses those reflections to improve later trials.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"preprint paper\",\n      \"supported_aspect\": \"reflection\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Refine uses the same LLM to generate feedback on its own output and iteratively refine that output, with no supervised training, extra training, or RL.\",\n      \"source_url\": \"https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\",\n      \"source_type\": \"conference proceedings\",\n      \"supported_aspect\": \"self-refinement\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OPRO treats prompt writing as an optimization problem by generating new candidate prompts from prior prompts and their scores.\",\n      \"source_url\": \"https://arxiv.org/abs/2309.03409\",\n      \"source_type\": \"preprint paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Revisiting OPRO reports that small-scale LLMs have limited self-optimization ability, and that prompt automation can offer only marginal gains relative to simpler prompt baselines.\",\n      \"source_url\": \"https://aclanthology.org/2024.findings-acl.100/\",\n      \"source_type\": \"conference proceedings\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Without external feedback, intrinsic self-correction on reasoning tasks can fail or even degrade performance.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.01798\",\n      \"source_type\": \"preprint paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Intrinsic self-correction can still appear under constrained conditions, especially zero temperature and fair prompts, across multiple LLMs.\",\n      \"source_url\": \"https://arxiv.org/abs/2406.15673\",\n      \"source_type\": \"preprint paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      {\n        \"aspect\": \"verbal feedback\",\n        \"status\": \"covered\",\n        \"evidence\": [\n          \"https://arxiv.org/abs/2303.11366\"\n        ]\n      },\n      {\n        \"aspect\": \"reflection\",\n        \"status\": \"covered\",\n        \"evidence\": [\n          \"https://arxiv.org/abs/2303.11366\"\n        ]\n      },\n      {\n        \"aspect\": \"self-refinement\",\n        \"status\": \"covered\",\n        \"evidence\": [\n          \"https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\"\n        ]\n      },\n      {\n        \"aspect\": \"prompt or workflow optimization\",\n        \"status\": \"covered\",\n        \"evidence\": [\n          \"https://arxiv.org/abs/2309.03409\",\n          \"https://aclanthology.org/2024.findings-acl.100/\"\n        ]\n      },\n      {\n        \"aspect\": \"limits of self-improvement without external feedback\",\n        \"status\": \"covered\",\n        \"evidence\": [\n          \"https://arxiv.org/abs/2310.01798\",\n          \"https://arxiv.org/abs/2406.15673\"\n        ]\n      }\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [\n      {\n        \"topic\": \"Intrinsic self-correction without external feedback\",\n        \"claim_a\": \"LLMs struggle to self-correct reasoning without external feedback and may degrade after self-correction. https://arxiv.org/abs/2310.01798\",\n        \"claim_b\": \"Intrinsic self-correction can work under zero temperature and fair prompts across multiple LLMs. https://arxiv.org/abs/2406.15673\"\n      }\n    ],\n    \"resolution\": \"Treat self-correction without external feedback as fragile and setup-dependent rather than universally reliable. The negative paper covers reasoning settings broadly; the positive paper shows gains only under careful decoding and prompt conditions.\",\n    \"uncertainty_notes\": [\n      \"Results appear sensitive to prompt fairness, decoding temperature, task type, and model scale.\",\n      \"The evidence base is strongest for LLM reasoning and agent loops, not all autonomous systems.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Verbal feedback and reflection loops can improve agents without weight updates.\",\n      \"Iterative self-refinement can be done with one LLM acting as generator, critic, and refiner.\",\n      \"Prompt optimization can be done by iterative search over prompts rather than fine-tuning.\",\n      \"Self-improvement without external feedback is limited and often unstable.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nSelf-improving agents without fine-tuning usually fall into a few no-weight-update patterns:\\n\\n- **Verbal feedback / reflection loops:** the agent turns task feedback into natural-language reflections and stores them for later attempts. Reflexion is the canonical example. https://arxiv.org/abs/2303.11366\\n- **Self-refinement loops:** the same model critiques its own draft and revises iteratively; Self-Refine does this without supervised training, extra training, or RL. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\\n- **Prompt/workflow optimization:** instead of changing weights, the system searches over prompts or instruction variants and keeps higher-scoring candidates. OPRO is the canonical prompt-optimization approach, and later ACL work shows small models may only get modest gains. https://arxiv.org/abs/2309.03409 https://aclanthology.org/2024.findings-acl.100/\\n- **Limits without external feedback:** purely intrinsic self-correction is fragile; one paper finds it can fail or degrade, while another says it can work only under careful settings like zero temperature and fair prompts. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673\\n\\n**Required aspect coverage**\\n- verbal feedback — Reflexion explicitly uses verbal feedback signals and episodic memory to improve later actions. https://arxiv.org/abs/2303.11366\\n- reflection — Reflexion’s core mechanism is self-reflection on failures before the next attempt. https://arxiv.org/abs/2303.11366\\n- self-refinement — Self-Refine iteratively critiques and revises its own output without extra training. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\\n- prompt or workflow optimization — OPRO iteratively optimizes instructions/prompts using prior candidates and scores. https://arxiv.org/abs/2309.03409\\n- limits of self-improvement without external feedback — self-correction is not reliably strong on its own and may require careful prompts/decoding. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673\\n\\n## Sources\\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366\\n- Self-Refine: Iterative Refinement with Self-Feedback — https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html\\n- Large Language Models as Optimizers (OPRO) — https://arxiv.org/abs/2309.03409\\n- Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers — https://aclanthology.org/2024.findings-acl.100/\\n- Large Language Models Cannot Self-Correct Reasoning Yet — https://arxiv.org/abs/2310.01798\\n- Large Language Models have Intrinsic Self-Correction Ability — https://arxiv.org/abs/2406.15673\\n\\n## Limitations\\n- This is a compact, paper-driven taxonomy, not an exhaustive survey.\\n- The strongest evidence here is for LLM agents, reasoning, and prompt workflows; other autonomous systems may use different self-improvement mechanisms.\\n- The literature is mixed on intrinsic self-correction: benefits exist in some settings, but they are setup-sensitive and not guaranteed.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

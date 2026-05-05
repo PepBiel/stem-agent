@@ -1,0 +1,536 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v3",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 3,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v3.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:39:41+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 4,
+    "max_runtime_seconds": 180,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "source_expectations": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:40:02+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents trade control for adaptability: they can decide steps at runtime, handle ambiguity, and use tools dynamically, which makes them better for open-ended or messy tasks. Workflow-based agents trade some flexibility for predictability: you define the graph, ordering, approvals, and checkpoints up front, which is better for processes that need consistency and governance. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n### Required aspect coverage\n- **Flexibility:** Autonomous agents are more flexible because the model can choose actions and correct course dynamically; workflows are best when the process is already known. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n- **Controllability:** Workflows are more controllable because developers explicitly define steps, routing, and approval gates. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))\n- **Observability:** Workflows tend to be easier to observe because the framework can emit spans, logs, and metrics for each step and error. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability?pivots=programming-language-python&utm_source=openai))\n- **Cost:** Autonomous-agent systems can increase engineering cost if you must build retries, network isolation, storage, and execution plumbing yourself; platforms that provide these reduce that burden. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))\n- **Reproducibility:** Workflow execution is more reproducible because the graph is explicit and runs can be checkpointed and resumed from the last successful point. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))\n- **Failure recovery:** Workflows handle failures more cleanly via retries, checkpoints, and the ability to halt and transfer control back to the user. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n## Sources\n- OpenAI, *A practical guide to building agents* — https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\n- Microsoft Learn, *Workflows | Microsoft Agent Framework* — https://learn.microsoft.com/en-us/agent-framework/journey/workflows\n- Microsoft Learn, *Microsoft Agent Framework Workflows - Observability* — https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability\n- OpenAI, *From model to agent: Equipping the Responses API with a computer environment* — https://openai.com/index/equip-responses-api-computer-environment/\n- OpenAI, *Choco automates food distribution with AI agents* — https://openai.com/index/choco/\n\n## Limitations\nThe sources support a qualitative trade-off, not a universal rule: autonomous agents can be more adaptable, but workflows can also include agent steps and still remain partly autonomous. The cost comparison is directional rather than benchmarked with numbers. Observability evidence is strongest for workflow systems; the case study mainly shows that production agent systems need strong monitoring, not that workflows always win in every stack. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))",
+  "decomposition": {
+    "subquestions": [
+      "What capabilities does an autonomous agent add beyond a fixed workflow?",
+      "What capabilities does a workflow-based agent add beyond full autonomy?",
+      "How do the two approaches differ on control, monitoring, cost, reproducibility, and failure handling?"
+    ],
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "expected_source_types": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "agent workflows autonomous agents documentation workflow-based agents trade-offs official guide case study",
+      "site:openai.com agent workflow observability retries case study"
+    ],
+    "rationale_per_query": [
+      "Find official guidance defining agents vs workflows and explicitly discussing when to use each.",
+      "Find an engineering case study plus operational guidance covering observability, retries, and production trade-offs."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "title": "A practical guide to building agents",
+      "type": "agent framework documentation"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+      "title": "Workflows | Microsoft Learn",
+      "type": "workflow or orchestration guide"
+    },
+    {
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "title": "From model to agent: Equipping the Responses API with a computer environment",
+      "type": "workflow or orchestration guide"
+    },
+    {
+      "url": "https://openai.com/index/choco/",
+      "title": "Choco automates food distribution with AI agents",
+      "type": "engineering case study"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "reason": "Official agent guidance; defines agents vs workflows and when deterministic solutions suffice."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+        "reason": "Official workflow guide; explicitly contrasts autonomy spectrum, explicit graphs, and checkpoints."
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+        "reason": "Official engineering guide; covers retries, security, isolated execution, and repeatability."
+      },
+      {
+        "url": "https://openai.com/index/choco/",
+        "reason": "Engineering case study; shows production observability, monitoring, and probabilistic behavior in practice."
+      }
+    ],
+    "rejected_sources": [],
+    "rejection_reasons": []
+  },
+  "evidence_table": [
+    {
+      "claim": "Autonomous agents are more flexible because they let the model choose actions and adapt at runtime, while workflows are better when the process structure is known ahead of time.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "flexibility",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflows improve controllability by letting developers define the graph explicitly, choose where the model may reason, and add human approval gates.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "controllability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflow observability is stronger because the framework emits spans, logs, and metrics that expose execution flow, executor performance, and errors.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "observability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agent platforms can reduce build cost and effort by providing execution environments, storage, network controls, and built-in handling for timeouts and retries instead of forcing teams to build that plumbing themselves.",
+      "source_url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "cost",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflows are more reproducible because they can be deterministic, checkpointed, and resumed from the last checkpoint rather than restarted.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "reproducibility",
+      "confidence": "high"
+    },
+    {
+      "claim": "Failure recovery is stronger in workflow systems because they support checkpoints/resuming, explicit halt-and-transfer-back-to-user behavior, and retries/timeouts in the execution environment.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "failure recovery",
+      "confidence": "high"
+    },
+    {
+      "claim": "A production case study reports that AI-native observability, continuous monitoring, and A/B testing were needed to keep an agentic order-processing system reliable at scale.",
+      "source_url": "https://openai.com/index/choco/",
+      "source_type": "engineering case study",
+      "supported_aspect": "observability",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradiction across the accepted sources; they consistently frame autonomous agents as more adaptive and workflows as more controlled, observable, and reproducible.",
+    "uncertainty_notes": [
+      "Cost is the least directly quantified aspect in the sources; the conclusion is based on tooling/plumbing reduction rather than a benchmarked dollar comparison."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Autonomous agents are more flexible.",
+      "Workflow-based agents are more controllable.",
+      "Workflows improve observability.",
+      "Agent platforms can reduce implementation overhead.",
+      "Workflows improve reproducibility.",
+      "Workflows improve failure recovery.",
+      "Production deployments need observability and monitoring."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The cost trade-off is supported qualitatively, not with a hard numeric comparison."
+    ]
+  },
+  "finished_at": "2026-05-05T09:40:02+00:00",
+  "citations": [
+    {
+      "end_index": 7721,
+      "start_index": 7616,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 8260,
+      "start_index": 8168,
+      "title": "Workflows | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows"
+    },
+    {
+      "end_index": 8565,
+      "start_index": 8403,
+      "title": "Microsoft Agent Framework Workflows - Observability | Microsoft Learn",
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability?pivots=programming-language-python&utm_source=openai"
+    },
+    {
+      "end_index": 8852,
+      "start_index": 8771,
+      "title": "From model to agent: Equipping the Responses API with a computer environment  | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/choco/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0458c7acf505ca2f0069f9bae621a0819697bb459ce9cdb0c2",
+      "action": {
+        "query": "agent workflows autonomous agents documentation workflow-based agents trade-offs official guide case study",
+        "type": "search",
+        "queries": [
+          "agent workflows autonomous agents documentation workflow-based agents trade-offs official guide case study",
+          "site:docs.anthropic.com agents workflows tradeoffs case study agent framework documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/core-concepts/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/workflows/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.letta.com/guides/agents/architectures/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/logic-apps/create-agent-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/topics/utility-based-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://elevenlabs.io/docs/agents-platform/customization/agent-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://deck.co/blog/what-are-agentic-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.uipath.com/agents/automation-cloud/latest/user-guide/agent-vs-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://www.niscosystems.com/case-studies/multi-agent-workflow-automation"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.05428"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.01186"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.12307"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.13597"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1sdamwe/are_we_overestimating_how_autonomous_agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Autonomous_agent"
+          },
+          {
+            "type": "url",
+            "url": "https://web.stanford.edu/class/cs224g/lectures/CS%20224G%202026%20Lecture%207%20-%20Agent%20Orchestration%20%26%20Workflow%20Design.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1sqi8r3/what_actually_breaks_when_you_move_from/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Intelligent_agent"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1syk8dy/agents_vs_workflows/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0458c7acf505ca2f0069f9bae809bc81968f2fb5f2e20a5f61",
+      "action": {
+        "query": "site:openai.com case study agents workflows observability retries recovery",
+        "type": "search",
+        "queries": [
+          "site:openai.com case study agents workflows observability retries recovery",
+          "site:learn.microsoft.com case study agent workflow observability retries recovery"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-pt/agent-framework/workflows/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability?pivots=programming-language-python"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/el-gr/agent-framework/workflows/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/microsoft-agent-365/developer/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/observability/concepts/trace-agent-concept?view=foundry"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/agents/agent-observability"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/choco"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/speeding-up-agentic-workflows-with-websockets/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/de-de/agent-framework/user-guide/workflows/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/azure/sre-agent/diagnose-observability"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/answers/a/12675077"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/6dc7175d-d9e7-4b8d-96b8-48fe5798cd5b/oai_genebench_benchmark.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/6a2631dc-783e-479b-b1a4-af0cfbd38630/how-openai-uses-codex.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/22265bac-3191-44e5-b057-7aaacd8e90cd/paperbench.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0458c7acf505ca2f0069f9bae990608196b0443a994576a577",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 17386,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 2874,
+    "output_tokens_details": {
+      "reasoning_tokens": 628
+    },
+    "total_tokens": 20260
+  },
+  "response_id": "resp_0458c7acf505ca2f0069f9bae54b4481968bb4727c2b91b951",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What capabilities does an autonomous agent add beyond a fixed workflow?\",\n      \"What capabilities does a workflow-based agent add beyond full autonomy?\",\n      \"How do the two approaches differ on control, monitoring, cost, reproducibility, and failure handling?\"\n    ],\n    \"required_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"expected_source_types\": [\n      \"agent framework documentation\",\n      \"workflow or orchestration guide\",\n      \"engineering case study\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"agent workflows autonomous agents documentation workflow-based agents trade-offs official guide case study\",\n      \"site:openai.com agent workflow observability retries case study\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official guidance defining agents vs workflows and explicitly discussing when to use each.\",\n      \"Find an engineering case study plus operational guidance covering observability, retries, and production trade-offs.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"title\": \"A practical guide to building agents\",\n      \"type\": \"agent framework documentation\"\n    },\n    {\n      \"url\": \"https://learn.microsoft.com/en-us/agent-framework/journey/workflows\",\n      \"title\": \"Workflows | Microsoft Learn\",\n      \"type\": \"workflow or orchestration guide\"\n    },\n    {\n      \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"title\": \"From model to agent: Equipping the Responses API with a computer environment\",\n      \"type\": \"workflow or orchestration guide\"\n    },\n    {\n      \"url\": \"https://openai.com/index/choco/\",\n      \"title\": \"Choco automates food distribution with AI agents\",\n      \"type\": \"engineering case study\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n        \"reason\": \"Official agent guidance; defines agents vs workflows and when deterministic solutions suffice.\"\n      },\n      {\n        \"url\": \"https://learn.microsoft.com/en-us/agent-framework/journey/workflows\",\n        \"reason\": \"Official workflow guide; explicitly contrasts autonomy spectrum, explicit graphs, and checkpoints.\"\n      },\n      {\n        \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n        \"reason\": \"Official engineering guide; covers retries, security, isolated execution, and repeatability.\"\n      },\n      {\n        \"url\": \"https://openai.com/index/choco/\",\n        \"reason\": \"Engineering case study; shows production observability, monitoring, and probabilistic behavior in practice.\"\n      }\n    ],\n    \"rejected_sources\": [],\n    \"rejection_reasons\": []\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Autonomous agents are more flexible because they let the model choose actions and adapt at runtime, while workflows are better when the process structure is known ahead of time.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"flexibility\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflows improve controllability by letting developers define the graph explicitly, choose where the model may reason, and add human approval gates.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/journey/workflows\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"controllability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflow observability is stronger because the framework emits spans, logs, and metrics that expose execution flow, executor performance, and errors.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"observability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agent platforms can reduce build cost and effort by providing execution environments, storage, network controls, and built-in handling for timeouts and retries instead of forcing teams to build that plumbing themselves.\",\n      \"source_url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"cost\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflows are more reproducible because they can be deterministic, checkpointed, and resumed from the last checkpoint rather than restarted.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/journey/workflows\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"reproducibility\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Failure recovery is stronger in workflow systems because they support checkpoints/resuming, explicit halt-and-transfer-back-to-user behavior, and retries/timeouts in the execution environment.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/journey/workflows\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"failure recovery\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"A production case study reports that AI-native observability, continuous monitoring, and A/B testing were needed to keep an agentic order-processing system reliable at scale.\",\n      \"source_url\": \"https://openai.com/index/choco/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"observability\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradiction across the accepted sources; they consistently frame autonomous agents as more adaptive and workflows as more controlled, observable, and reproducible.\",\n    \"uncertainty_notes\": [\n      \"Cost is the least directly quantified aspect in the sources; the conclusion is based on tooling/plumbing reduction rather than a benchmarked dollar comparison.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Autonomous agents are more flexible.\",\n      \"Workflow-based agents are more controllable.\",\n      \"Workflows improve observability.\",\n      \"Agent platforms can reduce implementation overhead.\",\n      \"Workflows improve reproducibility.\",\n      \"Workflows improve failure recovery.\",\n      \"Production deployments need observability and monitoring.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The cost trade-off is supported qualitatively, not with a hard numeric comparison.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAutonomous agents trade control for adaptability: they can decide steps at runtime, handle ambiguity, and use tools dynamically, which makes them better for open-ended or messy tasks. Workflow-based agents trade some flexibility for predictability: you define the graph, ordering, approvals, and checkpoints up front, which is better for processes that need consistency and governance. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\n### Required aspect coverage\\n- **Flexibility:** Autonomous agents are more flexible because the model can choose actions and correct course dynamically; workflows are best when the process is already known. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n- **Controllability:** Workflows are more controllable because developers explicitly define steps, routing, and approval gates. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))\\n- **Observability:** Workflows tend to be easier to observe because the framework can emit spans, logs, and metrics for each step and error. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability?pivots=programming-language-python&utm_source=openai))\\n- **Cost:** Autonomous-agent systems can increase engineering cost if you must build retries, network isolation, storage, and execution plumbing yourself; platforms that provide these reduce that burden. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))\\n- **Reproducibility:** Workflow execution is more reproducible because the graph is explicit and runs can be checkpointed and resumed from the last successful point. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))\\n- **Failure recovery:** Workflows handle failures more cleanly via retries, checkpoints, and the ability to halt and transfer control back to the user. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\n## Sources\\n- OpenAI, *A practical guide to building agents* — https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\\n- Microsoft Learn, *Workflows | Microsoft Agent Framework* — https://learn.microsoft.com/en-us/agent-framework/journey/workflows\\n- Microsoft Learn, *Microsoft Agent Framework Workflows - Observability* — https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/observability\\n- OpenAI, *From model to agent: Equipping the Responses API with a computer environment* — https://openai.com/index/equip-responses-api-computer-environment/\\n- OpenAI, *Choco automates food distribution with AI agents* — https://openai.com/index/choco/\\n\\n## Limitations\\nThe sources support a qualitative trade-off, not a universal rule: autonomous agents can be more adaptable, but workflows can also include agent steps and still remain partly autonomous. The cost comparison is directional rather than benchmarked with numbers. Observability evidence is strongest for workflow systems; the case study mainly shows that production agent systems need strong monitoring, not that workflows always win in every stack. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/journey/workflows))\"\n}",
+  "status": "complete"
+}

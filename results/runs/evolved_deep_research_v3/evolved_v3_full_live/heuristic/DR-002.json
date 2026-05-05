@@ -1,0 +1,152 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-002.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.5556,
+    "source_quality_score": 0.1667,
+    "unsupported_claim_count": 4,
+    "unsupported_claim_score": 0.5556,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.6972,
+  "failure_tags": [
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 27.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "covered": true,
+        "matched_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ],
+        "expected_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ]
+      },
+      {
+        "aspect": "explicit planning stage",
+        "covered": true,
+        "matched_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ],
+        "expected_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ]
+      },
+      {
+        "aspect": "tool-use implications",
+        "covered": true,
+        "matched_terms": [
+          "implications",
+          "tool"
+        ],
+        "expected_terms": [
+          "implications",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "failure modes",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "failure",
+          "modes"
+        ]
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "covered": true,
+        "matched_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ],
+        "expected_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "ReAct-style agents differ from planner-executor agents mainly in **when planning happens** and **how tightly it is coupled to action**. ReAct alternates between internal reasoning and external actions in a single loop, using observations to update the next thought/action step. By contrast, planner-executor systems first produce an explicit plan, then execute that plan step-by-step, often with a separate execution phase and optional replanning.",
+      "**Tool-use implications:** ReAct is naturally tool-centric: reasoning and tool calls are interleaved, so the model can inspect tool results immediately and adjust its next move. Planner-executor architectures are better when tools should be used within a controlled workflow, because the planner can decide the sequence up front and the executor can carry it out with more structure and guardrails. LangGraph’s docs emphasize controllable orchestration, persistence, interrupts, and stepwise execution, which matches this planner-executor style.",
+      "**Failure modes:** ReAct can be brittle on long-horizon or asynchronous tasks because it may lose the global objective and fail to self-audit across many steps. A benchmark on asynchronous planning found ReAct performing much worse on asynchronous than synchronous tasks and explicitly called for better long-horizon feedback and self-audit. Planner-executor systems can fail when the initial plan is wrong or stale, but they are often easier to monitor and revise because the plan is explicit.",
+      "**When each is preferable:** Use **ReAct** when the task is short-horizon, interactive, and benefits from frequent correction after each tool observation. Use **planner-executor** when the task is long-horizon, multi-step, or workflow-like, where upfront structure, checkpoints, and predictable execution matter more than rapid improvisation.",
+      "- interleaved reasoning and acting — covered: ReAct explicitly interleaves reasoning traces and actions. https://arxiv.org/abs/2210.03629",
+      "- explicit planning stage — covered: planner-executor starts with an explicit plan before execution. https://langchain-ai.github.io/langgraph/tutorials/sql-agent/",
+      "- tool-use implications — covered: ReAct uses tools inside the reasoning loop; planner-executor uses tools inside a controlled workflow. https://arxiv.org/abs/2210.03629",
+      "- failure modes — covered: ReAct degrades on asynchronous/long-horizon tasks and can lose global coherence. https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning",
+      "- when each architecture is preferable — covered: ReAct for short-horizon/dynamic tasks; planner-executor for long-horizon/workflow tasks. https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning"
+    ],
+    "unsupported_claim_lines": [
+      "ReAct-style agents differ from planner-executor agents mainly in **when planning happens** and **how tightly it is coupled to action**. ReAct alternates between internal reasoning and external actions in a single loop, using observations to update the next thought/action step. By contrast, planner-executor systems first produce an explicit plan, then execute that plan step-by-step, often with a separate execution phase and optional replanning.",
+      "**Tool-use implications:** ReAct is naturally tool-centric: reasoning and tool calls are interleaved, so the model can inspect tool results immediately and adjust its next move. Planner-executor architectures are better when tools should be used within a controlled workflow, because the planner can decide the sequence up front and the executor can carry it out with more structure and guardrails. LangGraph’s docs emphasize controllable orchestration, persistence, interrupts, and stepwise execution, which matches this planner-executor style.",
+      "**Failure modes:** ReAct can be brittle on long-horizon or asynchronous tasks because it may lose the global objective and fail to self-audit across many steps. A benchmark on asynchronous planning found ReAct performing much worse on asynchronous than synchronous tasks and explicitly called for better long-horizon feedback and self-audit. Planner-executor systems can fail when the initial plan is wrong or stale, but they are often easier to monitor and revise because the plan is explicit.",
+      "**When each is preferable:** Use **ReAct** when the task is short-horizon, interactive, and benefits from frequent correction after each tool observation. Use **planner-executor** when the task is long-horizon, multi-step, or workflow-like, where upfront structure, checkpoints, and predictable execution matter more than rapid improvisation."
+    ],
+    "sources": [
+      {
+        "url": "https://agentmarketcap.ai/blog/2026/04/12/react-vs-plan-execute-vs-tree-of-thought-production-2026",
+        "domain": "agentmarketcap.ai",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/",
+        "domain": "langchain-ai.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html",
+        "domain": "langchain-ai.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.catalyzex.com/paper/robotouille-an-asynchronous-planning",
+        "domain": "catalyzex.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.researchgate.net/publication/364290390_ReAct_Synergizing_Reasoning_and_Acting_in_Language_Models",
+        "domain": "researchgate.net",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

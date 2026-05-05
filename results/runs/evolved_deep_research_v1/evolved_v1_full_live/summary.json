@@ -1,0 +1,327 @@
+{
+  "schema_version": "2026-05-04",
+  "run_id": "evolved_v1_full_live",
+  "agent": "evolved_deep_research_v1",
+  "requested_agent": "evolved_v1",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "dry_run": false,
+  "started_at": "2026-05-05T09:25:28+00:00",
+  "finished_at": "2026-05-05T09:34:05+00:00",
+  "question_count": 8,
+  "artifact_root": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live",
+  "questions": [
+    {
+      "question_id": "DR-001",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-001.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-001.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-001.json",
+      "heuristic_score": 0.9071,
+      "judge_score": 0.5417,
+      "final_score": 0.6696,
+      "runtime_seconds": 77.0,
+      "agent_usage": {
+        "input_tokens": 30765,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 9647,
+        "output_tokens_details": {
+          "reasoning_tokens": 6524
+        },
+        "total_tokens": 40412
+      },
+      "judge_usage": {
+        "input_tokens": 4063,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1625,
+        "output_tokens_details": {
+          "reasoning_tokens": 83
+        },
+        "total_tokens": 5688
+      },
+      "summary": "The answer is broadly plausible and cites relevant memory papers, but it misses one required failure mode, under-develops short-term vs long-term memory trade-offs, and only gestures at evaluation methods rather than describing them.",
+      "recommended_fix": "Add an explicit section covering over-trusting prior agent outputs, explain short-term vs long-term memory trade-offs concretely, and name actual evaluation methods/metrics or benchmark protocols for memory quality."
+    },
+    {
+      "question_id": "DR-002",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-002.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-002.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-002.json",
+      "heuristic_score": 0.7125,
+      "judge_score": 0.5833,
+      "final_score": 0.6285,
+      "runtime_seconds": 37.0,
+      "agent_usage": {
+        "input_tokens": 30424,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 4355,
+        "output_tokens_details": {
+          "reasoning_tokens": 2540
+        },
+        "total_tokens": 34779
+      },
+      "judge_usage": {
+        "input_tokens": 2598,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1130,
+        "output_tokens_details": {
+          "reasoning_tokens": 15
+        },
+        "total_tokens": 3728
+      },
+      "summary": "The answer correctly distinguishes interleaved ReAct from separated planner-executor workflows, but it only partially covers the required comparison and omits failure modes almost entirely.",
+      "recommended_fix": "Add a concrete comparison of failure modes and trade-offs: e.g., ReAct's susceptibility to local myopia/looping versus planner-executor's stale or brittle plans, and specify scenarios where each is preferable."
+    },
+    {
+      "question_id": "DR-003",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-003.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-003.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-003.json",
+      "heuristic_score": 0.8786,
+      "judge_score": 0.625,
+      "final_score": 0.7138,
+      "runtime_seconds": 77.0,
+      "agent_usage": {
+        "input_tokens": 47407,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 8316,
+        "output_tokens_details": {
+          "reasoning_tokens": 5495
+        },
+        "total_tokens": 55723
+      },
+      "judge_usage": {
+        "input_tokens": 4684,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1494,
+        "output_tokens_details": {
+          "reasoning_tokens": 191
+        },
+        "total_tokens": 6178
+      },
+      "summary": "A solid benchmark-oriented summary of tool-use evaluation, but it omits two required aspects: recovery from tool errors and cost/latency. The answer is mostly well-supported and organized, but it is more descriptive than decision-useful for engineering trade-offs.",
+      "recommended_fix": "Add a dedicated section on recovery/error-handling metrics and on efficiency metrics such as tool-call count, wall-clock latency, token/tool cost, and success-per-cost trade-offs, with benchmark examples for each."
+    },
+    {
+      "question_id": "DR-004",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-004.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-004.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-004.json",
+      "heuristic_score": 0.8455,
+      "judge_score": 0.5833,
+      "final_score": 0.6751,
+      "runtime_seconds": 41.0,
+      "agent_usage": {
+        "input_tokens": 17507,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 5632,
+        "output_tokens_details": {
+          "reasoning_tokens": 3066
+        },
+        "total_tokens": 23139
+      },
+      "judge_usage": {
+        "input_tokens": 3712,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1511,
+        "output_tokens_details": {
+          "reasoning_tokens": 211
+        },
+        "total_tokens": 5223
+      },
+      "summary": "A solid high-level explanation of agentic RAG versus standard RAG, but it misses reflection/verification and concrete failure modes, which are required aspects.",
+      "recommended_fix": "Add a specific explanation of reflection/verification loops and list concrete agentic-RAG failure modes and engineering tradeoffs, with tighter citations from the survey or implementation docs."
+    },
+    {
+      "question_id": "DR-005",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-005.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-005.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-005.json",
+      "heuristic_score": 0.95,
+      "judge_score": 0.7917,
+      "final_score": 0.8471,
+      "runtime_seconds": 52.0,
+      "agent_usage": {
+        "input_tokens": 13627,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 7559,
+        "output_tokens_details": {
+          "reasoning_tokens": 4593
+        },
+        "total_tokens": 21186
+      },
+      "judge_usage": {
+        "input_tokens": 4448,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1580,
+        "output_tokens_details": {
+          "reasoning_tokens": 122
+        },
+        "total_tokens": 6028
+      },
+      "summary": "A strong, well-cited synthesis of major no-fine-tuning self-improvement techniques for agents. Coverage is good, but the limitations section is too generic for a top score.",
+      "recommended_fix": "Add a sharper discussion of the limits of self-improvement without external feedback, including concrete failure modes like self-confirmation bias, compounding errors, reward hacking, and the ceiling imposed by the base model's capabilities."
+    },
+    {
+      "question_id": "DR-006",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-006.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-006.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-006.json",
+      "heuristic_score": 0.675,
+      "judge_score": 0.375,
+      "final_score": 0.48,
+      "runtime_seconds": 46.0,
+      "agent_usage": {
+        "input_tokens": 17499,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 5893,
+        "output_tokens_details": {
+          "reasoning_tokens": 3282
+        },
+        "total_tokens": 23392
+      },
+      "judge_usage": {
+        "input_tokens": 3026,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1482,
+        "output_tokens_details": {
+          "reasoning_tokens": 114
+        },
+        "total_tokens": 4508
+      },
+      "summary": "The answer is reasonably grounded in MARL literature but misses most of the required failure modes, especially role confusion, error propagation, consensus without correctness, and evaluation difficulty.",
+      "recommended_fix": "Replace the current MARL-only taxonomy with an answer explicitly organized around the five required aspects, and use citations that directly support each one."
+    },
+    {
+      "question_id": "DR-007",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-007.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-007.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-007.json",
+      "heuristic_score": 0.7542,
+      "judge_score": 0.625,
+      "final_score": 0.6702,
+      "runtime_seconds": 60.0,
+      "agent_usage": {
+        "input_tokens": 35341,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 7339,
+        "output_tokens_details": {
+          "reasoning_tokens": 4926
+        },
+        "total_tokens": 42680
+      },
+      "judge_usage": {
+        "input_tokens": 3562,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1415,
+        "output_tokens_details": {
+          "reasoning_tokens": 70
+        },
+        "total_tokens": 4977
+      },
+      "summary": "The answer is solid on claim-level auditing, granularity, and using factuality/citation benchmarks, but it only partially addresses conflicting sources and includes some generic, weakly supported guidance.",
+      "recommended_fix": "Add a concrete procedure for resolving conflicting sources (priority rules, corroboration thresholds, and how to record disagreements) and remove or better ground the generic advice about preferring primary sources."
+    },
+    {
+      "question_id": "DR-008",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-008.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\heuristic\\DR-008.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\judge\\DR-008.json",
+      "heuristic_score": 0.7833,
+      "judge_score": 0.5,
+      "final_score": 0.5992,
+      "runtime_seconds": 44.0,
+      "agent_usage": {
+        "input_tokens": 18539,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 5853,
+        "output_tokens_details": {
+          "reasoning_tokens": 3563
+        },
+        "total_tokens": 24392
+      },
+      "judge_usage": {
+        "input_tokens": 3459,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1325,
+        "output_tokens_details": {
+          "reasoning_tokens": 40
+        },
+        "total_tokens": 4784
+      },
+      "summary": "Good high-level comparison of flexibility, control, and cost, but it misses key required dimensions like observability and reproducibility, and only partially addresses failure recovery.",
+      "recommended_fix": "Explicitly cover observability, reproducibility, and failure recovery with direct autonomous-vs-workflow comparisons, and tie each claim to a source that clearly supports that specific trade-off."
+    }
+  ],
+  "aggregate": {
+    "heuristic_score_avg": 0.8133,
+    "judge_score_avg": 0.5781,
+    "final_score_avg": 0.6604
+  },
+  "usage_totals": {
+    "agent": {
+      "input_tokens": 211109,
+      "input_tokens_details": {
+        "cached_tokens": 36864
+      },
+      "output_tokens": 54594,
+      "output_tokens_details": {
+        "reasoning_tokens": 33989
+      },
+      "total_tokens": 265703
+    },
+    "judge": {
+      "input_tokens": 29552,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 11562,
+      "output_tokens_details": {
+        "reasoning_tokens": 846
+      },
+      "total_tokens": 41114
+    },
+    "combined": {
+      "input_tokens": 240661,
+      "input_tokens_details": {
+        "cached_tokens": 36864
+      },
+      "output_tokens": 66156,
+      "output_tokens_details": {
+        "reasoning_tokens": 34835
+      },
+      "total_tokens": 306817
+    }
+  }
+}

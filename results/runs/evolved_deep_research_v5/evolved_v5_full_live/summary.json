@@ -1,0 +1,327 @@
+{
+  "schema_version": "2026-05-04",
+  "run_id": "evolved_v5_full_live",
+  "agent": "evolved_deep_research_v5",
+  "requested_agent": "evolved_v5",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "dry_run": false,
+  "started_at": "2026-05-05T15:41:02+00:00",
+  "finished_at": "2026-05-05T15:51:19+00:00",
+  "question_count": 8,
+  "artifact_root": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live",
+  "questions": [
+    {
+      "question_id": "DR-001",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-001.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-001.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-001.json",
+      "heuristic_score": 0.9786,
+      "judge_score": 0.7083,
+      "final_score": 0.8029,
+      "runtime_seconds": 73.0,
+      "agent_usage": {
+        "input_tokens": 42991,
+        "input_tokens_details": {
+          "cached_tokens": 5760
+        },
+        "output_tokens": 8071,
+        "output_tokens_details": {
+          "reasoning_tokens": 5829
+        },
+        "total_tokens": 51062
+      },
+      "judge_usage": {
+        "input_tokens": 3492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1663,
+        "output_tokens_details": {
+          "reasoning_tokens": 159
+        },
+        "total_tokens": 5155
+      },
+      "summary": "The answer covers all required aspects and is well structured, but several citations are too thin to fully verify the specific claims, and two arXiv references look suspiciously future-dated.",
+      "recommended_fix": "Replace the generic URL citations with clearly identified, directly relevant sources (titles/authors/years) and ground each failure mode in a specific passage or result rather than broad inference."
+    },
+    {
+      "question_id": "DR-002",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-002.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-002.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-002.json",
+      "heuristic_score": 0.9625,
+      "judge_score": 0.8333,
+      "final_score": 0.8785,
+      "runtime_seconds": 46.0,
+      "agent_usage": {
+        "input_tokens": 22765,
+        "input_tokens_details": {
+          "cached_tokens": 5760
+        },
+        "output_tokens": 6472,
+        "output_tokens_details": {
+          "reasoning_tokens": 3448
+        },
+        "total_tokens": 29237
+      },
+      "judge_usage": {
+        "input_tokens": 3635,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1296,
+        "output_tokens_details": {
+          "reasoning_tokens": 113
+        },
+        "total_tokens": 4931
+      },
+      "summary": "A largely correct and well-covered answer with good structure and mostly relevant citations. The main weakness is that some tool-use and preference claims are a bit inferential and lean on a blog source.",
+      "recommended_fix": "Tighten the tool-use and 'when preferable' statements by separating directly supported facts from inference, and rely more on primary or framework documentation for those trade-offs."
+    },
+    {
+      "question_id": "DR-003",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-003.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-003.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-003.json",
+      "heuristic_score": 0.9289,
+      "judge_score": 0.875,
+      "final_score": 0.8939,
+      "runtime_seconds": 80.0,
+      "agent_usage": {
+        "input_tokens": 45085,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 8111,
+        "output_tokens_details": {
+          "reasoning_tokens": 5737
+        },
+        "total_tokens": 53196
+      },
+      "judge_usage": {
+        "input_tokens": 10745,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1168,
+        "output_tokens_details": {
+          "reasoning_tokens": 221
+        },
+        "total_tokens": 11913
+      },
+      "summary": "A strong, well-structured answer that covers all required evaluation dimensions and uses mostly relevant sources, with only minor looseness in a few synthesized claims.",
+      "recommended_fix": "Tighten the survey-based synthesis by tying each broad trend claim to a more specific, directly supported sentence or table entry, and avoid any unsupported generalizations."
+    },
+    {
+      "question_id": "DR-004",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-004.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-004.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-004.json",
+      "heuristic_score": 0.8917,
+      "judge_score": 0.875,
+      "final_score": 0.8808,
+      "runtime_seconds": 47.0,
+      "agent_usage": {
+        "input_tokens": 19243,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 6343,
+        "output_tokens_details": {
+          "reasoning_tokens": 4001
+        },
+        "total_tokens": 25586
+      },
+      "judge_usage": {
+        "input_tokens": 3690,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1353,
+        "output_tokens_details": {
+          "reasoning_tokens": 59
+        },
+        "total_tokens": 5043
+      },
+      "summary": "Strong, well-structured answer with full coverage and mostly appropriate citations; the main weakness is that some failure-mode detail goes beyond what the cited sources directly establish.",
+      "recommended_fix": "Tighten the failure-mode discussion by either citing a source that explicitly discusses agentic-RAG trade-offs or clearly marking the listed failure modes as examples rather than source-backed claims."
+    },
+    {
+      "question_id": "DR-005",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-005.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-005.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-005.json",
+      "heuristic_score": 1.0,
+      "judge_score": 0.875,
+      "final_score": 0.9187,
+      "runtime_seconds": 83.0,
+      "agent_usage": {
+        "input_tokens": 39486,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 8634,
+        "output_tokens_details": {
+          "reasoning_tokens": 5346
+        },
+        "total_tokens": 48120
+      },
+      "judge_usage": {
+        "input_tokens": 3737,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1599,
+        "output_tokens_details": {
+          "reasoning_tokens": 194
+        },
+        "total_tokens": 5336
+      },
+      "summary": "A strong, well-structured answer that covers all required techniques and cites appropriate primary papers, with only mild overstatement in a few synthesis claims.",
+      "recommended_fix": "Replace subjective or potentially overstated phrases like 'canonical example' with more precise wording and add one sentence explaining concrete engineering trade-offs and failure modes for each technique."
+    },
+    {
+      "question_id": "DR-006",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-006.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-006.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-006.json",
+      "heuristic_score": 0.975,
+      "judge_score": 0.75,
+      "final_score": 0.8288,
+      "runtime_seconds": 75.0,
+      "agent_usage": {
+        "input_tokens": 30796,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 10395,
+        "output_tokens_details": {
+          "reasoning_tokens": 7392
+        },
+        "total_tokens": 41191
+      },
+      "judge_usage": {
+        "input_tokens": 3196,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1344,
+        "output_tokens_details": {
+          "reasoning_tokens": 58
+        },
+        "total_tokens": 4540
+      },
+      "summary": "The answer is largely correct and covers all required failure modes with relevant sources, but one key point—role confusion—is inferred rather than directly grounded.",
+      "recommended_fix": "Replace the inferred role-confusion wording with a directly supported explanation from a source that explicitly discusses role ambiguity, misassignment, or handoff errors in multi-agent systems."
+    },
+    {
+      "question_id": "DR-007",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-007.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-007.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-007.json",
+      "heuristic_score": 0.8942,
+      "judge_score": 0.875,
+      "final_score": 0.8817,
+      "runtime_seconds": 59.0,
+      "agent_usage": {
+        "input_tokens": 22877,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 7845,
+        "output_tokens_details": {
+          "reasoning_tokens": 4727
+        },
+        "total_tokens": 30722
+      },
+      "judge_usage": {
+        "input_tokens": 4090,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1597,
+        "output_tokens_details": {
+          "reasoning_tokens": 52
+        },
+        "total_tokens": 5687
+      },
+      "summary": "The answer is strong and covers all required aspects with a practical audit rubric. Its main weakness is that a few engineering recommendations, especially around conflict handling and primary-source preference, are more inferential than tightly sourced.",
+      "recommended_fix": "Tighten the evidence for the inference-heavy recommendations by tying each one to a specific passage or by explicitly labeling them as unsourced policy suggestions rather than source-backed facts."
+    },
+    {
+      "question_id": "DR-008",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-008.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\heuristic\\DR-008.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\judge\\DR-008.json",
+      "heuristic_score": 0.9625,
+      "judge_score": 0.6667,
+      "final_score": 0.7702,
+      "runtime_seconds": 56.0,
+      "agent_usage": {
+        "input_tokens": 18950,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 8387,
+        "output_tokens_details": {
+          "reasoning_tokens": 5507
+        },
+        "total_tokens": 27337
+      },
+      "judge_usage": {
+        "input_tokens": 3742,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1689,
+        "output_tokens_details": {
+          "reasoning_tokens": 137
+        },
+        "total_tokens": 5431
+      },
+      "summary": "A solid, mostly correct comparison that covers all required aspects, but several trade-offs are stated as inference rather than tightly evidenced, especially cost, observability, and recovery.",
+      "recommended_fix": "Tighten the evidence for each trade-off with source-specific examples or quotes, and separate directly supported claims from engineering inferences."
+    }
+  ],
+  "aggregate": {
+    "heuristic_score_avg": 0.9492,
+    "judge_score_avg": 0.8073,
+    "final_score_avg": 0.8569
+  },
+  "usage_totals": {
+    "agent": {
+      "input_tokens": 242193,
+      "input_tokens_details": {
+        "cached_tokens": 39936
+      },
+      "output_tokens": 64258,
+      "output_tokens_details": {
+        "reasoning_tokens": 41987
+      },
+      "total_tokens": 306451
+    },
+    "judge": {
+      "input_tokens": 36327,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 11709,
+      "output_tokens_details": {
+        "reasoning_tokens": 993
+      },
+      "total_tokens": 48036
+    },
+    "combined": {
+      "input_tokens": 278520,
+      "input_tokens_details": {
+        "cached_tokens": 39936
+      },
+      "output_tokens": 75967,
+      "output_tokens_details": {
+        "reasoning_tokens": 42980
+      },
+      "total_tokens": 354487
+    }
+  }
+}

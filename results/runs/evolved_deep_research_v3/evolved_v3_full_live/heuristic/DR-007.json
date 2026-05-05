@@ -1,0 +1,149 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-007.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.0,
+    "source_quality_score": 0.4,
+    "unsupported_claim_count": 8,
+    "unsupported_claim_score": 0.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.51,
+  "failure_tags": [
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 19.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "relevance",
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation",
+          "granularity"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": true,
+        "matched_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Citation auditing in deep research agents should be **claim-level, source-grounded, and verification-oriented**. The audit should check whether each important statement is supported by the cited source text, whether the source is relevant to the claim, and whether the citation is placed at the right granularity instead of being used as a decorative marker. OpenAI’s documentation says Deep Research outputs include citations/source links for verification, and the API docs frame deep research as a multi-source workflow, which makes source-backed auditing a core requirement rather than an optional extra.",
+      "A practical audit rubric should use fine-grained checks like those in CiteEval: assess each claim against the **full retrieval context**, the user query, and the generated text, then score **relevance, coverage, context, faithfulness, and attribution**. That directly supports detection of unsupported claims and overbroad citations. Benchmarks such as DeepResearch Bench reinforce this by measuring citation accuracy and effective citation count, which pushes auditors to judge whether a citation actually carries the claim, not just whether a source exists.",
+      "For conflicts, the safest audit rule is to **surface disagreement rather than resolve it silently**: if multiple sources conflict or the cited source does not clearly entail the claim, mark the claim as unresolved or weakly supported and report the tension explicitly. That recommendation is an inference from the claim-level evaluation guidance above, because the cited sources emphasize fidelity and attribution but do not prescribe a single universal conflict-resolution workflow.",
+      "- claim-level evidence — covered via claim-by-claim support checks over retrieval context and generated text.",
+      "- source relevance — covered by checking whether the cited source is actually pertinent to the claim and query.",
+      "- citation granularity — covered by requiring citations at the statement level, not just document level.",
+      "- unsupported claim detection — covered by flagging claims whose citations do not substantiate the statement.",
+      "- handling conflicting sources — covered by reporting disagreement as unresolved or weakly supported when sources conflict."
+    ],
+    "unsupported_claim_lines": [
+      "Citation auditing in deep research agents should be **claim-level, source-grounded, and verification-oriented**. The audit should check whether each important statement is supported by the cited source text, whether the source is relevant to the claim, and whether the citation is placed at the right granularity instead of being used as a decorative marker. OpenAI’s documentation says Deep Research outputs include citations/source links for verification, and the API docs frame deep research as a multi-source workflow, which makes source-backed auditing a core requirement rather than an optional extra.",
+      "A practical audit rubric should use fine-grained checks like those in CiteEval: assess each claim against the **full retrieval context**, the user query, and the generated text, then score **relevance, coverage, context, faithfulness, and attribution**. That directly supports detection of unsupported claims and overbroad citations. Benchmarks such as DeepResearch Bench reinforce this by measuring citation accuracy and effective citation count, which pushes auditors to judge whether a citation actually carries the claim, not just whether a source exists.",
+      "For conflicts, the safest audit rule is to **surface disagreement rather than resolve it silently**: if multiple sources conflict or the cited source does not clearly entail the claim, mark the claim as unresolved or weakly supported and report the tension explicitly. That recommendation is an inference from the claim-level evaluation guidance above, because the cited sources emphasize fidelity and attribution but do not prescribe a single universal conflict-resolution workflow.",
+      "- claim-level evidence — covered via claim-by-claim support checks over retrieval context and generated text.",
+      "- source relevance — covered by checking whether the cited source is actually pertinent to the claim and query.",
+      "- citation granularity — covered by requiring citations at the statement level, not just document level.",
+      "- unsupported claim detection — covered by flagging claims whose citations do not substantiate the statement.",
+      "- handling conflicting sources — covered by reporting disagreement as unresolved or weakly supported when sources conflict."
+    ],
+    "sources": [
+      {
+        "url": "https://aclanthology.org/2025.acl-long.1574/",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://deepresearch-bench.github.io/",
+        "domain": "deepresearch-bench.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/deep-research",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/",
+        "domain": "reddit.com",
+        "authoritative": false,
+        "weak": true
+      }
+    ],
+    "citation_count": 5,
+    "unique_citation_count": 5
+  }
+}

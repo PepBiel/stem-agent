@@ -1,0 +1,181 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-005.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 0.8,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.95,
+  "failure_tags": [],
+  "runtime_seconds": 52.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": true,
+        "matched_terms": [
+          "feedback",
+          "verbal"
+        ],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "refinement",
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Without fine-tuning, self-improving agents usually improve **at test time** by changing prompts, memory, search state, or tool-use behavior rather than model weights. The main families of techniques are: **reflection/memory**, **iterative self-feedback and revision**, **reasoning+acting with external tools**, **search over multiple reasoning branches**, **self-consistency over sampled solutions**, and **curriculum/skill-library accumulation**. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+      "- **Reflection + episodic memory:** the agent critiques its own past behavior, stores the reflection, and reuses it on later attempts. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+      "- **Iterative self-feedback / rewrite:** the same model generates an answer, critiques it, and revises it in a loop, with no extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))",
+      "- **Reasoning + acting:** the agent alternates between internal reasoning and external actions (APIs, environments, tools) to gather new information and update plans. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))",
+      "- **Search / backtracking over thoughts:** the agent branches over candidate reasoning steps, evaluates them, and can backtrack when a branch looks weak. ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))",
+      "- **Self-consistency:** the agent samples multiple reasoning paths and selects the most consistent final answer. ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))",
+      "- **Curriculum + skill library:** the agent accumulates reusable skills and follows an automatic curriculum, improving via black-box prompting rather than fine-tuning. ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2203.11171",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2203.11171?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2210.03629?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.11366?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.10601",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.10601?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.16291",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.16291?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/pdf/2406.15673",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 13,
+    "unique_citation_count": 13
+  }
+}

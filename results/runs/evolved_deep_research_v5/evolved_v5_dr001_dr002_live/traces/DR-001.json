@@ -1,0 +1,850 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T15:36:33+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "source_expectations": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T15:37:55+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nThe main failure modes of memory in LLM agents are less about “not storing enough” and more about **badly managing what gets recalled, when, and with what confidence**. Across the sources, the recurring problems are: polluted context from irrelevant retrieval, stale or contradictory memories resurfacing, over-reliance on prior agent outputs, and the classic short-term-vs-long-term memory trade-off where compression helps budget but hurts faithful recall. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://openreview.net/pdf?id=W1vKCYeAM1\n\n## Required aspect coverage\n- **context pollution** — Retrieval can inject irrelevant or unhelpful items that add noise and reduce utility, which is essentially context pollution. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\n- **retrieval of stale or irrelevant memories** — Similarity-based retrieval can surface stale observations or failed tool logs, and long-term benchmarks report reuse of invalid memories. https://openreview.net/pdf?id=W1vKCYeAM1 https://openreview.net/forum?id=YzFNBzlQbo\n- **over-trusting previous agent outputs** — Empirically, similar retrieved memories often lead to similar current outputs, so past errors can be replayed and amplified. https://arxiv.org/abs/2505.16067\n- **trade-offs between short-term and long-term memory** — Summarization and sliding windows improve scalability, but they can discard decisive constraints and reduce long-term recall reliability. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\n- **evaluation methods for memory quality** — MemAE uses accurate retrieval, test-time learning, long-range understanding, and conflict resolution; Memora adds grounding checks, human eval, and FAMA for obsolete memory. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo\n\n## Sources\n- https://arxiv.org/abs/2505.16067\n- https://openreview.net/forum?id=ZgQ0t3zYTQ\n- https://openreview.net/forum?id=YzFNBzlQbo\n- https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\n- https://openreview.net/pdf?id=W1vKCYeAM1\n- https://github.com/letta-ai/ai-memory-sdk\n\n## Limitations\n- The literature does **not** yet use one universal failure taxonomy; terms vary across papers (context drift, stale preference reuse, invalid evidence, misaligned replay). https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://arxiv.org/abs/2505.16067\n- Some sources are preprints and benchmarks rather than fully settled standards, so the field is still moving quickly. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo\n- I treated “context pollution” as an inference from the papers’ language about irrelevant/noisy retrieval rather than a universally standardized term. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+  "decomposition": {
+    "subquestions": [
+      "What recurrent memory failures show up in long-horizon LLM agents?",
+      "Which failures come from retrieval vs update vs context-management choices?",
+      "How do current benchmarks evaluate memory quality?"
+    ],
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "expected_source_types": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "LLM agent memory failure modes context pollution stale irrelevant memories survey",
+      "LLM agent memory empirical study experience-following behavior invalid memories",
+      "memory agent benchmark evaluation conflict resolution long-range understanding",
+      "framework documentation agentic memory archival search delete update"
+    ],
+    "rationale_per_query": [
+      "Find a survey or paper that names the common failure modes and design trade-offs.",
+      "Find an empirical paper on how retrieved memories affect current outputs and error propagation.",
+      "Find benchmark papers that define memory-quality evaluation dimensions and metrics.",
+      "Find official implementation notes showing practical memory operations and retrieval/update interfaces."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://arxiv.org/abs/2505.16067",
+      "type": "arXiv paper",
+      "status": "considered"
+    },
+    {
+      "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+      "type": "benchmark paper",
+      "status": "considered"
+    },
+    {
+      "url": "https://openreview.net/forum?id=YzFNBzlQbo",
+      "type": "benchmark paper",
+      "status": "considered"
+    },
+    {
+      "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "type": "survey paper",
+      "status": "considered"
+    },
+    {
+      "url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+      "type": "preprint paper",
+      "status": "considered"
+    },
+    {
+      "url": "https://github.com/letta-ai/ai-memory-sdk",
+      "type": "framework documentation",
+      "status": "considered"
+    },
+    {
+      "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory",
+      "type": "secondary blog",
+      "status": "rejected"
+    },
+    {
+      "url": "https://agentmarketcap.ai/blog/2026/04/08/ai-agent-memory-shootout-2026-mem0-zep-letta-supermemory",
+      "type": "secondary blog",
+      "status": "rejected"
+    },
+    {
+      "url": "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/",
+      "type": "forum anecdote",
+      "status": "rejected"
+    },
+    {
+      "url": "https://papers.lunadong.com/paper/4617",
+      "type": "secondary summary",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/abs/2505.16067",
+      "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+      "https://openreview.net/forum?id=YzFNBzlQbo",
+      "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "https://openreview.net/pdf?id=W1vKCYeAM1",
+      "https://github.com/letta-ai/ai-memory-sdk"
+    ],
+    "rejected_sources": [
+      "https://www.letta.com/blog/benchmarking-ai-agent-memory",
+      "https://agentmarketcap.ai/blog/2026/04/08/ai-agent-memory-shootout-2026-mem0-zep-letta-supermemory",
+      "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/",
+      "https://papers.lunadong.com/paper/4617"
+    ],
+    "rejection_reasons": [
+      "Secondary/marketing blog; useful only as discovery, not primary evidence.",
+      "Secondary/commercial comparison; not authoritative for failure-mode claims.",
+      "Anecdotal forum content; weak and not reliable enough for evaluation.",
+      "Aggregator/summary rather than primary evidence."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Retrieval can surface irrelevant or unhelpful items; this adds noise and reduces utility, which maps to context pollution in agent memory.",
+      "source_url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "source_type": "survey paper",
+      "supported_aspect": "context pollution",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Long-horizon agents can suffer early-context forgetting and progressive context drift; summarization and sliding windows improve scalability but can harm recall reliability.",
+      "source_url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "source_type": "survey paper",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Similarity-based retrieval can surface stale observations or failed tool logs, and long-horizon agents can hallucinate success from invalid evidence.",
+      "source_url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+      "source_type": "preprint paper",
+      "supported_aspect": "retrieval of stale or irrelevant memories",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "LLM agents show an experience-following property: similar retrieved memories often produce similar outputs, enabling error propagation and misleading replay.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "arXiv paper",
+      "supported_aspect": "over-trusting previous agent outputs",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memory benchmarks should evaluate accurate retrieval, test-time learning, long-range understanding, and conflict resolution rather than only static recall.",
+      "source_url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+      "source_type": "benchmark paper",
+      "supported_aspect": "evaluation methods for memory quality",
+      "support_directness": "direct",
+      "source_authority": "benchmark",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memora evaluates remembering, reasoning, and recommending; it adds automated memory-grounding checks, human evaluation, and FAMA, which penalizes obsolete or invalid memory.",
+      "source_url": "https://openreview.net/forum?id=YzFNBzlQbo",
+      "source_type": "benchmark paper",
+      "supported_aspect": "evaluation methods for memory quality",
+      "support_directness": "direct",
+      "source_authority": "benchmark",
+      "confidence": "high"
+    },
+    {
+      "claim": "A practical memory SDK exposes archival search over historical messages and explicit delete/query operations, reflecting the need for updateable, inspectable memory systems.",
+      "source_url": "https://github.com/letta-ai/ai-memory-sdk",
+      "source_type": "framework documentation",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "support_directness": "direct",
+      "source_authority": "repository",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are complementary: one framing emphasizes epistemic failure (invalid evidence), while another emphasizes context-management failure (drift, truncation, recall loss).",
+    "uncertainty_notes": [
+      "There is no universally standardized taxonomy yet; papers use different labels such as context drift, invalid evidence, stale preference reuse, and misaligned replay.",
+      "Several sources are 2025–2026 preprints or benchmark pages, so the field is still evolving."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Context pollution arises when retrieval injects irrelevant or noisy memories into the active context.",
+      "Stale or irrelevant memories are a common failure mode in similarity-based retrieval.",
+      "Agents can over-trust their own past outputs or retrieved experiences, causing error propagation.",
+      "Short-term compression improves context budget but can damage long-term recall and fidelity.",
+      "Current evaluation should include retrieval, learning, understanding, and conflict-resolution dimensions."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T15:37:55+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://github.com/letta-ai/ai-memory-sdk",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=YzFNBzlQbo",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_04059d336dc1c5390069fa0e84ec58819788cf3d4f09154834",
+      "action": {
+        "query": "LLM agent memory failure modes context pollution stale irrelevant memories over-trusting previous agent outputs survey memory agents",
+        "type": "search",
+        "queries": [
+          "LLM agent memory failure modes context pollution stale irrelevant memories over-trusting previous agent outputs survey memory agents",
+          "long-term memory LLM agents survey context pollution retrieval stale irrelevant memories evaluation benchmark",
+          "MemGPT memory failure modes context pollution retrieval irrelevant memories evaluation",
+          "agent memory benchmark evaluation memory quality LLM agents"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://benchmarks.hindsight.vectorize.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://omegamax.co/guides/ai-agent-memory-benchmarks"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.11243"
+          },
+          {
+            "type": "url",
+            "url": "https://agentmarketcap.ai/blog/2026/04/08/ai-agent-memory-shootout-2026-mem0-zep-letta-supermemory"
+          },
+          {
+            "type": "url",
+            "url": "https://pith.run/blog/every-benchmark-tests-the-same-thing"
+          },
+          {
+            "type": "url",
+            "url": "https://hindsight.vectorize.io/blog/2026/03/23/agent-memory-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://labs.adaline.ai/p/agent-memory-is-a-product-surface"
+          },
+          {
+            "type": "url",
+            "url": "https://www.letta.com/blog/letta-leaderboard"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.16313"
+          },
+          {
+            "type": "url",
+            "url": "https://supermemory.ai/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.15774"
+          },
+          {
+            "type": "url",
+            "url": "https://mastra.ai/research/observational-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/datasets/ai-hyz/MemoryAgentBench"
+          },
+          {
+            "type": "url",
+            "url": "https://vectorize.io/benchmarks"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/de3c2f7c4fd4f9bc471615b662d688e4ba42c765.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1sevnbt/why_do_longrunning_agents_degrade_even_if_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ClaudeAI/comments/1ptsf9c/do_agents_actually_get_better_if_they_have_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1sf1a5t/im_starting_to_think_local_agent_problems_are/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s1l0oz/when_did_memory_start_making_your_agent_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialInteligence/comments/1r9rv8c/the_biggest_unsolved_problem_in_ai_memory_isnt/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e87f0c48197a1799d398965a3e1",
+      "action": {
+        "query": "site:arxiv.org survey long-term memory LLM agents context pollution stale memories retrieval irrelevant memory",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org survey long-term memory LLM agents context pollution stale memories retrieval irrelevant memory",
+          "site:arxiv.org LLM agent memory survey failure modes irrelevant stale memory context pollution",
+          "site:openreview.net memory agents benchmark conflict resolution retrieval stale irrelevant memories"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.18349"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.29194"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20006"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=z9RbKGJTYC"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=edxkMD5v3I"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=W1vKCYeAM1"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=hiRJ90xzJY"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=uuETsL6jwI"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=z1MHB2m3V9"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=YzFNBzlQbo"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=PDzE0elDvE"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=n2oOEU1rf9"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=mVxmbMng4B"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=YPoHy6lgKP"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=edxkMD5v3I"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=W1vKCYeAM1"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=T97MrGUNkZ"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/180d26775b5edf368b1aea4bcf724855acc29c14.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e8d5dac8197aee8c9107d4b6f8b",
+      "action": {
+        "query": "site:github.com MemAE memory agent evaluation repository",
+        "type": "search",
+        "queries": [
+          "site:github.com MemAE memory agent evaluation repository",
+          "site:github.com MemoryAgentBench repository",
+          "site:github.com Letta memory framework docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://github.com/wangyu-ustc/Mem-alpha"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/lgy0404/MemGUI-Bench"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/orgs/stanfordmlgroup/repositories"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/topics/memory-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/agentevals-dev/agentevals"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/cxxz/awesome-agent-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/multimodal-interpretability/maia"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/prem-research/cortex"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/letta-ai/letta-leaderboard"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/zilliztech/memsearch"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/letta-ai/ai-memory-sdk"
+          },
+          {
+            "type": "url",
+            "url": "https://training.github.com/downloads/github-git-cheat-sheet.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/openjournals/joss-reviews/files/310599/10.21105.joss.00027.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.github.com/actions-cheat-sheet/actions-cheat-sheet.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/dns-stats/hedgehog/wiki/Hedgehog_Installation_Guide_%28from_Packages%29.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/lavrenovamaria/42-minitalk/files/7067315/en.subject.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/laristra/flecsph/wiki/files/notes.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e96adf881978bfe68a988fa9efc",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e9863ac8197b85f41b185ff4108",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e99649c81978675f2b64218d164",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e9ae1dc8197819f6150a78810d4",
+      "action": {
+        "query": "\"Memory in the Age of AI Agents: A Survey\"",
+        "type": "search",
+        "queries": [
+          "\"Memory in the Age of AI Agents: A Survey\""
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://papers.lunadong.com/paper/4617"
+          },
+          {
+            "type": "url",
+            "url": "https://snowan.gitbook.io/study-notes/ai/ai-manga-learnings/memory-in-the-age-of-ai-agent/learning-series"
+          },
+          {
+            "type": "url",
+            "url": "https://knowledge.zhaoweiguo.com/build/html/x-paper/memorys/surveys/2512.13564_memorysurvey"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/Shichun-Liu/Agent-Memory-Paper-List"
+          },
+          {
+            "type": "url",
+            "url": "https://snowan.gitbook.io/study-notes/ai/ai-article-analysis/memory-in-the-age-of-agent-survey"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/180d26775b5edf368b1aea4bcf724855acc29c14.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://jimo.studio/blog/memory-in-the-age-of-ai-agents-a-survey/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scribd.com/document/968244915/Memory-in-the-Age-of-AI-Agents-A-Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cnblogs.com/kieran111/p/19592553"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/paper/memory-in-the-age-of-ai-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.linkedin.com/pulse/survey-agentic-memory-sandcastles-sandboxes-analytic-agents-farmer-x5h9c"
+          },
+          {
+            "type": "url",
+            "url": "https://adg.csdn.net/69524e0d5b9f5f31781b75b4.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cnblogs.com/mianmaner/p/archive/2026/03/22"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/AI_agent"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0e9ef590819787767e60abefd87d",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0ea1774c819797e113af1dbd94e6",
+      "action": {
+        "pattern": "irrelevant",
+        "type": "find_in_page",
+        "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04059d336dc1c5390069fa0ea6e18c819794939f9597c64126",
+      "action": {
+        "pattern": "stale preference reuse",
+        "type": "find_in_page",
+        "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 40838,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 9419,
+    "output_tokens_details": {
+      "reasoning_tokens": 6972
+    },
+    "total_tokens": 50257
+  },
+  "response_id": "resp_04059d336dc1c5390069fa0e82f6d08197b51e9d6afad6097c",
+  "raw_output_text": "{\"decomposition\":{\"subquestions\":[\"What recurrent memory failures show up in long-horizon LLM agents?\",\"Which failures come from retrieval vs update vs context-management choices?\",\"How do current benchmarks evaluate memory quality?\"],\"required_aspects\":[\"context pollution\",\"retrieval of stale or irrelevant memories\",\"over-trusting previous agent outputs\",\"trade-offs between short-term and long-term memory\",\"evaluation methods for memory quality\"],\"expected_source_types\":[\"agent memory paper or survey\",\"framework documentation or implementation notes\",\"evaluation benchmark or empirical report\"]},\"search_plan\":{\"queries\":[\"LLM agent memory failure modes context pollution stale irrelevant memories survey\",\"LLM agent memory empirical study experience-following behavior invalid memories\",\"memory agent benchmark evaluation conflict resolution long-range understanding\",\"framework documentation agentic memory archival search delete update\"],\"rationale_per_query\":[\"Find a survey or paper that names the common failure modes and design trade-offs.\",\"Find an empirical paper on how retrieved memories affect current outputs and error propagation.\",\"Find benchmark papers that define memory-quality evaluation dimensions and metrics.\",\"Find official implementation notes showing practical memory operations and retrieval/update interfaces.\"]},\"candidate_sources\":[{\"url\":\"https://arxiv.org/abs/2505.16067\",\"type\":\"arXiv paper\",\"status\":\"considered\"},{\"url\":\"https://openreview.net/forum?id=ZgQ0t3zYTQ\",\"type\":\"benchmark paper\",\"status\":\"considered\"},{\"url\":\"https://openreview.net/forum?id=YzFNBzlQbo\",\"type\":\"benchmark paper\",\"status\":\"considered\"},{\"url\":\"https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\",\"type\":\"survey paper\",\"status\":\"considered\"},{\"url\":\"https://openreview.net/pdf?id=W1vKCYeAM1\",\"type\":\"preprint paper\",\"status\":\"considered\"},{\"url\":\"https://github.com/letta-ai/ai-memory-sdk\",\"type\":\"framework documentation\",\"status\":\"considered\"},{\"url\":\"https://www.letta.com/blog/benchmarking-ai-agent-memory\",\"type\":\"secondary blog\",\"status\":\"rejected\"},{\"url\":\"https://agentmarketcap.ai/blog/2026/04/08/ai-agent-memory-shootout-2026-mem0-zep-letta-supermemory\",\"type\":\"secondary blog\",\"status\":\"rejected\"},{\"url\":\"https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/\",\"type\":\"forum anecdote\",\"status\":\"rejected\"},{\"url\":\"https://papers.lunadong.com/paper/4617\",\"type\":\"secondary summary\",\"status\":\"rejected\"}],\"source_triage\":{\"accepted_sources\":[\"https://arxiv.org/abs/2505.16067\",\"https://openreview.net/forum?id=ZgQ0t3zYTQ\",\"https://openreview.net/forum?id=YzFNBzlQbo\",\"https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\",\"https://openreview.net/pdf?id=W1vKCYeAM1\",\"https://github.com/letta-ai/ai-memory-sdk\"],\"rejected_sources\":[\"https://www.letta.com/blog/benchmarking-ai-agent-memory\",\"https://agentmarketcap.ai/blog/2026/04/08/ai-agent-memory-shootout-2026-mem0-zep-letta-supermemory\",\"https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/\",\"https://papers.lunadong.com/paper/4617\"],\"rejection_reasons\":[\"Secondary/marketing blog; useful only as discovery, not primary evidence.\",\"Secondary/commercial comparison; not authoritative for failure-mode claims.\",\"Anecdotal forum content; weak and not reliable enough for evaluation.\",\"Aggregator/summary rather than primary evidence.\"]},\"evidence_table\":[{\"claim\":\"Retrieval can surface irrelevant or unhelpful items; this adds noise and reduces utility, which maps to context pollution in agent memory.\",\"source_url\":\"https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\",\"source_type\":\"survey paper\",\"supported_aspect\":\"context pollution\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"Long-horizon agents can suffer early-context forgetting and progressive context drift; summarization and sliding windows improve scalability but can harm recall reliability.\",\"source_url\":\"https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\",\"source_type\":\"survey paper\",\"supported_aspect\":\"trade-offs between short-term and long-term memory\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"Similarity-based retrieval can surface stale observations or failed tool logs, and long-horizon agents can hallucinate success from invalid evidence.\",\"source_url\":\"https://openreview.net/pdf?id=W1vKCYeAM1\",\"source_type\":\"preprint paper\",\"supported_aspect\":\"retrieval of stale or irrelevant memories\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"LLM agents show an experience-following property: similar retrieved memories often produce similar outputs, enabling error propagation and misleading replay.\",\"source_url\":\"https://arxiv.org/abs/2505.16067\",\"source_type\":\"arXiv paper\",\"supported_aspect\":\"over-trusting previous agent outputs\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"Memory benchmarks should evaluate accurate retrieval, test-time learning, long-range understanding, and conflict resolution rather than only static recall.\",\"source_url\":\"https://openreview.net/forum?id=ZgQ0t3zYTQ\",\"source_type\":\"benchmark paper\",\"supported_aspect\":\"evaluation methods for memory quality\",\"support_directness\":\"direct\",\"source_authority\":\"benchmark\",\"confidence\":\"high\"},{\"claim\":\"Memora evaluates remembering, reasoning, and recommending; it adds automated memory-grounding checks, human evaluation, and FAMA, which penalizes obsolete or invalid memory.\",\"source_url\":\"https://openreview.net/forum?id=YzFNBzlQbo\",\"source_type\":\"benchmark paper\",\"supported_aspect\":\"evaluation methods for memory quality\",\"support_directness\":\"direct\",\"source_authority\":\"benchmark\",\"confidence\":\"high\"},{\"claim\":\"A practical memory SDK exposes archival search over historical messages and explicit delete/query operations, reflecting the need for updateable, inspectable memory systems.\",\"source_url\":\"https://github.com/letta-ai/ai-memory-sdk\",\"source_type\":\"framework documentation\",\"supported_aspect\":\"trade-offs between short-term and long-term memory\",\"support_directness\":\"direct\",\"source_authority\":\"repository\",\"confidence\":\"medium\"}],\"coverage_audit\":{\"covered_aspects\":[\"context pollution\",\"retrieval of stale or irrelevant memories\",\"over-trusting previous agent outputs\",\"trade-offs between short-term and long-term memory\",\"evaluation methods for memory quality\"],\"missing_aspects\":[],\"followup_needed\":[]},\"contradiction_audit\":{\"conflicting_claims\":[],\"resolution\":\"The sources are complementary: one framing emphasizes epistemic failure (invalid evidence), while another emphasizes context-management failure (drift, truncation, recall loss).\",\"uncertainty_notes\":[\"There is no universally standardized taxonomy yet; papers use different labels such as context drift, invalid evidence, stale preference reuse, and misaligned replay.\",\"Several sources are 2025–2026 preprints or benchmark pages, so the field is still evolving.\"]},\"citation_audit\":{\"supported_claims\":[\"Context pollution arises when retrieval injects irrelevant or noisy memories into the active context.\",\"Stale or irrelevant memories are a common failure mode in similarity-based retrieval.\",\"Agents can over-trust their own past outputs or retrieved experiences, causing error propagation.\",\"Short-term compression improves context budget but can damage long-term recall and fidelity.\",\"Current evaluation should include retrieval, learning, understanding, and conflict-resolution dimensions.\"],\"unsupported_claims\":[],\"weak_citations\":[]},\"answer\":\"## Answer\\nThe main failure modes of memory in LLM agents are less about “not storing enough” and more about **badly managing what gets recalled, when, and with what confidence**. Across the sources, the recurring problems are: polluted context from irrelevant retrieval, stale or contradictory memories resurfacing, over-reliance on prior agent outputs, and the classic short-term-vs-long-term memory trade-off where compression helps budget but hurts faithful recall. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://openreview.net/pdf?id=W1vKCYeAM1\\n\\n## Required aspect coverage\\n- **context pollution** — Retrieval can inject irrelevant or unhelpful items that add noise and reduce utility, which is essentially context pollution. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\\n- **retrieval of stale or irrelevant memories** — Similarity-based retrieval can surface stale observations or failed tool logs, and long-term benchmarks report reuse of invalid memories. https://openreview.net/pdf?id=W1vKCYeAM1 https://openreview.net/forum?id=YzFNBzlQbo\\n- **over-trusting previous agent outputs** — Empirically, similar retrieved memories often lead to similar current outputs, so past errors can be replayed and amplified. https://arxiv.org/abs/2505.16067\\n- **trade-offs between short-term and long-term memory** — Summarization and sliding windows improve scalability, but they can discard decisive constraints and reduce long-term recall reliability. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\\n- **evaluation methods for memory quality** — MemAE uses accurate retrieval, test-time learning, long-range understanding, and conflict resolution; Memora adds grounding checks, human eval, and FAMA for obsolete memory. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo\\n\\n## Sources\\n- https://arxiv.org/abs/2505.16067\\n- https://openreview.net/forum?id=ZgQ0t3zYTQ\\n- https://openreview.net/forum?id=YzFNBzlQbo\\n- https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\\n- https://openreview.net/pdf?id=W1vKCYeAM1\\n- https://github.com/letta-ai/ai-memory-sdk\\n\\n## Limitations\\n- The literature does **not** yet use one universal failure taxonomy; terms vary across papers (context drift, stale preference reuse, invalid evidence, misaligned replay). https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://arxiv.org/abs/2505.16067\\n- Some sources are preprints and benchmarks rather than fully settled standards, so the field is still moving quickly. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo\\n- I treated “context pollution” as an inference from the papers’ language about irrelevant/noisy retrieval rather than a universally standardized term. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf\"}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

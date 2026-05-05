@@ -1,0 +1,719 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v4",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v4",
+  "genome_version": 4,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v4.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T14:48:24+00:00",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "source_expectations": [
+      "agentic RAG survey",
+      "RAG baseline reference",
+      "implementation or framework documentation"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T14:49:23+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAgentic RAG is a RAG system where the model behaves more like an agent: it can decide when to retrieve, what to retrieve next, which tools to call, and whether to reflect or verify before answering. Standard RAG is the simpler retrieve-then-generate pattern: fetch context, then generate the answer from that context. ([arxiv.org](https://arxiv.org/abs/2005.11401))\n\nThe practical difference is control and adaptivity. Agentic RAG can help on multi-hop or long-form tasks by iterating over retrieval and checking its own outputs, but it adds more moving parts, more inference calls, and failure modes like skipping a needed search or making unnecessary searches. ([arxiv.org](https://arxiv.org/abs/2310.11511))\n\n### Required aspect coverage\n- standard retrieve-then-generate workflow — The original RAG paper frames the method as retrieving external memory and then generating; LangChain also contrasts this with a two-step chain that injects retrieved context into the prompt. ([arxiv.org](https://arxiv.org/abs/2005.11401))\n- planning or iterative retrieval — The agentic RAG survey explicitly lists planning and iterative refinement, and FLARE retrieves repeatedly during generation based on low-confidence tokens. ([arxiv.org](https://arxiv.org/abs/2501.09136))\n- tool use — LangChain shows the LLM emitting tool calls for retrieval, and LlamaIndex says agents use tools and can use RAG as one tool among others. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\n- reflection or verification — Self-RAG learns to critique via self-reflection, and the survey includes reflection as a core agentic design pattern. ([arxiv.org](https://arxiv.org/abs/2310.11511))\n- added complexity and failure modes — LangChain notes extra inference calls and reduced control, including skipped or unnecessary searches; the survey also emphasizes trade-offs in design and control. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\n\n## Sources\n- RAG baseline: Lewis et al., 2020. ([arxiv.org](https://arxiv.org/abs/2005.11401))\n- Agentic RAG survey: Singh et al., 2025. ([arxiv.org](https://arxiv.org/abs/2501.09136))\n- Self-RAG: Asai et al., 2023. ([arxiv.org](https://arxiv.org/abs/2310.11511))\n- FLARE: Gao et al., 2023. ([arxiv.org](https://arxiv.org/abs/2305.06983))\n- LangChain RAG docs. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\n- LlamaIndex framework docs. ([docs.llamaindex.ai](https://docs.llamaindex.ai/))\n\n## Limitations\nAgentic RAG is an umbrella term, not a single canonical architecture. The evidence here supports the conceptual distinction from standard RAG, but implementation details and evaluation metrics vary across systems. ([arxiv.org](https://arxiv.org/abs/2501.09136))",
+  "decomposition": {
+    "subquestions": [
+      "What is the standard retrieve-then-generate RAG workflow?",
+      "What extra capabilities define agentic RAG (planning, iterative retrieval, tool use, reflection/verification)?",
+      "What added complexity and failure modes does agentic RAG introduce compared with standard RAG?"
+    ],
+    "required_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "expected_source_types": [
+      "agentic RAG survey",
+      "RAG baseline reference",
+      "implementation or framework documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:arxiv.org Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "site:arxiv.org Agentic Retrieval-Augmented Generation survey",
+      "site:arxiv.org Self-RAG Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "site:docs.langchain.com agentic RAG tool call reflection"
+    ],
+    "rationale_per_query": [
+      "Establish the standard RAG baseline from the original paper.",
+      "Find a survey that explicitly defines agentic RAG and its design patterns.",
+      "Find a primary paper covering reflection/self-verification in retrieval-augmented systems.",
+      "Find official framework documentation showing tool use, iterative retrieval, and trade-offs."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "type": "primary paper"
+    },
+    {
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "type": "survey"
+    },
+    {
+      "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "url": "https://arxiv.org/abs/2310.11511",
+      "type": "primary paper"
+    },
+    {
+      "title": "Active Retrieval Augmented Generation (FLARE)",
+      "url": "https://arxiv.org/abs/2305.06983",
+      "type": "primary paper"
+    },
+    {
+      "title": "Build a RAG agent with LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain/rag",
+      "type": "official documentation"
+    },
+    {
+      "title": "LlamaIndex Developer Documentation",
+      "url": "https://developers.llamaindex.ai/python/framework/",
+      "type": "official documentation"
+    },
+    {
+      "title": "papers.cool discovery page for agentic RAG survey",
+      "url": "https://papers.cool/arxiv/2501.09136",
+      "type": "secondary discovery lead"
+    },
+    {
+      "title": "Wikipedia RAG page",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "type": "discouraged secondary source"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "reason": "Canonical baseline paper for standard RAG."
+      },
+      {
+        "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+        "url": "https://arxiv.org/abs/2501.09136",
+        "reason": "Directly defines agentic RAG, including planning, tool use, and reflection."
+      },
+      {
+        "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+        "url": "https://arxiv.org/abs/2310.11511",
+        "reason": "Primary paper for reflection/critique and on-demand retrieval."
+      },
+      {
+        "title": "Active Retrieval Augmented Generation (FLARE)",
+        "url": "https://arxiv.org/abs/2305.06983",
+        "reason": "Primary paper for iterative, active retrieval during generation."
+      },
+      {
+        "title": "Build a RAG agent with LangChain",
+        "url": "https://docs.langchain.com/oss/python/langchain/rag",
+        "reason": "Official docs showing tool calls, iterative retrieval, and trade-offs."
+      },
+      {
+        "title": "LlamaIndex Developer Documentation",
+        "url": "https://developers.llamaindex.ai/python/framework/",
+        "reason": "Official docs showing agents using tools and workflows with reflection/error-correction."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "papers.cool discovery page for agentic RAG survey",
+        "url": "https://papers.cool/arxiv/2501.09136"
+      },
+      {
+        "title": "Wikipedia RAG page",
+        "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+      },
+      {
+        "title": "GeeksforGeeks agentic RAG article",
+        "url": "https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/"
+      },
+      {
+        "title": "Reddit thread on agentic RAG",
+        "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/"
+      }
+    ],
+    "rejection_reasons": [
+      "Discovery lead only; not primary evidence.",
+      "Discouraged source; not needed because authoritative sources were available.",
+      "Generic SEO-style secondary explanation; weaker than official docs and papers.",
+      "Unreliable forum post; not appropriate for factual support."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Standard RAG combines parametric and non-parametric memory by retrieving relevant knowledge and then generating answers.",
+      "source_url": "https://arxiv.org/abs/2005.11401",
+      "source_type": "primary paper",
+      "supported_aspect": "standard retrieve-then-generate workflow",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic RAG embeds autonomous agents into the RAG pipeline and uses planning, reflection, tool use, and multi-agent collaboration to manage retrieval adaptively.",
+      "source_url": "https://arxiv.org/abs/2501.09136",
+      "source_type": "survey",
+      "supported_aspect": "planning or iterative retrieval",
+      "support_directness": "direct",
+      "source_authority": "secondary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic RAG systems can generate tool calls, perform multiple searches, and optionally rewrite or grade queries.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/rag",
+      "source_type": "official documentation",
+      "supported_aspect": "tool use",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-RAG adaptively retrieves passages on-demand and reflects on retrieved passages and its own generations using reflection tokens.",
+      "source_url": "https://arxiv.org/abs/2310.11511",
+      "source_type": "primary paper",
+      "supported_aspect": "reflection or verification",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "FLARE actively decides when and what to retrieve during generation by using upcoming-sentence predictions and regenerating low-confidence content.",
+      "source_url": "https://arxiv.org/abs/2305.06983",
+      "source_type": "primary paper",
+      "supported_aspect": "planning or iterative retrieval",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "LlamaIndex documents that agents use tools, that RAG can be one tool among others, and that workflows support reflection and error-correction.",
+      "source_url": "https://developers.llamaindex.ai/python/framework/",
+      "source_type": "official documentation",
+      "supported_aspect": "tool use",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangChain describes agentic RAG as more flexible but notes trade-offs such as extra inference calls and reduced control, including skipped or unnecessary searches.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/rag",
+      "source_type": "official documentation",
+      "supported_aspect": "added complexity and failure modes",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradictions. The sources agree that agentic RAG is a more adaptive, multi-step extension of standard RAG; differences are about degree of autonomy and implementation detail.",
+    "uncertainty_notes": [
+      "The term 'agentic RAG' is still evolving and is best treated as an umbrella family of patterns rather than a single canonical architecture."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Standard RAG retrieves context and then generates.",
+      "Agentic RAG adds planning, iterative retrieval, tool use, and reflection.",
+      "Agentic RAG introduces latency/control trade-offs and new failure modes."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T14:49:23+00:00",
+  "citations": [
+    {
+      "end_index": 9909,
+      "start_index": 9862,
+      "title": "[2005.11401] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2005.11401"
+    },
+    {
+      "end_index": 10256,
+      "start_index": 10209,
+      "title": "[2310.11511] Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.11511"
+    },
+    {
+      "end_index": 10815,
+      "start_index": 10768,
+      "title": "[2501.09136] Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136"
+    },
+    {
+      "end_index": 11043,
+      "start_index": 10968,
+      "title": "Build a RAG agent with LangChain - Docs by LangChain",
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/rag"
+    },
+    {
+      "end_index": 11866,
+      "start_index": 11819,
+      "title": "[2305.06983] Active Retrieval Augmented Generation",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.06983"
+    },
+    {
+      "end_index": 12047,
+      "start_index": 11996,
+      "title": "Welcome to LlamaIndex  ! | Developer Documentation",
+      "type": "url_citation",
+      "url": "https://docs.llamaindex.ai/"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.llamaindex.ai/python/framework/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.cool/arxiv/2501.09136",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0206a4a077b6357c0069fa034860788197afd13de275026561",
+      "action": {
+        "query": "RAG retrieval-augmented generation original paper Lewis 2020 arXiv",
+        "type": "search",
+        "queries": [
+          "RAG retrieval-augmented generation original paper Lewis 2020 arXiv",
+          "agentic RAG survey paper arXiv 2024 agentic retrieval augmented generation",
+          "LangChain agentic RAG documentation retrieval reflection iterative tool use",
+          "LlamaIndex agentic rag documentation workflow iterative retrieval tool use"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.03442"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.09477"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.llamaindex.ai/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2402.19473"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.llamaindex.ai/en/stable/optimizing/agentic_strategies/agentic_strategies/"
+          },
+          {
+            "type": "url",
+            "url": "https://markaicode.com/llamaindex-workflows-agentic-rag-patterns/"
+          },
+          {
+            "type": "url",
+            "url": "https://exploreagentic.ai/glossary/agentic-rag/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/396209481_Graph-Based_Agentic_Retrieval-Augmented_Generation_A_Comprehensive_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+          },
+          {
+            "type": "url",
+            "url": "https://r.jordan.im/download/language-models/lewis2020.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Douwe_Kiela"
+          },
+          {
+            "type": "url",
+            "url": "https://pt.wikipedia.org/wiki/Gera%C3%A7%C3%A3o_aumentada_por_recupera%C3%A7%C3%A3o"
+          },
+          {
+            "type": "url",
+            "url": "https://files.eric.ed.gov/fulltext/EJ1489068.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Contextual_AI"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/298652/preprint_pdf/d8d8a8d40b520fbefe096a546de4edb6.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1iiyq21"
+          },
+          {
+            "type": "url",
+            "url": "https://www.koenig-solutions.com/CourseContent/custom/202459841-BuildingAgenticRAGwithLlamaindex.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0206a4a077b6357c0069fa034b293881979d67fd88b08ee45a",
+      "action": {
+        "query": "site:arxiv.org \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\"",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\"",
+          "site:arxiv.org Self-RAG arXiv reflection retrieve generate verify",
+          "site:arxiv.org FLARE active retrieval augmented generation retrieval generation planning",
+          "site:docs.langchain.com agentic retrieval augmented generation tool use reflection"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.11511"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.04531"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.06983"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/langchain/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.07630"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/learn"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/integrations/vectorstores/singlestore/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/integrations/document_loaders/needle/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/langchain/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/integrations/vectorstores/qdrant"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/integrations/vectorstores/chroma/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/integrations/text_embedding/zhipuai/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/integrations/document_loaders/needle"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/integrations/vectorstores/chroma"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2310.10830"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.00368"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.08067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2404.10952"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0206a4a077b6357c0069fa034e26cc81979d1da1cdc58c1541",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2501.09136"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0206a4a077b6357c0069fa034fc21c8197816546805972b2ec",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.langchain.com/oss/python/langchain/rag"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0206a4a077b6357c0069fa035173908197b4f61af2dc3f1e3c",
+      "action": {
+        "pattern": "critique",
+        "type": "find_in_page",
+        "url": "https://arxiv.org/abs/2310.11511"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 26759,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8285,
+    "output_tokens_details": {
+      "reasoning_tokens": 5303
+    },
+    "total_tokens": 35044
+  },
+  "response_id": "resp_0206a4a077b6357c0069fa0343cfc881978f91b9cee3e3e53a",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is the standard retrieve-then-generate RAG workflow?\",\n      \"What extra capabilities define agentic RAG (planning, iterative retrieval, tool use, reflection/verification)?\",\n      \"What added complexity and failure modes does agentic RAG introduce compared with standard RAG?\"\n    ],\n    \"required_aspects\": [\n      \"standard retrieve-then-generate workflow\",\n      \"planning or iterative retrieval\",\n      \"tool use\",\n      \"reflection or verification\",\n      \"added complexity and failure modes\"\n    ],\n    \"expected_source_types\": [\n      \"agentic RAG survey\",\n      \"RAG baseline reference\",\n      \"implementation or framework documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:arxiv.org Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n      \"site:arxiv.org Agentic Retrieval-Augmented Generation survey\",\n      \"site:arxiv.org Self-RAG Learning to Retrieve, Generate, and Critique through Self-Reflection\",\n      \"site:docs.langchain.com agentic RAG tool call reflection\"\n    ],\n    \"rationale_per_query\": [\n      \"Establish the standard RAG baseline from the original paper.\",\n      \"Find a survey that explicitly defines agentic RAG and its design patterns.\",\n      \"Find a primary paper covering reflection/self-verification in retrieval-augmented systems.\",\n      \"Find official framework documentation showing tool use, iterative retrieval, and trade-offs.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n      \"url\": \"https://arxiv.org/abs/2005.11401\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG\",\n      \"url\": \"https://arxiv.org/abs/2501.09136\",\n      \"type\": \"survey\"\n    },\n    {\n      \"title\": \"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\",\n      \"url\": \"https://arxiv.org/abs/2310.11511\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Active Retrieval Augmented Generation (FLARE)\",\n      \"url\": \"https://arxiv.org/abs/2305.06983\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Build a RAG agent with LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/rag\",\n      \"type\": \"official documentation\"\n    },\n    {\n      \"title\": \"LlamaIndex Developer Documentation\",\n      \"url\": \"https://developers.llamaindex.ai/python/framework/\",\n      \"type\": \"official documentation\"\n    },\n    {\n      \"title\": \"papers.cool discovery page for agentic RAG survey\",\n      \"url\": \"https://papers.cool/arxiv/2501.09136\",\n      \"type\": \"secondary discovery lead\"\n    },\n    {\n      \"title\": \"Wikipedia RAG page\",\n      \"url\": \"https://en.wikipedia.org/wiki/Retrieval-augmented_generation\",\n      \"type\": \"discouraged secondary source\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n        \"url\": \"https://arxiv.org/abs/2005.11401\",\n        \"reason\": \"Canonical baseline paper for standard RAG.\"\n      },\n      {\n        \"title\": \"Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG\",\n        \"url\": \"https://arxiv.org/abs/2501.09136\",\n        \"reason\": \"Directly defines agentic RAG, including planning, tool use, and reflection.\"\n      },\n      {\n        \"title\": \"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\",\n        \"url\": \"https://arxiv.org/abs/2310.11511\",\n        \"reason\": \"Primary paper for reflection/critique and on-demand retrieval.\"\n      },\n      {\n        \"title\": \"Active Retrieval Augmented Generation (FLARE)\",\n        \"url\": \"https://arxiv.org/abs/2305.06983\",\n        \"reason\": \"Primary paper for iterative, active retrieval during generation.\"\n      },\n      {\n        \"title\": \"Build a RAG agent with LangChain\",\n        \"url\": \"https://docs.langchain.com/oss/python/langchain/rag\",\n        \"reason\": \"Official docs showing tool calls, iterative retrieval, and trade-offs.\"\n      },\n      {\n        \"title\": \"LlamaIndex Developer Documentation\",\n        \"url\": \"https://developers.llamaindex.ai/python/framework/\",\n        \"reason\": \"Official docs showing agents using tools and workflows with reflection/error-correction.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"papers.cool discovery page for agentic RAG survey\",\n        \"url\": \"https://papers.cool/arxiv/2501.09136\"\n      },\n      {\n        \"title\": \"Wikipedia RAG page\",\n        \"url\": \"https://en.wikipedia.org/wiki/Retrieval-augmented_generation\"\n      },\n      {\n        \"title\": \"GeeksforGeeks agentic RAG article\",\n        \"url\": \"https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/\"\n      },\n      {\n        \"title\": \"Reddit thread on agentic RAG\",\n        \"url\": \"https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Discovery lead only; not primary evidence.\",\n      \"Discouraged source; not needed because authoritative sources were available.\",\n      \"Generic SEO-style secondary explanation; weaker than official docs and papers.\",\n      \"Unreliable forum post; not appropriate for factual support.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Standard RAG combines parametric and non-parametric memory by retrieving relevant knowledge and then generating answers.\",\n      \"source_url\": \"https://arxiv.org/abs/2005.11401\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"standard retrieve-then-generate workflow\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic RAG embeds autonomous agents into the RAG pipeline and uses planning, reflection, tool use, and multi-agent collaboration to manage retrieval adaptively.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.09136\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"planning or iterative retrieval\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"secondary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic RAG systems can generate tool calls, perform multiple searches, and optionally rewrite or grade queries.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/rag\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"tool use\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-RAG adaptively retrieves passages on-demand and reflects on retrieved passages and its own generations using reflection tokens.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.11511\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"reflection or verification\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"FLARE actively decides when and what to retrieve during generation by using upcoming-sentence predictions and regenerating low-confidence content.\",\n      \"source_url\": \"https://arxiv.org/abs/2305.06983\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"planning or iterative retrieval\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LlamaIndex documents that agents use tools, that RAG can be one tool among others, and that workflows support reflection and error-correction.\",\n      \"source_url\": \"https://developers.llamaindex.ai/python/framework/\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"tool use\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangChain describes agentic RAG as more flexible but notes trade-offs such as extra inference calls and reduced control, including skipped or unnecessary searches.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/rag\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"added complexity and failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"standard retrieve-then-generate workflow\",\n      \"planning or iterative retrieval\",\n      \"tool use\",\n      \"reflection or verification\",\n      \"added complexity and failure modes\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradictions. The sources agree that agentic RAG is a more adaptive, multi-step extension of standard RAG; differences are about degree of autonomy and implementation detail.\",\n    \"uncertainty_notes\": [\n      \"The term 'agentic RAG' is still evolving and is best treated as an umbrella family of patterns rather than a single canonical architecture.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Standard RAG retrieves context and then generates.\",\n      \"Agentic RAG adds planning, iterative retrieval, tool use, and reflection.\",\n      \"Agentic RAG introduces latency/control trade-offs and new failure modes.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAgentic RAG is a RAG system where the model behaves more like an agent: it can decide when to retrieve, what to retrieve next, which tools to call, and whether to reflect or verify before answering. Standard RAG is the simpler retrieve-then-generate pattern: fetch context, then generate the answer from that context. ([arxiv.org](https://arxiv.org/abs/2005.11401))\\n\\nThe practical difference is control and adaptivity. Agentic RAG can help on multi-hop or long-form tasks by iterating over retrieval and checking its own outputs, but it adds more moving parts, more inference calls, and failure modes like skipping a needed search or making unnecessary searches. ([arxiv.org](https://arxiv.org/abs/2310.11511))\\n\\n### Required aspect coverage\\n- standard retrieve-then-generate workflow — The original RAG paper frames the method as retrieving external memory and then generating; LangChain also contrasts this with a two-step chain that injects retrieved context into the prompt. ([arxiv.org](https://arxiv.org/abs/2005.11401))\\n- planning or iterative retrieval — The agentic RAG survey explicitly lists planning and iterative refinement, and FLARE retrieves repeatedly during generation based on low-confidence tokens. ([arxiv.org](https://arxiv.org/abs/2501.09136))\\n- tool use — LangChain shows the LLM emitting tool calls for retrieval, and LlamaIndex says agents use tools and can use RAG as one tool among others. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\\n- reflection or verification — Self-RAG learns to critique via self-reflection, and the survey includes reflection as a core agentic design pattern. ([arxiv.org](https://arxiv.org/abs/2310.11511))\\n- added complexity and failure modes — LangChain notes extra inference calls and reduced control, including skipped or unnecessary searches; the survey also emphasizes trade-offs in design and control. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\\n\\n## Sources\\n- RAG baseline: Lewis et al., 2020. ([arxiv.org](https://arxiv.org/abs/2005.11401))\\n- Agentic RAG survey: Singh et al., 2025. ([arxiv.org](https://arxiv.org/abs/2501.09136))\\n- Self-RAG: Asai et al., 2023. ([arxiv.org](https://arxiv.org/abs/2310.11511))\\n- FLARE: Gao et al., 2023. ([arxiv.org](https://arxiv.org/abs/2305.06983))\\n- LangChain RAG docs. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))\\n- LlamaIndex framework docs. ([docs.llamaindex.ai](https://docs.llamaindex.ai/))\\n\\n## Limitations\\nAgentic RAG is an umbrella term, not a single canonical architecture. The evidence here supports the conceptual distinction from standard RAG, but implementation details and evaluation metrics vary across systems. ([arxiv.org](https://arxiv.org/abs/2501.09136))\"\n}",
+  "status": "complete"
+}

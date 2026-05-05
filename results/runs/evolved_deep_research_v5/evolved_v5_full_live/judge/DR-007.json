@@ -1,0 +1,323 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:49:46+00:00",
+  "finished_at": "2026-05-05T15:50:11+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-007.json",
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8942,
+  "judge_score": 0.875,
+  "final_score": 0.8817,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-007.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-007",
+    "question": "How should citations be audited in deep research agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.9231,
+      "source_quality_score": 0.5,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.9231,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8942,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 59.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "claim-level evidence",
+          "covered": true,
+          "matched_terms": [
+            "claim",
+            "evidence",
+            "level"
+          ],
+          "expected_terms": [
+            "claim",
+            "evidence",
+            "level"
+          ]
+        },
+        {
+          "aspect": "source relevance",
+          "covered": true,
+          "matched_terms": [
+            "relevance",
+            "source"
+          ],
+          "expected_terms": [
+            "relevance",
+            "source"
+          ]
+        },
+        {
+          "aspect": "citation granularity",
+          "covered": true,
+          "matched_terms": [
+            "citation",
+            "granularity"
+          ],
+          "expected_terms": [
+            "citation",
+            "granularity"
+          ]
+        },
+        {
+          "aspect": "unsupported claim detection",
+          "covered": true,
+          "matched_terms": [
+            "claim",
+            "detection",
+            "unsupported"
+          ],
+          "expected_terms": [
+            "claim",
+            "detection",
+            "unsupported"
+          ]
+        },
+        {
+          "aspect": "handling conflicting sources",
+          "covered": true,
+          "matched_terms": [
+            "conflicting",
+            "handling",
+            "sources"
+          ],
+          "expected_terms": [
+            "conflicting",
+            "handling",
+            "sources"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Audit citations in deep research agents at the **claim level**, not just at the report level. The strongest evidence says deep research outputs should include citations or source links for verification, and the API output is designed to carry inline citations plus source metadata, so each assertion should be checked against the exact supporting passage it depends on. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7 https://developers.openai.com/api/docs/guides/deep-research",
+        "**Direct source-backed facts:**",
+        "- Deep research reports are meant to be verifiable through citations or source links. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+        "- The API guide shows inline citations and source metadata in the response structure. https://developers.openai.com/api/docs/guides/deep-research",
+        "- Benchmark work on citation evaluation uses fine-grained support labels, and deep research benchmarks separate discovered claims from surface report text. https://arxiv.org/abs/2406.15264 https://github.com/microsoft/LiveDRBench",
+        "- Use a rubric that scores each cited claim as fully supported, partially supported, or unsupported, rather than treating any citation as sufficient. https://arxiv.org/abs/2406.15264",
+        "- For conflicting sources, require the auditor to surface the disagreement, prefer explicit abstention when evidence is mixed, and record which source wins and why. https://aclanthology.org/2025.findings-acl.877/",
+        "- Prefer citations that point to the most relevant primary source, not merely a nearby or generic source. https://developers.openai.com/api/docs/guides/deep-research",
+        "- claim-level evidence: audit each atomic claim against the cited source passage, not the whole report. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+        "- source relevance: keep only sources that directly support the claim and are appropriate for it. https://developers.openai.com/api/docs/guides/deep-research",
+        "- citation granularity: score support as full, partial, or no support rather than binary yes or no. https://arxiv.org/abs/2406.15264",
+        "- unsupported claim detection: flag statements with no backing even if surrounding text is sourced. https://arxiv.org/abs/2406.15264",
+        "- handling conflicting sources: test conflict robustness and require explicit abstention or conflict notes when sources disagree. https://aclanthology.org/2025.findings-acl.877/"
+      ],
+      "unsupported_claim_lines": [
+        "**Direct source-backed facts:**"
+      ],
+      "sources": [
+        {
+          "url": "https://aclanthology.org/2025.findings-acl.877/",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2406.15264",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://cdn.openai.com/deep-research-system-card.pdf",
+          "domain": "cdn.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/deep-research",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://github.com/microsoft/LiveDRBench",
+          "domain": "github.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+          "domain": "help.openai.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 5,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "claim-level evidence",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly says to audit each atomic claim against the cited source passage, not the whole report."
+      },
+      {
+        "aspect": "source relevance",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly instructs auditors to keep only sources that directly support the claim and are appropriate for it."
+      },
+      {
+        "aspect": "citation granularity",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Recommends full/partial/no support rather than binary citation sufficiency, which is the right granularity."
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly calls for flagging statements with no backing even when surrounding text is sourced."
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Addresses disagreement by surfacing conflicts, preferring abstention when evidence is mixed, and recording why one source wins."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Audit citations in deep research agents at the claim level, not just at the report level.",
+        "support": "supported",
+        "cited_urls": [
+          "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+          "https://developers.openai.com/api/docs/guides/deep-research"
+        ],
+        "reason": "The cited deep research docs plausibly support the idea that outputs include citations/source metadata and should be verified per assertion."
+      },
+      {
+        "claim": "Deep research reports are meant to be verifiable through citations or source links.",
+        "support": "supported",
+        "cited_urls": [
+          "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7"
+        ],
+        "reason": "A product FAQ is an appropriate source for the intended verification behavior of deep research outputs."
+      },
+      {
+        "claim": "The API guide shows inline citations and source metadata in the response structure.",
+        "support": "supported",
+        "cited_urls": [
+          "https://developers.openai.com/api/docs/guides/deep-research"
+        ],
+        "reason": "API documentation is a strong source for response schema details."
+      },
+      {
+        "claim": "Benchmark work on citation evaluation uses fine-grained support labels, and deep research benchmarks separate discovered claims from surface report text.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2406.15264",
+          "https://github.com/microsoft/LiveDRBench"
+        ],
+        "reason": "The first source likely supports fine-grained citation evaluation, but the combined claim about deep research benchmarks separating discovered claims from surface report text is broader and less directly supported from the citation alone."
+      },
+      {
+        "claim": "Use a rubric that scores each cited claim as fully supported, partially supported, or unsupported, rather than treating any citation as sufficient.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2406.15264"
+        ],
+        "reason": "This is a reasonable inference from fine-grained citation evaluation guidance."
+      },
+      {
+        "claim": "For conflicting sources, require the auditor to surface the disagreement, prefer explicit abstention when evidence is mixed, and record which source wins and why.",
+        "support": "weak",
+        "cited_urls": [
+          "https://aclanthology.org/2025.findings-acl.877/"
+        ],
+        "reason": "The source may support conflict robustness, but the specific operational rule about abstention and recording which source wins is more of an inference than a clearly grounded citation-backed requirement."
+      },
+      {
+        "claim": "Prefer citations that point to the most relevant primary source, not merely a nearby or generic source.",
+        "support": "weak",
+        "cited_urls": [
+          "https://developers.openai.com/api/docs/guides/deep-research"
+        ],
+        "reason": "This is sensible engineering advice, but the cited API guide is unlikely to explicitly justify the primary-source preference as stated."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+        "quality": "strong",
+        "reason": "Direct product documentation relevant to deep research citation behavior."
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "quality": "strong",
+        "reason": "Direct API documentation relevant to citation structure and source metadata."
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.15264",
+        "quality": "strong",
+        "reason": "Relevant research on fine-grained citation evaluation."
+      },
+      {
+        "url": "https://github.com/microsoft/LiveDRBench",
+        "quality": "acceptable",
+        "reason": "Relevant benchmark repository, though weaker than a paper or formal guidance for interpretive claims."
+      },
+      {
+        "url": "https://aclanthology.org/2025.findings-acl.877/",
+        "quality": "acceptable",
+        "reason": "Relevant benchmark/paper source, but the specific conflict-handling recommendation appears more inferential than directly evidenced."
+      },
+      {
+        "url": "https://cdn.openai.com/deep-research-system-card.pdf",
+        "quality": "acceptable",
+        "reason": "Potentially relevant system documentation, but not used for any clearly specific claim in the answer."
+      }
+    ],
+    "failure_tags": [
+      "weak_source"
+    ],
+    "summary": "The answer is strong and covers all required aspects with a practical audit rubric. Its main weakness is that a few engineering recommendations, especially around conflict handling and primary-source preference, are more inferential than tightly sourced.",
+    "recommended_fix": "Tighten the evidence for the inference-heavy recommendations by tying each one to a specific passage or by explicitly labeling them as unsourced policy suggestions rather than source-backed facts.",
+    "average_score": 4.5,
+    "normalized_score": 0.875
+  },
+  "judge_usage": {
+    "input_tokens": 4090,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1597,
+    "output_tokens_details": {
+      "reasoning_tokens": 52
+    },
+    "total_tokens": 5687
+  },
+  "response_id": "resp_00a0dc91583ed4070069fa119abf9c8197a156ec3f80b31bf7"
+}

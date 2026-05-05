@@ -1,0 +1,386 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:44:38+00:00",
+  "finished_at": "2026-05-05T09:44:48+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-003.json",
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9167,
+  "judge_score": 0.6667,
+  "final_score": 0.7542,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-003.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-003",
+    "question": "What are current approaches to evaluating tool use in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.4444,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9167,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 72.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "task success",
+          "covered": true,
+          "matched_terms": [
+            "success",
+            "task"
+          ],
+          "expected_terms": [
+            "success",
+            "task"
+          ]
+        },
+        {
+          "aspect": "tool-call correctness",
+          "covered": true,
+          "matched_terms": [
+            "call",
+            "correctness",
+            "tool"
+          ],
+          "expected_terms": [
+            "call",
+            "correctness",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "argument validity",
+          "covered": true,
+          "matched_terms": [
+            "argument",
+            "validity"
+          ],
+          "expected_terms": [
+            "argument",
+            "validity"
+          ]
+        },
+        {
+          "aspect": "recovery from tool errors",
+          "covered": true,
+          "matched_terms": [
+            "errors",
+            "recovery",
+            "tool"
+          ],
+          "expected_terms": [
+            "errors",
+            "recovery",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "cost and latency",
+          "covered": true,
+          "matched_terms": [
+            "cost",
+            "latency"
+          ],
+          "expected_terms": [
+            "cost",
+            "latency"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Current approaches to evaluating tool use in LLM agents cluster into five practical layers: (1) **task success** on realistic or executable benchmarks, (2) **tool-call correctness** via trace- or step-level checks, (3) **argument validity** via parameter/data-precision scoring, (4) **recovery from tool errors** via perturbation and fault-injection stress tests, and (5) **cost and latency** tracking for production readiness. The literature is moving from single-run success rates toward more realistic, fine-grained, and operationally relevant evaluation. `https://arxiv.org/abs/2503.16416` `https://developers.openai.com/api/docs/guides/trace-grading` ([arxiv.org](https://arxiv.org/abs/2503.16416))",
+        "- **task success** — Benchmarks like GTA emphasize end-to-end completion on real-world tasks with real deployed tools and multimodal inputs; the survey also notes a shift toward more realistic benchmarks. `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))",
+        "- **tool-call correctness** — Current framework docs grade traces with structured criteria and explicitly ask whether the agent selected and invoked the right tool. `https://developers.openai.com/api/docs/guides/trace-grading` `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))",
+        "- **argument validity** — A common pattern is `data precision`: verifying the tool is called with the correct arguments extracted from context. `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))",
+        "- **recovery from tool errors** — Newer benchmarks inject timeouts, rate limits, partial responses, schema drift, and other failures to measure fault tolerance and recovery. `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))",
+        "- **cost and latency** — Operational evaluation frameworks increasingly log per-tool-call latency, token usage, and USD cost; the survey notes cost-efficiency remains an open gap. `https://iris-eval.com/` `https://arxiv.org/abs/2503.16416` ([iris-eval.com](https://www.iris-eval.com/))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2503.16416",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2503.16416`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2601.06112",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2601.06112`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices`",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/trace-grading",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/trace-grading`",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://iris-eval.com/",
+          "domain": "iris-eval.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://iris-eval.com/`",
+          "domain": "iris-eval.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://papers.cool/arxiv/2507.21504",
+          "domain": "papers.cool",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://platform.openai.com/docs/guides/evaluation-best-practices",
+          "domain": "platform.openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://platform.openai.com/docs/guides/trace-grading",
+          "domain": "platform.openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+          "domain": "proceedings.neurips.cc",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html`",
+          "domain": "proceedings.neurips.cc",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://www.hevo.dev/",
+          "domain": "hevo.dev",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.iris-eval.com/",
+          "domain": "iris-eval.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+          "domain": "researchgate.net",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 18,
+      "unique_citation_count": 18
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "task success",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly addresses end-to-end task completion on realistic/executable benchmarks."
+      },
+      {
+        "aspect": "tool-call correctness",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly covers trace/step-level checks for selecting and invoking the right tool."
+      },
+      {
+        "aspect": "argument validity",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly names parameter/data-precision scoring for validating tool arguments."
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Covers perturbation and fault-injection stress tests for failures like timeouts and schema drift."
+      },
+      {
+        "aspect": "cost and latency",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly discusses per-call latency, token usage, and USD cost tracking."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Current approaches cluster into task success, tool-call correctness, argument validity, recovery from tool errors, and cost/latency.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2503.16416",
+          "https://developers.openai.com/api/docs/guides/trace-grading"
+        ],
+        "reason": "The survey and trace-grading doc plausibly support the high-level framing, though not necessarily the exact five-layer taxonomy."
+      },
+      {
+        "claim": "Benchmarks like GTA emphasize end-to-end completion on real-world tasks with real deployed tools and multimodal inputs.",
+        "support": "supported",
+        "cited_urls": [
+          "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html"
+        ],
+        "reason": "The benchmark source is directly relevant to task success and realistic tool-use evaluation."
+      },
+      {
+        "claim": "Trace grading docs explicitly ask whether the agent selected and invoked the right tool.",
+        "support": "supported",
+        "cited_urls": [
+          "https://developers.openai.com/api/docs/guides/trace-grading",
+          "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+        ],
+        "reason": "Provider evaluation docs are an appropriate source type for tool-call correctness."
+      },
+      {
+        "claim": "Argument validity is commonly evaluated as data precision: verifying correct arguments extracted from context.",
+        "support": "supported",
+        "cited_urls": [
+          "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+        ],
+        "reason": "This is a plausible and relevant framework claim, though it is somewhat specialized terminology."
+      },
+      {
+        "claim": "Newer benchmarks inject timeouts, rate limits, partial responses, schema drift, and other failures to measure recovery.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2601.06112"
+        ],
+        "reason": "A reliability/stress-condition benchmark is directly aligned with this claim."
+      },
+      {
+        "claim": "Operational evaluation frameworks increasingly log per-tool-call latency, token usage, and USD cost.",
+        "support": "weak",
+        "cited_urls": [
+          "https://iris-eval.com/"
+        ],
+        "reason": "The source is relevant but the answer does not establish, from the citation metadata alone, that it specifically supports this detailed logging claim."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2503.16416",
+        "quality": "strong",
+        "reason": "Relevant survey source for current evaluation approaches."
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+        "quality": "strong",
+        "reason": "Direct benchmark source for task success and realistic tool-use evaluation."
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/trace-grading",
+        "quality": "acceptable",
+        "reason": "Relevant provider documentation for trace-level evaluation of tool use."
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+        "quality": "acceptable",
+        "reason": "Relevant framework documentation, especially for argument validity and grading practices."
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.06112",
+        "quality": "strong",
+        "reason": "Relevant benchmark-style source for robustness and recovery under failures."
+      },
+      {
+        "url": "https://iris-eval.com/",
+        "quality": "weak",
+        "reason": "Potentially relevant, but as a standalone site it is less established and the answer relies on it for cost/latency claims."
+      },
+      {
+        "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+        "quality": "weak",
+        "reason": "Secondary-hosted survey copy is less reliable than the arXiv original."
+      },
+      {
+        "url": "https://www.hevo.dev/",
+        "quality": "irrelevant",
+        "reason": "Appears in the source list but is not used substantively and is not clearly relevant to the question."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "limited_uncertainty"
+    ],
+    "summary": "The answer covers all required aspects well and is grounded in relevant benchmark/survey/docs sources, but evidence quality is dragged down by weaker sources and a thin limitations section.",
+    "recommended_fix": "Replace weak or peripheral sources with more direct benchmark/survey citations for cost, latency, and robustness, and add a brief caveat distinguishing what is standardized today versus still fragmented.",
+    "average_score": 3.6667,
+    "normalized_score": 0.6667
+  },
+  "judge_usage": {
+    "input_tokens": 5731,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1585,
+    "output_tokens_details": {
+      "reasoning_tokens": 114
+    },
+    "total_tokens": 7316
+  },
+  "response_id": "resp_0bb5133d5e1488ea0069f9bc0ee79c81909206ad7465c7bdd8"
+}

@@ -1,0 +1,288 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:31:52+00:00",
+  "finished_at": "2026-05-05T09:32:02+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-006.json",
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.675,
+  "judge_score": 0.375,
+  "final_score": 0.48,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-006.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-006",
+    "question": "What are common failure modes in multi-agent systems?",
+    "metrics": {
+      "coverage_score": 0.2,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.1667,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.675,
+    "failure_tags": [
+      "missing_required_aspect",
+      "weak_source"
+    ],
+    "runtime_seconds": 46.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "coordination overhead",
+          "covered": true,
+          "matched_terms": [
+            "coordination"
+          ],
+          "expected_terms": [
+            "coordination",
+            "overhead"
+          ]
+        },
+        {
+          "aspect": "role confusion",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "confusion",
+            "role"
+          ]
+        },
+        {
+          "aspect": "error propagation",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "error",
+            "propagation"
+          ]
+        },
+        {
+          "aspect": "consensus without correctness",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ]
+        },
+        {
+          "aspect": "evaluation difficulty",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "difficulty",
+            "evaluation"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "1. **Non-stationarity** — one agent’s policy updates change the environment for the others, so the learning target keeps moving (https://arxiv.org/abs/1707.09183).",
+        "2. **Partial observability / hidden state** — agents often act from local views or histories, which makes decisions myopic or inconsistent (https://link.springer.com/article/10.1007/s10458-023-09633-6).",
+        "3. **Credit assignment failure** — with shared outcomes, it is hard to tell which agent or action caused success/failure, so learning signals get noisy (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+        "4. **Communication and coordination breakdowns** — agents fail to learn useful communication protocols or coherent joint action plans (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+        "5. **Deadlock / stalled interaction** — agents can get stuck waiting on each other or issuing incompatible messages; this is explicitly formalized as communication deadlock in the literature (https://www.sciencedirect.com/science/article/pii/S1474667017570287).",
+        "6. **Scalability blow-up** — joint action/observation spaces grow quickly with agent count, making training and execution expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6)."
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/1707.09183",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning",
+          "domain": "en.wikipedia.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+          "domain": "link.springer.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+          "domain": "link.springer.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+          "domain": "link.springer.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+          "domain": "sciencedirect.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 1,
+      "evidence_quality": 2,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 2,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "coordination overhead",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Touches coordination breakdowns and scalability blow-up, but does not explicitly frame coordination overhead as a common failure mode or discuss the practical cost of coordination protocols."
+      },
+      {
+        "aspect": "role confusion",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "No discussion of agents taking ambiguous, overlapping, or conflicting roles."
+      },
+      {
+        "aspect": "error propagation",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not address how one agent's mistake can cascade through downstream agents or shared state."
+      },
+      {
+        "aspect": "consensus without correctness",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not cover the failure mode where agents converge on a mutually consistent but wrong answer or plan."
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "No real treatment of how hard it is to evaluate multi-agent behavior, attribution, or system-level quality."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Non-stationarity — one agent’s policy updates change the environment for the others, so the learning target keeps moving.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/1707.09183"
+        ],
+        "reason": "This is a standard, well-supported MARL failure mode and the cited survey is appropriate."
+      },
+      {
+        "claim": "Partial observability / hidden state — agents often act from local views or histories, which makes decisions myopic or inconsistent.",
+        "support": "weak",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s10458-023-09633-6"
+        ],
+        "reason": "The cited survey is relevant to MARL communication/challenges, but the specific partial-observability claim is not clearly grounded by the citation metadata alone."
+      },
+      {
+        "claim": "Credit assignment failure — with shared outcomes, it is hard to tell which agent or action caused success/failure, so learning signals get noisy.",
+        "support": "supported",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s10462-021-09996-w"
+        ],
+        "reason": "A core MARL survey is a plausible source for credit assignment problems."
+      },
+      {
+        "claim": "Communication and coordination breakdowns — agents fail to learn useful communication protocols or coherent joint action plans.",
+        "support": "supported",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s10462-021-09996-w"
+        ],
+        "reason": "This is directly aligned with MARL communication/coordination failure discussions."
+      },
+      {
+        "claim": "Deadlock / stalled interaction — agents can get stuck waiting on each other or issuing incompatible messages; this is explicitly formalized as communication deadlock in the literature.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.sciencedirect.com/science/article/pii/S1474667017570287"
+        ],
+        "reason": "The cited paper is specifically about communication deadlock and fits the claim well."
+      },
+      {
+        "claim": "Scalability blow-up — joint action/observation spaces grow quickly with agent count, making training and execution expensive.",
+        "support": "supported",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s10458-023-09633-6"
+        ],
+        "reason": "Scalability and combinatorial growth are standard multi-agent challenges and the survey is relevant."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/1707.09183",
+        "quality": "strong",
+        "reason": "Directly relevant MARL survey on non-stationarity."
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning",
+        "quality": "weak",
+        "reason": "Not an appropriate source for a benchmark answer when stronger primary sources are available."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+        "quality": "acceptable",
+        "reason": "Relevant survey on MARL communication, though not clearly tied to every specific claim made."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+        "quality": "acceptable",
+        "reason": "Relevant MARL survey covering major learning challenges."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+        "quality": "acceptable",
+        "reason": "Relevant survey source, though not actually used in the answer body."
+      },
+      {
+        "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+        "quality": "acceptable",
+        "reason": "Directly relevant to communication deadlock, a specific failure mode."
+      }
+    ],
+    "failure_tags": [
+      "missing_required_aspect",
+      "weak_source",
+      "partial_coverage"
+    ],
+    "summary": "The answer is reasonably grounded in MARL literature but misses most of the required failure modes, especially role confusion, error propagation, consensus without correctness, and evaluation difficulty.",
+    "recommended_fix": "Replace the current MARL-only taxonomy with an answer explicitly organized around the five required aspects, and use citations that directly support each one.",
+    "average_score": 2.5,
+    "normalized_score": 0.375
+  },
+  "judge_usage": {
+    "input_tokens": 3026,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1482,
+    "output_tokens_details": {
+      "reasoning_tokens": 114
+    },
+    "total_tokens": 4508
+  },
+  "response_id": "resp_0bf5387fe7a023d80069f9b910b0c8819494e3120ecadc6944"
+}

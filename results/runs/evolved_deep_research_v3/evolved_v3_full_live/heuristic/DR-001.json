@@ -1,0 +1,186 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.8333,
+    "source_quality_score": 0.1818,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.8333,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.8106,
+  "failure_tags": [
+    "unsupported_claim",
+    "weak_source"
+  ],
+  "runtime_seconds": 19.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "The main failure modes of memory in LLM agents are: (1) **context pollution** from injecting too much or irrelevant memory into the prompt, (2) **retrieving stale or irrelevant memories** when the current task has changed, (3) **over-trusting prior agent outputs or stored memories** instead of the current environment, and (4) the core **short-term vs. long-term memory trade-off**: keeping more history improves recall but increases drift, latency, and the risk of wrong recall or outdated guidance. Memory quality is therefore usually evaluated with retrieval accuracy, update/conflict handling, long-range understanding, and benchmark designs that simulate incremental multi-turn interactions.",
+      "- **context pollution** — covered via selective/progressive disclosure and the risk of irrelevant memory injection; see https://openai.github.io/openai-agents-python/sandbox/memory/ and https://huggingface.co/papers/2602.01146.",
+      "- **retrieval of stale or irrelevant memories** — covered by explicit stale-memory handling and conflict-resolution benchmarks; see https://openai.github.io/openai-agents-python/sandbox/memory/ and https://huggingface.co/papers/2507.05257.",
+      "- **over-trusting previous agent outputs** — covered by the SDK instruction to treat memories as guidance only and trust the current environment; see https://openai.github.io/openai-agents-python/sandbox/memory/.",
+      "- **trade-offs between short-term and long-term memory** — covered by the survey’s discussion of limited context windows and memory management stages; see https://openreview.net/forum?id=KPs1EgGKcT.",
+      "- **evaluation methods for memory quality** — covered by benchmark competencies and the survey’s discussion of metric validity and judge sensitivity; see https://huggingface.co/papers/2507.05257 and https://huggingface.co/papers/2602.19320."
+    ],
+    "unsupported_claim_lines": [
+      "The main failure modes of memory in LLM agents are: (1) **context pollution** from injecting too much or irrelevant memory into the prompt, (2) **retrieving stale or irrelevant memories** when the current task has changed, (3) **over-trusting prior agent outputs or stored memories** instead of the current environment, and (4) the core **short-term vs. long-term memory trade-off**: keeping more history improves recall but increases drift, latency, and the risk of wrong recall or outdated guidance. Memory quality is therefore usually evaluated with retrieval accuracy, update/conflict handling, long-range understanding, and benchmark designs that simulate incremental multi-turn interactions."
+    ],
+    "sources": [
+      {
+        "url": "https://chatpaper.com/paper/269676",
+        "domain": "chatpaper.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://huggingface.co/papers/2507.05257",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://huggingface.co/papers/2507.05257.",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.01146",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.01146.",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.19320",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://huggingface.co/papers/2602.19320.",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "domain": "openai.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/.",
+        "domain": "openai.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT.",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 11,
+    "unique_citation_count": 11
+  }
+}

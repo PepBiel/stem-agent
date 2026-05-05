@@ -1,0 +1,865 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T15:38:06+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "source_expectations": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T15:39:40+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nReAct-style agents keep reasoning and acting in one interleaved loop: the model emits reasoning traces and task actions together, and those traces are used to update plans, handle exceptions, and fetch external information. https://arxiv.org/abs/2210.03629\n\nPlanner-executor agents split that loop: a planner creates an explicit high-level or step-by-step plan, and an executor turns the plan into environment-specific actions or tool calls. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572\n\nTool-use implication: ReAct keeps tool observations inside the same evolving context as the reasoning trace, while planner-executor systems can isolate noisy execution details in the executor and preserve reasoning depth in the planner. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/ https://arxiv.org/abs/2503.09572\n\nFailure modes differ: the ReAct paper highlights hallucination and error propagation, while Plan-and-Act says accurate plan generation is difficult because LLMs are not naturally trained for planning. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572\n\nPractical recommendation: use ReAct when you want a simple reactive loop; prefer planner-executor for long-horizon, multi-step, tool-heavy tasks where explicit plans and role separation matter. That recommendation is an engineering inference from the cited sources, not a universal rule. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769\n\n### Required aspect coverage\n- interleaved reasoning and acting — covered by ReAct's interleaved reasoning/action loop. https://arxiv.org/abs/2210.03629\n- explicit planning stage — covered by CrewAI's step-by-step planning stage and Plan-and-Act's planner/executor split. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572\n- tool-use implications — covered by TaskWeaver's separated planner/executor/tool tracing. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\n- failure modes — covered by ReAct's hallucination/error propagation and Plan-and-Act's plan-generation difficulty. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572\n- when each architecture is preferable — covered by PilotRL's long-horizon planning limitation for ReAct and AgentArch's model-specific architecture preferences. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769\n\n## Sources\n- ReAct: Synergizing Reasoning and Acting in Language Models — https://arxiv.org/abs/2210.03629\n- CrewAI Planning docs — https://docs.crewai.com/en/concepts/planning\n- TaskWeaver Telemetry docs — https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\n- Plan-and-Act: Improving Planning of Agents for Long-Horizon Tasks — https://arxiv.org/abs/2503.09572\n- AgentArch: A Comprehensive Benchmark to Evaluate Agent Architectures in Enterprise — https://arxiv.org/abs/2509.10769\n- PilotRL: Training Language Model Agents via Global Planning-Guided Progressive Reinforcement Learning — https://openreview.net/forum?id=XUF5IBVAEB\n\n## Limitations\nThe preference guidance is a synthesis, not a universal law: AgentArch reports model-specific architectural preferences, and the long-horizon advantage of planner-executor is context-dependent. https://arxiv.org/abs/2509.10769 https://arxiv.org/abs/2503.09572\nI did not find a single canonical peer-reviewed head-to-head paper that cleanly isolates only ReAct versus planner-executor across all domains; the comparison here comes from the ReAct paper, planning/framework docs, and architecture/long-horizon benchmarks. https://arxiv.org/abs/2210.03629 https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2509.10769",
+  "decomposition": {
+    "subquestions": [
+      "What is the control loop in a ReAct-style agent?",
+      "What does a planner-executor architecture add or separate?",
+      "How do the two patterns change tool use and context management?",
+      "What failure modes are highlighted in the literature?",
+      "When is each architecture typically preferable?"
+    ],
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "expected_source_types": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "ReAct paper arXiv reasoning and acting interleaved tool use failure modes",
+      "official agent framework documentation planning executor planner step-by-step",
+      "technical comparison benchmark ReAct planner-executor agent architecture",
+      "planner-executor long-horizon tasks ReAct limitations"
+    ],
+    "rationale_per_query": [
+      "Get the canonical ReAct formulation and its stated benefits/failures from the primary paper.",
+      "Find official framework docs that expose an explicit planning stage and planner/executor separation.",
+      "Find a benchmark or comparison paper that discusses architecture-level tradeoffs and model/task dependence.",
+      "Find a source that directly motivates when planner-executor is preferable over ReAct-style single-loop agents."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "paper"
+    },
+    {
+      "url": "https://docs.crewai.com/en/concepts/planning",
+      "title": "CrewAI Planning",
+      "type": "official docs"
+    },
+    {
+      "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+      "title": "TaskWeaver Telemetry",
+      "type": "official docs"
+    },
+    {
+      "url": "https://arxiv.org/abs/2503.09572",
+      "title": "Plan-and-Act: Improving Planning of Agents for Long-Horizon Tasks",
+      "type": "paper"
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.10769",
+      "title": "AgentArch: A Comprehensive Benchmark to Evaluate Agent Architectures in Enterprise",
+      "type": "benchmark paper"
+    },
+    {
+      "url": "https://openreview.net/forum?id=XUF5IBVAEB",
+      "title": "PilotRL: Training Language Model Agents via Global Planning-Guided Progressive Reinforcement Learning",
+      "type": "technical comparison / paper"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "why_accepted": "Primary ReAct paper; directly defines interleaved reasoning and acting and reports failure modes."
+      },
+      {
+        "url": "https://docs.crewai.com/en/concepts/planning",
+        "why_accepted": "Official framework documentation; directly describes an explicit planning stage."
+      },
+      {
+        "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+        "why_accepted": "Official framework documentation; directly exposes planner/executor role separation and execution tracing."
+      },
+      {
+        "url": "https://arxiv.org/abs/2503.09572",
+        "why_accepted": "Primary paper; directly describes planner/executor separation, plan generation difficulty, and long-horizon use."
+      },
+      {
+        "url": "https://arxiv.org/abs/2509.10769",
+        "why_accepted": "Primary benchmark paper; directly compares architecture dimensions and notes model-specific preferences."
+      },
+      {
+        "url": "https://openreview.net/forum?id=XUF5IBVAEB",
+        "why_accepted": "Primary technical paper; directly states ReAct's limitation for long-term strategic planning and motivates global planning."
+      }
+    ],
+    "rejected_sources": [],
+    "rejection_reasons": []
+  },
+  "evidence_table": [
+    {
+      "claim": "ReAct generates reasoning traces and task-specific actions in an interleaved manner, using reasoning to induce, track, update plans, and handle exceptions while actions gather external information.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "paper",
+      "supported_aspect": "interleaved reasoning and acting",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct reports improved interpretability and says it overcomes hallucination and error propagation seen in chain-of-thought-style reasoning on some tasks.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "paper",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "CrewAI's planning feature adds an explicit planning stage before each iteration, and the resulting step-by-step plan is added to each task description.",
+      "source_url": "https://docs.crewai.com/en/concepts/planning",
+      "source_type": "official docs",
+      "supported_aspect": "explicit planning stage",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Plan-and-Act says recent work succeeds by separating high-level planning from low-level execution, and its planner generates structured high-level plans while the executor translates them into environment-specific actions.",
+      "source_url": "https://arxiv.org/abs/2503.09572",
+      "source_type": "paper",
+      "supported_aspect": "explicit planning stage",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Plan-and-Act notes that generating accurate plans remains difficult because LLMs are not inherently trained for planning.",
+      "source_url": "https://arxiv.org/abs/2503.09572",
+      "source_type": "paper",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "TaskWeaver's telemetry separates planner, code interpreter, and executor interactions; it also traces planning, code generation/execution, errors, and token usage.",
+      "source_url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+      "source_type": "official docs",
+      "supported_aspect": "tool-use implications",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "TaskWeaver shows that separating phases helps observe bottlenecks and failures in tool-heavy execution, rather than mixing them into one undifferentiated loop.",
+      "source_url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+      "source_type": "official docs",
+      "supported_aspect": "tool-use implications",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "medium"
+    },
+    {
+      "claim": "PilotRL states that ReAct centers on single-step reasoning with immediate action execution, which limits effectiveness on complex tasks requiring long-term strategic planning.",
+      "source_url": "https://openreview.net/forum?id=XUF5IBVAEB",
+      "source_type": "technical comparison / paper",
+      "supported_aspect": "when each architecture is preferable",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "AgentArch benchmarks 18 agentic configurations and reports model-specific architectural preferences rather than a one-size-fits-all winner.",
+      "source_url": "https://arxiv.org/abs/2509.10769",
+      "source_type": "benchmark paper",
+      "supported_aspect": "when each architecture is preferable",
+      "support_directness": "direct",
+      "source_authority": "benchmark",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions: the sources consistently characterize ReAct as a single-loop reasoning/action pattern and planner-executor as a separated planning/execution pattern. Benchmarks and framework docs suggest tradeoffs rather than a universal winner.",
+    "uncertainty_notes": [
+      "Preference is task- and model-dependent, not universal, per AgentArch. https://arxiv.org/abs/2509.10769",
+      "The recommendation below is an engineering inference from the cited papers/docs, not a theorem. https://arxiv.org/abs/2503.09572 https://openreview.net/forum?id=XUF5IBVAEB"
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "ReAct interleaves reasoning and acting. https://arxiv.org/abs/2210.03629",
+      "Planner-executor introduces an explicit planning stage. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572",
+      "Tool-heavy workflows benefit from separated planning/execution traces. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+      "ReAct has failure modes around hallucination and error propagation. https://arxiv.org/abs/2210.03629",
+      "Long-horizon tasks often need explicit plans and model-specific architecture choices. https://arxiv.org/abs/2503.09572 https://arxiv.org/abs/2509.10769 https://openreview.net/forum?id=XUF5IBVAEB"
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T15:39:40+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2503.09572",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2509.10769",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.crewai.com/en/concepts/planning",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=XUF5IBVAEB",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0ee100b88194860eabc7a98e6342",
+      "action": {
+        "query": "ReAct paper arXiv reasoning and acting interleaving tool use failure modes",
+        "type": "search",
+        "queries": [
+          "ReAct paper arXiv reasoning and acting interleaving tool use failure modes",
+          "planner executor agent documentation official planner executor pattern agents",
+          "technical comparison planner executor ReAct benchmark agent architecture paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.09014"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.06945"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=BIWkm8PJYM"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/c61f8ffb4ddc7eb69e2ee06f89b4897c0b131b8c.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=AhggxqDQCb"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=PL9PvyYDbj"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=05BubhVB4C"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZygZN5egzy"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=eUuxWAQA5F"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=Oljnxmf4pc"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZdGB7MNQDT"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/4010b87a0130cdcb44563ac96e5b1c33dbdfa0a0.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=55v65RPdL6"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=yLfDfKM9Dl"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=6CBLcRkuaN"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=r1g7xT4Kwr"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=qr4d8S1Qpt"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0ee41bd48194b43648fc2e9dc865",
+      "action": {
+        "query": "site:langchain-ai.github.io planner executor agents documentation planning executor",
+        "type": "search",
+        "queries": [
+          "site:langchain-ai.github.io planner executor agents documentation planning executor",
+          "site:docs.crewai.com planner executor agent docs planning executor",
+          "site:microsoft.github.io planner executor agents documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/planning"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/ko/concepts/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/pt-BR/concepts/planning"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/observability/neatlogs"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/hve-core/docs/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/tasks"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/genaiscript/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/skills"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/concepts/agent-capabilities"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/observability/langdb"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/knowledge"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/mcs-labs/assets/pdfs/mcs-multi-agent.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/mcs-labs/assets/pdfs/mbr-prep-sharepoint-agent.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/mcs-labs/assets/pdfs/mcs-governance.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://microsoft.github.io/mcs-labs/assets/pdfs/component-collections.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0ee6915081948e61b5b38c780bd9",
+      "action": {
+        "query": "ReAct planner executor comparison paper agent architecture benchmark ReAct planner executor",
+        "type": "search",
+        "queries": [
+          "ReAct planner executor comparison paper agent architecture benchmark ReAct planner executor",
+          "planner executor vs ReAct agents benchmark or comparison",
+          "agent architecture comparison ReAct planner executor planning consistency benchmark"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.03560"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/c61f8ffb4ddc7eb69e2ee06f89b4897c0b131b8c.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.10769"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.22367"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=AhggxqDQCb"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=WQZfZjLHRa"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=CmOaD42eAT"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=BIWkm8PJYM"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=C2GlOVx4Z7"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=BCkwhqeRJV"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=Oljnxmf4pc"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=jK4dbpEEMo"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZygZN5egzy"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=h4DNjtyRRA"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=ZdGB7MNQDT"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=sh1hWO9RHo"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=qr4d8S1Qpt"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=r1g7xT4Kwr"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/3c36989fe5865e915c75d8ddc26baa89b226452e.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/372e5c119e756bc080e3a43fd2e007898f8eee1b.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0eea948481949c4ef0b2a029e49d",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2210.03629"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0eed28788194b53cf4766cb472e9",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/pdf/c61f8ffb4ddc7eb69e2ee06f89b4897c0b131b8c.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0ef3ef988194bfd899144980f1b4",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2510.07505"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0ef8638c81948d96a851de22b98f",
+      "action": {
+        "query": "\"ReAct\" planner executor paper abstract architecture comparison tool use planning execution",
+        "type": "search",
+        "queries": [
+          "\"ReAct\" planner executor paper abstract architecture comparison tool use planning execution",
+          "\"planner-executor\" ReAct based methods long-horizon tasks paper",
+          "\"planner-executor\" \"ReAct\" \"tool use\" benchmark paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.09572"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.07577"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/c61f8ffb4ddc7eb69e2ee06f89b4897c0b131b8c.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.22137"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/495650e142b81d8ae21ee3b94029a86f9b19428a.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.05608"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=7bJIVHEvLm"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=mIOYsLQ4rH"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/fd94308787897c533bd084e3042af307a0b01af3.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=AhggxqDQCb"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KgKN7F0PyQ"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=9xteuRjHr7"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=YDQ6eBB4py"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=Tz4NuLYcAh"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=78bR5opfkN"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/76c2b548541a23fcb316858b62bf1d6836f4fb6a.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=SyHGjderZ8"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=XUF5IBVAEB"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=34v7DVz2l0"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=gi9aqlYdBk"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=r1g7xT4Kwr"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0efe7ee881949aa7d952303fa02e",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0f006d2c8194a67cc0cd235ae8aa",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/forum?id=XUF5IBVAEB"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a35cc5cfd2ddfae0069fa0f023d008194b5c74e2429da6cdc",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2503.09572"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 38493,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 12677,
+    "output_tokens_details": {
+      "reasoning_tokens": 9480
+    },
+    "total_tokens": 51170
+  },
+  "response_id": "resp_0a35cc5cfd2ddfae0069fa0edf49648194ac0dd58ef5bcda60",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is the control loop in a ReAct-style agent?\",\n      \"What does a planner-executor architecture add or separate?\",\n      \"How do the two patterns change tool use and context management?\",\n      \"What failure modes are highlighted in the literature?\",\n      \"When is each architecture typically preferable?\"\n    ],\n    \"required_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"expected_source_types\": [\n      \"ReAct paper\",\n      \"agent framework documentation\",\n      \"technical comparison or benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"ReAct paper arXiv reasoning and acting interleaved tool use failure modes\",\n      \"official agent framework documentation planning executor planner step-by-step\",\n      \"technical comparison benchmark ReAct planner-executor agent architecture\",\n      \"planner-executor long-horizon tasks ReAct limitations\"\n    ],\n    \"rationale_per_query\": [\n      \"Get the canonical ReAct formulation and its stated benefits/failures from the primary paper.\",\n      \"Find official framework docs that expose an explicit planning stage and planner/executor separation.\",\n      \"Find a benchmark or comparison paper that discusses architecture-level tradeoffs and model/task dependence.\",\n      \"Find a source that directly motivates when planner-executor is preferable over ReAct-style single-loop agents.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://arxiv.org/abs/2210.03629\",\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"type\": \"paper\"\n    },\n    {\n      \"url\": \"https://docs.crewai.com/en/concepts/planning\",\n      \"title\": \"CrewAI Planning\",\n      \"type\": \"official docs\"\n    },\n    {\n      \"url\": \"https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\",\n      \"title\": \"TaskWeaver Telemetry\",\n      \"type\": \"official docs\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2503.09572\",\n      \"title\": \"Plan-and-Act: Improving Planning of Agents for Long-Horizon Tasks\",\n      \"type\": \"paper\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2509.10769\",\n      \"title\": \"AgentArch: A Comprehensive Benchmark to Evaluate Agent Architectures in Enterprise\",\n      \"type\": \"benchmark paper\"\n    },\n    {\n      \"url\": \"https://openreview.net/forum?id=XUF5IBVAEB\",\n      \"title\": \"PilotRL: Training Language Model Agents via Global Planning-Guided Progressive Reinforcement Learning\",\n      \"type\": \"technical comparison / paper\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://arxiv.org/abs/2210.03629\",\n        \"why_accepted\": \"Primary ReAct paper; directly defines interleaved reasoning and acting and reports failure modes.\"\n      },\n      {\n        \"url\": \"https://docs.crewai.com/en/concepts/planning\",\n        \"why_accepted\": \"Official framework documentation; directly describes an explicit planning stage.\"\n      },\n      {\n        \"url\": \"https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\",\n        \"why_accepted\": \"Official framework documentation; directly exposes planner/executor role separation and execution tracing.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2503.09572\",\n        \"why_accepted\": \"Primary paper; directly describes planner/executor separation, plan generation difficulty, and long-horizon use.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2509.10769\",\n        \"why_accepted\": \"Primary benchmark paper; directly compares architecture dimensions and notes model-specific preferences.\"\n      },\n      {\n        \"url\": \"https://openreview.net/forum?id=XUF5IBVAEB\",\n        \"why_accepted\": \"Primary technical paper; directly states ReAct's limitation for long-term strategic planning and motivates global planning.\"\n      }\n    ],\n    \"rejected_sources\": [],\n    \"rejection_reasons\": []\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"ReAct generates reasoning traces and task-specific actions in an interleaved manner, using reasoning to induce, track, update plans, and handle exceptions while actions gather external information.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"paper\",\n      \"supported_aspect\": \"interleaved reasoning and acting\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct reports improved interpretability and says it overcomes hallucination and error propagation seen in chain-of-thought-style reasoning on some tasks.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"CrewAI's planning feature adds an explicit planning stage before each iteration, and the resulting step-by-step plan is added to each task description.\",\n      \"source_url\": \"https://docs.crewai.com/en/concepts/planning\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Plan-and-Act says recent work succeeds by separating high-level planning from low-level execution, and its planner generates structured high-level plans while the executor translates them into environment-specific actions.\",\n      \"source_url\": \"https://arxiv.org/abs/2503.09572\",\n      \"source_type\": \"paper\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Plan-and-Act notes that generating accurate plans remains difficult because LLMs are not inherently trained for planning.\",\n      \"source_url\": \"https://arxiv.org/abs/2503.09572\",\n      \"source_type\": \"paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"TaskWeaver's telemetry separates planner, code interpreter, and executor interactions; it also traces planning, code generation/execution, errors, and token usage.\",\n      \"source_url\": \"https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"TaskWeaver shows that separating phases helps observe bottlenecks and failures in tool-heavy execution, rather than mixing them into one undifferentiated loop.\",\n      \"source_url\": \"https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"PilotRL states that ReAct centers on single-step reasoning with immediate action execution, which limits effectiveness on complex tasks requiring long-term strategic planning.\",\n      \"source_url\": \"https://openreview.net/forum?id=XUF5IBVAEB\",\n      \"source_type\": \"technical comparison / paper\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"AgentArch benchmarks 18 agentic configurations and reports model-specific architectural preferences rather than a one-size-fits-all winner.\",\n      \"source_url\": \"https://arxiv.org/abs/2509.10769\",\n      \"source_type\": \"benchmark paper\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"benchmark\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions: the sources consistently characterize ReAct as a single-loop reasoning/action pattern and planner-executor as a separated planning/execution pattern. Benchmarks and framework docs suggest tradeoffs rather than a universal winner.\",\n    \"uncertainty_notes\": [\n      \"Preference is task- and model-dependent, not universal, per AgentArch. https://arxiv.org/abs/2509.10769\",\n      \"The recommendation below is an engineering inference from the cited papers/docs, not a theorem. https://arxiv.org/abs/2503.09572 https://openreview.net/forum?id=XUF5IBVAEB\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"ReAct interleaves reasoning and acting. https://arxiv.org/abs/2210.03629\",\n      \"Planner-executor introduces an explicit planning stage. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572\",\n      \"Tool-heavy workflows benefit from separated planning/execution traces. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\",\n      \"ReAct has failure modes around hallucination and error propagation. https://arxiv.org/abs/2210.03629\",\n      \"Long-horizon tasks often need explicit plans and model-specific architecture choices. https://arxiv.org/abs/2503.09572 https://arxiv.org/abs/2509.10769 https://openreview.net/forum?id=XUF5IBVAEB\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nReAct-style agents keep reasoning and acting in one interleaved loop: the model emits reasoning traces and task actions together, and those traces are used to update plans, handle exceptions, and fetch external information. https://arxiv.org/abs/2210.03629\\n\\nPlanner-executor agents split that loop: a planner creates an explicit high-level or step-by-step plan, and an executor turns the plan into environment-specific actions or tool calls. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572\\n\\nTool-use implication: ReAct keeps tool observations inside the same evolving context as the reasoning trace, while planner-executor systems can isolate noisy execution details in the executor and preserve reasoning depth in the planner. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/ https://arxiv.org/abs/2503.09572\\n\\nFailure modes differ: the ReAct paper highlights hallucination and error propagation, while Plan-and-Act says accurate plan generation is difficult because LLMs are not naturally trained for planning. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572\\n\\nPractical recommendation: use ReAct when you want a simple reactive loop; prefer planner-executor for long-horizon, multi-step, tool-heavy tasks where explicit plans and role separation matter. That recommendation is an engineering inference from the cited sources, not a universal rule. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769\\n\\n### Required aspect coverage\\n- interleaved reasoning and acting — covered by ReAct's interleaved reasoning/action loop. https://arxiv.org/abs/2210.03629\\n- explicit planning stage — covered by CrewAI's step-by-step planning stage and Plan-and-Act's planner/executor split. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572\\n- tool-use implications — covered by TaskWeaver's separated planner/executor/tool tracing. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\\n- failure modes — covered by ReAct's hallucination/error propagation and Plan-and-Act's plan-generation difficulty. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572\\n- when each architecture is preferable — covered by PilotRL's long-horizon planning limitation for ReAct and AgentArch's model-specific architecture preferences. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769\\n\\n## Sources\\n- ReAct: Synergizing Reasoning and Acting in Language Models — https://arxiv.org/abs/2210.03629\\n- CrewAI Planning docs — https://docs.crewai.com/en/concepts/planning\\n- TaskWeaver Telemetry docs — https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/\\n- Plan-and-Act: Improving Planning of Agents for Long-Horizon Tasks — https://arxiv.org/abs/2503.09572\\n- AgentArch: A Comprehensive Benchmark to Evaluate Agent Architectures in Enterprise — https://arxiv.org/abs/2509.10769\\n- PilotRL: Training Language Model Agents via Global Planning-Guided Progressive Reinforcement Learning — https://openreview.net/forum?id=XUF5IBVAEB\\n\\n## Limitations\\nThe preference guidance is a synthesis, not a universal law: AgentArch reports model-specific architectural preferences, and the long-horizon advantage of planner-executor is context-dependent. https://arxiv.org/abs/2509.10769 https://arxiv.org/abs/2503.09572\\nI did not find a single canonical peer-reviewed head-to-head paper that cleanly isolates only ReAct versus planner-executor across all domains; the comparison here comes from the ReAct paper, planning/framework docs, and architecture/long-horizon benchmarks. https://arxiv.org/abs/2210.03629 https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2509.10769\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

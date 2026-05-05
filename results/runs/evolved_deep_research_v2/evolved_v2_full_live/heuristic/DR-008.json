@@ -1,0 +1,206 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-008.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.5294,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9294,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 81.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": true,
+        "matched_terms": [
+          "controllability"
+        ],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": true,
+        "matched_terms": [
+          "observability"
+        ],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": true,
+        "matched_terms": [
+          "cost"
+        ],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": true,
+        "matched_terms": [
+          "reproducibility"
+        ],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "recovery"
+        ],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Autonomous agents are best when the problem is open-ended and the model needs to choose tools, adapt mid-flight, and recover from wrong turns. Workflow-based agents are best when the task is well-defined and you want tighter control, clearer inspection, and more repeatable execution. In short: more autonomy buys flexibility, but usually at the cost of more latency, cost, and variance; more workflow structure reduces flexibility, but improves controllability, observability, reproducibility, and failure recovery. `https://www.anthropic.com/engineering/building-effective-agents` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- Flexibility: autonomous agents fit ambiguous work that needs model-driven adaptation; workflows fit well-defined tasks. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- Controllability: workflows use predefined code paths, typed edges, and versioned snapshots; autonomous agents decide their own tool use within guardrails. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- Observability: OpenAI explicitly adds observability tools plus trace graders, and notes that production agents previously lacked sufficient visibility. `https://openai.com/index/new-tools-for-building-agents/` `https://developers.openai.com/api/docs/guides/agent-builder` ([openai.com](https://openai.com/index/new-tools-for-building-agents/))",
+      "- Cost: Anthropic says agentic systems often trade latency and cost for better task performance. `https://www.anthropic.com/engineering/building-effective-agents` ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- Reproducibility: workflow versioning, preview/debug, and durable execution make outcomes more repeatable than fully autonomous loops. `https://developers.openai.com/api/docs/guides/agent-builder` `https://openai.com/index/equip-responses-api-computer-environment/` `https://docs.temporal.io/` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))",
+      "- Failure recovery: agents can halt and hand control back to the user, but workflow engines like Temporal can resume after crashes, network failures, or outages. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://docs.temporal.io/` `https://openai.com/index/inside-our-in-house-data-agent/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/agent-builder`",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.temporal.io/",
+        "domain": "docs.temporal.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.temporal.io/`",
+        "domain": "docs.temporal.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/agent-platform/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/`",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/`",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/inside-our-in-house-data-agent/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/inside-our-in-house-data-agent/`",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/new-tools-for-building-agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/new-tools-for-building-agents/`",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/agent-builder",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://resources.anthropic.com/building-effective-ai-agents",
+        "domain": "resources.anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents`",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/research/building-effective-agents/",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 17,
+    "unique_citation_count": 17
+  }
+}

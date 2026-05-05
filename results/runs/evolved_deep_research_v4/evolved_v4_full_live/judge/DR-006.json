@@ -1,0 +1,333 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T14:52:28+00:00",
+  "finished_at": "2026-05-05T14:52:38+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-006.json",
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9167,
+  "judge_score": 0.75,
+  "final_score": 0.8083,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-006.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-006",
+    "question": "What are common failure modes in multi-agent systems?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.4444,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9167,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 69.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "coordination overhead",
+          "covered": true,
+          "matched_terms": [
+            "coordination",
+            "overhead"
+          ],
+          "expected_terms": [
+            "coordination",
+            "overhead"
+          ]
+        },
+        {
+          "aspect": "role confusion",
+          "covered": true,
+          "matched_terms": [
+            "confusion",
+            "role"
+          ],
+          "expected_terms": [
+            "confusion",
+            "role"
+          ]
+        },
+        {
+          "aspect": "error propagation",
+          "covered": true,
+          "matched_terms": [
+            "error",
+            "propagation"
+          ],
+          "expected_terms": [
+            "error",
+            "propagation"
+          ]
+        },
+        {
+          "aspect": "consensus without correctness",
+          "covered": true,
+          "matched_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ],
+          "expected_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ]
+        },
+        {
+          "aspect": "evaluation difficulty",
+          "covered": true,
+          "matched_terms": [
+            "difficulty",
+            "evaluation"
+          ],
+          "expected_terms": [
+            "difficulty",
+            "evaluation"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Across the sources, the recurring failure modes in multi-agent systems are: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty. Some are stated explicitly in framework docs and empirical papers; others are reasonable engineering inferences from the failure patterns described there. ([arxiv.org](https://arxiv.org/abs/2501.06322))",
+        "- coordination overhead — covered: hierarchical supervisors, delegation, and message-history control add orchestration cost, and CrewAI flags excessive back-and-forth as a problem. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))",
+        "- role confusion — covered: CrewAI explicitly warns against vague/overlapping roles and recommends clear role definitions and responsibilities. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))",
+        "- error propagation — covered: the consensus-trap paper shows that flawed intermediate logic can survive into final answers when aggregation is vote-based. ([arxiv.org](https://arxiv.org/abs/2604.17139))",
+        "- consensus without correctness — covered: both the consensus-trap paper and DEBATE show that agreement or convergence can still be wrong. ([arxiv.org](https://arxiv.org/abs/2604.17139))",
+        "- evaluation difficulty — covered: DEBATE and the evaluation paper both show that multi-agent behavior is hard to benchmark and that many answer paths complicate reliable assessment. ([arxiv.org](https://arxiv.org/abs/2510.25110))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2501.06322",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2510.25110",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.17139",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/pdf/2311.09721",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.crewai.com/changelog",
+          "domain": "docs.crewai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://docs.crewai.com/concepts/collaboration",
+          "domain": "docs.crewai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://docs.crewai.com/en/concepts/collaboration",
+          "domain": "docs.crewai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://docs.crewai.com/en/introduction",
+          "domain": "docs.crewai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+          "domain": "langchain-ai.github.io",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 9,
+      "unique_citation_count": 9
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "coordination overhead",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified and tied to orchestration, delegation, and back-and-forth overhead."
+      },
+      {
+        "aspect": "role confusion",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified with clear role-definition guidance."
+      },
+      {
+        "aspect": "error propagation",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified as flawed intermediate reasoning surviving into outputs."
+      },
+      {
+        "aspect": "consensus without correctness",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified as agreement/convergence not guaranteeing truth."
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified with benchmarking and multi-path assessment difficulty."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Across the sources, the recurring failure modes in multi-agent systems are: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.06322"
+        ],
+        "reason": "The cited survey is relevant, but the statement is a synthesis across multiple sources rather than something that can be directly attributed to this one citation alone."
+      },
+      {
+        "claim": "Coordination overhead comes from hierarchical supervisors, delegation, and message-history control, and CrewAI flags excessive back-and-forth as a problem.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.crewai.com/concepts/collaboration"
+        ],
+        "reason": "A collaboration/troubleshooting doc plausibly supports this engineering concern."
+      },
+      {
+        "claim": "Role confusion occurs when roles are vague or overlapping, and clear role definitions are recommended.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.crewai.com/concepts/collaboration"
+        ],
+        "reason": "This is a direct framework-doc style claim and fits the cited source."
+      },
+      {
+        "claim": "Flawed intermediate logic can survive into final answers when aggregation is vote-based.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2604.17139"
+        ],
+        "reason": "An empirical failure-analysis paper about consensus traps is a plausible direct support for this claim."
+      },
+      {
+        "claim": "Agreement or convergence can still be wrong.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2604.17139"
+        ],
+        "reason": "This is a reasonable summary of a consensus-failure result, though the DEBATE citation is not actually included in the URL shown."
+      },
+      {
+        "claim": "Multi-agent behavior is hard to benchmark and many answer paths complicate reliable assessment.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2510.25110"
+        ],
+        "reason": "The benchmark paper is relevant, but the answer overstates the specificity of what is established without showing the exact benchmark limitation."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2501.06322",
+        "quality": "strong",
+        "reason": "Relevant survey paper on multi-agent collaboration mechanisms."
+      },
+      {
+        "url": "https://arxiv.org/abs/2510.25110",
+        "quality": "strong",
+        "reason": "Relevant benchmark paper on opinion dynamics in role-playing LLM agents."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.17139",
+        "quality": "strong",
+        "reason": "Relevant empirical failure-analysis paper on consensus behavior."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2311.09721",
+        "quality": "strong",
+        "reason": "Relevant evaluation paper for agent integration and benchmarking difficulty."
+      },
+      {
+        "url": "https://docs.crewai.com/changelog",
+        "quality": "irrelevant",
+        "reason": "A changelog is not a strong source for general failure-mode claims."
+      },
+      {
+        "url": "https://docs.crewai.com/concepts/collaboration",
+        "quality": "acceptable",
+        "reason": "Official framework documentation relevant to collaboration and orchestration issues."
+      },
+      {
+        "url": "https://docs.crewai.com/en/concepts/collaboration",
+        "quality": "acceptable",
+        "reason": "Duplicate/locale variant of relevant official documentation."
+      },
+      {
+        "url": "https://docs.crewai.com/en/introduction",
+        "quality": "acceptable",
+        "reason": "Official framework introduction, but only indirectly relevant."
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+        "quality": "acceptable",
+        "reason": "Official API reference for supervisor patterns; relevant to orchestration trade-offs."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "broad_scope"
+    ],
+    "summary": "The answer covers all required failure modes and is well structured, but some claims are synthesized loosely and the source set includes a few weakly relevant docs, lowering evidence quality.",
+    "recommended_fix": "Tighten each failure-mode claim to a specific cited source or paper finding, and avoid citing generic docs or making synthesis claims that the cited source does not directly support.",
+    "average_score": 4.0,
+    "normalized_score": 0.75
+  },
+  "judge_usage": {
+    "input_tokens": 3496,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1518,
+    "output_tokens_details": {
+      "reasoning_tokens": 169
+    },
+    "total_tokens": 5014
+  },
+  "response_id": "resp_0c66a75f5a5c1b4c0069fa0437b7ac8193b1a9bab7cafcf545"
+}

@@ -1,0 +1,605 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:45:37+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "source_expectations": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:46:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nSelf-improving agents without fine-tuning usually use **test-time loops** instead of weight updates: (1) **verbal feedback + reflection** stored in memory, (2) **self-refinement** where the same model critiques and revises its own output, and (3) **prompt/workflow optimization** where candidate prompts or solutions are evaluated and fed into the next iteration. These methods can improve performance without updating model weights. ([arxiv.org](https://arxiv.org/abs/2303.11366))\n\n## Required aspect coverage\n- **verbal feedback** — covered by Reflexion’s use of task feedback signals, including scalar or free-form feedback, turned into verbal reflections. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))\n- **reflection** — covered by Reflexion’s explicit “verbally reflect” step and reuse of that text in later trials. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))\n- **self-refinement** — covered by Self-Refine’s same-model generate/feedback/refine loop with no extra training or RL. [Self-Refine](https://arxiv.org/abs/2303.17651) ([arxiv.org](https://arxiv.org/abs/2303.17651))\n- **prompt or workflow optimization** — covered by OPRO, which iteratively optimizes prompts/solutions using evaluated candidates. [OPRO](https://arxiv.org/abs/2309.03409) ([arxiv.org](https://arxiv.org/abs/2309.03409))\n- **limits of self-improvement without external feedback** — covered by evidence that intrinsic self-correction can fail or degrade without external feedback, though another paper reports success under zero temperature and unbiased prompts. [Cannot Self-Correct](https://arxiv.org/abs/2310.01798), [Intrinsic Self-Correction Ability](https://arxiv.org/pdf/2406.15673.pdf) ([arxiv.org](https://arxiv.org/abs/2310.01798))\n\n## Sources\n- [Reflexion](https://arxiv.org/abs/2303.11366): verbal feedback, reflection, episodic memory, no weight updates. ([arxiv.org](https://arxiv.org/abs/2303.11366))\n- [Self-Refine](https://arxiv.org/abs/2303.17651): iterative self-feedback and refinement without extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651))\n- [Large Language Models as Optimizers](https://arxiv.org/abs/2309.03409): prompt optimization via iterative evaluation loops. ([arxiv.org](https://arxiv.org/abs/2309.03409))\n- [Revisiting OPRO](https://arxiv.org/abs/2405.10276): prompt optimization is limited by model capability in small LLMs. ([arxiv.org](https://arxiv.org/abs/2405.10276))\n- [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798): intrinsic self-correction without external feedback can fail or degrade. ([arxiv.org](https://arxiv.org/abs/2310.01798))\n- [Large Language Models Have Intrinsic Self-Correction Ability](https://arxiv.org/pdf/2406.15673.pdf): self-correction can work under zero temperature and fair prompts. ([arxiv.org](https://arxiv.org/pdf/2406.15673))\n\n## Limitations\nThis is a narrow, primary-source-only synthesis, not an exhaustive survey. The literature is not unanimous: some papers report gains from reflection/self-feedback, while others find intrinsic self-correction brittle or harmful unless prompts and decoding are carefully controlled. So the safest conclusion is that these techniques can improve agents at test time, but they are condition-dependent and not a substitute for training when the base model lacks the reasoning capacity needed for reliable self-improvement. ([arxiv.org](https://arxiv.org/abs/2303.11366))",
+  "decomposition": {
+    "subquestions": [
+      "What test-time mechanisms let agents improve without changing weights?",
+      "How do reflection and verbal feedback get represented and reused?",
+      "How do self-refinement loops work in practice?",
+      "How is prompt or workflow optimization done without fine-tuning?",
+      "What are the limits of self-improvement without external feedback?"
+    ],
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "expected_source_types": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "Reflexion: Language Agents with Verbal Reinforcement Learning arXiv",
+      "Self-Refine: Iterative Refinement with Self-Feedback arXiv",
+      "Large Language Models as Optimizers OPRO arXiv",
+      "LLMs cannot self-correct reasoning yet external feedback limitation arXiv"
+    ],
+    "rationale_per_query": [
+      "Primary source for verbal feedback + reflection loops in agents.",
+      "Primary source for self-refinement without fine-tuning.",
+      "Primary source for prompt/workflow optimization without weight updates.",
+      "Primary source for limits of self-improvement without external feedback; also checks for conflicting evidence."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "type": "primary paper"
+    },
+    {
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "type": "primary paper"
+    },
+    {
+      "title": "Large Language Models as Optimizers",
+      "url": "https://arxiv.org/abs/2309.03409",
+      "type": "primary paper"
+    },
+    {
+      "title": "Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers",
+      "url": "https://arxiv.org/abs/2405.10276",
+      "type": "primary paper"
+    },
+    {
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "type": "primary paper"
+    },
+    {
+      "title": "Large Language Models Have Intrinsic Self-Correction Ability",
+      "url": "https://arxiv.org/pdf/2406.15673.pdf",
+      "type": "primary paper"
+    },
+    {
+      "title": "Deep Paper summary of Reflexion",
+      "url": "https://deep-paper.org/en/paper/2303.11366/",
+      "type": "secondary summary"
+    },
+    {
+      "title": "Reddit discussion of Reflexion",
+      "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr",
+      "type": "discussion"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "reason": "Directly supports verbal feedback, reflection, episodic memory, and no-weight-update improvement."
+      },
+      {
+        "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+        "url": "https://arxiv.org/abs/2303.17651",
+        "reason": "Directly supports iterative self-refinement with the same model, without extra training or RL."
+      },
+      {
+        "title": "Large Language Models as Optimizers",
+        "url": "https://arxiv.org/abs/2309.03409",
+        "reason": "Directly supports prompt optimization as an iterative evaluation loop."
+      },
+      {
+        "title": "Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers",
+        "url": "https://arxiv.org/abs/2405.10276",
+        "reason": "Provides a concrete limit: prompt optimization is constrained by model capability."
+      },
+      {
+        "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+        "url": "https://arxiv.org/abs/2310.01798",
+        "reason": "Directly supports the limit that intrinsic self-correction can fail without external feedback."
+      },
+      {
+        "title": "Large Language Models Have Intrinsic Self-Correction Ability",
+        "url": "https://arxiv.org/pdf/2406.15673.pdf",
+        "reason": "Provides a conflicting/nuancing result showing self-correction can work under specific conditions."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "Deep Paper summary of Reflexion",
+        "url": "https://deep-paper.org/en/paper/2303.11366/"
+      },
+      {
+        "title": "Reddit discussion of Reflexion",
+        "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr"
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary summary, not a primary research source.",
+      "Discussion forum post; not authoritative enough for load-bearing claims."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Reflexion improves agents by converting task feedback into verbal reflections stored in episodic memory, without updating weights.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "Reflexion paper",
+      "supported_aspect": "verbal feedback",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Refine uses one LLM as generator, feedback provider, and refiner in an iterative loop, with no supervised training, extra training, or RL.",
+      "source_url": "https://arxiv.org/abs/2303.17651",
+      "source_type": "Self-Refine paper",
+      "supported_aspect": "self-refinement",
+      "confidence": "high"
+    },
+    {
+      "claim": "OPRO treats prompt optimization as a natural-language optimization loop that evaluates candidate solutions and feeds them into the next step.",
+      "source_url": "https://arxiv.org/abs/2309.03409",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "confidence": "high"
+    },
+    {
+      "claim": "Prompt optimization can be limited by base-model inference capability; small-scale LLMs show limited OPRO effectiveness.",
+      "source_url": "https://arxiv.org/abs/2405.10276",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "confidence": "high"
+    },
+    {
+      "claim": "Intrinsic self-correction without external feedback can fail or even degrade reasoning performance.",
+      "source_url": "https://arxiv.org/abs/2310.01798",
+      "source_type": "self-correction limit paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "confidence": "high"
+    },
+    {
+      "claim": "A later paper argues intrinsic self-correction can work when temperature is zero and prompts are unbiased.",
+      "source_url": "https://arxiv.org/pdf/2406.15673.pdf",
+      "source_type": "self-correction paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [
+      {
+        "topic": "Intrinsic self-correction without external feedback",
+        "claim_1": "Huang et al. report that LLMs struggle to self-correct reasoning and may degrade after self-correction.",
+        "claim_2": "Liu et al. report intrinsic self-correction ability when temperature is zero and prompts are fair/unbiased."
+      },
+      {
+        "topic": "Prompt optimization under model constraints",
+        "claim_1": "OPRO can outperform human prompts in some settings.",
+        "claim_2": "A later analysis finds OPRO has limited effectiveness on small-scale LLMs."
+      }
+    ],
+    "resolution": "Treat self-improvement without fine-tuning as condition-dependent: it can work as a test-time technique, but reliability drops when the base model lacks reasoning capacity or when prompts/decoding are poorly controlled.",
+    "uncertainty_notes": [
+      "The evidence is task- and model-dependent, not universal.",
+      "The literature is split on how far intrinsic self-correction can go without external feedback."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Verbal feedback and reflection can improve agents without weight updates.",
+      "Self-refinement can be done by the same model without extra training.",
+      "Prompt/workflow optimization can be automated with iterative evaluation loops.",
+      "Self-improvement without external feedback is not reliably universal.",
+      "Prompt optimization is constrained by model capability in smaller models."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:46:56+00:00",
+  "citations": [
+    {
+      "end_index": 9438,
+      "start_index": 9391,
+      "title": "[2303.11366] Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366"
+    },
+    {
+      "end_index": 10140,
+      "start_index": 10093,
+      "title": "[2303.17651] Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651"
+    },
+    {
+      "end_index": 10361,
+      "start_index": 10314,
+      "title": "[2309.03409] Large Language Models as Optimizers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2309.03409"
+    },
+    {
+      "end_index": 10782,
+      "start_index": 10735,
+      "title": "[2310.01798] Large Language Models Cannot Self-Correct Reasoning Yet",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.01798"
+    },
+    {
+      "end_index": 11468,
+      "start_index": 11421,
+      "title": "[2405.10276] Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2405.10276"
+    },
+    {
+      "end_index": 11904,
+      "start_index": 11857,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2406.15673"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2406.15673.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://deep-paper.org/en/paper/2303.11366/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0852de58cc31014e0069f9bc4d4bac81978e4e5f875f87a9d3",
+      "action": {
+        "query": "Reflexion: Language Agents with Verbal Reinforcement Learning paper arXiv",
+        "type": "search",
+        "queries": [
+          "Reflexion: Language Agents with Verbal Reinforcement Learning paper arXiv",
+          "Self-Refine: Iterative Refinement with Self-Feedback paper arXiv",
+          "Large Language Models as Optimizers OPRO paper arXiv",
+          "self-improvement agents without external feedback limitation paper reflection self critique"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://deep-paper.org/en/paper/2303.11366/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401463998_Reflexion_language_agents_with_verbal_reinforcement_learning"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2310.00533"
+          },
+          {
+            "type": "url",
+            "url": "https://deep-paper.org/en/papers/2025-10/2303.11366/"
+          },
+          {
+            "type": "url",
+            "url": "https://monkemanx.github.io/paper-summary/reflexion_language_agents_with_verbal_reinforcement/"
+          },
+          {
+            "type": "url",
+            "url": "https://aipapernotes.alphaavatar.io/llm/agent/Reflection/2023/Reflexion"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.05605"
+          },
+          {
+            "type": "url",
+            "url": "https://jishuzhan.net/article/1836234976002052097"
+          },
+          {
+            "type": "url",
+            "url": "https://seunghan96.github.io/llm/nlp/ORPO/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=vAElhFcKW6&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=S37hOerQLB&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/deeplearning/comments/147st0t"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Feedback_neural_network"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Mnemic_neglect"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_Marpfei/comments/1bqtvnp"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Recursive_self-improvement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AcceleratingAI/comments/1c3z6hf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Neural_scaling_law"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0852de58cc31014e0069f9bc50633881978b1d3fe87b3ca24c",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2303.11366"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0852de58cc31014e0069f9bc52b1ec8197ad47d5d9c148c09f",
+      "action": {
+        "query": "site:arxiv.org self-feedback limitation external feedback self-refine reflection paper arXiv",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org self-feedback limitation external feedback self-refine reflection paper arXiv",
+          "site:arxiv.org self-correction without external feedback limitations language agents paper arXiv",
+          "site:arxiv.org reflexion verbal feedback limitation self-generated feedback paper arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.24726"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.01335"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0852de58cc31014e0069f9bc62b530819794737ead1feed149",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2310.01798"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0852de58cc31014e0069f9bc7081d48197b0fefefebbc0c33c",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/pdf/2406.15673"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 28534,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11640,
+    "output_tokens_details": {
+      "reasoning_tokens": 8585
+    },
+    "total_tokens": 40174
+  },
+  "response_id": "resp_0852de58cc31014e0069f9bc4965d081978ead5688314d09ef",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What test-time mechanisms let agents improve without changing weights?\",\n      \"How do reflection and verbal feedback get represented and reused?\",\n      \"How do self-refinement loops work in practice?\",\n      \"How is prompt or workflow optimization done without fine-tuning?\",\n      \"What are the limits of self-improvement without external feedback?\"\n    ],\n    \"required_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"expected_source_types\": [\n      \"Reflexion paper\",\n      \"Self-Refine paper\",\n      \"agent design or optimization paper\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"Reflexion: Language Agents with Verbal Reinforcement Learning arXiv\",\n      \"Self-Refine: Iterative Refinement with Self-Feedback arXiv\",\n      \"Large Language Models as Optimizers OPRO arXiv\",\n      \"LLMs cannot self-correct reasoning yet external feedback limitation arXiv\"\n    ],\n    \"rationale_per_query\": [\n      \"Primary source for verbal feedback + reflection loops in agents.\",\n      \"Primary source for self-refinement without fine-tuning.\",\n      \"Primary source for prompt/workflow optimization without weight updates.\",\n      \"Primary source for limits of self-improvement without external feedback; also checks for conflicting evidence.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n      \"url\": \"https://arxiv.org/abs/2303.11366\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n      \"url\": \"https://arxiv.org/abs/2303.17651\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Large Language Models as Optimizers\",\n      \"url\": \"https://arxiv.org/abs/2309.03409\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers\",\n      \"url\": \"https://arxiv.org/abs/2405.10276\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Large Language Models Cannot Self-Correct Reasoning Yet\",\n      \"url\": \"https://arxiv.org/abs/2310.01798\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Large Language Models Have Intrinsic Self-Correction Ability\",\n      \"url\": \"https://arxiv.org/pdf/2406.15673.pdf\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Deep Paper summary of Reflexion\",\n      \"url\": \"https://deep-paper.org/en/paper/2303.11366/\",\n      \"type\": \"secondary summary\"\n    },\n    {\n      \"title\": \"Reddit discussion of Reflexion\",\n      \"url\": \"https://www.reddit.com/r/reinforcementlearning/comments/147sqnr\",\n      \"type\": \"discussion\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n        \"url\": \"https://arxiv.org/abs/2303.11366\",\n        \"reason\": \"Directly supports verbal feedback, reflection, episodic memory, and no-weight-update improvement.\"\n      },\n      {\n        \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n        \"url\": \"https://arxiv.org/abs/2303.17651\",\n        \"reason\": \"Directly supports iterative self-refinement with the same model, without extra training or RL.\"\n      },\n      {\n        \"title\": \"Large Language Models as Optimizers\",\n        \"url\": \"https://arxiv.org/abs/2309.03409\",\n        \"reason\": \"Directly supports prompt optimization as an iterative evaluation loop.\"\n      },\n      {\n        \"title\": \"Revisiting OPRO: The Limitations of Small-Scale LLMs as Optimizers\",\n        \"url\": \"https://arxiv.org/abs/2405.10276\",\n        \"reason\": \"Provides a concrete limit: prompt optimization is constrained by model capability.\"\n      },\n      {\n        \"title\": \"Large Language Models Cannot Self-Correct Reasoning Yet\",\n        \"url\": \"https://arxiv.org/abs/2310.01798\",\n        \"reason\": \"Directly supports the limit that intrinsic self-correction can fail without external feedback.\"\n      },\n      {\n        \"title\": \"Large Language Models Have Intrinsic Self-Correction Ability\",\n        \"url\": \"https://arxiv.org/pdf/2406.15673.pdf\",\n        \"reason\": \"Provides a conflicting/nuancing result showing self-correction can work under specific conditions.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"Deep Paper summary of Reflexion\",\n        \"url\": \"https://deep-paper.org/en/paper/2303.11366/\"\n      },\n      {\n        \"title\": \"Reddit discussion of Reflexion\",\n        \"url\": \"https://www.reddit.com/r/reinforcementlearning/comments/147sqnr\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Secondary summary, not a primary research source.\",\n      \"Discussion forum post; not authoritative enough for load-bearing claims.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Reflexion improves agents by converting task feedback into verbal reflections stored in episodic memory, without updating weights.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"Reflexion paper\",\n      \"supported_aspect\": \"verbal feedback\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Refine uses one LLM as generator, feedback provider, and refiner in an iterative loop, with no supervised training, extra training, or RL.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.17651\",\n      \"source_type\": \"Self-Refine paper\",\n      \"supported_aspect\": \"self-refinement\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OPRO treats prompt optimization as a natural-language optimization loop that evaluates candidate solutions and feeds them into the next step.\",\n      \"source_url\": \"https://arxiv.org/abs/2309.03409\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Prompt optimization can be limited by base-model inference capability; small-scale LLMs show limited OPRO effectiveness.\",\n      \"source_url\": \"https://arxiv.org/abs/2405.10276\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Intrinsic self-correction without external feedback can fail or even degrade reasoning performance.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.01798\",\n      \"source_type\": \"self-correction limit paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"A later paper argues intrinsic self-correction can work when temperature is zero and prompts are unbiased.\",\n      \"source_url\": \"https://arxiv.org/pdf/2406.15673.pdf\",\n      \"source_type\": \"self-correction paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [\n      {\n        \"topic\": \"Intrinsic self-correction without external feedback\",\n        \"claim_1\": \"Huang et al. report that LLMs struggle to self-correct reasoning and may degrade after self-correction.\",\n        \"claim_2\": \"Liu et al. report intrinsic self-correction ability when temperature is zero and prompts are fair/unbiased.\"\n      },\n      {\n        \"topic\": \"Prompt optimization under model constraints\",\n        \"claim_1\": \"OPRO can outperform human prompts in some settings.\",\n        \"claim_2\": \"A later analysis finds OPRO has limited effectiveness on small-scale LLMs.\"\n      }\n    ],\n    \"resolution\": \"Treat self-improvement without fine-tuning as condition-dependent: it can work as a test-time technique, but reliability drops when the base model lacks reasoning capacity or when prompts/decoding are poorly controlled.\",\n    \"uncertainty_notes\": [\n      \"The evidence is task- and model-dependent, not universal.\",\n      \"The literature is split on how far intrinsic self-correction can go without external feedback.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Verbal feedback and reflection can improve agents without weight updates.\",\n      \"Self-refinement can be done by the same model without extra training.\",\n      \"Prompt/workflow optimization can be automated with iterative evaluation loops.\",\n      \"Self-improvement without external feedback is not reliably universal.\",\n      \"Prompt optimization is constrained by model capability in smaller models.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nSelf-improving agents without fine-tuning usually use **test-time loops** instead of weight updates: (1) **verbal feedback + reflection** stored in memory, (2) **self-refinement** where the same model critiques and revises its own output, and (3) **prompt/workflow optimization** where candidate prompts or solutions are evaluated and fed into the next iteration. These methods can improve performance without updating model weights. ([arxiv.org](https://arxiv.org/abs/2303.11366))\\n\\n## Required aspect coverage\\n- **verbal feedback** — covered by Reflexion’s use of task feedback signals, including scalar or free-form feedback, turned into verbal reflections. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))\\n- **reflection** — covered by Reflexion’s explicit “verbally reflect” step and reuse of that text in later trials. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))\\n- **self-refinement** — covered by Self-Refine’s same-model generate/feedback/refine loop with no extra training or RL. [Self-Refine](https://arxiv.org/abs/2303.17651) ([arxiv.org](https://arxiv.org/abs/2303.17651))\\n- **prompt or workflow optimization** — covered by OPRO, which iteratively optimizes prompts/solutions using evaluated candidates. [OPRO](https://arxiv.org/abs/2309.03409) ([arxiv.org](https://arxiv.org/abs/2309.03409))\\n- **limits of self-improvement without external feedback** — covered by evidence that intrinsic self-correction can fail or degrade without external feedback, though another paper reports success under zero temperature and unbiased prompts. [Cannot Self-Correct](https://arxiv.org/abs/2310.01798), [Intrinsic Self-Correction Ability](https://arxiv.org/pdf/2406.15673.pdf) ([arxiv.org](https://arxiv.org/abs/2310.01798))\\n\\n## Sources\\n- [Reflexion](https://arxiv.org/abs/2303.11366): verbal feedback, reflection, episodic memory, no weight updates. ([arxiv.org](https://arxiv.org/abs/2303.11366))\\n- [Self-Refine](https://arxiv.org/abs/2303.17651): iterative self-feedback and refinement without extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651))\\n- [Large Language Models as Optimizers](https://arxiv.org/abs/2309.03409): prompt optimization via iterative evaluation loops. ([arxiv.org](https://arxiv.org/abs/2309.03409))\\n- [Revisiting OPRO](https://arxiv.org/abs/2405.10276): prompt optimization is limited by model capability in small LLMs. ([arxiv.org](https://arxiv.org/abs/2405.10276))\\n- [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798): intrinsic self-correction without external feedback can fail or degrade. ([arxiv.org](https://arxiv.org/abs/2310.01798))\\n- [Large Language Models Have Intrinsic Self-Correction Ability](https://arxiv.org/pdf/2406.15673.pdf): self-correction can work under zero temperature and fair prompts. ([arxiv.org](https://arxiv.org/pdf/2406.15673))\\n\\n## Limitations\\nThis is a narrow, primary-source-only synthesis, not an exhaustive survey. The literature is not unanimous: some papers report gains from reflection/self-feedback, while others find intrinsic self-correction brittle or harmful unless prompts and decoding are carefully controlled. So the safest conclusion is that these techniques can improve agents at test time, but they are condition-dependent and not a substitute for training when the base model lacks the reasoning capacity needed for reliable self-improvement. ([arxiv.org](https://arxiv.org/abs/2303.11366))\"\n}",
+  "status": "complete"
+}

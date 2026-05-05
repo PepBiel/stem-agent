@@ -1,0 +1,662 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:26:58+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:27:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nReAct-style agents and planner-executor agents differ mainly in **where planning lives**.\n\n- **ReAct** keeps reasoning and acting in the same loop: the model alternates between a thought/reasoning trace and a tool/action, then uses the observation to decide the next step. The original paper describes this as generating “reasoning traces and task-specific actions in an interleaved manner.” [ReAct paper](https://arxiv.org/abs/2210.03629)\n- **Planner-executor** systems separate those roles: one component produces a plan, and another component executes subtasks and returns results for synthesis. LangGraph’s orchestrator-worker docs describe the orchestrator generating a plan, dispatching workers, and then synthesizing their outputs. [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\n\nPractical takeaway: **ReAct is more reactive and step-by-step**, which is good when the next move depends heavily on fresh observations; **planner-executor is more structured**, which is good when you want clearer decomposition, easier debugging, and potentially parallel execution of subtasks. That last sentence is a synthesis from the sources, not a direct quote. [LangChain agents docs](https://docs.langchain.com/oss/python/langchain/agents) [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\n\n## Sources\n- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)\n- [Workflows and agents - Docs by LangChain](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\n- [Agents - Docs by LangChain](https://docs.langchain.com/oss/python/langchain/agents)\n\n## Limitations\nThis is a high-level comparison. \"Planner-executor\" is not one fixed algorithm, so some implementations may blur the line and include replanning, hierarchical planners, or multiple executors. I did not include benchmark numbers because the question asked for conceptual differences, not performance.",
+  "decomposition": {
+    "subquestions": [
+      "What is the core control loop of a ReAct-style agent?",
+      "What is the core control loop of a planner-executor agent?",
+      "What practical differences follow from that architectural split?"
+    ],
+    "required_aspects": [
+      "ReAct interleaves reasoning and actions in one loop",
+      "Planner-executor separates planning from execution",
+      "Practical implications: adaptivity vs up-front structure/debuggability"
+    ],
+    "expected_source_types": [
+      "Original research paper for ReAct",
+      "Official framework documentation describing orchestrator-worker / planner-executor workflow",
+      "Official agent runtime documentation for loop behavior"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "ReAct reasoning and acting original paper arxiv",
+      "official docs orchestrator-worker planning execution agent",
+      "official docs agents run tools in a loop"
+    ],
+    "rationale_per_query": [
+      "Find the canonical definition of ReAct from the original paper.",
+      "Find a primary source describing a planner/executor-style workflow.",
+      "Find an official agent docs source describing iterative tool-use loops."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "ref_id": "turn5view0"
+    },
+    {
+      "title": "Workflows and agents - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "ref_id": "turn5view1"
+    },
+    {
+      "title": "Agents - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain/agents",
+      "ref_id": "turn6view1"
+    },
+    {
+      "title": "Planner-Executor Pattern | Esy Agents Reference",
+      "url": "https://esy.com/agents/patterns/planner-executor/",
+      "ref_id": "turn3search0"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "reason": "Primary research paper defining ReAct and its interleaved reasoning-action loop."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+        "reason": "Official docs showing orchestrator-worker planning, subtasks, workers, and synthesis."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/agents",
+        "reason": "Official docs describing agent tool-use loops and iterative solution-seeking."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://esy.com/agents/patterns/planner-executor/"
+      }
+    ],
+    "rejection_reasons": [
+      "Rejected because it is a third-party pattern writeup, not a primary or official source."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "ReAct generates reasoning traces and task-specific actions in an interleaved manner.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "ReAct loop",
+      "confidence": "high"
+    },
+    {
+      "claim": "In ReAct, reasoning traces help induce, track, and update action plans and handle exceptions.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "ReAct adaptability",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangGraph orchestrator-worker workflows break tasks into subtasks, send them to workers, and synthesize worker outputs into a final result.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "source_type": "official docs",
+      "supported_aspect": "planner-executor split",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangChain agents combine models with tools and iterate in a loop until a stop condition is met.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/agents",
+      "source_type": "official docs",
+      "supported_aspect": "iterative agent execution",
+      "confidence": "high"
+    },
+    {
+      "claim": "Planner-executor style systems are more front-loaded around planning, while ReAct-style systems are more step-by-step reactive; this is an inference from the sources rather than a direct quote.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "inference from primary paper + official docs",
+      "supported_aspect": "practical difference",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "ReAct interleaves reasoning and acting",
+      "Planner-executor separates planning and execution",
+      "Practical implications for adaptivity and structure"
+    ],
+    "missing_aspects": [
+      "Benchmarked quantitative comparison between the two patterns",
+      "Implementation-specific differences across frameworks"
+    ],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions found among the accepted sources; they describe different abstraction levels of agent control flow.",
+    "uncertainty_notes": [
+      "Planner-executor is an architectural family, so exact behavior varies by implementation.",
+      "The 'up-front planning vs reactive looping' contrast is a synthesis/inference, not a formal theorem."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "ReAct interleaves reasoning and actions.",
+      "ReAct uses reasoning to update plans and handle exceptions.",
+      "Orchestrator-worker workflows split planning, delegation, and synthesis.",
+      "LangChain agents iterate tools in a loop."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "Third-party planner-executor blog rejected as non-primary."
+    ]
+  },
+  "finished_at": "2026-05-05T09:27:35+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://esy.com/agents/patterns/planner-executor/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_086973541319aacd0069f9b7eee63481939c11fae3c5668bbb",
+      "action": {
+        "query": "ReAct paper reasoning and acting language models arxiv 2022",
+        "type": "search",
+        "queries": [
+          "ReAct paper reasoning and acting language models arxiv 2022",
+          "planner executor agent documentation plan and execute langgraph",
+          "plan and execute agent docs planner executor official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.01262"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2212.09597"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2207.07051"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.03271"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2404.10952"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2312.03052"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/agents/mcp"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/agent-protocol/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/deployments"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/runs"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/frontend/todo-list"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/harness"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/kork/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7f08fb88193b644fdf581b13317",
+      "action": {
+        "query": "site:docs.langchain.com plan and execute agent planner executor docs langchain",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com plan and execute agent planner executor docs langchain",
+          "site:langchain-ai.github.io plan-and-execute agent docs",
+          "site:docs.langchain.com planner executor agent"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/runs"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/harness"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/frontend/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/core-capabilities"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/evals"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/pregel"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/agent-server"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/sandboxes"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7f28e188193a50cad46925a47e1",
+      "action": {
+        "query": "site:langchain-ai.github.io \"plan and execute\" langgraph",
+        "type": "search",
+        "queries": [
+          "site:langchain-ai.github.io \"plan and execute\" langgraph",
+          "site:docs.langchain.com \"planner\" \"executor\" \"agent\" \"LangGraph\"",
+          "site:langchain-ai.github.io/langgraph \"plan and execute\""
+        ],
+        "sources": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7f3fe5481938671f735f0f29e91",
+      "action": {
+        "query": "planner executor agent architecture official documentation planning separate execution",
+        "type": "search",
+        "queries": [
+          "planner executor agent architecture official documentation planning separate execution",
+          "orchestrator worker planner executor agent documentation official",
+          "site:docs.langchain.com orchestrator worker workflows agents plan execute"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://esy.com/agents/patterns/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://agenix.sh/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.doairight.org/posts/pat-multiagent-planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-architecture"
+          },
+          {
+            "type": "url",
+            "url": "https://gantz.ai/blog/post/planner-executor/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.arcblock.io/content/docs/aigne-framework/en/agent-library-orchestrator-9dc03e"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-framework"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mobilerun.ai/framework/concepts/architecture"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.twin.so/orchestrator"
+          },
+          {
+            "type": "url",
+            "url": "https://attoagents.io/elemental/documentation/orchestration/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.corti.ai/agentic/orchestrator"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.05651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.govinfo.gov/content/pkg/GOVPUB-C13-82d8c0faf517a1a2557c95f7bdec4169/pdf/GOVPUB-C13-82d8c0faf517a1a2557c95f7bdec4169.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=631ff67a6275122f83a5069498401d0d6eef72da&repid=rep1&type=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.16438"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.03560"
+          },
+          {
+            "type": "url",
+            "url": "https://www.dewilkins.org/papers/mpa-manual-short.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=b71d2f85bf4749448f539fd39dd0a491a7ce83b5&repid=rep1&type=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1shafwz/finally_a_planner_executor_setup_for_ai_agents_is/"
+          },
+          {
+            "type": "url",
+            "url": "https://ceur-ws.org/Vol-3485/paper5801.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=b34e1225bc56c3a52cd7458aedff12c0799bc74a&repid=rep1&type=pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7f658b48193bf66df4125bc2aec",
+      "action": {
+        "query": "site:docs.langchain.com plan execution separate planner executor workflow agents",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com plan execution separate planner executor workflow agents",
+          "site:docs.langchain.com orchestrator-worker planning execution LangGraph",
+          "site:langchain-ai.github.io/langgraph planner executor workflow"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/agents/mcp"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/how-tos/cross-thread-persistence-functional/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/functions/langgraph.task.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/reference/utils/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/guides/memory_tools/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/hot_path_quickstart/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/types/langgraph_prebuilt.CreateReactAgentParams.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/overview/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7fb3b8c8193b43a45dc91da7e1f",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2210.03629"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_086973541319aacd0069f9b7fc52e4819390149d657c81e078",
+      "action": {
+        "pattern": "runs tools in a loop",
+        "type": "find_in_page",
+        "url": "https://docs.langchain.com/oss/python/langchain/agents"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 30424,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 4355,
+    "output_tokens_details": {
+      "reasoning_tokens": 2540
+    },
+    "total_tokens": 34779
+  },
+  "response_id": "resp_086973541319aacd0069f9b7eb3af481938b6e848a3135e5e7",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is the core control loop of a ReAct-style agent?\",\n      \"What is the core control loop of a planner-executor agent?\",\n      \"What practical differences follow from that architectural split?\"\n    ],\n    \"required_aspects\": [\n      \"ReAct interleaves reasoning and actions in one loop\",\n      \"Planner-executor separates planning from execution\",\n      \"Practical implications: adaptivity vs up-front structure/debuggability\"\n    ],\n    \"expected_source_types\": [\n      \"Original research paper for ReAct\",\n      \"Official framework documentation describing orchestrator-worker / planner-executor workflow\",\n      \"Official agent runtime documentation for loop behavior\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"ReAct reasoning and acting original paper arxiv\",\n      \"official docs orchestrator-worker planning execution agent\",\n      \"official docs agents run tools in a loop\"\n    ],\n    \"rationale_per_query\": [\n      \"Find the canonical definition of ReAct from the original paper.\",\n      \"Find a primary source describing a planner/executor-style workflow.\",\n      \"Find an official agent docs source describing iterative tool-use loops.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"url\": \"https://arxiv.org/abs/2210.03629\",\n      \"ref_id\": \"turn5view0\"\n    },\n    {\n      \"title\": \"Workflows and agents - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"ref_id\": \"turn5view1\"\n    },\n    {\n      \"title\": \"Agents - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/agents\",\n      \"ref_id\": \"turn6view1\"\n    },\n    {\n      \"title\": \"Planner-Executor Pattern | Esy Agents Reference\",\n      \"url\": \"https://esy.com/agents/patterns/planner-executor/\",\n      \"ref_id\": \"turn3search0\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://arxiv.org/abs/2210.03629\",\n        \"reason\": \"Primary research paper defining ReAct and its interleaved reasoning-action loop.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n        \"reason\": \"Official docs showing orchestrator-worker planning, subtasks, workers, and synthesis.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langchain/agents\",\n        \"reason\": \"Official docs describing agent tool-use loops and iterative solution-seeking.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://esy.com/agents/patterns/planner-executor/\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Rejected because it is a third-party pattern writeup, not a primary or official source.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"ReAct generates reasoning traces and task-specific actions in an interleaved manner.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"ReAct loop\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"In ReAct, reasoning traces help induce, track, and update action plans and handle exceptions.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"ReAct adaptability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangGraph orchestrator-worker workflows break tasks into subtasks, send them to workers, and synthesize worker outputs into a final result.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"planner-executor split\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangChain agents combine models with tools and iterate in a loop until a stop condition is met.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/agents\",\n      \"source_type\": \"official docs\",\n      \"supported_aspect\": \"iterative agent execution\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Planner-executor style systems are more front-loaded around planning, while ReAct-style systems are more step-by-step reactive; this is an inference from the sources rather than a direct quote.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"inference from primary paper + official docs\",\n      \"supported_aspect\": \"practical difference\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"ReAct interleaves reasoning and acting\",\n      \"Planner-executor separates planning and execution\",\n      \"Practical implications for adaptivity and structure\"\n    ],\n    \"missing_aspects\": [\n      \"Benchmarked quantitative comparison between the two patterns\",\n      \"Implementation-specific differences across frameworks\"\n    ],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions found among the accepted sources; they describe different abstraction levels of agent control flow.\",\n    \"uncertainty_notes\": [\n      \"Planner-executor is an architectural family, so exact behavior varies by implementation.\",\n      \"The 'up-front planning vs reactive looping' contrast is a synthesis/inference, not a formal theorem.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"ReAct interleaves reasoning and actions.\",\n      \"ReAct uses reasoning to update plans and handle exceptions.\",\n      \"Orchestrator-worker workflows split planning, delegation, and synthesis.\",\n      \"LangChain agents iterate tools in a loop.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"Third-party planner-executor blog rejected as non-primary.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nReAct-style agents and planner-executor agents differ mainly in **where planning lives**.\\n\\n- **ReAct** keeps reasoning and acting in the same loop: the model alternates between a thought/reasoning trace and a tool/action, then uses the observation to decide the next step. The original paper describes this as generating “reasoning traces and task-specific actions in an interleaved manner.” [ReAct paper](https://arxiv.org/abs/2210.03629)\\n- **Planner-executor** systems separate those roles: one component produces a plan, and another component executes subtasks and returns results for synthesis. LangGraph’s orchestrator-worker docs describe the orchestrator generating a plan, dispatching workers, and then synthesizing their outputs. [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\\n\\nPractical takeaway: **ReAct is more reactive and step-by-step**, which is good when the next move depends heavily on fresh observations; **planner-executor is more structured**, which is good when you want clearer decomposition, easier debugging, and potentially parallel execution of subtasks. That last sentence is a synthesis from the sources, not a direct quote. [LangChain agents docs](https://docs.langchain.com/oss/python/langchain/agents) [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\\n\\n## Sources\\n- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)\\n- [Workflows and agents - Docs by LangChain](https://docs.langchain.com/oss/python/langgraph/workflows-agents)\\n- [Agents - Docs by LangChain](https://docs.langchain.com/oss/python/langchain/agents)\\n\\n## Limitations\\nThis is a high-level comparison. \\\"Planner-executor\\\" is not one fixed algorithm, so some implementations may blur the line and include replanning, hierarchical planners, or multiple executors. I did not include benchmark numbers because the question asked for conceptual differences, not performance.\"\n}",
+  "status": "complete"
+}

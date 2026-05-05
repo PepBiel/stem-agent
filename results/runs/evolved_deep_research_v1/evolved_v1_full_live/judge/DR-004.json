@@ -1,0 +1,320 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:29:52+00:00",
+  "finished_at": "2026-05-05T09:30:04+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-004.json",
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8455,
+  "judge_score": 0.5833,
+  "final_score": 0.6751,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-004.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-004",
+    "question": "What is agentic RAG and how does it differ from standard RAG?",
+    "metrics": {
+      "coverage_score": 0.6,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.6364,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8455,
+    "failure_tags": [],
+    "runtime_seconds": 41.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "standard retrieve-then-generate workflow",
+          "covered": true,
+          "matched_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then"
+          ],
+          "expected_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "planning or iterative retrieval",
+          "covered": true,
+          "matched_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ]
+        },
+        {
+          "aspect": "tool use",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "tool"
+          ]
+        },
+        {
+          "aspect": "reflection or verification",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "reflection",
+            "verification"
+          ]
+        },
+        {
+          "aspect": "added complexity and failure modes",
+          "covered": false,
+          "matched_terms": [
+            "complexity"
+          ],
+          "expected_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Agentic RAG is a retrieval-augmented generation system where an LLM-driven agent decides when and how to retrieve information during reasoning, instead of relying on a fixed retrieve-then-generate pipeline (`https://docs.langchain.com/oss/python/langchain/retrieval`, `https://arxiv.org/abs/2501.09136`). Standard RAG, by contrast, is the simpler architecture where retrieval happens first and generation happens after the context is fetched (`https://arxiv.org/abs/2005.11401`, `https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))",
+        "In practice, the main difference is control flow: standard RAG is mostly static and predictable, while agentic RAG is adaptive and can do multi-step planning, tool use, iterative retrieval, and sometimes multi-source or multi-agent coordination (`https://arxiv.org/abs/2501.09136`, `https://www.ibm.com/think/topics/agentic-rag`). ([arxiv.org](https://arxiv.org/abs/2501.09136))",
+        "The tradeoff is that agentic RAG can handle more complex queries, but it usually adds orchestration complexity and variable latency, whereas 2-step RAG is simpler and more predictable (`https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2005.11401",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2005.11401`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2501.09136",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2501.09136`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/rag",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/retrieval`",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "domain": "en.wikipedia.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.ibm.com/think/topics/agentic-rag",
+          "domain": "ibm.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.ibm.com/think/topics/agentic-rag`",
+          "domain": "ibm.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures",
+          "domain": "techradar.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 11,
+      "unique_citation_count": 11
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 3,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains baseline RAG as retrieve first, then generate after context is fetched."
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "States agentic RAG can do multi-step planning and iterative retrieval."
+      },
+      {
+        "aspect": "tool use",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explicitly mentions tool use as part of agentic RAG behavior."
+      },
+      {
+        "aspect": "reflection or verification",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not mention reflection, self-checking, or verification loops."
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions orchestration complexity and variable latency, but does not discuss concrete failure modes such as wrong tool choice, retrieval drift, or error propagation."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Agentic RAG is a retrieval-augmented generation system where an LLM-driven agent decides when and how to retrieve information during reasoning, instead of relying on a fixed retrieve-then-generate pipeline.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/retrieval",
+          "https://arxiv.org/abs/2501.09136"
+        ],
+        "reason": "The LangChain retrieval docs and the agentic RAG survey plausibly support the distinction between agent-driven retrieval and fixed pipeline RAG."
+      },
+      {
+        "claim": "Standard RAG is the simpler architecture where retrieval happens first and generation happens after the context is fetched.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2005.11401",
+          "https://docs.langchain.com/oss/python/langchain/retrieval"
+        ],
+        "reason": "The original RAG paper is an appropriate baseline reference for retrieve-then-generate."
+      },
+      {
+        "claim": "Agentic RAG is adaptive and can do multi-step planning, tool use, iterative retrieval, and sometimes multi-source or multi-agent coordination.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136",
+          "https://www.ibm.com/think/topics/agentic-rag"
+        ],
+        "reason": "Planning, tool use, and iterative retrieval are plausible survey-level claims, but the citation is broad and the multi-agent coordination part is only loosely grounded."
+      },
+      {
+        "claim": "The tradeoff is that agentic RAG can handle more complex queries, but it usually adds orchestration complexity and variable latency, whereas 2-step RAG is simpler and more predictable.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/retrieval"
+        ],
+        "reason": "Simplicity/predictability is plausible, but the specific claims about complexity and variable latency are not strongly supported by the cited implementation docs alone."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "quality": "strong",
+        "reason": "Primary baseline RAG paper; directly relevant to standard retrieve-then-generate."
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "quality": "strong",
+        "reason": "Survey on agentic RAG; highly relevant to defining the concept and variants."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+        "quality": "strong",
+        "reason": "Implementation/documentation source that can ground practical differences in control flow."
+      },
+      {
+        "url": "https://www.ibm.com/think/topics/agentic-rag",
+        "quality": "acceptable",
+        "reason": "Reasonably relevant explainer, though less authoritative than the paper and framework docs."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/rag",
+        "quality": "strong",
+        "reason": "Relevant framework documentation for RAG patterns."
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+        "quality": "weak",
+        "reason": "General reference, not ideal for precise technical comparison."
+      },
+      {
+        "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures",
+        "quality": "irrelevant",
+        "reason": "Editorial/business article; not a good source for technical definition or tradeoffs."
+      }
+    ],
+    "failure_tags": [
+      "missing_reflection_verification",
+      "missing_failure_modes",
+      "weak_tradeoff_support",
+      "mixed_source_quality"
+    ],
+    "summary": "A solid high-level explanation of agentic RAG versus standard RAG, but it misses reflection/verification and concrete failure modes, which are required aspects.",
+    "recommended_fix": "Add a specific explanation of reflection/verification loops and list concrete agentic-RAG failure modes and engineering tradeoffs, with tighter citations from the survey or implementation docs.",
+    "average_score": 3.3333,
+    "normalized_score": 0.5833
+  },
+  "judge_usage": {
+    "input_tokens": 3712,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1511,
+    "output_tokens_details": {
+      "reasoning_tokens": 211
+    },
+    "total_tokens": 5223
+  },
+  "response_id": "resp_059c7dd73b8421f00069f9b898d3048197ad3274608949084e"
+}

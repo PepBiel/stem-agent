@@ -1,0 +1,340 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:41:51+00:00",
+  "finished_at": "2026-05-05T09:41:59+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8678,
+  "judge_score": 0.75,
+  "final_score": 0.7912,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-001.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.8571,
+      "source_quality_score": 0.5,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.8571,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8678,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 66.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "The main failure modes of memory in LLM agents are not just forgetting; they are failures in what gets written, what gets retrieved, and what gets trusted. Short-term memory helps with the current interaction, while long-term memory extends state across sessions, but it also introduces staleness, retrieval noise, and extra maintenance cost. https://openreview.net/forum?id=KPs1EgGKcT https://arxiv.org/abs/2310.08560 ([openreview.net](https://openreview.net/forum?id=KPs1EgGKcT))",
+        "- context pollution — irrelevant or stale memories can leak into the active context and distort decisions; OpenAI’s SDK explicitly warns that memory can become stale and should be treated as guidance, not truth. https://openai.github.io/openai-agents-python/sandbox/memory/ ([openai.github.io](https://openai.github.io/openai-agents-python/sandbox/memory/))",
+        "- retrieval of stale or irrelevant memories — similarity-based retrieval can surface outdated but semantically similar experiences, leading to misaligned replay and outdated answers. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+        "- over-trusting previous agent outputs — once old runs are written back into memory, their errors can compound; the empirical study calls this error propagation. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+        "- trade-offs between short-term and long-term memory — short-term memory preserves multi-turn state, while long-term memory spans sessions but requires tiering, update logic, and careful retrieval to avoid stale context. https://docs.langchain.com/oss/python/langgraph/add-memory https://arxiv.org/abs/2310.08560 ([docs.langchain.com](https://docs.langchain.com/oss/python/langgraph/add-memory))",
+        "- evaluation methods for memory quality — use benchmarks that test accurate retrieval, test-time learning, long-range understanding, and conflict resolution; survey work also warns that many benchmarks are underscaled or metric-misaligned. https://huggingface.co/papers/2507.05257 https://openreview.net/forum?id=KPs1EgGKcT ([huggingface.co](https://huggingface.co/papers/2507.05257))",
+        "In one line: memory fails when it is noisy, stale, over-accepted, or poorly evaluated."
+      ],
+      "unsupported_claim_lines": [
+        "In one line: memory fails when it is noisy, stale, over-accepted, or poorly evaluated."
+      ],
+      "sources": [
+        {
+          "url": "https://aiwiki.ai/wiki/agent_memory",
+          "domain": "aiwiki.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.08560",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2505.16067",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langgraph/add-memory",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://huggingface.co/papers/2507.05257",
+          "domain": "huggingface.co",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+          "domain": "openai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://www.letta.com/blog/rag-vs-agent-memory",
+          "domain": "letta.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 8,
+      "unique_citation_count": 8
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly describes irrelevant or stale memories leaking into active context and distorting decisions."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly addresses similarity-based retrieval surfacing outdated or semantically similar but irrelevant memories."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explains compounding errors when prior agent outputs are written back into memory and trusted too much."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "States the key trade-off: short-term preserves current multi-turn state, long-term spans sessions but adds staleness and maintenance/retrieval complexity."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions benchmarks and evaluation dimensions, but the guidance is somewhat high-level and not deeply operationalized."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Context pollution: irrelevant or stale memories can leak into the active context and distort decisions.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openai.github.io/openai-agents-python/sandbox/memory/"
+        ],
+        "reason": "Framework docs plausibly support the notion that memory can become stale and should not be treated as ground truth."
+      },
+      {
+        "claim": "Retrieval of stale or irrelevant memories can surface outdated but semantically similar experiences, leading to misaligned replay and outdated answers.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "An empirical study of memory management is a credible source for retrieval/pathology claims."
+      },
+      {
+        "claim": "Once old runs are written back into memory, their errors can compound; this is error propagation.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "The cited empirical report is a plausible basis for compounding-error behavior."
+      },
+      {
+        "claim": "Short-term memory preserves multi-turn state, while long-term memory spans sessions but requires tiering, update logic, and careful retrieval to avoid stale context.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langgraph/add-memory",
+          "https://arxiv.org/abs/2310.08560"
+        ],
+        "reason": "LangGraph docs and an agent memory survey are relevant sources for architectural trade-offs."
+      },
+      {
+        "claim": "Use benchmarks that test accurate retrieval, test-time learning, long-range understanding, and conflict resolution; many benchmarks are underscaled or metric-misaligned.",
+        "support": "weak",
+        "cited_urls": [
+          "https://huggingface.co/papers/2507.05257",
+          "https://openreview.net/forum?id=KPs1EgGKcT"
+        ],
+        "reason": "Relevant benchmark/survey sources, but the answer gives broad categories without showing that the specific cited paper covers each criterion in the same terms."
+      },
+      {
+        "claim": "In one line: memory fails when it is noisy, stale, over-accepted, or poorly evaluated.",
+        "support": "unsupported",
+        "cited_urls": [],
+        "reason": "This is a summary statement not directly grounded by a specific citation."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2310.08560",
+        "quality": "strong",
+        "reason": "ArXiv paper is directly relevant as an agent memory survey."
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "quality": "strong",
+        "reason": "Direct empirical study of memory management in LLM agents."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/add-memory",
+        "quality": "strong",
+        "reason": "Implementation documentation is relevant to practical memory trade-offs."
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "quality": "acceptable",
+        "reason": "Useful framework documentation, though narrower and less authoritative than a paper for general claims."
+      },
+      {
+        "url": "https://huggingface.co/papers/2507.05257",
+        "quality": "weak",
+        "reason": "Paper listing/summary page rather than the paper itself; less ideal as evidence for detailed evaluation guidance."
+      },
+      {
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+        "quality": "strong",
+        "reason": "Direct survey publication page relevant to the topic."
+      },
+      {
+        "url": "https://aiwiki.ai/wiki/agent_memory",
+        "quality": "weak",
+        "reason": "Wiki-style source of uncertain authority and not needed given stronger sources."
+      },
+      {
+        "url": "https://www.letta.com/blog/rag-vs-agent-memory",
+        "quality": "acceptable",
+        "reason": "Potentially useful implementation-oriented discussion, but blog format is less rigorous."
+      }
+    ],
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "summary": "Good coverage and structure with mostly relevant sources, but the evaluation guidance is somewhat shallow and one summary claim is not directly supported.",
+    "recommended_fix": "Ground the evaluation section in a concrete benchmark or paper result, and remove or cite the unsupported one-line summary so every nontrivial claim is explicitly supported.",
+    "average_score": 4.0,
+    "normalized_score": 0.75
+  },
+  "judge_usage": {
+    "input_tokens": 4040,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1465,
+    "output_tokens_details": {
+      "reasoning_tokens": 56
+    },
+    "total_tokens": 5505
+  },
+  "response_id": "resp_0b78a1aa59476cc30069f9bb67f8388197982651ac4d784957"
+}

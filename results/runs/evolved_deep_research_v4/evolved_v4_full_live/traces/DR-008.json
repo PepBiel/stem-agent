@@ -1,0 +1,729 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v4",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v4",
+  "genome_version": 4,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v4.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T14:54:08+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "source_expectations": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T14:55:32+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents are the better fit when the work is open-ended, ambiguous, or needs dynamic tool selection; workflow-based agents are the better fit when you need fixed paths, auditability, and bounded execution. OpenAI recommends starting with a single agent or workflow and only adding complexity when the problem justifies it, while Anthropic’s guide explicitly frames workflows as static/predictable and agentic systems as more dynamic. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n### Required aspect coverage\n- flexibility: Autonomous agents are more flexible for ambiguous, open-ended work; workflows are less flexible but easier to standardize. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n- controllability: Workflow-based agents give tighter control via predefined paths, typed inputs/outputs, preview/debug tools, and handoffs; autonomous agents trade some of that control for adaptive behavior. `https://platform.openai.com/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\n- observability: Workflows are easier to observe because traces record model calls, tool calls, guardrails, and handoffs; OpenAI also recommends building observable systems from day one. `https://platform.openai.com/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\n- cost: More autonomous/multi-agent setups can consume substantially more tokens and coordination overhead, while structured workflows make execution costs easier to estimate. `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))\n- reproducibility: Versioned workflow snapshots plus trace graders/datasets make workflow runs easier to replay and compare consistently. `https://platform.openai.com/docs/guides/agent-builder` `https://platform.openai.com/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\n- failure recovery: Agents can halt and hand control back to the user on failure, and newer SDK support can resume from checkpoints if the environment fails or expires. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://openai.com/index/the-next-evolution-of-the-agents-sdk/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\n## Sources\n1. OpenAI, *A practical guide to building agents* — `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n2. OpenAI, *Agent Builder* — `https://developers.openai.com/api/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\n3. OpenAI, *Evaluate agent workflows* — `https://developers.openai.com/api/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\n4. OpenAI, *The next evolution of the Agents SDK* — `https://openai.com/index/the-next-evolution-of-the-agents-sdk/` ([openai.com](https://openai.com/index/the-next-evolution-of-the-agents-sdk))\n5. OpenAI, *From model to agent: Equipping the Responses API with a computer environment* — `https://openai.com/index/equip-responses-api-computer-environment/` ([openai.com](https://openai.com/index/equip-responses-api-computer-environment/))\n6. Anthropic, *Building Effective AI Agents: Architecture Patterns and Implementation Frameworks* — `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))\n\n## Limitations\nThe trade-off summary is a synthesis, not a universal benchmark: exact cost, observability, and recovery behavior depend on the model, tool stack, and workload. The strongest cost claims are provider guidance, not a universal constant. The case-study evidence is from a single vendor/customer example and may not generalize to every deployment. ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))",
+  "decomposition": {
+    "subquestions": [
+      "What do autonomous agents gain that workflows lose?",
+      "What do workflow-based agents gain that autonomy loses?",
+      "How do the trade-offs differ across control, observability, cost, reproducibility, and recovery?"
+    ],
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "expected_source_types": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:openai.com guide agents workflows controllability observability reproducibility failure recovery",
+      "site:developers.openai.com agent builder evals traces workflow",
+      "site:resources.anthropic.com building effective AI agents workflows sequential hierarchical cost"
+    ],
+    "rationale_per_query": [
+      "Find official guidance that explicitly contrasts agents and workflows.",
+      "Find workflow/orchestration docs on traces, versioning, and debugging.",
+      "Find a provider-authored architecture guide with explicit trade-offs and cost/reproducibility guidance."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "ref_id": "turn0search1",
+      "title": "A practical guide to building agents",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "initial_role": "core comparison source"
+    },
+    {
+      "ref_id": "turn0search3",
+      "title": "Agent Builder",
+      "url": "https://platform.openai.com/docs/guides/agent-builder",
+      "initial_role": "workflow/orchestration source"
+    },
+    {
+      "ref_id": "turn0search6",
+      "title": "Evaluate agent workflows",
+      "url": "https://platform.openai.com/docs/guides/agent-evals",
+      "initial_role": "observability/reproducibility source"
+    },
+    {
+      "ref_id": "turn1search0",
+      "title": "The next evolution of the Agents SDK",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "initial_role": "failure recovery and production trade-offs"
+    },
+    {
+      "ref_id": "turn0search8",
+      "title": "From model to agent: Equipping the Responses API with a computer environment",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "initial_role": "cost/controls/repeatability source"
+    },
+    {
+      "ref_id": "turn1search13",
+      "title": "Building Effective AI Agents: Architecture Patterns and Implementation Frameworks",
+      "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf",
+      "initial_role": "architecture patterns and trade-offs"
+    },
+    {
+      "ref_id": "turn0search0",
+      "title": "Solutions for agentic workflows",
+      "url": "https://openai.com/solutions/use-case/agents/",
+      "initial_role": "rejected marketing overview"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "ref_id": "turn2view0",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "source_type": "agent framework documentation",
+        "authority": "official"
+      },
+      {
+        "ref_id": "turn2view1",
+        "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+        "source_type": "workflow or orchestration guide",
+        "authority": "official"
+      },
+      {
+        "ref_id": "turn2view2",
+        "url": "https://developers.openai.com/api/docs/guides/agent-evals",
+        "source_type": "workflow or orchestration guide",
+        "authority": "official"
+      },
+      {
+        "ref_id": "turn2view3",
+        "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+        "source_type": "engineering case study",
+        "authority": "official"
+      },
+      {
+        "ref_id": "turn2view4",
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+        "source_type": "engineering case study",
+        "authority": "official"
+      },
+      {
+        "ref_id": "turn5view0",
+        "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf",
+        "source_type": "agent framework documentation",
+        "authority": "official"
+      }
+    ],
+    "rejected_sources": [
+      {
+        "ref_id": "turn0search0",
+        "url": "https://openai.com/solutions/use-case/agents/"
+      }
+    ],
+    "rejection_reasons": [
+      "High-level marketing page; useful for discovery, but it lacked the operational detail needed for direct claims about control, observability, cost, reproducibility, or failure recovery."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Autonomous agents are more flexible for ambiguous, open-ended work because they can plan, act, and adjust across tool calls.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "flexibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflow-based agents are more controllable because they use predefined paths, typed inputs/outputs, preview/debug tooling, and explicit handoffs.",
+      "source_url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "controllability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Trace grading exposes end-to-end records of model calls, tool calls, guardrails, and handoffs, which improves observability of workflow behavior.",
+      "source_url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "observability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Structured workflows make it easier to estimate execution costs, while multi-agent/autonomous setups can add significant token and coordination overhead.",
+      "source_url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "cost",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Versioned workflow snapshots plus trace graders and datasets support replay, comparison, and consistent evaluation.",
+      "source_url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "source_type": "workflow or orchestration guide",
+      "supported_aspect": "reproducibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Snapshotting and rehydration let an agent resume from the last checkpoint if the container fails or expires.",
+      "source_url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "source_type": "engineering case study",
+      "supported_aspect": "failure recovery",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agents can halt execution and transfer control back to the user when they fail, and humans can intervene after failure thresholds are exceeded.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "failure recovery",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "The OpenAI Responses API uses isolated container workspaces, bounded outputs, and policy-controlled network access to make agent execution safer and more repeatable.",
+      "source_url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "source_type": "engineering case study",
+      "supported_aspect": "observability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "medium"
+    },
+    {
+      "claim": "Oscar Health said the updated Agents SDK made a critical clinical records workflow production-viable after prior approaches were not reliable enough.",
+      "source_url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "source_type": "engineering case study",
+      "supported_aspect": "failure recovery",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradiction: the sources consistently frame autonomous agents as more adaptive but less predictable, while workflow-based agents are more structured, easier to observe, and easier to reproduce.",
+    "uncertainty_notes": [
+      "Cost estimates are architecture- and workload-dependent; the 10-15x token figure is a provider guideline, not a universal constant.",
+      "Failure recovery strength depends on whether the stack implements checkpoints, externalized state, and human handoff."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Autonomous agents improve flexibility for ambiguous tasks.",
+      "Workflow-based agents improve controllability and traceability.",
+      "Trace grading and versioning improve observability and reproducibility.",
+      "Multi-agent systems can be materially more expensive than simpler workflows.",
+      "Checkpointing and handoff mechanisms improve failure recovery."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "turn0search0 was discarded because it was a high-level marketing page and did not directly support any operational trade-off claim."
+    ]
+  },
+  "finished_at": "2026-05-05T14:55:32+00:00",
+  "citations": [
+    {
+      "end_index": 11405,
+      "start_index": 11300,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 12119,
+      "start_index": 12041,
+      "title": "Agent Builder | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-builder"
+    },
+    {
+      "end_index": 12438,
+      "start_index": 12362,
+      "title": "Evaluate agent workflows | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-evals"
+    },
+    {
+      "end_index": 12926,
+      "start_index": 12758,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+    },
+    {
+      "end_index": 14497,
+      "start_index": 14420,
+      "title": "The next evolution of the Agents SDK | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk"
+    },
+    {
+      "end_index": 14742,
+      "start_index": 14660,
+      "title": "From model to agent: Equipping the Responses API with a computer environment  | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-evals`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/solutions/use-case/agents/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-builder`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-evals`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf`",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_04d2531a3735c4340069fa049fb3f0819796ca0c7d665b82b3",
+      "action": {
+        "query": "site:openai.com/docs agents workflows controllability observability reproducibility failure recovery autonomous workflow-based agents",
+        "type": "search",
+        "queries": [
+          "site:openai.com/docs agents workflows controllability observability reproducibility failure recovery autonomous workflow-based agents",
+          "site:docs.langchain.com workflow agents observability reproducibility failure recovery autonomous agents",
+          "site:anthropic.com engineering case study workflow agents observability controllability cost reproducibility failure recovery"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openai.com/solutions/use-case/agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents/agent-builder%20rel%3D"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/20001143/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/academy/workspace-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/en-GB/agent-platform/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/node-reference"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-business-leaders-guide-to-working-with-agents.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04a1db2481979948465eb71e0195",
+      "action": {
+        "query": "site:openai.com customer story agents workflow observability recovery case study",
+        "type": "search",
+        "queries": [
+          "site:openai.com customer story agents workflow observability recovery case study",
+          "site:openai.com \"clinical records workflow\" agents sdk case study",
+          "site:anthropic.com customers agents workflow case study observability controllability"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/grafana"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/bluenote"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/triple-whale"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/vanta"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/trellix"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/intercom"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/zapier"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/futurehouse"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/cred"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/rox/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/tines"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://assets.anthropic.com/m/4fb35becb0cd87e1/original/SHADE-Arena-Paper.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/6dc7175d-d9e7-4b8d-96b8-48fe5798cd5b/oai_genebench_benchmark.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04a74b5c8197be0ac73eea3e9b6f",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04a9c96c8197994818d6f199e818",
+      "action": {
+        "pattern": "retries",
+        "type": "find_in_page",
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04ab39088197b1e3de164c6da542",
+      "action": {
+        "type": "open_page",
+        "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04ada6d0819799204fc19261eb15",
+      "action": {
+        "type": "open_page",
+        "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04b5c0c08197aeddf60984946df9",
+      "action": {
+        "pattern": "failure",
+        "type": "find_in_page",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_04d2531a3735c4340069fa04b78cd08197aa28043acc7080ca",
+      "action": {
+        "type": "open_page",
+        "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 36261,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11237,
+    "output_tokens_details": {
+      "reasoning_tokens": 7697
+    },
+    "total_tokens": 47498
+  },
+  "response_id": "resp_04d2531a3735c4340069fa049d67fc81978469b33262dc6b15",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What do autonomous agents gain that workflows lose?\",\n      \"What do workflow-based agents gain that autonomy loses?\",\n      \"How do the trade-offs differ across control, observability, cost, reproducibility, and recovery?\"\n    ],\n    \"required_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"expected_source_types\": [\n      \"agent framework documentation\",\n      \"workflow or orchestration guide\",\n      \"engineering case study\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:openai.com guide agents workflows controllability observability reproducibility failure recovery\",\n      \"site:developers.openai.com agent builder evals traces workflow\",\n      \"site:resources.anthropic.com building effective AI agents workflows sequential hierarchical cost\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official guidance that explicitly contrasts agents and workflows.\",\n      \"Find workflow/orchestration docs on traces, versioning, and debugging.\",\n      \"Find a provider-authored architecture guide with explicit trade-offs and cost/reproducibility guidance.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"ref_id\": \"turn0search1\",\n      \"title\": \"A practical guide to building agents\",\n      \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"initial_role\": \"core comparison source\"\n    },\n    {\n      \"ref_id\": \"turn0search3\",\n      \"title\": \"Agent Builder\",\n      \"url\": \"https://platform.openai.com/docs/guides/agent-builder\",\n      \"initial_role\": \"workflow/orchestration source\"\n    },\n    {\n      \"ref_id\": \"turn0search6\",\n      \"title\": \"Evaluate agent workflows\",\n      \"url\": \"https://platform.openai.com/docs/guides/agent-evals\",\n      \"initial_role\": \"observability/reproducibility source\"\n    },\n    {\n      \"ref_id\": \"turn1search0\",\n      \"title\": \"The next evolution of the Agents SDK\",\n      \"url\": \"https://openai.com/index/the-next-evolution-of-the-agents-sdk/\",\n      \"initial_role\": \"failure recovery and production trade-offs\"\n    },\n    {\n      \"ref_id\": \"turn0search8\",\n      \"title\": \"From model to agent: Equipping the Responses API with a computer environment\",\n      \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"initial_role\": \"cost/controls/repeatability source\"\n    },\n    {\n      \"ref_id\": \"turn1search13\",\n      \"title\": \"Building Effective AI Agents: Architecture Patterns and Implementation Frameworks\",\n      \"url\": \"https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf\",\n      \"initial_role\": \"architecture patterns and trade-offs\"\n    },\n    {\n      \"ref_id\": \"turn0search0\",\n      \"title\": \"Solutions for agentic workflows\",\n      \"url\": \"https://openai.com/solutions/use-case/agents/\",\n      \"initial_role\": \"rejected marketing overview\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"ref_id\": \"turn2view0\",\n        \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n        \"source_type\": \"agent framework documentation\",\n        \"authority\": \"official\"\n      },\n      {\n        \"ref_id\": \"turn2view1\",\n        \"url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n        \"source_type\": \"workflow or orchestration guide\",\n        \"authority\": \"official\"\n      },\n      {\n        \"ref_id\": \"turn2view2\",\n        \"url\": \"https://developers.openai.com/api/docs/guides/agent-evals\",\n        \"source_type\": \"workflow or orchestration guide\",\n        \"authority\": \"official\"\n      },\n      {\n        \"ref_id\": \"turn2view3\",\n        \"url\": \"https://openai.com/index/the-next-evolution-of-the-agents-sdk/\",\n        \"source_type\": \"engineering case study\",\n        \"authority\": \"official\"\n      },\n      {\n        \"ref_id\": \"turn2view4\",\n        \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n        \"source_type\": \"engineering case study\",\n        \"authority\": \"official\"\n      },\n      {\n        \"ref_id\": \"turn5view0\",\n        \"url\": \"https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf\",\n        \"source_type\": \"agent framework documentation\",\n        \"authority\": \"official\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"ref_id\": \"turn0search0\",\n        \"url\": \"https://openai.com/solutions/use-case/agents/\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"High-level marketing page; useful for discovery, but it lacked the operational detail needed for direct claims about control, observability, cost, reproducibility, or failure recovery.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Autonomous agents are more flexible for ambiguous, open-ended work because they can plan, act, and adjust across tool calls.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"flexibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflow-based agents are more controllable because they use predefined paths, typed inputs/outputs, preview/debug tooling, and explicit handoffs.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"controllability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Trace grading exposes end-to-end records of model calls, tool calls, guardrails, and handoffs, which improves observability of workflow behavior.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/agent-evals\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"observability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Structured workflows make it easier to estimate execution costs, while multi-agent/autonomous setups can add significant token and coordination overhead.\",\n      \"source_url\": \"https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"cost\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Versioned workflow snapshots plus trace graders and datasets support replay, comparison, and consistent evaluation.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/agent-builder\",\n      \"source_type\": \"workflow or orchestration guide\",\n      \"supported_aspect\": \"reproducibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Snapshotting and rehydration let an agent resume from the last checkpoint if the container fails or expires.\",\n      \"source_url\": \"https://openai.com/index/the-next-evolution-of-the-agents-sdk/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agents can halt execution and transfer control back to the user when they fail, and humans can intervene after failure thresholds are exceeded.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The OpenAI Responses API uses isolated container workspaces, bounded outputs, and policy-controlled network access to make agent execution safer and more repeatable.\",\n      \"source_url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"observability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"Oscar Health said the updated Agents SDK made a critical clinical records workflow production-viable after prior approaches were not reliable enough.\",\n      \"source_url\": \"https://openai.com/index/the-next-evolution-of-the-agents-sdk/\",\n      \"source_type\": \"engineering case study\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradiction: the sources consistently frame autonomous agents as more adaptive but less predictable, while workflow-based agents are more structured, easier to observe, and easier to reproduce.\",\n    \"uncertainty_notes\": [\n      \"Cost estimates are architecture- and workload-dependent; the 10-15x token figure is a provider guideline, not a universal constant.\",\n      \"Failure recovery strength depends on whether the stack implements checkpoints, externalized state, and human handoff.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Autonomous agents improve flexibility for ambiguous tasks.\",\n      \"Workflow-based agents improve controllability and traceability.\",\n      \"Trace grading and versioning improve observability and reproducibility.\",\n      \"Multi-agent systems can be materially more expensive than simpler workflows.\",\n      \"Checkpointing and handoff mechanisms improve failure recovery.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"turn0search0 was discarded because it was a high-level marketing page and did not directly support any operational trade-off claim.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAutonomous agents are the better fit when the work is open-ended, ambiguous, or needs dynamic tool selection; workflow-based agents are the better fit when you need fixed paths, auditability, and bounded execution. OpenAI recommends starting with a single agent or workflow and only adding complexity when the problem justifies it, while Anthropic’s guide explicitly frames workflows as static/predictable and agentic systems as more dynamic. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\n### Required aspect coverage\\n- flexibility: Autonomous agents are more flexible for ambiguous, open-ended work; workflows are less flexible but easier to standardize. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n- controllability: Workflow-based agents give tighter control via predefined paths, typed inputs/outputs, preview/debug tools, and handoffs; autonomous agents trade some of that control for adaptive behavior. `https://platform.openai.com/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\\n- observability: Workflows are easier to observe because traces record model calls, tool calls, guardrails, and handoffs; OpenAI also recommends building observable systems from day one. `https://platform.openai.com/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\\n- cost: More autonomous/multi-agent setups can consume substantially more tokens and coordination overhead, while structured workflows make execution costs easier to estimate. `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))\\n- reproducibility: Versioned workflow snapshots plus trace graders/datasets make workflow runs easier to replay and compare consistently. `https://platform.openai.com/docs/guides/agent-builder` `https://platform.openai.com/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\\n- failure recovery: Agents can halt and hand control back to the user on failure, and newer SDK support can resume from checkpoints if the environment fails or expires. `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` `https://openai.com/index/the-next-evolution-of-the-agents-sdk/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\n## Sources\\n1. OpenAI, *A practical guide to building agents* — `https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/` ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n2. OpenAI, *Agent Builder* — `https://developers.openai.com/api/docs/guides/agent-builder` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-builder))\\n3. OpenAI, *Evaluate agent workflows* — `https://developers.openai.com/api/docs/guides/agent-evals` ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\\n4. OpenAI, *The next evolution of the Agents SDK* — `https://openai.com/index/the-next-evolution-of-the-agents-sdk/` ([openai.com](https://openai.com/index/the-next-evolution-of-the-agents-sdk))\\n5. OpenAI, *From model to agent: Equipping the Responses API with a computer environment* — `https://openai.com/index/equip-responses-api-computer-environment/` ([openai.com](https://openai.com/index/equip-responses-api-computer-environment/))\\n6. Anthropic, *Building Effective AI Agents: Architecture Patterns and Implementation Frameworks* — `https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf` ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))\\n\\n## Limitations\\nThe trade-off summary is a synthesis, not a universal benchmark: exact cost, observability, and recovery behavior depend on the model, tool stack, and workload. The strongest cost claims are provider guidance, not a universal constant. The case-study evidence is from a single vendor/customer example and may not generalize to every deployment. ([resources.anthropic.com](https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf))\"\n}",
+  "status": "complete"
+}

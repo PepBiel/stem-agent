@@ -1,0 +1,455 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v3",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 3,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v3.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:37:17+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 4,
+    "max_runtime_seconds": 180,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "source_expectations": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:37:37+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCurrent approaches to evaluating tool use in LLM agents cluster into three layers: (1) survey-level taxonomies that separate **what** to evaluate from **how** to evaluate, (2) benchmarks that stress **stateful, multi-turn, interactive** tool execution, and (3) framework/provider workflows that use **traces, graders, human review, and LLM-as-judge** scoring. The main practical shift is away from output-only scoring and toward trajectory-aware evaluation of the agent’s decisions and interactions. ([arxiv.org](https://arxiv.org/abs/2507.21504))\n\n### Required aspect coverage\n- **Task success** — Measured as end-to-end completion or milestone attainment in realistic workflows, not just final text quality. Surveys and benchmark docs emphasize behavior/capability outcomes plus intermediate/final milestones. ([arxiv.org](https://arxiv.org/abs/2507.21504))\n- **Tool-call correctness** — Checked by trace grading and trajectory inspection: did the agent choose the right tool and execute the intended workflow? ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\n- **Argument validity** — Commonly handled with heuristics, human annotation, and LLM-as-judge scoring of reasoning/justification quality, often calibrated against human feedback. ([langchain.com](https://www.langchain.com/evaluation))\n- **Recovery from tool errors** — Stateful benchmarks like ToolSandbox are designed for implicit state dependencies and dynamic evaluation, which better exposes failure recovery and robustness over long trajectories. ([machinelearning.apple.com](https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark))\n- **Cost and latency** — Current practice treats these as operational evaluation concerns: offline/online eval loops, regression checks, and tracing systems are used to control quality without adding unacceptable runtime overhead. ([langchain.com](https://www.langchain.com/evaluation))\n\n## Sources\n- Survey on LLM agent evaluation taxonomy: ([arxiv.org](https://arxiv.org/abs/2507.21504))\n- ToolSandbox benchmark for stateful conversational tool use: ([machinelearning.apple.com](https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark))\n- OpenAI agent evals guidance on traces and graders: ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\n- LangSmith evaluation docs on human, heuristic, and LLM-judge evals: ([langchain.com](https://www.langchain.com/evaluation))\n\n## Limitations\nEvidence is fragmented and tool-use evaluation is not standardized across benchmarks. The strongest support here is for trajectory-aware evaluation, but **cost and latency** are less often formal benchmark metrics and more often framework/deployment concerns. I also avoided broader benchmark catalogs to stay within the search and source limits. ([arxiv.org](https://arxiv.org/abs/2507.21504))",
+  "decomposition": {
+    "subquestions": [
+      "What evaluation dimensions are used for tool-use in LLM agents?",
+      "What benchmark styles are used to test tool-use behavior?",
+      "What framework/provider evaluation workflows are used in practice?",
+      "How do evaluators handle success, correctness, recovery, and efficiency tradeoffs?"
+    ],
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "expected_source_types": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "agent evaluation survey tool use LLM agents evaluation benchmark official documentation",
+      "tool-use benchmark LLM agents evaluation survey provider framework documentation"
+    ],
+    "rationale_per_query": [
+      "Find a recent survey that classifies agent/tool-use evaluation approaches and names the key dimensions.",
+      "Find a benchmark and official evaluation docs that illustrate current practice in tool-use evaluation, including traces, graders, and multi-step tool execution."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://arxiv.org/abs/2507.21504",
+      "type": "survey",
+      "note": "Recent survey with taxonomy of agent evaluation."
+    },
+    {
+      "url": "https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark",
+      "type": "tool-use benchmark",
+      "note": "Apple benchmark for stateful, conversational, interactive tool use."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "type": "provider documentation",
+      "note": "Official guidance on traces, graders, datasets, and eval runs."
+    },
+    {
+      "url": "https://www.langchain.com/langsmith/evaluation",
+      "type": "framework documentation",
+      "note": "Official framework guidance on offline/online evals, human feedback, and LLM-as-judge."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/abs/2507.21504",
+      "https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark",
+      "https://developers.openai.com/api/docs/guides/agent-evals",
+      "https://www.langchain.com/langsmith/evaluation"
+    ],
+    "rejected_sources": [
+      "https://papers.cool/arxiv/2604.11557",
+      "https://benchlm.ai/llm-agent-benchmarks",
+      "https://www.reddit.com/r/AgentSkills/comments/1r3ldih/i_built_an_opensource_tool_that_evaluates_agent/"
+    ],
+    "rejection_reasons": [
+      "Secondary aggregation page; not primary evidence.",
+      "Benchmark listing site; not a primary benchmark or documentation source.",
+      "Community post; insufficient reliability for load-bearing claims."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Recent surveys frame tool-use evaluation by evaluation objectives (what to evaluate) and evaluation process (how to evaluate), including behavior, capabilities, reliability, safety, interaction modes, datasets, metrics, and tooling.",
+      "source_url": "https://arxiv.org/abs/2507.21504",
+      "source_type": "survey",
+      "supported_aspect": "task success",
+      "confidence": "high"
+    },
+    {
+      "claim": "ToolSandbox emphasizes stateful, conversational, interactive evaluation with implicit state dependencies, a user simulator, and dynamic evaluation over intermediate and final milestones.",
+      "source_url": "https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "recovery from tool errors",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI recommends trace grading for workflow-level issues and explicitly checks whether the agent picked the right tool and whether the workflow followed the intended path.",
+      "source_url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "source_type": "provider documentation",
+      "supported_aspect": "tool-call correctness",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangSmith supports human evaluation, heuristic checks, LLM-as-judge, pairwise comparisons, offline/online evals, and capturing full trajectories of steps and tool calls.",
+      "source_url": "https://www.langchain.com/langsmith/evaluation",
+      "source_type": "framework documentation",
+      "supported_aspect": "argument validity",
+      "confidence": "high"
+    },
+    {
+      "claim": "Framework docs also frame evaluation in terms of production drift, regressions, and CI/CD gating; LangSmith states offline evals catch regressions before deployment and online evals score real traffic in real time.",
+      "source_url": "https://www.langchain.com/langsmith/evaluation",
+      "source_type": "framework documentation",
+      "supported_aspect": "cost and latency",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive conflicts among the selected sources; they are complementary and describe different layers of evaluation practice.",
+    "uncertainty_notes": [
+      "Cost/latency evidence is mostly framework-oriented rather than benchmark-level; it is an operational concern, not a standardized metric across all tool-use benchmarks.",
+      "The field is still fragmented, so there is no single universally adopted evaluation protocol."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Tool-use evaluation is commonly decomposed into what-to-evaluate vs how-to-evaluate.",
+      "Benchmarks increasingly test stateful, multi-turn, interactive tool use.",
+      "Provider/framework tooling emphasizes traces, graders, human review, and automated judges.",
+      "Operational concerns include production drift, regressions, and runtime overhead."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:37:37+00:00",
+  "citations": [
+    {
+      "end_index": 6877,
+      "start_index": 6830,
+      "title": "[2507.21504] Evaluation and Benchmarking of LLM Agents: A Survey",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.21504"
+    },
+    {
+      "end_index": 7423,
+      "start_index": 7347,
+      "title": "Evaluate agent workflows | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/agent-evals"
+    },
+    {
+      "end_index": 7660,
+      "start_index": 7605,
+      "title": "LangSmith - LLM & AI Agent Evals Platform: Continuously improve agents",
+      "type": "url_citation",
+      "url": "https://www.langchain.com/evaluation"
+    },
+    {
+      "end_index": 8002,
+      "start_index": 7879,
+      "title": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities - Apple Machine Learning Research",
+      "type": "url_citation",
+      "url": "https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://benchlm.ai/llm-agent-benchmarks",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.cool/arxiv/2604.11557",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.langchain.com/langsmith/evaluation",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.reddit.com/r/AgentSkills/comments/1r3ldih/i_built_an_opensource_tool_that_evaluates_agent/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0d77bf3554216c1b0069f9ba5601948190be26dc8e3c144b75",
+      "action": {
+        "query": "agent evaluation survey tool use LLM agents evaluation benchmark official documentation",
+        "type": "search",
+        "queries": [
+          "agent evaluation survey tool use LLM agents evaluation benchmark official documentation",
+          "tool-use benchmark LLM agents evaluation survey provider framework documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.11557"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/claw-eval/claw-eval"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://labs.scale.com/papers/mcpatlas"
+          },
+          {
+            "type": "url",
+            "url": "https://weval.org/"
+          },
+          {
+            "type": "url",
+            "url": "https://agentif.github.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s41019-025-00296-9"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://benchlm.ai/llm-agent-benchmarks"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/mcptoolbench"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.24565"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.11270"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rivista.ai/wp-content/uploads/2025/06/1749500273238.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.findings-emnlp.267.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/296456/preprint_pdf/7a0a5b6e4d6deebd46a33f4032474f6e.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AgentSkills/comments/1r3ldih/i_built_an_opensource_tool_that_evaluates_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/SideProject/comments/1s7i6vv/i_built_a_free_and_opensource_tool_to_evaluate/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLM/comments/1rwefmq/what_broke_when_i_evaluated_an_ai_agent_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1s71tv7/i_built_a_tool_to_evaluate_llm_agents_by_path/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1rweggk/what_broke_when_i_evaluated_an_ai_agent_in/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d77bf3554216c1b0069f9ba5a62388190995933753a4a6974",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2507.21504"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 13397,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 2640,
+    "output_tokens_details": {
+      "reasoning_tokens": 582
+    },
+    "total_tokens": 16037
+  },
+  "response_id": "resp_0d77bf3554216c1b0069f9ba554ee48190903ee859c6d057ac",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What evaluation dimensions are used for tool-use in LLM agents?\",\n      \"What benchmark styles are used to test tool-use behavior?\",\n      \"What framework/provider evaluation workflows are used in practice?\",\n      \"How do evaluators handle success, correctness, recovery, and efficiency tradeoffs?\"\n    ],\n    \"required_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"expected_source_types\": [\n      \"agent evaluation survey\",\n      \"tool-use benchmark\",\n      \"provider or framework evaluation documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"agent evaluation survey tool use LLM agents evaluation benchmark official documentation\",\n      \"tool-use benchmark LLM agents evaluation survey provider framework documentation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a recent survey that classifies agent/tool-use evaluation approaches and names the key dimensions.\",\n      \"Find a benchmark and official evaluation docs that illustrate current practice in tool-use evaluation, including traces, graders, and multi-step tool execution.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://arxiv.org/abs/2507.21504\",\n      \"type\": \"survey\",\n      \"note\": \"Recent survey with taxonomy of agent evaluation.\"\n    },\n    {\n      \"url\": \"https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark\",\n      \"type\": \"tool-use benchmark\",\n      \"note\": \"Apple benchmark for stateful, conversational, interactive tool use.\"\n    },\n    {\n      \"url\": \"https://developers.openai.com/api/docs/guides/agent-evals\",\n      \"type\": \"provider documentation\",\n      \"note\": \"Official guidance on traces, graders, datasets, and eval runs.\"\n    },\n    {\n      \"url\": \"https://www.langchain.com/langsmith/evaluation\",\n      \"type\": \"framework documentation\",\n      \"note\": \"Official framework guidance on offline/online evals, human feedback, and LLM-as-judge.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://arxiv.org/abs/2507.21504\",\n      \"https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark\",\n      \"https://developers.openai.com/api/docs/guides/agent-evals\",\n      \"https://www.langchain.com/langsmith/evaluation\"\n    ],\n    \"rejected_sources\": [\n      \"https://papers.cool/arxiv/2604.11557\",\n      \"https://benchlm.ai/llm-agent-benchmarks\",\n      \"https://www.reddit.com/r/AgentSkills/comments/1r3ldih/i_built_an_opensource_tool_that_evaluates_agent/\"\n    ],\n    \"rejection_reasons\": [\n      \"Secondary aggregation page; not primary evidence.\",\n      \"Benchmark listing site; not a primary benchmark or documentation source.\",\n      \"Community post; insufficient reliability for load-bearing claims.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Recent surveys frame tool-use evaluation by evaluation objectives (what to evaluate) and evaluation process (how to evaluate), including behavior, capabilities, reliability, safety, interaction modes, datasets, metrics, and tooling.\",\n      \"source_url\": \"https://arxiv.org/abs/2507.21504\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"task success\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ToolSandbox emphasizes stateful, conversational, interactive evaluation with implicit state dependencies, a user simulator, and dynamic evaluation over intermediate and final milestones.\",\n      \"source_url\": \"https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"recovery from tool errors\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI recommends trace grading for workflow-level issues and explicitly checks whether the agent picked the right tool and whether the workflow followed the intended path.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/agent-evals\",\n      \"source_type\": \"provider documentation\",\n      \"supported_aspect\": \"tool-call correctness\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangSmith supports human evaluation, heuristic checks, LLM-as-judge, pairwise comparisons, offline/online evals, and capturing full trajectories of steps and tool calls.\",\n      \"source_url\": \"https://www.langchain.com/langsmith/evaluation\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"argument validity\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Framework docs also frame evaluation in terms of production drift, regressions, and CI/CD gating; LangSmith states offline evals catch regressions before deployment and online evals score real traffic in real time.\",\n      \"source_url\": \"https://www.langchain.com/langsmith/evaluation\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"cost and latency\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No substantive conflicts among the selected sources; they are complementary and describe different layers of evaluation practice.\",\n    \"uncertainty_notes\": [\n      \"Cost/latency evidence is mostly framework-oriented rather than benchmark-level; it is an operational concern, not a standardized metric across all tool-use benchmarks.\",\n      \"The field is still fragmented, so there is no single universally adopted evaluation protocol.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Tool-use evaluation is commonly decomposed into what-to-evaluate vs how-to-evaluate.\",\n      \"Benchmarks increasingly test stateful, multi-turn, interactive tool use.\",\n      \"Provider/framework tooling emphasizes traces, graders, human review, and automated judges.\",\n      \"Operational concerns include production drift, regressions, and runtime overhead.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nCurrent approaches to evaluating tool use in LLM agents cluster into three layers: (1) survey-level taxonomies that separate **what** to evaluate from **how** to evaluate, (2) benchmarks that stress **stateful, multi-turn, interactive** tool execution, and (3) framework/provider workflows that use **traces, graders, human review, and LLM-as-judge** scoring. The main practical shift is away from output-only scoring and toward trajectory-aware evaluation of the agent’s decisions and interactions. ([arxiv.org](https://arxiv.org/abs/2507.21504))\\n\\n### Required aspect coverage\\n- **Task success** — Measured as end-to-end completion or milestone attainment in realistic workflows, not just final text quality. Surveys and benchmark docs emphasize behavior/capability outcomes plus intermediate/final milestones. ([arxiv.org](https://arxiv.org/abs/2507.21504))\\n- **Tool-call correctness** — Checked by trace grading and trajectory inspection: did the agent choose the right tool and execute the intended workflow? ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\\n- **Argument validity** — Commonly handled with heuristics, human annotation, and LLM-as-judge scoring of reasoning/justification quality, often calibrated against human feedback. ([langchain.com](https://www.langchain.com/evaluation))\\n- **Recovery from tool errors** — Stateful benchmarks like ToolSandbox are designed for implicit state dependencies and dynamic evaluation, which better exposes failure recovery and robustness over long trajectories. ([machinelearning.apple.com](https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark))\\n- **Cost and latency** — Current practice treats these as operational evaluation concerns: offline/online eval loops, regression checks, and tracing systems are used to control quality without adding unacceptable runtime overhead. ([langchain.com](https://www.langchain.com/evaluation))\\n\\n## Sources\\n- Survey on LLM agent evaluation taxonomy: ([arxiv.org](https://arxiv.org/abs/2507.21504))\\n- ToolSandbox benchmark for stateful conversational tool use: ([machinelearning.apple.com](https://machinelearning.apple.com/research/toolsandbox-stateful-conversational-llm-benchmark))\\n- OpenAI agent evals guidance on traces and graders: ([platform.openai.com](https://platform.openai.com/docs/guides/agent-evals))\\n- LangSmith evaluation docs on human, heuristic, and LLM-judge evals: ([langchain.com](https://www.langchain.com/evaluation))\\n\\n## Limitations\\nEvidence is fragmented and tool-use evaluation is not standardized across benchmarks. The strongest support here is for trajectory-aware evaluation, but **cost and latency** are less often formal benchmark metrics and more often framework/deployment concerns. I also avoided broader benchmark catalogs to stay within the search and source limits. ([arxiv.org](https://arxiv.org/abs/2507.21504))\"\n}",
+  "status": "complete"
+}

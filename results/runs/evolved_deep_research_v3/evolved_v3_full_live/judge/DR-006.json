@@ -1,0 +1,306 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:39:04+00:00",
+  "finished_at": "2026-05-05T09:39:13+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-006.json",
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 1.0,
+  "judge_score": 0.6667,
+  "final_score": 0.7834,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-006.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-006",
+    "question": "What are common failure modes in multi-agent systems?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 1.0,
+    "failure_tags": [],
+    "runtime_seconds": 18.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "coordination overhead",
+          "covered": true,
+          "matched_terms": [
+            "coordination",
+            "overhead"
+          ],
+          "expected_terms": [
+            "coordination",
+            "overhead"
+          ]
+        },
+        {
+          "aspect": "role confusion",
+          "covered": true,
+          "matched_terms": [
+            "confusion",
+            "role"
+          ],
+          "expected_terms": [
+            "confusion",
+            "role"
+          ]
+        },
+        {
+          "aspect": "error propagation",
+          "covered": true,
+          "matched_terms": [
+            "error",
+            "propagation"
+          ],
+          "expected_terms": [
+            "error",
+            "propagation"
+          ]
+        },
+        {
+          "aspect": "consensus without correctness",
+          "covered": true,
+          "matched_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ],
+          "expected_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ]
+        },
+        {
+          "aspect": "evaluation difficulty",
+          "covered": true,
+          "matched_terms": [
+            "difficulty",
+            "evaluation"
+          ],
+          "expected_terms": [
+            "difficulty",
+            "evaluation"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Common failure modes in multi-agent systems cluster around orchestration, role assignment, state tracking, and judging whether a coordinated outcome is actually correct. Framework docs emphasize that multi-agent setups add routing and context-management burden, while empirical work shows that collaboration can still fail because agents lose track of task state or hallucinate about it. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+        "- **coordination overhead** — Multi-agent systems need routing, state management, and subagent selection, which adds orchestration cost and complexity. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+        "- **role confusion** — When tasks are split across specialists, systems can struggle to choose the right agent/tool or keep responsibilities cleanly separated. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+        "- **error propagation** — Mistakes in task state, long-horizon context, or hallucinated beliefs can cascade through later agent steps. ([arxiv.org](https://arxiv.org/abs/2310.10701?utm_source=openai))",
+        "- **consensus without correctness** — Agents may appear aligned or cooperative while still failing the underlying objective; cooperation can be weak even when helping is inexpensive. ([arxiv.org](https://arxiv.org/abs/2310.03903?utm_source=openai))",
+        "- **evaluation difficulty** — Long-running, stateful agent workflows are hard to debug and evaluate, and benchmark results still leave room for improvement in coordination reasoning. ([docs.langchain.com](https://docs.langchain.com/langgraph?utm_source=openai))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2310.03903?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.10701",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.10701?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.07821",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/langgraph",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/langgraph?utm_source=openai",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 8,
+      "unique_citation_count": 8
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 4,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "coordination overhead",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly addresses routing, state management, subagent selection, and orchestration cost."
+      },
+      {
+        "aspect": "role confusion",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explains responsibility separation and choosing the right agent/tool, though the term is inferred rather than explicit."
+      },
+      {
+        "aspect": "error propagation",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly states that state, context, and hallucinated beliefs can cascade through later steps."
+      },
+      {
+        "aspect": "consensus without correctness",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions apparent alignment/cooperation despite failure, but the explanation is somewhat generic and does not strongly distinguish consensus from correctness."
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Notes long-running stateful workflows are hard to debug and evaluate, which matches the requested failure mode."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Multi-agent setups add routing and context-management burden.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai"
+        ],
+        "reason": "Framework docs plausibly support orchestration and context-management overhead in multi-agent setups."
+      },
+      {
+        "claim": "Multi-agent systems need routing, state management, and subagent selection, which adds orchestration cost and complexity.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai"
+        ],
+        "reason": "This is a reasonable summary of multi-agent framework documentation."
+      },
+      {
+        "claim": "When tasks are split across specialists, systems can struggle to choose the right agent/tool or keep responsibilities cleanly separated.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai"
+        ],
+        "reason": "Plausible, but the cited documentation is not shown to explicitly discuss role confusion in those terms."
+      },
+      {
+        "claim": "Mistakes in task state, long-horizon context, or hallucinated beliefs can cascade through later agent steps.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.10701?utm_source=openai"
+        ],
+        "reason": "An empirical or analytic paper on multi-agent collaboration can reasonably support state-tracking failures and cascading errors."
+      },
+      {
+        "claim": "Agents may appear aligned or cooperative while still failing the underlying objective.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.03903?utm_source=openai"
+        ],
+        "reason": "The cited coordination paper may support imperfect collaboration, but the wording overextends to 'consensus without correctness' without strong direct evidence shown."
+      },
+      {
+        "claim": "Long-running, stateful agent workflows are hard to debug and evaluate.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/langgraph?utm_source=openai"
+        ],
+        "reason": "Workflow and graph-based agent documentation plausibly supports evaluation/debugging difficulty."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Relevant framework documentation for multi-agent orchestration, though it is product documentation rather than a research analysis."
+      },
+      {
+        "url": "https://docs.langchain.com/langgraph?utm_source=openai",
+        "quality": "acceptable",
+        "reason": "Relevant to stateful agent workflows and debugging, but still framework docs rather than empirical evidence."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.10701?utm_source=openai",
+        "quality": "strong",
+        "reason": "Research paper on multi-agent collaboration; appropriate for failure propagation and state/hallucination issues."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.03903?utm_source=openai",
+        "quality": "strong",
+        "reason": "Research paper on evaluating multi-agent coordination; relevant to coordination limits and imperfect cooperation."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.07821",
+        "quality": "strong",
+        "reason": "Empirical failure-analysis style paper, though the answer does not lean on it much."
+      }
+    ],
+    "failure_tags": [
+      "weak_citation_support",
+      "inferential_labeling",
+      "generic_uncertainty"
+    ],
+    "summary": "Good high-level coverage of the five required failure modes, but some claims are inferred rather than directly evidenced, especially for role confusion and consensus without correctness.",
+    "recommended_fix": "Use at least one explicitly relevant survey or empirical paper for each failure mode, and tighten the wording on 'consensus without correctness' so it is clearly grounded in the cited evidence.",
+    "average_score": 3.6667,
+    "normalized_score": 0.6667
+  },
+  "judge_usage": {
+    "input_tokens": 3417,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1341,
+    "output_tokens_details": {
+      "reasoning_tokens": 61
+    },
+    "total_tokens": 4758
+  },
+  "response_id": "resp_019edc04de2534d90069f9bac09b648197a2567833b12830de"
+}

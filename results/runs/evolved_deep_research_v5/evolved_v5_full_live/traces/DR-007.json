@@ -1,0 +1,688 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T15:48:47+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "source_expectations": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T15:49:46+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAudit citations in deep research agents at the **claim level**, not just at the report level. The strongest evidence says deep research outputs should include citations or source links for verification, and the API output is designed to carry inline citations plus source metadata, so each assertion should be checked against the exact supporting passage it depends on. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7 https://developers.openai.com/api/docs/guides/deep-research\n\n**Direct source-backed facts:**\n- Deep research reports are meant to be verifiable through citations or source links. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\n- The API guide shows inline citations and source metadata in the response structure. https://developers.openai.com/api/docs/guides/deep-research\n- Benchmark work on citation evaluation uses fine-grained support labels, and deep research benchmarks separate discovered claims from surface report text. https://arxiv.org/abs/2406.15264 https://github.com/microsoft/LiveDRBench\n\n**Engineering inferences:**\n- Use a rubric that scores each cited claim as fully supported, partially supported, or unsupported, rather than treating any citation as sufficient. https://arxiv.org/abs/2406.15264\n- For conflicting sources, require the auditor to surface the disagreement, prefer explicit abstention when evidence is mixed, and record which source wins and why. https://aclanthology.org/2025.findings-acl.877/\n- Prefer citations that point to the most relevant primary source, not merely a nearby or generic source. https://developers.openai.com/api/docs/guides/deep-research\n\n### Required aspect coverage\n- claim-level evidence: audit each atomic claim against the cited source passage, not the whole report. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\n- source relevance: keep only sources that directly support the claim and are appropriate for it. https://developers.openai.com/api/docs/guides/deep-research\n- citation granularity: score support as full, partial, or no support rather than binary yes or no. https://arxiv.org/abs/2406.15264\n- unsupported claim detection: flag statements with no backing even if surrounding text is sourced. https://arxiv.org/abs/2406.15264\n- handling conflicting sources: test conflict robustness and require explicit abstention or conflict notes when sources disagree. https://aclanthology.org/2025.findings-acl.877/\n\n## Sources\n- OpenAI Help Center, Deep research FAQ: https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\n- OpenAI API docs, Deep research guide: https://developers.openai.com/api/docs/guides/deep-research\n- OpenAI Deep Research system card: https://cdn.openai.com/deep-research-system-card.pdf\n- Zhang et al., 2024, fine-grained citation evaluation: https://arxiv.org/abs/2406.15264\n- LiveDRBench repository: https://github.com/microsoft/LiveDRBench\n- RAG-RewardBench paper: https://aclanthology.org/2025.findings-acl.877/\n\n## Limitations\n- I did not find a single universal citation-audit standard for deep research agents; this answer synthesizes a practical rubric from official docs and adjacent benchmarks. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7 https://arxiv.org/abs/2406.15264\n- The conflict-handling recommendation is an engineering inference from benchmarks emphasizing conflict robustness and abstention, not a standalone formal policy. https://aclanthology.org/2025.findings-acl.877/",
+  "decomposition": {
+    "subquestions": [
+      "What evidence-backed principles should govern citation auditing in deep research agents?",
+      "How should an auditor assess source relevance, citation granularity, unsupported claims, and conflicting sources?",
+      "What official documentation and benchmark evidence directly supports those practices?"
+    ],
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "expected_source_types": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "deep research agent citation audit source grounding evaluation guidance official documentation",
+      "citation quality auditing retrieval augmented generation benchmark source grounding official paper",
+      "OpenAI deep research citations documentation",
+      "retrieval source groundedness benchmark citation evaluation paper"
+    ],
+    "rationale_per_query": [
+      "Find official deep research documentation describing citations, source links, and verification affordances.",
+      "Find primary research on how to audit citation support at a fine-grained level.",
+      "Find deep research-specific product or API guidance about inline citations and source metadata.",
+      "Find benchmark evidence for source grounding, conflict handling, and abstention in retrieval-augmented systems."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "OpenAI Help Center: Deep research FAQ",
+      "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+      "status": "considered"
+    },
+    {
+      "title": "OpenAI API docs: Deep research guide",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "status": "considered"
+    },
+    {
+      "title": "OpenAI Deep Research system card",
+      "url": "https://cdn.openai.com/deep-research-system-card.pdf",
+      "status": "considered"
+    },
+    {
+      "title": "Zhang et al. 2024: Towards Fine-Grained Citation Evaluation in Generated Text",
+      "url": "https://arxiv.org/abs/2406.15264",
+      "status": "considered"
+    },
+    {
+      "title": "LiveDRBench repository",
+      "url": "https://github.com/microsoft/LiveDRBench",
+      "status": "considered"
+    },
+    {
+      "title": "RAG-RewardBench paper",
+      "url": "https://aclanthology.org/2025.findings-acl.877/",
+      "status": "considered"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+        "reason": "Official product guidance; directly states deep research outputs include citations or source links for verification."
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "reason": "Official API documentation; shows inline citations and source metadata in output structure."
+      },
+      {
+        "url": "https://cdn.openai.com/deep-research-system-card.pdf",
+        "reason": "Official system card; documents that deep research presents new insights with citations."
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.15264",
+        "reason": "Primary paper on fine-grained citation evaluation; directly supports claim-level and unsupported-claim auditing."
+      },
+      {
+        "url": "https://github.com/microsoft/LiveDRBench",
+        "reason": "Benchmark repository for deep research as claim discovery; supports auditing claims uncovered during search."
+      },
+      {
+        "url": "https://aclanthology.org/2025.findings-acl.877/",
+        "reason": "Primary benchmark paper; includes fine-grained citation, appropriate abstain, and conflict robustness scenarios."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://openai.com/index/introducing-deep-research/",
+        "reason": "Useful but redundant with the more specific Help Center, API docs, and system card."
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ChatGPT_Deep_Research",
+        "reason": "Discouraged secondary source; not needed because authoritative sources were available."
+      },
+      {
+        "url": "https://www.techradar.com/pro/what-is-openais-deep-research-everything-we-know-about-the-best-ai-research-assistant",
+        "reason": "Secondary commentary; weaker than official documentation and primary research."
+      },
+      {
+        "url": "https://www.reddit.com/r/OpenAI/comments/1mv01om",
+        "reason": "Community discussion; low authority and not suitable for citation auditing guidance."
+      }
+    ],
+    "rejection_reasons": [
+      "Redundant with higher-authority sources",
+      "Secondary or community commentary",
+      "Discouraged source type when authoritative sources exist"
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Deep research citation audits should operate at the claim level, because the product is designed to return citations or source links that let users verify information.",
+      "source_url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+      "source_type": "official documentation",
+      "supported_aspect": "claim-level evidence",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Auditors should check source relevance and traceability, because the deep research API output includes inline citations and source metadata.",
+      "source_url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "source_type": "official documentation",
+      "supported_aspect": "source relevance",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Citation auditing should be fine grained, distinguishing full, partial, and no support rather than using only a binary supported or unsupported label.",
+      "source_url": "https://arxiv.org/abs/2406.15264",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "citation granularity",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Unsupported claims should be detected even when nearby text is sourced, because support must be assessed against the exact associated statement.",
+      "source_url": "https://arxiv.org/abs/2406.15264",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "unsupported claim detection",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "When sources conflict, deep research evaluation should explicitly test conflict robustness and appropriate abstention instead of silently choosing one side.",
+      "source_url": "https://aclanthology.org/2025.findings-acl.877/",
+      "source_type": "retrieval or source-grounding benchmark",
+      "supported_aspect": "handling conflicting sources",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Deep research benchmarks that encode key claims uncovered during search support auditing the factual trail behind a report, not just the final prose.",
+      "source_url": "https://github.com/microsoft/LiveDRBench",
+      "source_type": "retrieval or source-grounding benchmark",
+      "supported_aspect": "claim-level evidence",
+      "support_directness": "direct",
+      "source_authority": "benchmark",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions were found. The sources are complementary: official deep research docs describe verification affordances, while the papers and benchmark supply the audit rubric for support granularity and conflict handling.",
+    "uncertainty_notes": [
+      "The recommendation to use an explicit audit rubric is an engineering inference synthesized from the cited sources, not a single quoted standard.",
+      "There is no single universal citation-audit checklist for deep research agents in the sources reviewed."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Deep research outputs include citations or source links for verification.",
+      "The API output includes inline citations and source metadata.",
+      "Fine-grained citation support should be judged as full, partial, or no support.",
+      "Conflict robustness and appropriate abstention are relevant audit dimensions."
+    ],
+    "unsupported_claims": [
+      "A universal industry-standard citation audit checklist exists for deep research agents.",
+      "Any specific numeric threshold for acceptable citation accuracy."
+    ],
+    "weak_citations": [
+      "None used in synthesis; discouraged sources such as Wikipedia, Reddit, and TechRadar were rejected because authoritative documentation and primary papers were available."
+    ]
+  },
+  "finished_at": "2026-05-05T15:49:46+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2025.findings-acl.877/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2406.15264",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://cdn.openai.com/deep-research-system-card.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://github.com/microsoft/LiveDRBench",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_054012e77f4468fc0069fa1161f3708196a589e057833f2064",
+      "action": {
+        "query": "deep research agent citation audit source grounding evaluation guidance citations reliability official documentation",
+        "type": "search",
+        "queries": [
+          "deep research agent citation audit source grounding evaluation guidance citations reliability official documentation",
+          "citation quality auditing retrieval augmented generation benchmark source grounding official paper",
+          "OpenAI deep research citations documentation",
+          "retrieval source groundedness benchmark citation evaluation paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research?lang=curl"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/pt-PT/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/models/o3-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/ja-jp/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://www.techradar.com/pro/what-is-openais-deep-research-everything-we-know-about-the-best-ai-research-assistant"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.08620"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.05467"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2407.01102"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2404.07060"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/ChatGPT_Deep_Research"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.06401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.12117"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2105.00071"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/deep-research-system-card.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.eacl-industry.63.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/API/docs/deep_research_blog.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://zh.wikipedia.org/wiki/ChatGPT_Deep_Research"
+          },
+          {
+            "type": "url",
+            "url": "https://www.jmir.org/2026/1/e88195/PDF"
+          },
+          {
+            "type": "url",
+            "url": "https://techxplore.com/news/2025-02-viewpoint-openai-deep-agent-fallible.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=zvL42fmtbG"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPT/comments/1ij39pi"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Products_and_applications_of_OpenAI"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1mv01om"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/research_apps/comments/1px9zzk/i_tested_8_deep_research_apis_sidebyside_heres/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1jj0439"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1iz4cdc/deep_research_seems_a_bit_meh/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPTPromptGenius/comments/1iizr4r"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_054012e77f4468fc0069fa116503908196b279c5fc3a737327",
+      "action": {
+        "query": "site:arxiv.org citation faithfulness benchmark source grounding retrieval augmented generation paper citation quality evaluation",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org citation faithfulness benchmark source grounding retrieval augmented generation paper citation quality evaluation",
+          "site:aclanthology.org retrieval augmented generation citation faithfulness benchmark paper",
+          "site:arxiv.org groundedness citation evaluation benchmark LLM sources support claims",
+          "site:github.com deep research citations evaluation benchmark"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.15264"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/microsoft/LiveDRBench"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-acl.877/"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/texttron/BrowseComp-Plus"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.12117"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.07437"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2023.emnlp-main.495"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.emnlp-industry.54/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2020.coling-main.207/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/emnlp/2025.emnlp-industry.54.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/scaleapi/researchrubrics"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/TIGER-AI-Lab/OpenResearcher"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/ServiceNow/drbench"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/GAIR-NLP/ResearcherBench"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/Ayanami0730/deep_research_bench"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.konvens-main.6.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/RUC-NLPIR/FinSight"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.ccl-1.73.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.emnlp-main.211.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.findings-emnlp.449.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-naacl.55.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_054012e77f4468fc0069fa116919848196a8a3edc42987337d",
+      "action": {
+        "type": "open_page",
+        "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_054012e77f4468fc0069fa116a7d988196bd3d658bb28f4634",
+      "action": {
+        "pattern": "inline citations",
+        "type": "find_in_page",
+        "url": "https://platform.openai.com/docs/guides/deep-research?lang=curl"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 22877,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 7845,
+    "output_tokens_details": {
+      "reasoning_tokens": 4727
+    },
+    "total_tokens": 30722
+  },
+  "response_id": "resp_054012e77f4468fc0069fa115f8c2c8196aebfd630e624b540",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What evidence-backed principles should govern citation auditing in deep research agents?\",\n      \"How should an auditor assess source relevance, citation granularity, unsupported claims, and conflicting sources?\",\n      \"What official documentation and benchmark evidence directly supports those practices?\"\n    ],\n    \"required_aspects\": [\n      \"claim-level evidence\",\n      \"source relevance\",\n      \"citation granularity\",\n      \"unsupported claim detection\",\n      \"handling conflicting sources\"\n    ],\n    \"expected_source_types\": [\n      \"citation or factuality evaluation guidance\",\n      \"deep research agent documentation\",\n      \"retrieval or source-grounding benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"deep research agent citation audit source grounding evaluation guidance official documentation\",\n      \"citation quality auditing retrieval augmented generation benchmark source grounding official paper\",\n      \"OpenAI deep research citations documentation\",\n      \"retrieval source groundedness benchmark citation evaluation paper\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official deep research documentation describing citations, source links, and verification affordances.\",\n      \"Find primary research on how to audit citation support at a fine-grained level.\",\n      \"Find deep research-specific product or API guidance about inline citations and source metadata.\",\n      \"Find benchmark evidence for source grounding, conflict handling, and abstention in retrieval-augmented systems.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"OpenAI Help Center: Deep research FAQ\",\n      \"url\": \"https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\",\n      \"status\": \"considered\"\n    },\n    {\n      \"title\": \"OpenAI API docs: Deep research guide\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"status\": \"considered\"\n    },\n    {\n      \"title\": \"OpenAI Deep Research system card\",\n      \"url\": \"https://cdn.openai.com/deep-research-system-card.pdf\",\n      \"status\": \"considered\"\n    },\n    {\n      \"title\": \"Zhang et al. 2024: Towards Fine-Grained Citation Evaluation in Generated Text\",\n      \"url\": \"https://arxiv.org/abs/2406.15264\",\n      \"status\": \"considered\"\n    },\n    {\n      \"title\": \"LiveDRBench repository\",\n      \"url\": \"https://github.com/microsoft/LiveDRBench\",\n      \"status\": \"considered\"\n    },\n    {\n      \"title\": \"RAG-RewardBench paper\",\n      \"url\": \"https://aclanthology.org/2025.findings-acl.877/\",\n      \"status\": \"considered\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\",\n        \"reason\": \"Official product guidance; directly states deep research outputs include citations or source links for verification.\"\n      },\n      {\n        \"url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n        \"reason\": \"Official API documentation; shows inline citations and source metadata in output structure.\"\n      },\n      {\n        \"url\": \"https://cdn.openai.com/deep-research-system-card.pdf\",\n        \"reason\": \"Official system card; documents that deep research presents new insights with citations.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2406.15264\",\n        \"reason\": \"Primary paper on fine-grained citation evaluation; directly supports claim-level and unsupported-claim auditing.\"\n      },\n      {\n        \"url\": \"https://github.com/microsoft/LiveDRBench\",\n        \"reason\": \"Benchmark repository for deep research as claim discovery; supports auditing claims uncovered during search.\"\n      },\n      {\n        \"url\": \"https://aclanthology.org/2025.findings-acl.877/\",\n        \"reason\": \"Primary benchmark paper; includes fine-grained citation, appropriate abstain, and conflict robustness scenarios.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://openai.com/index/introducing-deep-research/\",\n        \"reason\": \"Useful but redundant with the more specific Help Center, API docs, and system card.\"\n      },\n      {\n        \"url\": \"https://en.wikipedia.org/wiki/ChatGPT_Deep_Research\",\n        \"reason\": \"Discouraged secondary source; not needed because authoritative sources were available.\"\n      },\n      {\n        \"url\": \"https://www.techradar.com/pro/what-is-openais-deep-research-everything-we-know-about-the-best-ai-research-assistant\",\n        \"reason\": \"Secondary commentary; weaker than official documentation and primary research.\"\n      },\n      {\n        \"url\": \"https://www.reddit.com/r/OpenAI/comments/1mv01om\",\n        \"reason\": \"Community discussion; low authority and not suitable for citation auditing guidance.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Redundant with higher-authority sources\",\n      \"Secondary or community commentary\",\n      \"Discouraged source type when authoritative sources exist\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Deep research citation audits should operate at the claim level, because the product is designed to return citations or source links that let users verify information.\",\n      \"source_url\": \"https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"claim-level evidence\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Auditors should check source relevance and traceability, because the deep research API output includes inline citations and source metadata.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"source relevance\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Citation auditing should be fine grained, distinguishing full, partial, and no support rather than using only a binary supported or unsupported label.\",\n      \"source_url\": \"https://arxiv.org/abs/2406.15264\",\n      \"source_type\": \"citation or factuality evaluation guidance\",\n      \"supported_aspect\": \"citation granularity\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Unsupported claims should be detected even when nearby text is sourced, because support must be assessed against the exact associated statement.\",\n      \"source_url\": \"https://arxiv.org/abs/2406.15264\",\n      \"source_type\": \"citation or factuality evaluation guidance\",\n      \"supported_aspect\": \"unsupported claim detection\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"When sources conflict, deep research evaluation should explicitly test conflict robustness and appropriate abstention instead of silently choosing one side.\",\n      \"source_url\": \"https://aclanthology.org/2025.findings-acl.877/\",\n      \"source_type\": \"retrieval or source-grounding benchmark\",\n      \"supported_aspect\": \"handling conflicting sources\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Deep research benchmarks that encode key claims uncovered during search support auditing the factual trail behind a report, not just the final prose.\",\n      \"source_url\": \"https://github.com/microsoft/LiveDRBench\",\n      \"source_type\": \"retrieval or source-grounding benchmark\",\n      \"supported_aspect\": \"claim-level evidence\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"benchmark\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"claim-level evidence\",\n      \"source relevance\",\n      \"citation granularity\",\n      \"unsupported claim detection\",\n      \"handling conflicting sources\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions were found. The sources are complementary: official deep research docs describe verification affordances, while the papers and benchmark supply the audit rubric for support granularity and conflict handling.\",\n    \"uncertainty_notes\": [\n      \"The recommendation to use an explicit audit rubric is an engineering inference synthesized from the cited sources, not a single quoted standard.\",\n      \"There is no single universal citation-audit checklist for deep research agents in the sources reviewed.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Deep research outputs include citations or source links for verification.\",\n      \"The API output includes inline citations and source metadata.\",\n      \"Fine-grained citation support should be judged as full, partial, or no support.\",\n      \"Conflict robustness and appropriate abstention are relevant audit dimensions.\"\n    ],\n    \"unsupported_claims\": [\n      \"A universal industry-standard citation audit checklist exists for deep research agents.\",\n      \"Any specific numeric threshold for acceptable citation accuracy.\"\n    ],\n    \"weak_citations\": [\n      \"None used in synthesis; discouraged sources such as Wikipedia, Reddit, and TechRadar were rejected because authoritative documentation and primary papers were available.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAudit citations in deep research agents at the **claim level**, not just at the report level. The strongest evidence says deep research outputs should include citations or source links for verification, and the API output is designed to carry inline citations plus source metadata, so each assertion should be checked against the exact supporting passage it depends on. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7 https://developers.openai.com/api/docs/guides/deep-research\\n\\n**Direct source-backed facts:**\\n- Deep research reports are meant to be verifiable through citations or source links. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\\n- The API guide shows inline citations and source metadata in the response structure. https://developers.openai.com/api/docs/guides/deep-research\\n- Benchmark work on citation evaluation uses fine-grained support labels, and deep research benchmarks separate discovered claims from surface report text. https://arxiv.org/abs/2406.15264 https://github.com/microsoft/LiveDRBench\\n\\n**Engineering inferences:**\\n- Use a rubric that scores each cited claim as fully supported, partially supported, or unsupported, rather than treating any citation as sufficient. https://arxiv.org/abs/2406.15264\\n- For conflicting sources, require the auditor to surface the disagreement, prefer explicit abstention when evidence is mixed, and record which source wins and why. https://aclanthology.org/2025.findings-acl.877/\\n- Prefer citations that point to the most relevant primary source, not merely a nearby or generic source. https://developers.openai.com/api/docs/guides/deep-research\\n\\n### Required aspect coverage\\n- claim-level evidence: audit each atomic claim against the cited source passage, not the whole report. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\\n- source relevance: keep only sources that directly support the claim and are appropriate for it. https://developers.openai.com/api/docs/guides/deep-research\\n- citation granularity: score support as full, partial, or no support rather than binary yes or no. https://arxiv.org/abs/2406.15264\\n- unsupported claim detection: flag statements with no backing even if surrounding text is sourced. https://arxiv.org/abs/2406.15264\\n- handling conflicting sources: test conflict robustness and require explicit abstention or conflict notes when sources disagree. https://aclanthology.org/2025.findings-acl.877/\\n\\n## Sources\\n- OpenAI Help Center, Deep research FAQ: https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7\\n- OpenAI API docs, Deep research guide: https://developers.openai.com/api/docs/guides/deep-research\\n- OpenAI Deep Research system card: https://cdn.openai.com/deep-research-system-card.pdf\\n- Zhang et al., 2024, fine-grained citation evaluation: https://arxiv.org/abs/2406.15264\\n- LiveDRBench repository: https://github.com/microsoft/LiveDRBench\\n- RAG-RewardBench paper: https://aclanthology.org/2025.findings-acl.877/\\n\\n## Limitations\\n- I did not find a single universal citation-audit standard for deep research agents; this answer synthesizes a practical rubric from official docs and adjacent benchmarks. https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7 https://arxiv.org/abs/2406.15264\\n- The conflict-handling recommendation is an engineering inference from benchmarks emphasizing conflict robustness and abstention, not a standalone formal policy. https://aclanthology.org/2025.findings-acl.877/\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

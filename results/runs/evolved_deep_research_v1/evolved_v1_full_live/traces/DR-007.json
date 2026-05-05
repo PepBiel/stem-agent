@@ -1,0 +1,803 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:32:02+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:33:02+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAudit citations in deep research agents **at the claim level, not the paragraph level**. Break the output into atomic facts, then verify for each fact that the cited source is retrievable, the cited passage actually supports the claim, and the citation is specific enough to cover all subclaims. OpenAI’s deep research docs say outputs include citations/source links, a sources-used section, and activity history for reference checking (`https://help.openai.com/en/articles/10500283`), and the API docs show inline citations with visible annotations (`https://developers.openai.com/api/docs/guides/deep-research`).\n\nUse a **multi-part audit**, not just a yes/no support check. ALCE evaluates citation systems on fluency, correctness, and citation quality, and reports that even strong systems still miss complete citation support often (`https://aclanthology.org/2023.emnlp-main.398/`). FActScore shows why you should decompose generated text into atomic facts and score each fact against a reliable knowledge source (`https://arxiv.org/abs/2305.14251`). CiteEval adds that binary NLI-style support is too coarse; auditors should inspect the full retrieval context, user query, and generated text together (`https://arxiv.org/abs/2506.01829`).\n\nPractical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory.\n\n## Sources\n- OpenAI Help Center: `https://help.openai.com/en/articles/10500283`\n- OpenAI API docs: `https://developers.openai.com/api/docs/guides/deep-research`\n- ALCE paper: `https://aclanthology.org/2023.emnlp-main.398/`\n- FActScore paper: `https://arxiv.org/abs/2305.14251`\n- CiteEval paper: `https://arxiv.org/abs/2506.01829`\n\n## Limitations\n- There is no single universal citation-audit standard in the sources reviewed.\n- I found strong evidence for **how** to audit citations, but not a formal OpenAI pass/fail rubric.\n- OpenAI notes deep research can still have minor citation formatting errors, so human review remains useful (`https://openai.com/index/introducing-deep-research/`).",
+  "decomposition": {
+    "subquestions": [
+      "What makes a citation auditable in a deep research agent?",
+      "How granular should verification be: paragraph-level or atomic-claim-level?",
+      "What should the auditor check besides source presence (support, relevance, completeness, contradictions, source quality)?",
+      "What evidence and reporting artifacts should the agent expose for review?"
+    ],
+    "required_aspects": [
+      "Verify that each cited source exists and is retrievable",
+      "Verify that each citation supports the exact claim it is attached to",
+      "Decompose compound statements into atomic facts for checking",
+      "Prefer primary/official sources and inspect full retrieval context",
+      "Check coverage, contradictions, and uncertainty handling",
+      "Use audit artifacts such as source lists and activity history"
+    ],
+    "expected_source_types": [
+      "Official product/docs pages",
+      "Peer-reviewed benchmark papers",
+      "Primary arXiv/ACL papers on citation evaluation",
+      "Official API documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:openai.com deep research citations source links official",
+      "site:developers.openai.com deep research inline citations official",
+      "arXiv ALCE citation evaluation benchmark",
+      "arXiv FActScore atomic factual precision citation evaluation"
+    ],
+    "rationale_per_query": [
+      "Find official OpenAI guidance on what deep research exposes for verification and auditability.",
+      "Find official API guidance on inline citations and output structure.",
+      "Find a benchmark paper that defines citation-quality evaluation for retrieval-based answers.",
+      "Find a paper supporting claim-level/atomic-fact verification rather than coarse paragraph-level checks."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Deep research in ChatGPT — OpenAI Help Center",
+      "url": "https://help.openai.com/en/articles/10500283",
+      "type": "official product documentation"
+    },
+    {
+      "title": "Deep research — OpenAI API docs",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "type": "official API documentation"
+    },
+    {
+      "title": "Enabling Large Language Models to Generate Text with Citations (ALCE)",
+      "url": "https://aclanthology.org/2023.emnlp-main.398/",
+      "type": "peer-reviewed benchmark paper"
+    },
+    {
+      "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+      "url": "https://arxiv.org/abs/2305.14251",
+      "type": "primary research paper"
+    },
+    {
+      "title": "CiteEval: Principle-Driven Citation Evaluation for Source Attribution",
+      "url": "https://arxiv.org/abs/2506.01829",
+      "type": "primary research paper"
+    },
+    {
+      "title": "OpenAI Academy Deep Research resource",
+      "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research",
+      "type": "secondary product resource"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Deep research in ChatGPT — OpenAI Help Center",
+        "url": "https://help.openai.com/en/articles/10500283",
+        "reason": "Official documentation describing citations/source links, sources-used review, and activity history."
+      },
+      {
+        "title": "Deep research — OpenAI API docs",
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "reason": "Official API docs showing inline citations in the final answer and visible citation annotations."
+      },
+      {
+        "title": "Enabling Large Language Models to Generate Text with Citations (ALCE)",
+        "url": "https://aclanthology.org/2023.emnlp-main.398/",
+        "reason": "Primary benchmark paper defining citation-quality evaluation and reporting incomplete citation support in current systems."
+      },
+      {
+        "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+        "url": "https://arxiv.org/abs/2305.14251",
+        "reason": "Supports atomic-fact decomposition and source-backed factual verification."
+      },
+      {
+        "title": "CiteEval: Principle-Driven Citation Evaluation for Source Attribution",
+        "url": "https://arxiv.org/abs/2506.01829",
+        "reason": "Supports evaluating citations in full context, not only via binary support checks."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "OpenAI Academy Deep Research resource",
+        "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary explainer that adds little beyond the official Help Center/API docs and does not materially improve the audit rubric."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Deep research outputs include citations or source links, plus a sources-used section and activity history for reference checking.",
+      "source_url": "https://help.openai.com/en/articles/10500283",
+      "source_type": "official product documentation",
+      "supported_aspect": "audit artifacts and provenance review",
+      "confidence": "high"
+    },
+    {
+      "claim": "The deep research API returns a final answer with inline citations, and citations should be visible and clickable.",
+      "source_url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "source_type": "official API documentation",
+      "supported_aspect": "citation visibility and traceability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Citation evaluation should be measured with more than one dimension; ALCE uses fluency, correctness, and citation quality, and current systems often lack complete citation support.",
+      "source_url": "https://aclanthology.org/2023.emnlp-main.398/",
+      "source_type": "peer-reviewed benchmark paper",
+      "supported_aspect": "multi-metric citation quality assessment",
+      "confidence": "high"
+    },
+    {
+      "claim": "Auditing should decompose generated text into atomic facts and score each fact against a reliable knowledge source.",
+      "source_url": "https://arxiv.org/abs/2305.14251",
+      "source_type": "primary research paper",
+      "supported_aspect": "atomic-claim verification",
+      "confidence": "high"
+    },
+    {
+      "claim": "Binary NLI-style support checks are a suboptimal proxy; citation auditing should consider the full retrieval context, user query, and generated text.",
+      "source_url": "https://arxiv.org/abs/2506.01829",
+      "source_type": "primary research paper",
+      "supported_aspect": "context-aware citation evaluation",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "source existence and retrievability",
+      "citation-to-claim support",
+      "atomic fact decomposition",
+      "full-context evaluation",
+      "provenance artifacts for review",
+      "multi-dimensional scoring"
+    ],
+    "missing_aspects": [
+      "A universal industry-standard scoring threshold for pass/fail citation audits",
+      "A formal OpenAI-specific citation audit rubric"
+    ],
+    "followup_needed": [
+      "If you need an operational SOP, define acceptance thresholds for support, partial support, and unsupported claims.",
+      "If you need product-specific guidance, look for an internal policy on primary-source preference and contradiction handling."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are consistent: all support claim-level, evidence-backed auditing. They differ mainly in emphasis: product docs stress traceability, while benchmark papers define finer-grained evaluation methods.",
+    "uncertainty_notes": [
+      "No source provided a single canonical audit checklist.",
+      "Thresholds for acceptable citation quality remain model- and organization-specific."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Deep research should expose citations/source links and review artifacts.",
+      "Citation audits should verify support at the atomic-claim level.",
+      "Citation audits should inspect the full retrieval context, not only a binary support label.",
+      "Citation quality should be evaluated alongside correctness and coverage."
+    ],
+    "unsupported_claims": [
+      "A single NLI check is sufficient to audit citations.",
+      "Citation audits can rely only on paragraph-level inspection."
+    ],
+    "weak_citations": [
+      "None in the accepted set; the only rejected source was secondary and redundant."
+    ]
+  },
+  "finished_at": "2026-05-05T09:33:02+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2023.emnlp-main.398/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2023.emnlp-main.398/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.14251",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.14251`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2506.01829",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2506.01829`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/10500283",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/10500283`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/introducing-deep-research/`",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_073e2052988e8c880069f9b91d7ae081949c62cc27fa776b5d",
+      "action": {
+        "query": "site:openai.com deep research citations official docs",
+        "type": "search",
+        "queries": [
+          "site:openai.com deep research citations official docs",
+          "site:platform.openai.com citations deep research official",
+          "site:openai.com research citations attribution official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://help.openai.com/articles/10500283"
+          },
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/ru-ru/articles/10500283-deep-research-in-chatgpt"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/es-419/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/ru-RU/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/ja-jp/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/id-id/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/ko-kr/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/?video=1052827364"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/API/docs/deep_research_blog.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b92130688194b68638be16bbe268",
+      "action": {
+        "query": "arXiv citation quality evaluation attribution generation benchmark paper",
+        "type": "search",
+        "queries": [
+          "arXiv citation quality evaluation attribution generation benchmark paper",
+          "site:arxiv.org citation benchmark retrieval augmented generation factuality paper",
+          "site:arxiv.org ALCE attribution citation generation paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.15396"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.13898"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2506.01829"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.06311"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/392370892_CiteEval_Principle-Driven_Citation_Evaluation_for_Source_Attribution"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2212.09577"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/citeeval-principle-driven-citation-evaluation-source-attribution"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/395943640_Generation-Time_vs_Post-hoc_Citation_A_Holistic_Evaluation_of_LLM_Attribution"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.00004"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/400369032_C2-Cite_Contextual-Aware_Citation_Generation_for_Attributed_Large_Language_Models"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/aliice-evaluating-positional-fine-grained-citation-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2209.13331"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2508.15396"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2401.14640v2"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.neurips.cc/paper_files/paper/2024/file/0ef47f7b768e1a012e3d995ac8d8fac7-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.12883"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.07630"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.findings-acl.28.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.acl-long.1574.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1jponcv"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/14slf2p"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/artificial/comments/1jmgy6n"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/deeplearning/comments/1pznckl/credibility_of_benchmarks_presented_in_papers/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/airesearch/comments/1spitsp/firsttime_arxiv_submitter_seeking_endorsement_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ResearchML/comments/1spiz0i/firsttime_arxiv_submitter_seeking_endorsement_in/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b9247de88194a6d0457ec43232ca",
+      "action": {
+        "query": "arXiv ALCE citation generation benchmark attribution",
+        "type": "search",
+        "queries": [
+          "arXiv ALCE citation generation benchmark attribution",
+          "arXiv FActScore factuality attribution citation benchmark",
+          "arXiv citation evaluation source attribution benchmark"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.01829"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/citeeval-principle-driven-citation-evaluation-source-attribution"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2506.01829"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.14251"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.10791"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.15396"
+          },
+          {
+            "type": "url",
+            "url": "https://www.arxivcite.org/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.16942"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.05965"
+          },
+          {
+            "type": "url",
+            "url": "https://geol.ai/briefing/sourcebench-evaluating-the-quality-of-ai-generated-citations"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2305.14251"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/UKPLab/citebench"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2403.18802"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.05912"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2512.10791"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2407.17468"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.acl-long.1574.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/0ef47f7b768e1a012e3d995ac8d8fac7-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.neurips.cc/paper_files/paper/2024/file/0ef47f7b768e1a012e3d995ac8d8fac7-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PhD/comments/1shs8id/i_built_an_opensource_tool_to_trace_citation/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1klppvn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ResearchML/comments/1spiz0i/firsttime_arxiv_submitter_seeking_endorsement_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/14slf2p"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/datascience/comments/1sy6tzq/benchmarking_llm_hallucinations/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISearchLab/comments/1qjzpck/the_tracking_fallacy_in_answer_engines/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/l5zkyc"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b927f1f48194ab8e57bb6a29da4b",
+      "action": {
+        "query": "site:aclanthology.org ALCE enabling language models to generate text with citations pdf",
+        "type": "search",
+        "queries": [
+          "site:aclanthology.org ALCE enabling language models to generate text with citations pdf",
+          "site:arxiv.org \"Enabling Large Language Models to Generate Text with Citations\"",
+          "site:arxiv.org \"ALCE\" citations benchmark pdf"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.14627"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2023.emnlp-main.398.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2023.emnlp-main.398/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/emnlp/2023.emnlp-main.398.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.161/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/people/j/jiatong-yu/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.615/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2020.acl-main.225/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/people/danqi-chen/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/people/howard-yen/unverified/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-acl.264/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/people/danqi-chen"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/people/h/howard-yen/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.641/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.182/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.00004"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.13124"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2408.04568"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b92a5c0c8194b2b6bd660d69191e",
+      "action": {
+        "type": "open_page",
+        "url": "https://aclanthology.org/2023.emnlp-main.398/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b9343adc81948ae01ea0c5521e69",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/index/introducing-deep-research/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_073e2052988e8c880069f9b9357c5081948351c6b08326f81b",
+      "action": {
+        "type": "open_page",
+        "url": "https://platform.openai.com/docs/guides/deep-research"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 35341,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 7339,
+    "output_tokens_details": {
+      "reasoning_tokens": 4926
+    },
+    "total_tokens": 42680
+  },
+  "response_id": "resp_073e2052988e8c880069f9b91a705481948c571990dc23dbb9",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What makes a citation auditable in a deep research agent?\",\n      \"How granular should verification be: paragraph-level or atomic-claim-level?\",\n      \"What should the auditor check besides source presence (support, relevance, completeness, contradictions, source quality)?\",\n      \"What evidence and reporting artifacts should the agent expose for review?\"\n    ],\n    \"required_aspects\": [\n      \"Verify that each cited source exists and is retrievable\",\n      \"Verify that each citation supports the exact claim it is attached to\",\n      \"Decompose compound statements into atomic facts for checking\",\n      \"Prefer primary/official sources and inspect full retrieval context\",\n      \"Check coverage, contradictions, and uncertainty handling\",\n      \"Use audit artifacts such as source lists and activity history\"\n    ],\n    \"expected_source_types\": [\n      \"Official product/docs pages\",\n      \"Peer-reviewed benchmark papers\",\n      \"Primary arXiv/ACL papers on citation evaluation\",\n      \"Official API documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:openai.com deep research citations source links official\",\n      \"site:developers.openai.com deep research inline citations official\",\n      \"arXiv ALCE citation evaluation benchmark\",\n      \"arXiv FActScore atomic factual precision citation evaluation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official OpenAI guidance on what deep research exposes for verification and auditability.\",\n      \"Find official API guidance on inline citations and output structure.\",\n      \"Find a benchmark paper that defines citation-quality evaluation for retrieval-based answers.\",\n      \"Find a paper supporting claim-level/atomic-fact verification rather than coarse paragraph-level checks.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Deep research in ChatGPT — OpenAI Help Center\",\n      \"url\": \"https://help.openai.com/en/articles/10500283\",\n      \"type\": \"official product documentation\"\n    },\n    {\n      \"title\": \"Deep research — OpenAI API docs\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"type\": \"official API documentation\"\n    },\n    {\n      \"title\": \"Enabling Large Language Models to Generate Text with Citations (ALCE)\",\n      \"url\": \"https://aclanthology.org/2023.emnlp-main.398/\",\n      \"type\": \"peer-reviewed benchmark paper\"\n    },\n    {\n      \"title\": \"FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation\",\n      \"url\": \"https://arxiv.org/abs/2305.14251\",\n      \"type\": \"primary research paper\"\n    },\n    {\n      \"title\": \"CiteEval: Principle-Driven Citation Evaluation for Source Attribution\",\n      \"url\": \"https://arxiv.org/abs/2506.01829\",\n      \"type\": \"primary research paper\"\n    },\n    {\n      \"title\": \"OpenAI Academy Deep Research resource\",\n      \"url\": \"https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research\",\n      \"type\": \"secondary product resource\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Deep research in ChatGPT — OpenAI Help Center\",\n        \"url\": \"https://help.openai.com/en/articles/10500283\",\n        \"reason\": \"Official documentation describing citations/source links, sources-used review, and activity history.\"\n      },\n      {\n        \"title\": \"Deep research — OpenAI API docs\",\n        \"url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n        \"reason\": \"Official API docs showing inline citations in the final answer and visible citation annotations.\"\n      },\n      {\n        \"title\": \"Enabling Large Language Models to Generate Text with Citations (ALCE)\",\n        \"url\": \"https://aclanthology.org/2023.emnlp-main.398/\",\n        \"reason\": \"Primary benchmark paper defining citation-quality evaluation and reporting incomplete citation support in current systems.\"\n      },\n      {\n        \"title\": \"FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation\",\n        \"url\": \"https://arxiv.org/abs/2305.14251\",\n        \"reason\": \"Supports atomic-fact decomposition and source-backed factual verification.\"\n      },\n      {\n        \"title\": \"CiteEval: Principle-Driven Citation Evaluation for Source Attribution\",\n        \"url\": \"https://arxiv.org/abs/2506.01829\",\n        \"reason\": \"Supports evaluating citations in full context, not only via binary support checks.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"OpenAI Academy Deep Research resource\",\n        \"url\": \"https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Secondary explainer that adds little beyond the official Help Center/API docs and does not materially improve the audit rubric.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Deep research outputs include citations or source links, plus a sources-used section and activity history for reference checking.\",\n      \"source_url\": \"https://help.openai.com/en/articles/10500283\",\n      \"source_type\": \"official product documentation\",\n      \"supported_aspect\": \"audit artifacts and provenance review\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The deep research API returns a final answer with inline citations, and citations should be visible and clickable.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"source_type\": \"official API documentation\",\n      \"supported_aspect\": \"citation visibility and traceability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Citation evaluation should be measured with more than one dimension; ALCE uses fluency, correctness, and citation quality, and current systems often lack complete citation support.\",\n      \"source_url\": \"https://aclanthology.org/2023.emnlp-main.398/\",\n      \"source_type\": \"peer-reviewed benchmark paper\",\n      \"supported_aspect\": \"multi-metric citation quality assessment\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Auditing should decompose generated text into atomic facts and score each fact against a reliable knowledge source.\",\n      \"source_url\": \"https://arxiv.org/abs/2305.14251\",\n      \"source_type\": \"primary research paper\",\n      \"supported_aspect\": \"atomic-claim verification\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Binary NLI-style support checks are a suboptimal proxy; citation auditing should consider the full retrieval context, user query, and generated text.\",\n      \"source_url\": \"https://arxiv.org/abs/2506.01829\",\n      \"source_type\": \"primary research paper\",\n      \"supported_aspect\": \"context-aware citation evaluation\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"source existence and retrievability\",\n      \"citation-to-claim support\",\n      \"atomic fact decomposition\",\n      \"full-context evaluation\",\n      \"provenance artifacts for review\",\n      \"multi-dimensional scoring\"\n    ],\n    \"missing_aspects\": [\n      \"A universal industry-standard scoring threshold for pass/fail citation audits\",\n      \"A formal OpenAI-specific citation audit rubric\"\n    ],\n    \"followup_needed\": [\n      \"If you need an operational SOP, define acceptance thresholds for support, partial support, and unsupported claims.\",\n      \"If you need product-specific guidance, look for an internal policy on primary-source preference and contradiction handling.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources are consistent: all support claim-level, evidence-backed auditing. They differ mainly in emphasis: product docs stress traceability, while benchmark papers define finer-grained evaluation methods.\",\n    \"uncertainty_notes\": [\n      \"No source provided a single canonical audit checklist.\",\n      \"Thresholds for acceptable citation quality remain model- and organization-specific.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Deep research should expose citations/source links and review artifacts.\",\n      \"Citation audits should verify support at the atomic-claim level.\",\n      \"Citation audits should inspect the full retrieval context, not only a binary support label.\",\n      \"Citation quality should be evaluated alongside correctness and coverage.\"\n    ],\n    \"unsupported_claims\": [\n      \"A single NLI check is sufficient to audit citations.\",\n      \"Citation audits can rely only on paragraph-level inspection.\"\n    ],\n    \"weak_citations\": [\n      \"None in the accepted set; the only rejected source was secondary and redundant.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAudit citations in deep research agents **at the claim level, not the paragraph level**. Break the output into atomic facts, then verify for each fact that the cited source is retrievable, the cited passage actually supports the claim, and the citation is specific enough to cover all subclaims. OpenAI’s deep research docs say outputs include citations/source links, a sources-used section, and activity history for reference checking (`https://help.openai.com/en/articles/10500283`), and the API docs show inline citations with visible annotations (`https://developers.openai.com/api/docs/guides/deep-research`).\\n\\nUse a **multi-part audit**, not just a yes/no support check. ALCE evaluates citation systems on fluency, correctness, and citation quality, and reports that even strong systems still miss complete citation support often (`https://aclanthology.org/2023.emnlp-main.398/`). FActScore shows why you should decompose generated text into atomic facts and score each fact against a reliable knowledge source (`https://arxiv.org/abs/2305.14251`). CiteEval adds that binary NLI-style support is too coarse; auditors should inspect the full retrieval context, user query, and generated text together (`https://arxiv.org/abs/2506.01829`).\\n\\nPractical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory.\\n\\n## Sources\\n- OpenAI Help Center: `https://help.openai.com/en/articles/10500283`\\n- OpenAI API docs: `https://developers.openai.com/api/docs/guides/deep-research`\\n- ALCE paper: `https://aclanthology.org/2023.emnlp-main.398/`\\n- FActScore paper: `https://arxiv.org/abs/2305.14251`\\n- CiteEval paper: `https://arxiv.org/abs/2506.01829`\\n\\n## Limitations\\n- There is no single universal citation-audit standard in the sources reviewed.\\n- I found strong evidence for **how** to audit citations, but not a formal OpenAI pass/fail rubric.\\n- OpenAI notes deep research can still have minor citation formatting errors, so human review remains useful (`https://openai.com/index/introducing-deep-research/`).\"\n}",
+  "status": "complete"
+}

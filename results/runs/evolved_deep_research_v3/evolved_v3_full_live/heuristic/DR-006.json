@@ -1,0 +1,149 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-006.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 1.0,
+  "failure_tags": [],
+  "runtime_seconds": 18.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination",
+          "overhead"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": true,
+        "matched_terms": [
+          "confusion",
+          "role"
+        ],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": true,
+        "matched_terms": [
+          "error",
+          "propagation"
+        ],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": true,
+        "matched_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": true,
+        "matched_terms": [
+          "difficulty",
+          "evaluation"
+        ],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Common failure modes in multi-agent systems cluster around orchestration, role assignment, state tracking, and judging whether a coordinated outcome is actually correct. Framework docs emphasize that multi-agent setups add routing and context-management burden, while empirical work shows that collaboration can still fail because agents lose track of task state or hallucinate about it. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+      "- **coordination overhead** — Multi-agent systems need routing, state management, and subagent selection, which adds orchestration cost and complexity. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+      "- **role confusion** — When tasks are split across specialists, systems can struggle to choose the right agent/tool or keep responsibilities cleanly separated. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai))",
+      "- **error propagation** — Mistakes in task state, long-horizon context, or hallucinated beliefs can cascade through later agent steps. ([arxiv.org](https://arxiv.org/abs/2310.10701?utm_source=openai))",
+      "- **consensus without correctness** — Agents may appear aligned or cooperative while still failing the underlying objective; cooperation can be weak even when helping is inexpensive. ([arxiv.org](https://arxiv.org/abs/2310.03903?utm_source=openai))",
+      "- **evaluation difficulty** — Long-running, stateful agent workflows are hard to debug and evaluate, and benchmark results still leave room for improvement in coordination reasoning. ([docs.langchain.com](https://docs.langchain.com/langgraph?utm_source=openai))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2310.03903?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.10701",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.10701?utm_source=openai",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.07821",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/langgraph",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/langgraph?utm_source=openai",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index?utm_source=openai",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 8,
+    "unique_citation_count": 8
+  }
+}

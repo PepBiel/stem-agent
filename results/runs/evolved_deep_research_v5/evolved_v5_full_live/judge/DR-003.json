@@ -1,0 +1,377 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:44:40+00:00",
+  "finished_at": "2026-05-05T15:44:50+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-003.json",
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9289,
+  "judge_score": 0.875,
+  "final_score": 0.8939,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-003.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-003",
+    "question": "What are current approaches to evaluating tool use in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.5263,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9289,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 80.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "task success",
+          "covered": true,
+          "matched_terms": [
+            "success",
+            "task"
+          ],
+          "expected_terms": [
+            "success",
+            "task"
+          ]
+        },
+        {
+          "aspect": "tool-call correctness",
+          "covered": true,
+          "matched_terms": [
+            "call",
+            "correctness",
+            "tool"
+          ],
+          "expected_terms": [
+            "call",
+            "correctness",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "argument validity",
+          "covered": true,
+          "matched_terms": [
+            "argument",
+            "validity"
+          ],
+          "expected_terms": [
+            "argument",
+            "validity"
+          ]
+        },
+        {
+          "aspect": "recovery from tool errors",
+          "covered": true,
+          "matched_terms": [
+            "errors",
+            "recovery",
+            "tool"
+          ],
+          "expected_terms": [
+            "errors",
+            "recovery",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "cost and latency",
+          "covered": true,
+          "matched_terms": [
+            "cost",
+            "latency"
+          ],
+          "expected_terms": [
+            "cost",
+            "latency"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "{\"decomposition\":{\"subquestions\":[\"Which metrics are used to score tool use end-to-end?\",\"How are tool-call correctness and argument validity checked?\",\"How is recovery from tool failures measured?\",\"How are cost and latency incorporated into evaluation?\"],\"required_aspects\":[\"task success\",\"tool-call correctness\",\"argument validity\",\"recovery from tool errors\",\"cost and latency\"],\"expected_source_types\":[\"agent evaluation survey\",\"tool-use benchmark\",\"provider or framework evaluation documentation\"]},\"search_plan\":{\"queries\":[\"survey evaluation of tool use LLM agents benchmark tool calling evaluation 2024\",\"official benchmark tool use evaluation LLM agents function calling benchmark\",\"framework evaluation documentation agent tool use evaluation cost latency recovery\"],\"rationale_per_query\":[\"Find a survey that maps the evaluation landscape and named dimensions.\",\"Find benchmark papers that define common tool-use metrics and task success criteria.\",\"Find provider/framework docs that expose practical evaluator checks plus cost/latency measurement.\"]},\"candidate_sources\":[{\"url\":\"https://arxiv.org/abs/2503.16416\",\"type\":\"survey\",\"status\":\"accepted\"},{\"url\":\"https://arxiv.org/abs/2406.12045\",\"type\":\"tool-use benchmark\",\"status\":\"accepted\"},{\"url\":\"https://aclanthology.org/2024.emnlp-industry.85.pdf\",\"type\":\"tool-use benchmark\",\"status\":\"accepted\"},{\"url\":\"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\"type\":\"provider/framework docs\",\"status\":\"accepted\"},{\"url\":\"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\"type\":\"provider/framework docs\",\"status\":\"accepted\"},{\"url\":\"https://openreview.net/pdf?id=3Snm5cHdRu\",\"type\":\"tool-use benchmark\",\"status\":\"accepted\"},{\"url\":\"https://agentv.dev/\",\"type\":\"framework marketing page\",\"status\":\"rejected\"},{\"url\":\"https://benchlm.ai/llm-agent-benchmarks\",\"type\":\"benchmark aggregator\",\"status\":\"rejected\"}],\"source_triage\":{\"accepted_sources\":[\"https://arxiv.org/abs/2503.16416\",\"https://arxiv.org/abs/2406.12045\",\"https://aclanthology.org/2024.emnlp-industry.85.pdf\",\"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\"https://openreview.net/pdf?id=3Snm5cHdRu\"],\"rejected_sources\":[\"https://agentv.dev/\",\"https://benchlm.ai/llm-agent-benchmarks\"],\"rejection_reasons\":[\"Marketing-style pages; not primary evidence and too thin on methodology.\",\"Aggregator page; useful for discovery only, not a primary source.\"]},\"evidence_table\":[{\"claim\":\"Recent surveys describe agent evaluation as spanning core capabilities, application-specific benchmarks, generalist agents, and evaluation frameworks, with a trend toward more realistic, continuously updated benchmarks.\",\"source_url\":\"https://arxiv.org/abs/2503.16416\",\"source_type\":\"survey\",\"supported_aspect\":\"task success\",\"support_directness\":\"direct\",\"source_authority\":\"secondary\",\"confidence\":\"high\"},{\"claim\":\"τ-bench evaluates success by comparing the final database state with an annotated goal state and adds pass^k to measure reliability over repeated trials.\",\"source_url\":\"https://arxiv.org/abs/2406.12045\",\"source_type\":\"tool-use benchmark\",\"supported_aspect\":\"task success\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"BFCL is a multi-task, multi-turn benchmark that evaluates whether the model invokes the correct function call.\",\"source_url\":\"https://aclanthology.org/2024.emnlp-industry.85.pdf\",\"source_type\":\"tool-use benchmark\",\"supported_aspect\":\"tool-call correctness\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"BFCL reports function-name detection and full function-calling scores using exact-match/LCS/F1-style metrics, including function-name and argument matching.\",\"source_url\":\"https://aclanthology.org/2024.emnlp-industry.85.pdf\",\"source_type\":\"tool-use benchmark\",\"supported_aspect\":\"argument validity\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"Microsoft Agent Framework exposes built-in checks such as tool_called_check and tool_call_args_match, plus higher-level evaluators like tool_call_accuracy, tool_selection, tool_input_accuracy, and tool_call_success.\",\"source_url\":\"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\"source_type\":\"provider/framework docs\",\"supported_aspect\":\"tool-call correctness\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"Databricks Agent Evaluation reports quality, cost, and latency, extracting cost/latency from MLflow traces and aggregating metrics such as average token count and average latency.\",\"source_url\":\"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\"source_type\":\"provider/framework docs\",\"supported_aspect\":\"cost and latency\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"A robustness benchmark for tool-using agents injects realistic faults into environments and measures recovery rate, error identification accuracy, and unrecoverable failure rate.\",\"source_url\":\"https://openreview.net/pdf?id=3Snm5cHdRu\",\"source_type\":\"tool-use benchmark\",\"supported_aspect\":\"recovery from tool errors\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"}],\"coverage_audit\":{\"covered_aspects\":[\"task success\",\"tool-call correctness\",\"argument validity\",\"recovery from tool errors\",\"cost and latency\"],\"missing_aspects\":[],\"followup_needed\":[]},\"contradiction_audit\":{\"conflicting_claims\":[],\"resolution\":\"No material conflicts across the selected sources; they mostly describe complementary evaluation layers rather than competing definitions.\",\"uncertainty_notes\":[\"Metric definitions differ by benchmark, so scores are not directly comparable across BFCL, τ-bench, and robustness-fault-injection setups.\"]},\"citation_audit\":{\"supported_claims\":[\"Task success is commonly measured end-to-end, often with state-based success and repeated-trial reliability (τ-bench).\",\"Tool-call correctness and argument validity are commonly measured with structured matchers or exact/AST-style call scoring (BFCL, Microsoft).\",\"Recovery from tool errors is increasingly measured via fault injection and recovery-oriented metrics.\",\"Cost and latency are tracked in provider eval stacks using traces and aggregate metrics.\"],\"unsupported_claims\":[],\"weak_citations\":[\"https://agentv.dev/ — rejected as a marketing page, not primary methodological evidence.\",\"https://benchlm.ai/llm-agent-benchmarks — rejected as an aggregator, not a primary source.\"]},\"answer\":\"## Answer\\nCurrent tool-use evaluation for LLM agents is now mostly **multi-layered**: end-to-end task success, structured tool-call correctness, argument validity, recovery under failures, and operational efficiency are evaluated together rather than with a single pass/fail score. The survey literature frames this shift as a move toward more realistic and continuously updated benchmarks, while also noting that cost-efficiency and robustness are still under-measured in many setups. https://arxiv.org/abs/2503.16416\\n\\nA practical reading of the field is:\\n- **Task success**: check whether the agent actually completes the user’s objective in the environment, often by comparing final state to a goal state and repeating runs to estimate reliability. https://arxiv.org/abs/2406.12045\\n- **Tool-call correctness / argument validity**: score whether the right tool is chosen and whether the emitted call matches the schema and arguments closely enough to execute. https://aclanthology.org/2024.emnlp-industry.85.pdf https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n- **Recovery from tool errors**: stress-test agents by injecting tool/API faults and measuring whether they diagnose the failure and recover. https://openreview.net/pdf?id=3Snm5cHdRu\\n- **Cost and latency**: log trace-level token usage, cost, and latency alongside quality so teams can trade off performance against runtime economics. https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\nEngineering inference: the most useful current evaluation stack is a **hybrid** one—state-based success metrics for outcome quality, structured call checks for correctness, fault injection for robustness, and trace-based operational metrics for cost/latency. That combination is better aligned with real deployments than any single benchmark alone. https://learn.microsoft.com/en-us/agent-framework/agents/evaluation https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n### Required aspect coverage\\n- task success — τ-bench compares final database state to the goal state and adds pass^k reliability over repeated trials: https://arxiv.org/abs/2406.12045\\n- tool-call correctness — BFCL and Microsoft both evaluate whether the right function/tool call is made: https://aclanthology.org/2024.emnlp-industry.85.pdf https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n- argument validity — Microsoft’s `tool_call_args_match` and BFCL’s function-name/argument matching directly test argument correctness: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation https://aclanthology.org/2024.emnlp-industry.85.pdf\\n- recovery from tool errors — robustness benchmarks inject faults and score recovery rate and error identification: https://openreview.net/pdf?id=3Snm5cHdRu\\n- cost and latency — Databricks Agent Evaluation exposes quality, cost, and latency from traces: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n## Sources\\n- Survey on Evaluation of LLM-based Agents: https://arxiv.org/abs/2503.16416\\n- τ-bench: https://arxiv.org/abs/2406.12045\\n- BFCL / Berkeley Function Calling Benchmark paper: https://aclanthology.org/2024.emnlp-industry.85.pdf\\n- Microsoft Agent Framework evaluation docs: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n- Databricks Agent Evaluation docs: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n- Robustness benchmark with fault injection and recovery metrics: https://openreview.net/pdf?id=3Snm5cHdRu\\n\\n## Limitations\\n- The exact metric names and thresholds vary by benchmark and provider, so results are not directly comparable across all frameworks. https://arxiv.org/abs/2406.12045 https://aclanthology.org/2024.emnlp-industry.85.pdf\\n- The recovery source is a recent benchmark paper; it supports the approach, but it is not yet as established as BFCL or τ-bench. https://openreview.net/pdf?id=3Snm5cHdRu\\n- I did not include broad vendor marketing pages or benchmark aggregators; they were rejected because they were not primary evidence. https://agentv.dev/ https://benchlm.ai/llm-agent-benchmarks\"} }"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://aclanthology.org/2024.emnlp-industry.85.pdf",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://aclanthology.org/2024.emnlp-industry.85.pdf\\n-",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://agentv.dev/",
+          "domain": "agentv.dev",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2406.12045",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2406.12045\\n-",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2503.16416",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2503.16416\\n-",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2503.16416\\n\\nA",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://benchlm.ai/llm-agent-benchmarks",
+          "domain": "benchlm.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n-",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n-",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n##",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n###",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\nEngineering",
+          "domain": "learn.microsoft.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf?id=3Snm5cHdRu",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf?id=3Snm5cHdRu\\n-",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf?id=3Snm5cHdRu\\n\\n##",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 19,
+      "unique_citation_count": 19
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 5,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "task success",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Gives an end-to-end success framing and cites τ-bench-style final-state/goal-state evaluation plus repeated trials."
+      },
+      {
+        "aspect": "tool-call correctness",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explains checking whether the right tool/function is selected and invoked, with benchmark and framework examples."
+      },
+      {
+        "aspect": "argument validity",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly addresses argument/schema matching and argument-level scoring methods."
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Covers fault injection and recovery-oriented metrics, though it stays somewhat high-level about concrete recovery protocols."
+      },
+      {
+        "aspect": "cost and latency",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly covers trace-based cost, token usage, and latency reporting in provider evaluation stacks."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Current tool-use evaluation is multi-layered rather than a single pass/fail score.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2503.16416"
+        ],
+        "reason": "Plausible from a survey, but the answer paraphrases a broad synthesis that is not tightly grounded in a specific quoted metric or section."
+      },
+      {
+        "claim": "Task success is measured by comparing final state to goal state and using repeated trials for reliability.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2406.12045"
+        ],
+        "reason": "This matches the described τ-bench-style end-state success and pass^k reliability framing."
+      },
+      {
+        "claim": "Tool-call correctness and argument validity are checked via function-name and argument matching.",
+        "support": "supported",
+        "cited_urls": [
+          "https://aclanthology.org/2024.emnlp-industry.85.pdf",
+          "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation"
+        ],
+        "reason": "Both a benchmark paper and framework docs plausibly support structured function-call and argument checks."
+      },
+      {
+        "claim": "Recovery from tool errors is measured by fault injection and recovery-oriented metrics.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openreview.net/pdf?id=3Snm5cHdRu"
+        ],
+        "reason": "The cited benchmark source is appropriate for fault injection/recovery metrics."
+      },
+      {
+        "claim": "Cost and latency are logged from traces alongside quality.",
+        "support": "supported",
+        "cited_urls": [
+          "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/"
+        ],
+        "reason": "Provider evaluation documentation is a suitable source for trace-based cost/latency reporting."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2503.16416",
+        "quality": "strong",
+        "reason": "Relevant survey source for the evaluation landscape."
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.12045",
+        "quality": "strong",
+        "reason": "Primary tool-use benchmark source for task-success measurement."
+      },
+      {
+        "url": "https://aclanthology.org/2024.emnlp-industry.85.pdf",
+        "quality": "strong",
+        "reason": "Primary benchmark paper for function/tool-call evaluation."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+        "quality": "acceptable",
+        "reason": "Official framework documentation and directly relevant to tool-use evaluation, though vendor-specific."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+        "quality": "acceptable",
+        "reason": "Official provider documentation for quality, cost, and latency metrics, though vendor-specific."
+      },
+      {
+        "url": "https://openreview.net/pdf?id=3Snm5cHdRu",
+        "quality": "strong",
+        "reason": "Primary benchmark-style source for robustness and recovery measurement."
+      },
+      {
+        "url": "https://agentv.dev/",
+        "quality": "irrelevant",
+        "reason": "Rejected marketing-style page; not used substantively."
+      },
+      {
+        "url": "https://benchlm.ai/llm-agent-benchmarks",
+        "quality": "irrelevant",
+        "reason": "Rejected aggregator page; not primary evidence."
+      }
+    ],
+    "failure_tags": [
+      "weak_source"
+    ],
+    "summary": "A strong, well-structured answer that covers all required evaluation dimensions and uses mostly relevant sources, with only minor looseness in a few synthesized claims.",
+    "recommended_fix": "Tighten the survey-based synthesis by tying each broad trend claim to a more specific, directly supported sentence or table entry, and avoid any unsupported generalizations.",
+    "average_score": 4.5,
+    "normalized_score": 0.875
+  },
+  "judge_usage": {
+    "input_tokens": 10745,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1168,
+    "output_tokens_details": {
+      "reasoning_tokens": 221
+    },
+    "total_tokens": 11913
+  },
+  "response_id": "resp_0014381c874152e70069fa1069340c81909ea10b82c21998fa"
+}

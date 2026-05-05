@@ -1,0 +1,504 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:30:04+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:30:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nWithout fine-tuning, self-improving agents usually improve **at test time** by changing prompts, memory, search state, or tool-use behavior rather than model weights. The main families of techniques are: **reflection/memory**, **iterative self-feedback and revision**, **reasoning+acting with external tools**, **search over multiple reasoning branches**, **self-consistency over sampled solutions**, and **curriculum/skill-library accumulation**. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\n\n- **Reflection + episodic memory:** the agent critiques its own past behavior, stores the reflection, and reuses it on later attempts. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\n- **Iterative self-feedback / rewrite:** the same model generates an answer, critiques it, and revises it in a loop, with no extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\n- **Reasoning + acting:** the agent alternates between internal reasoning and external actions (APIs, environments, tools) to gather new information and update plans. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\n- **Search / backtracking over thoughts:** the agent branches over candidate reasoning steps, evaluates them, and can backtrack when a branch looks weak. ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))\n- **Self-consistency:** the agent samples multiple reasoning paths and selects the most consistent final answer. ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))\n- **Curriculum + skill library:** the agent accumulates reusable skills and follows an automatic curriculum, improving via black-box prompting rather than fine-tuning. ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))\n\n## Sources\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366 ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\n- Self-Refine: Iterative Refinement with Self-Feedback — https://arxiv.org/abs/2303.17651 ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\n- ReAct: Synergizing Reasoning and Acting in Language Models — https://arxiv.org/abs/2210.03629 ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\n- Tree of Thoughts: Deliberate Problem Solving with Large Language Models — https://arxiv.org/abs/2305.10601 ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))\n- Self-Consistency Improves Chain of Thought Reasoning in Language Models — https://arxiv.org/abs/2203.11171 ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))\n- Voyager: An Open-Ended Embodied Agent with Large Language Models — https://arxiv.org/abs/2305.16291 ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))\n\n## Limitations\nThis is a synthesis from a small set of primary LLM-agent papers, so it is not an exhaustive taxonomy. The papers use different terms for overlapping ideas, and the reported gains are benchmark-specific rather than a guarantee of general self-improvement. I also omitted one analysis paper on intrinsic self-correction because it evaluates the idea rather than introducing a distinct technique. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+  "decomposition": {
+    "subquestions": [
+      "What does 'self-improving' mean when model weights are not updated?",
+      "Which inference-time techniques let an agent improve across attempts?",
+      "How do these techniques differ from fine-tuning or RL?",
+      "What are representative primary sources for each technique?"
+    ],
+    "required_aspects": [
+      "No parameter updates / no fine-tuning",
+      "Techniques for improvement at test time",
+      "Diverse categories of methods",
+      "Primary-source evidence"
+    ],
+    "expected_source_types": [
+      "Primary papers / arXiv papers",
+      "Official project pages or code repos when needed",
+      "Benchmark or evaluation papers"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:arxiv.org Reflexion verbal reinforcement agents arXiv",
+      "site:arxiv.org Self-Refine iterative refinement via self-feedback arXiv",
+      "site:arxiv.org ReAct synergizing reasoning and acting in language models arXiv",
+      "site:arxiv.org Tree of Thoughts deliberate problem solving with large language models arXiv"
+    ],
+    "rationale_per_query": [
+      "Find a canonical paper for reflection/memory-based self-improvement without weight updates.",
+      "Find a canonical paper for iterative critique-and-revision without fine-tuning.",
+      "Find a canonical paper for tool-use + environment-feedback loops.",
+      "Find a canonical paper for search/backtracking over reasoning paths."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "type": "primary paper"
+    },
+    {
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "type": "primary paper"
+    },
+    {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "type": "primary paper"
+    },
+    {
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "url": "https://arxiv.org/abs/2305.10601",
+      "type": "primary paper"
+    },
+    {
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "url": "https://arxiv.org/abs/2203.11171",
+      "type": "primary paper"
+    },
+    {
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "url": "https://arxiv.org/abs/2305.16291",
+      "type": "primary paper"
+    },
+    {
+      "title": "Large Language Models have Intrinsic Self-Correction Ability",
+      "url": "https://arxiv.org/pdf/2406.15673",
+      "type": "analysis paper"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "reason": "Directly about a no-finetuning self-improvement loop using linguistic feedback and episodic memory."
+      },
+      {
+        "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+        "url": "https://arxiv.org/abs/2303.17651",
+        "reason": "Directly about iterative self-critique and revision without extra training."
+      },
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "reason": "Directly about reasoning+acting loops that improve decisions through external feedback."
+      },
+      {
+        "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+        "url": "https://arxiv.org/abs/2305.10601",
+        "reason": "Directly about search/backtracking over multiple candidate reasoning paths."
+      },
+      {
+        "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+        "url": "https://arxiv.org/abs/2203.11171",
+        "reason": "Directly about sampling multiple reasoning paths and selecting the most consistent answer."
+      },
+      {
+        "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+        "url": "https://arxiv.org/abs/2305.16291",
+        "reason": "Directly about black-box agent improvement via curriculum, skill library, and iterative prompting."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "Large Language Models have Intrinsic Self-Correction Ability",
+        "url": "https://arxiv.org/pdf/2406.15673"
+      }
+    ],
+    "rejection_reasons": [
+      "Useful as an evaluation/critique paper, but it is not itself a primary technique proposal for self-improving agents; it is less directly actionable for answering 'what techniques exist'."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Self-improving agents can be built without fine-tuning by using test-time loops that change prompts, memory, search state, or tool use instead of model weights.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "primary paper",
+      "supported_aspect": "no-finetuning self-improvement framing",
+      "confidence": "high"
+    },
+    {
+      "claim": "Reflexion improves agents by having them verbally reflect on feedback and store reflections in episodic memory for later trials, rather than updating weights.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "primary paper",
+      "supported_aspect": "reflection + episodic memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Refine uses the same LLM as generator, feedback provider, and refiner to iteratively improve outputs without supervised data, extra training, or RL.",
+      "source_url": "https://arxiv.org/abs/2303.17651",
+      "source_type": "primary paper",
+      "supported_aspect": "iterative critique-and-rewrite",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct interleaves reasoning traces with task actions so the agent can gather external information and update plans during execution.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "tool use + environment feedback",
+      "confidence": "high"
+    },
+    {
+      "claim": "Tree of Thoughts improves problem solving by exploring multiple coherent reasoning branches and backtracking/self-evaluating choices.",
+      "source_url": "https://arxiv.org/abs/2305.10601",
+      "source_type": "primary paper",
+      "supported_aspect": "search over reasoning paths",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Consistency improves reasoning by sampling diverse reasoning paths and selecting the most consistent answer.",
+      "source_url": "https://arxiv.org/abs/2203.11171",
+      "source_type": "primary paper",
+      "supported_aspect": "sampling + aggregation",
+      "confidence": "high"
+    },
+    {
+      "claim": "Voyager improves capability in a black-box setting via an automatic curriculum, an ever-growing skill library, and iterative prompting that uses environment feedback, execution errors, and self-verification.",
+      "source_url": "https://arxiv.org/abs/2305.16291",
+      "source_type": "primary paper",
+      "supported_aspect": "curriculum + skill library + iterative prompting",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "reflection/memory",
+      "iterative self-feedback/revision",
+      "reasoning + acting with external tools",
+      "search/backtracking over thoughts",
+      "sampling and self-consistency",
+      "curriculum/skill-library growth",
+      "no-finetuning / black-box inference-time improvement"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct conflicts among the accepted sources. The techniques differ mainly in mechanism: some revise a single draft (Self-Refine), some store reflections (Reflexion), some search over branches (Tree of Thoughts), and some aggregate multiple samples (Self-Consistency).",
+    "uncertainty_notes": [
+      "Terminology is not standardized across papers; several techniques overlap in practice.",
+      "Reported gains are benchmark-specific and do not guarantee general self-improvement."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Self-improvement without fine-tuning is possible at test time.",
+      "Reflection and episodic memory are a documented technique.",
+      "Iterative self-feedback/revision is a documented technique.",
+      "Reasoning+acting loops with tools are a documented technique.",
+      "Search/backtracking over thoughts is a documented technique.",
+      "Self-consistency over multiple sampled reasoning paths is a documented technique.",
+      "Curriculum plus skill-library accumulation is a documented technique."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:30:56+00:00",
+  "citations": [
+    {
+      "end_index": 9498,
+      "start_index": 9433,
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366?utm_source=openai"
+    },
+    {
+      "end_index": 9910,
+      "start_index": 9845,
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651?utm_source=openai"
+    },
+    {
+      "end_index": 10144,
+      "start_index": 10079,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629?utm_source=openai"
+    },
+    {
+      "end_index": 10365,
+      "start_index": 10300,
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.10601?utm_source=openai"
+    },
+    {
+      "end_index": 10545,
+      "start_index": 10480,
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2203.11171?utm_source=openai"
+    },
+    {
+      "end_index": 10780,
+      "start_index": 10715,
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.16291?utm_source=openai"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2203.11171",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.10601",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.16291",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2406.15673",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0a8789fb6ba552190069f9b8a9578c8197936058e0940e7c99",
+      "action": {
+        "query": "site:arxiv.org Reflexion self-reflection verbal reinforcement agents arXiv",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org Reflexion self-reflection verbal reinforcement agents arXiv",
+          "site:arxiv.org Self-Refine iterative refinement via self-feedback arXiv",
+          "site:arxiv.org ReAct synergizing reasoning and acting in language models arXiv",
+          "site:arxiv.org Tree of Thoughts deliberate problem solving with large language models arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.10601"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2402.11140"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2307.02477"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.15690"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0a8789fb6ba552190069f9b8aaeabc8197bb023afbe569bab1",
+      "action": {
+        "query": "site:arxiv.org Reflexion verbal reinforcement agents arXiv 2023",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org Reflexion verbal reinforcement agents arXiv 2023",
+          "site:arxiv.org self-consistency improves chain of thought reasoning arXiv 2022",
+          "site:arxiv.org Voyager open-ended embodied agent language models arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2203.11171"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.16291"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.17433"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09101"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.16334"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 13627,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 7559,
+    "output_tokens_details": {
+      "reasoning_tokens": 4593
+    },
+    "total_tokens": 21186
+  },
+  "response_id": "resp_0a8789fb6ba552190069f9b8a469e08197b6b602536e15bee7",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What does 'self-improving' mean when model weights are not updated?\",\n      \"Which inference-time techniques let an agent improve across attempts?\",\n      \"How do these techniques differ from fine-tuning or RL?\",\n      \"What are representative primary sources for each technique?\"\n    ],\n    \"required_aspects\": [\n      \"No parameter updates / no fine-tuning\",\n      \"Techniques for improvement at test time\",\n      \"Diverse categories of methods\",\n      \"Primary-source evidence\"\n    ],\n    \"expected_source_types\": [\n      \"Primary papers / arXiv papers\",\n      \"Official project pages or code repos when needed\",\n      \"Benchmark or evaluation papers\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:arxiv.org Reflexion verbal reinforcement agents arXiv\",\n      \"site:arxiv.org Self-Refine iterative refinement via self-feedback arXiv\",\n      \"site:arxiv.org ReAct synergizing reasoning and acting in language models arXiv\",\n      \"site:arxiv.org Tree of Thoughts deliberate problem solving with large language models arXiv\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a canonical paper for reflection/memory-based self-improvement without weight updates.\",\n      \"Find a canonical paper for iterative critique-and-revision without fine-tuning.\",\n      \"Find a canonical paper for tool-use + environment-feedback loops.\",\n      \"Find a canonical paper for search/backtracking over reasoning paths.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n      \"url\": \"https://arxiv.org/abs/2303.11366\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n      \"url\": \"https://arxiv.org/abs/2303.17651\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"url\": \"https://arxiv.org/abs/2210.03629\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Tree of Thoughts: Deliberate Problem Solving with Large Language Models\",\n      \"url\": \"https://arxiv.org/abs/2305.10601\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Self-Consistency Improves Chain of Thought Reasoning in Language Models\",\n      \"url\": \"https://arxiv.org/abs/2203.11171\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Voyager: An Open-Ended Embodied Agent with Large Language Models\",\n      \"url\": \"https://arxiv.org/abs/2305.16291\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Large Language Models have Intrinsic Self-Correction Ability\",\n      \"url\": \"https://arxiv.org/pdf/2406.15673\",\n      \"type\": \"analysis paper\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n        \"url\": \"https://arxiv.org/abs/2303.11366\",\n        \"reason\": \"Directly about a no-finetuning self-improvement loop using linguistic feedback and episodic memory.\"\n      },\n      {\n        \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n        \"url\": \"https://arxiv.org/abs/2303.17651\",\n        \"reason\": \"Directly about iterative self-critique and revision without extra training.\"\n      },\n      {\n        \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n        \"url\": \"https://arxiv.org/abs/2210.03629\",\n        \"reason\": \"Directly about reasoning+acting loops that improve decisions through external feedback.\"\n      },\n      {\n        \"title\": \"Tree of Thoughts: Deliberate Problem Solving with Large Language Models\",\n        \"url\": \"https://arxiv.org/abs/2305.10601\",\n        \"reason\": \"Directly about search/backtracking over multiple candidate reasoning paths.\"\n      },\n      {\n        \"title\": \"Self-Consistency Improves Chain of Thought Reasoning in Language Models\",\n        \"url\": \"https://arxiv.org/abs/2203.11171\",\n        \"reason\": \"Directly about sampling multiple reasoning paths and selecting the most consistent answer.\"\n      },\n      {\n        \"title\": \"Voyager: An Open-Ended Embodied Agent with Large Language Models\",\n        \"url\": \"https://arxiv.org/abs/2305.16291\",\n        \"reason\": \"Directly about black-box agent improvement via curriculum, skill library, and iterative prompting.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"Large Language Models have Intrinsic Self-Correction Ability\",\n        \"url\": \"https://arxiv.org/pdf/2406.15673\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Useful as an evaluation/critique paper, but it is not itself a primary technique proposal for self-improving agents; it is less directly actionable for answering 'what techniques exist'.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Self-improving agents can be built without fine-tuning by using test-time loops that change prompts, memory, search state, or tool use instead of model weights.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"no-finetuning self-improvement framing\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Reflexion improves agents by having them verbally reflect on feedback and store reflections in episodic memory for later trials, rather than updating weights.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"reflection + episodic memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Refine uses the same LLM as generator, feedback provider, and refiner to iteratively improve outputs without supervised data, extra training, or RL.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.17651\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"iterative critique-and-rewrite\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct interleaves reasoning traces with task actions so the agent can gather external information and update plans during execution.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"tool use + environment feedback\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Tree of Thoughts improves problem solving by exploring multiple coherent reasoning branches and backtracking/self-evaluating choices.\",\n      \"source_url\": \"https://arxiv.org/abs/2305.10601\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"search over reasoning paths\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Consistency improves reasoning by sampling diverse reasoning paths and selecting the most consistent answer.\",\n      \"source_url\": \"https://arxiv.org/abs/2203.11171\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"sampling + aggregation\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Voyager improves capability in a black-box setting via an automatic curriculum, an ever-growing skill library, and iterative prompting that uses environment feedback, execution errors, and self-verification.\",\n      \"source_url\": \"https://arxiv.org/abs/2305.16291\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"curriculum + skill library + iterative prompting\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"reflection/memory\",\n      \"iterative self-feedback/revision\",\n      \"reasoning + acting with external tools\",\n      \"search/backtracking over thoughts\",\n      \"sampling and self-consistency\",\n      \"curriculum/skill-library growth\",\n      \"no-finetuning / black-box inference-time improvement\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct conflicts among the accepted sources. The techniques differ mainly in mechanism: some revise a single draft (Self-Refine), some store reflections (Reflexion), some search over branches (Tree of Thoughts), and some aggregate multiple samples (Self-Consistency).\",\n    \"uncertainty_notes\": [\n      \"Terminology is not standardized across papers; several techniques overlap in practice.\",\n      \"Reported gains are benchmark-specific and do not guarantee general self-improvement.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Self-improvement without fine-tuning is possible at test time.\",\n      \"Reflection and episodic memory are a documented technique.\",\n      \"Iterative self-feedback/revision is a documented technique.\",\n      \"Reasoning+acting loops with tools are a documented technique.\",\n      \"Search/backtracking over thoughts is a documented technique.\",\n      \"Self-consistency over multiple sampled reasoning paths is a documented technique.\",\n      \"Curriculum plus skill-library accumulation is a documented technique.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nWithout fine-tuning, self-improving agents usually improve **at test time** by changing prompts, memory, search state, or tool-use behavior rather than model weights. The main families of techniques are: **reflection/memory**, **iterative self-feedback and revision**, **reasoning+acting with external tools**, **search over multiple reasoning branches**, **self-consistency over sampled solutions**, and **curriculum/skill-library accumulation**. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\\n\\n- **Reflection + episodic memory:** the agent critiques its own past behavior, stores the reflection, and reuses it on later attempts. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\\n- **Iterative self-feedback / rewrite:** the same model generates an answer, critiques it, and revises it in a loop, with no extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\\n- **Reasoning + acting:** the agent alternates between internal reasoning and external actions (APIs, environments, tools) to gather new information and update plans. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\\n- **Search / backtracking over thoughts:** the agent branches over candidate reasoning steps, evaluates them, and can backtrack when a branch looks weak. ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))\\n- **Self-consistency:** the agent samples multiple reasoning paths and selects the most consistent final answer. ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))\\n- **Curriculum + skill library:** the agent accumulates reusable skills and follows an automatic curriculum, improving via black-box prompting rather than fine-tuning. ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))\\n\\n## Sources\\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366 ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\\n- Self-Refine: Iterative Refinement with Self-Feedback — https://arxiv.org/abs/2303.17651 ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))\\n- ReAct: Synergizing Reasoning and Acting in Language Models — https://arxiv.org/abs/2210.03629 ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))\\n- Tree of Thoughts: Deliberate Problem Solving with Large Language Models — https://arxiv.org/abs/2305.10601 ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))\\n- Self-Consistency Improves Chain of Thought Reasoning in Language Models — https://arxiv.org/abs/2203.11171 ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))\\n- Voyager: An Open-Ended Embodied Agent with Large Language Models — https://arxiv.org/abs/2305.16291 ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))\\n\\n## Limitations\\nThis is a synthesis from a small set of primary LLM-agent papers, so it is not an exhaustive taxonomy. The papers use different terms for overlapping ideas, and the reported gains are benchmark-specific rather than a guarantee of general self-improvement. I also omitted one analysis paper on intrinsic self-correction because it evaluates the idea rather than introducing a distinct technique. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))\"\n}",
+  "status": "complete"
+}

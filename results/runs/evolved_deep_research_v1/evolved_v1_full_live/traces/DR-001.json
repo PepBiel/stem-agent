@@ -1,0 +1,745 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:25:28+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:26:45+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nThe literature points to five recurring memory failure modes in LLM agents:\n\n- **Capacity / compression loss**: long interaction histories overflow the context window, and lossy summarization or pruning can discard important details or leave irrelevant errors in play ([Active Context Compression](https://arxiv.org/abs/2601.07190); [Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2601.07190))\n- **Retrieval / organization failure**: the agent retrieves the wrong past experience, or fails to recognize the structure needed to organize memory, so similar inputs trigger misleading outputs ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067); [Evaluating Memory Structure in LLM Agents](https://arxiv.org/abs/2602.11243)). ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- **Error propagation / misaligned replay**: once a bad experience is stored, later retrieval can compound the mistake or replay a seemingly valid trace that is actually misleading ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067)). ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- **Staleness / contradiction drift**: memories are not reliably updated, forgotten, or reconciled, so outdated or conflicting state persists; surveys flag contradiction handling and learned forgetting as open problems ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- **Contamination / poisoning**: malicious or noisy memories can be injected and later retrieved to steer behavior ([AGENTPOISON](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf)). ([papers.nips.cc](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf))\n\nA compact summary is: memory usually fails at **write** (bad info gets stored), **manage** (bad info is not cleaned up or structured), or **read** (the wrong thing is retrieved). ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)) ([arxiv.org](https://arxiv.org/abs/2603.07670))\n\n## Sources\n- [Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers](https://arxiv.org/abs/2603.07670)\n- [How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior](https://arxiv.org/abs/2505.16067)\n- [Evaluating Memory Structure in LLM Agents](https://arxiv.org/abs/2602.11243)\n- [Active Context Compression: Autonomous Memory Management in LLM Agents](https://arxiv.org/abs/2601.07190)\n- [AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf)\n\n## Limitations\n- This is a synthesis from recent preprints and one conference paper, not a single canonical taxonomy.\n- The strongest evidence is for capacity loss, retrieval errors, error propagation, and poisoning; staleness / contradiction drift is inferred from survey open challenges.\n- I did not treat latency or cost as a main failure mode because the question is about memory quality rather than system performance.",
+  "decomposition": {
+    "subquestions": [
+      "What recurring failure modes are reported for agent memory in LLM systems?",
+      "Which failures come from storage/compression vs retrieval vs updating/forgetting?",
+      "What evidence exists for malicious contamination or poisoning of memory?",
+      "Are there any empirical studies that show how memory management changes agent behavior?"
+    ],
+    "required_aspects": [
+      "Main failure mode categories",
+      "Mechanistic explanation for each category",
+      "Evidence from primary sources",
+      "Any uncertainty or overlap between categories"
+    ],
+    "expected_source_types": [
+      "Survey paper",
+      "Empirical study",
+      "Benchmark / evaluation paper",
+      "Security / attack paper",
+      "Systems / compression paper"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "LLM agent memory failure modes paper",
+      "How memory management impacts LLM agents empirical study",
+      "LLM memory poisoning agent paper",
+      "active context compression LLM agents"
+    ],
+    "rationale_per_query": [
+      "Find a high-level taxonomy or survey of memory failure modes.",
+      "Find direct empirical evidence on what goes wrong when memories are added/removed/retrieved.",
+      "Check whether poisoning/contamination is a documented failure mode.",
+      "Check compression / truncation / context-bloat failures in long-running agents."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+      "url": "https://arxiv.org/abs/2603.07670",
+      "type": "survey paper",
+      "relevance": "High-level taxonomy plus open challenges such as contradiction handling and learned forgetting."
+    },
+    {
+      "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "url": "https://arxiv.org/abs/2505.16067",
+      "type": "empirical study",
+      "relevance": "Shows error propagation and misleading replay from retrieved experiences."
+    },
+    {
+      "title": "Evaluating Memory Structure in LLM Agents",
+      "url": "https://arxiv.org/abs/2602.11243",
+      "type": "benchmark / evaluation paper",
+      "relevance": "Shows agents can fail to organize structured memory and simple RAG struggles on structural tasks."
+    },
+    {
+      "title": "Active Context Compression: Autonomous Memory Management in LLM Agents",
+      "url": "https://arxiv.org/abs/2601.07190",
+      "type": "systems / compression paper",
+      "relevance": "Documents context bloat, distraction by irrelevant past errors, and limitations of passive summarization."
+    },
+    {
+      "title": "AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf",
+      "type": "security / attack paper",
+      "relevance": "Demonstrates long-term memory poisoning and malicious retrieval as a concrete failure mode."
+    },
+    {
+      "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "type": "survey paper",
+      "relevance": "Redundant survey; abstract-level only compared with the arXiv survey."
+    },
+    {
+      "title": "Anatomy of Agentic Memory: Taxonomy and Empirical Analysis of Evaluation and System Limitations",
+      "url": "https://huggingface.co/papers/2602.19320",
+      "type": "survey / limitations paper",
+      "relevance": "Relevant but more about evaluation/system limitations than direct memory failure modes."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+        "url": "https://arxiv.org/abs/2603.07670",
+        "reason": "Primary survey; explicitly frames write-manage-read loop, contradiction handling, and learned forgetting."
+      },
+      {
+        "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+        "url": "https://arxiv.org/abs/2505.16067",
+        "reason": "Direct empirical evidence for error propagation and misleading experience replay."
+      },
+      {
+        "title": "Evaluating Memory Structure in LLM Agents",
+        "url": "https://arxiv.org/abs/2602.11243",
+        "reason": "Directly tests organization/structure failures in agentic memory."
+      },
+      {
+        "title": "Active Context Compression: Autonomous Memory Management in LLM Agents",
+        "url": "https://arxiv.org/abs/2601.07190",
+        "reason": "Primary systems paper on context bloat and lossy compression failure."
+      },
+      {
+        "title": "AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+        "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf",
+        "reason": "Primary security paper demonstrating memory poisoning."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective",
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+      },
+      {
+        "title": "Anatomy of Agentic Memory: Taxonomy and Empirical Analysis of Evaluation and System Limitations",
+        "url": "https://huggingface.co/papers/2602.19320"
+      }
+    ],
+    "rejection_reasons": [
+      "OpenReview survey is redundant with a newer arXiv survey and provides only abstract-level detail in the accessible page.",
+      "The anatomy paper focuses more on evaluation/system limitations than on the failure modes themselves, so it was lower priority for a tight answer."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "LLM agent memory is fundamentally limited by the context window, so memory systems must persist, organize, and selectively recall information across interactions.",
+      "source_url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey paper",
+      "supported_aspect": "capacity limits and the need for memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "Context bloat can degrade reasoning because irrelevant past errors stay in the active context; passive external summarization is often insufficient.",
+      "source_url": "https://arxiv.org/abs/2601.07190",
+      "source_type": "systems / compression paper",
+      "supported_aspect": "compression loss and distraction",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memory management choices can cause error propagation and misaligned experience replay: retrieved past experiences can compound mistakes or mislead future behavior.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "empirical study",
+      "supported_aspect": "error amplification",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agents can fail to recognize and organize structured memory unless explicitly prompted, and simple retrieval-augmented baselines struggle on tasks that require memory structure.",
+      "source_url": "https://arxiv.org/abs/2602.11243",
+      "source_type": "benchmark / evaluation paper",
+      "supported_aspect": "retrieval/organization failure",
+      "confidence": "high"
+    },
+    {
+      "claim": "Long-term memory or RAG knowledge bases can be poisoned so that malicious demonstrations are retrieved with high probability and steer agent actions.",
+      "source_url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf",
+      "source_type": "security / attack paper",
+      "supported_aspect": "contamination / poisoning",
+      "confidence": "high"
+    },
+    {
+      "claim": "Surveys identify contradiction handling, continual consolidation, and learned forgetting as open problems, which implies stale or conflicting memories are not being reliably resolved in current systems.",
+      "source_url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey paper",
+      "supported_aspect": "staleness / contradiction drift",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "capacity / context-window limits",
+      "lossy compression or summarization",
+      "retrieval mismatch / wrong recall",
+      "memory structure / organization failures",
+      "error propagation / misleading replay",
+      "staleness / contradiction drift",
+      "memory poisoning / contamination"
+    ],
+    "missing_aspects": [
+      "A single canonical benchmark that ranks failure modes by prevalence",
+      "Quantitative prevalence across all agent classes"
+    ],
+    "followup_needed": [
+      "A dedicated cross-paper benchmark comparing memory failure modes under the same task suite",
+      "More evidence on how these failures differ across domains such as coding, web agents, and personal assistants"
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are complementary rather than contradictory: they describe different layers of failure (write, manage, read) and different manifestations (capacity loss, retrieval mistakes, update drift, and poisoning).",
+    "uncertainty_notes": [
+      "Staleness / contradiction drift is partly inferred from survey open-challenge language rather than isolated as a standalone benchmarked metric.",
+      "The exact priority order of failure modes is not settled in the literature."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Capacity limits and context bloat are real memory failure sources.",
+      "Retrieval/organization failures occur in structured memory tasks.",
+      "Error propagation and misleading replay occur in practice.",
+      "Memory poisoning is a documented security failure mode.",
+      "Staleness / contradiction handling remains an open problem."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "Staleness / contradiction drift is inferred rather than directly benchmarked in the cited papers."
+    ]
+  },
+  "finished_at": "2026-05-05T09:26:45+00:00",
+  "citations": [
+    {
+      "end_index": 10650,
+      "start_index": 10603,
+      "title": "[2601.07190] Active Context Compression: Autonomous Memory Management in LLM Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2601.07190"
+    },
+    {
+      "end_index": 11053,
+      "start_index": 11006,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 11703,
+      "start_index": 11656,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 12067,
+      "start_index": 11943,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.11243",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://huggingface.co/papers/2602.19320",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b7930030819392853d25977014a5",
+      "action": {
+        "query": "LLM agent memory failure modes paper",
+        "type": "search",
+        "queries": [
+          "LLM agent memory failure modes paper",
+          "memory in LLM agents survey failure modes",
+          "MemGPT memory failures retrieval overwrite summarization"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401599414_AMV-L_Lifecycle-Managed_Agent_Memory_for_Tail-Latency_Control_in_Long-Running_LLM_Systems"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.04660"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.04428"
+          },
+          {
+            "type": "url",
+            "url": "https://memoryconduction.com/whitepaper"
+          },
+          {
+            "type": "url",
+            "url": "https://zylos.ai/en/research/2026-04-05-ai-agent-memory-architectures-persistent-knowledge"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/paper/269676"
+          },
+          {
+            "type": "url",
+            "url": "https://www.clawrxiv.io/abs/2603.00054"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/396048725_Where_LLM_Agents_Fail_and_How_They_can_Learn_From_Failures"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.03295"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2512.16962"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2604.16548"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.11243"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1rzebj3/draft_concept_paper_operational_memory_experience/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rd826o/why_most_memory_agents_fail_in_production_and_how/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r7cc6p/context_windows_arent_the_real_bottleneck_for/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1suvkb4/the_agent_memory_manage_layer_is_broken_and/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1rucoxd/temm1es_lab_%CE%BBmemory_ai_agents_lose_all_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1r673na/we_didnt_have_a_model_problem_we_had_a_memory/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b795232881938171d9ee99a72b0a",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b79784a481939858b9ff030f6d19",
+      "action": {
+        "type": "open_page",
+        "url": "https://huggingface.co/papers/2602.19320"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b7995ca08193ae209df7592daf10",
+      "action": {
+        "query": "arXiv persistent memory poisoning LLM agents",
+        "type": "search",
+        "queries": [
+          "arXiv persistent memory poisoning LLM agents",
+          "LLM agent memory poisoning arxiv",
+          "agent memory failure modes retrieval overwrite stale contradictory"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.05504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.19935"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2407.12784"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.16962"
+          },
+          {
+            "type": "url",
+            "url": "https://agentica.wiki/articles/agent-failure-modes"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2510.02373"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2407.12784"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentarxiv.org/papers/cmlyst7ej0032oaj12awdl4qq"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2407.12784v1"
+          },
+          {
+            "type": "url",
+            "url": "https://graph.digital/guides/ai-agents/memory"
+          },
+          {
+            "type": "url",
+            "url": "https://thecontextgraph.co/memos/why-agent-memory-fails-at-scale"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentpatterns.tech/en/foundations/agent-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.02259"
+          },
+          {
+            "type": "url",
+            "url": "https://hindsight.vectorize.io/guides/2026/04/21/guide-why-ai-agents-lose-context-and-how-hindsight-fixes-it"
+          },
+          {
+            "type": "url",
+            "url": "https://usewire.io/blog/why-ai-agent-memory-keeps-failing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.techradar.com/pro/security/if-someone-can-inject-instructions-or-spurious-facts-into-your-ais-memory-they-gain-persistent-influence-over-your-future-interactions-microsoft-warns-ai-recommendations-are-being-poisoned-to-serve-up-malicious-results"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.02240"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r8rj1e/remembering_wrong_is_worse_than_forgetting_wrong/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1slgft3/agent_memory_degrades_at_5k_stored_items_because/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1suvkb4/the_agent_memory_manage_layer_is_broken_and/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.injoit.org/index.php/j1/article/viewFile/2539/2106"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1rucoxd/temm1es_lab_%CE%BBmemory_ai_agents_lose_all_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1q7gcrp/my_agents_keep_forgetting_context_between/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b79e86a4819391101c5d017f9632",
+      "action": {
+        "type": "open_page",
+        "url": "https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b7a2c9f88193aa815e3224313a44",
+      "action": {
+        "query": "LLM agent memory summarization loss compaction paper",
+        "type": "search",
+        "queries": [
+          "LLM agent memory summarization loss compaction paper",
+          "LLM memory compression information loss survey",
+          "context window truncation memory agents failure mode"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://uaml-memory.com/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://hindsight.vectorize.io/guides/2026/04/21/guide-why-ai-agents-lose-context-and-how-hindsight-fixes-it"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://thecontextgraph.co/memos/why-agent-memory-fails-at-scale"
+          },
+          {
+            "type": "url",
+            "url": "https://venturebeat.com/orchestration/new-kv-cache-compaction-technique-cuts-llm-memory-50x-without-accuracy-loss"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/402148954_Structured_Distillation_for_Personalized_Agent_Memory_11x_Token_Reduction_with_Retrieval_Preservation"
+          },
+          {
+            "type": "url",
+            "url": "https://zylos.ai/research/2026-02-28-ai-agent-context-compression-strategies"
+          },
+          {
+            "type": "url",
+            "url": "https://www.elixirdata.co/blog/agents-context-window"
+          },
+          {
+            "type": "url",
+            "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-turboquant-compresses-llm-kv-caches-to-3-bits-with-no-accuracy-loss"
+          },
+          {
+            "type": "url",
+            "url": "https://www.steepworks.io/insights/articles/task-agent-sizing"
+          },
+          {
+            "type": "url",
+            "url": "https://agentmarketcap.ai/blog/2026/04/11/agent-context-engineering-sliding-windows-memory-2026"
+          },
+          {
+            "type": "url",
+            "url": "https://www.techradar.com/pro/a-high-speed-digital-cheat-sheet-google-unveils-turboquant-ai-compression-algorithm-which-it-claims-can-hugely-reduce-llm-memory-usage"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.14287"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2404.13501"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.07190"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.21760"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r7cc6p/context_windows_arent_the_real_bottleneck_for/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07798"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1rucoxd/temm1es_lab_%CE%BBmemory_ai_agents_lose_all_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://cs224v-2025-projects.genie.stanford.edu/data/submission_374652759/text_file_905848845-CS224V_Poster.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://lennartlopin.com/Deep_Memory__A_Production_Grade_Cognitive_Architecture_for_Persistent_AI_Agents.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0aa143aee2708a0b0069f9b7a696c08193aa84468947bec91d",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2601.07190"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 30765,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 9647,
+    "output_tokens_details": {
+      "reasoning_tokens": 6524
+    },
+    "total_tokens": 40412
+  },
+  "response_id": "resp_0aa143aee2708a0b0069f9b7911dc881938c2727dbd242f81e",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What recurring failure modes are reported for agent memory in LLM systems?\",\n      \"Which failures come from storage/compression vs retrieval vs updating/forgetting?\",\n      \"What evidence exists for malicious contamination or poisoning of memory?\",\n      \"Are there any empirical studies that show how memory management changes agent behavior?\"\n    ],\n    \"required_aspects\": [\n      \"Main failure mode categories\",\n      \"Mechanistic explanation for each category\",\n      \"Evidence from primary sources\",\n      \"Any uncertainty or overlap between categories\"\n    ],\n    \"expected_source_types\": [\n      \"Survey paper\",\n      \"Empirical study\",\n      \"Benchmark / evaluation paper\",\n      \"Security / attack paper\",\n      \"Systems / compression paper\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"LLM agent memory failure modes paper\",\n      \"How memory management impacts LLM agents empirical study\",\n      \"LLM memory poisoning agent paper\",\n      \"active context compression LLM agents\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a high-level taxonomy or survey of memory failure modes.\",\n      \"Find direct empirical evidence on what goes wrong when memories are added/removed/retrieved.\",\n      \"Check whether poisoning/contamination is a documented failure mode.\",\n      \"Check compression / truncation / context-bloat failures in long-running agents.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n      \"url\": \"https://arxiv.org/abs/2603.07670\",\n      \"type\": \"survey paper\",\n      \"relevance\": \"High-level taxonomy plus open challenges such as contradiction handling and learned forgetting.\"\n    },\n    {\n      \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n      \"url\": \"https://arxiv.org/abs/2505.16067\",\n      \"type\": \"empirical study\",\n      \"relevance\": \"Shows error propagation and misleading replay from retrieved experiences.\"\n    },\n    {\n      \"title\": \"Evaluating Memory Structure in LLM Agents\",\n      \"url\": \"https://arxiv.org/abs/2602.11243\",\n      \"type\": \"benchmark / evaluation paper\",\n      \"relevance\": \"Shows agents can fail to organize structured memory and simple RAG struggles on structural tasks.\"\n    },\n    {\n      \"title\": \"Active Context Compression: Autonomous Memory Management in LLM Agents\",\n      \"url\": \"https://arxiv.org/abs/2601.07190\",\n      \"type\": \"systems / compression paper\",\n      \"relevance\": \"Documents context bloat, distraction by irrelevant past errors, and limitations of passive summarization.\"\n    },\n    {\n      \"title\": \"AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases\",\n      \"url\": \"https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf\",\n      \"type\": \"security / attack paper\",\n      \"relevance\": \"Demonstrates long-term memory poisoning and malicious retrieval as a concrete failure mode.\"\n    },\n    {\n      \"title\": \"LLM Agent Memory: A Survey from a Unified Representation--Management Perspective\",\n      \"url\": \"https://openreview.net/forum?id=KPs1EgGKcT\",\n      \"type\": \"survey paper\",\n      \"relevance\": \"Redundant survey; abstract-level only compared with the arXiv survey.\"\n    },\n    {\n      \"title\": \"Anatomy of Agentic Memory: Taxonomy and Empirical Analysis of Evaluation and System Limitations\",\n      \"url\": \"https://huggingface.co/papers/2602.19320\",\n      \"type\": \"survey / limitations paper\",\n      \"relevance\": \"Relevant but more about evaluation/system limitations than direct memory failure modes.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n        \"url\": \"https://arxiv.org/abs/2603.07670\",\n        \"reason\": \"Primary survey; explicitly frames write-manage-read loop, contradiction handling, and learned forgetting.\"\n      },\n      {\n        \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n        \"url\": \"https://arxiv.org/abs/2505.16067\",\n        \"reason\": \"Direct empirical evidence for error propagation and misleading experience replay.\"\n      },\n      {\n        \"title\": \"Evaluating Memory Structure in LLM Agents\",\n        \"url\": \"https://arxiv.org/abs/2602.11243\",\n        \"reason\": \"Directly tests organization/structure failures in agentic memory.\"\n      },\n      {\n        \"title\": \"Active Context Compression: Autonomous Memory Management in LLM Agents\",\n        \"url\": \"https://arxiv.org/abs/2601.07190\",\n        \"reason\": \"Primary systems paper on context bloat and lossy compression failure.\"\n      },\n      {\n        \"title\": \"AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases\",\n        \"url\": \"https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf\",\n        \"reason\": \"Primary security paper demonstrating memory poisoning.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"LLM Agent Memory: A Survey from a Unified Representation--Management Perspective\",\n        \"url\": \"https://openreview.net/forum?id=KPs1EgGKcT\"\n      },\n      {\n        \"title\": \"Anatomy of Agentic Memory: Taxonomy and Empirical Analysis of Evaluation and System Limitations\",\n        \"url\": \"https://huggingface.co/papers/2602.19320\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"OpenReview survey is redundant with a newer arXiv survey and provides only abstract-level detail in the accessible page.\",\n      \"The anatomy paper focuses more on evaluation/system limitations than on the failure modes themselves, so it was lower priority for a tight answer.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"LLM agent memory is fundamentally limited by the context window, so memory systems must persist, organize, and selectively recall information across interactions.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey paper\",\n      \"supported_aspect\": \"capacity limits and the need for memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Context bloat can degrade reasoning because irrelevant past errors stay in the active context; passive external summarization is often insufficient.\",\n      \"source_url\": \"https://arxiv.org/abs/2601.07190\",\n      \"source_type\": \"systems / compression paper\",\n      \"supported_aspect\": \"compression loss and distraction\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Memory management choices can cause error propagation and misaligned experience replay: retrieved past experiences can compound mistakes or mislead future behavior.\",\n      \"source_url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"empirical study\",\n      \"supported_aspect\": \"error amplification\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agents can fail to recognize and organize structured memory unless explicitly prompted, and simple retrieval-augmented baselines struggle on tasks that require memory structure.\",\n      \"source_url\": \"https://arxiv.org/abs/2602.11243\",\n      \"source_type\": \"benchmark / evaluation paper\",\n      \"supported_aspect\": \"retrieval/organization failure\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Long-term memory or RAG knowledge bases can be poisoned so that malicious demonstrations are retrieved with high probability and steer agent actions.\",\n      \"source_url\": \"https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf\",\n      \"source_type\": \"security / attack paper\",\n      \"supported_aspect\": \"contamination / poisoning\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Surveys identify contradiction handling, continual consolidation, and learned forgetting as open problems, which implies stale or conflicting memories are not being reliably resolved in current systems.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey paper\",\n      \"supported_aspect\": \"staleness / contradiction drift\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"capacity / context-window limits\",\n      \"lossy compression or summarization\",\n      \"retrieval mismatch / wrong recall\",\n      \"memory structure / organization failures\",\n      \"error propagation / misleading replay\",\n      \"staleness / contradiction drift\",\n      \"memory poisoning / contamination\"\n    ],\n    \"missing_aspects\": [\n      \"A single canonical benchmark that ranks failure modes by prevalence\",\n      \"Quantitative prevalence across all agent classes\"\n    ],\n    \"followup_needed\": [\n      \"A dedicated cross-paper benchmark comparing memory failure modes under the same task suite\",\n      \"More evidence on how these failures differ across domains such as coding, web agents, and personal assistants\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources are complementary rather than contradictory: they describe different layers of failure (write, manage, read) and different manifestations (capacity loss, retrieval mistakes, update drift, and poisoning).\",\n    \"uncertainty_notes\": [\n      \"Staleness / contradiction drift is partly inferred from survey open-challenge language rather than isolated as a standalone benchmarked metric.\",\n      \"The exact priority order of failure modes is not settled in the literature.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Capacity limits and context bloat are real memory failure sources.\",\n      \"Retrieval/organization failures occur in structured memory tasks.\",\n      \"Error propagation and misleading replay occur in practice.\",\n      \"Memory poisoning is a documented security failure mode.\",\n      \"Staleness / contradiction handling remains an open problem.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"Staleness / contradiction drift is inferred rather than directly benchmarked in the cited papers.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nThe literature points to five recurring memory failure modes in LLM agents:\\n\\n- **Capacity / compression loss**: long interaction histories overflow the context window, and lossy summarization or pruning can discard important details or leave irrelevant errors in play ([Active Context Compression](https://arxiv.org/abs/2601.07190); [Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2601.07190))\\n- **Retrieval / organization failure**: the agent retrieves the wrong past experience, or fails to recognize the structure needed to organize memory, so similar inputs trigger misleading outputs ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067); [Evaluating Memory Structure in LLM Agents](https://arxiv.org/abs/2602.11243)). ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- **Error propagation / misaligned replay**: once a bad experience is stored, later retrieval can compound the mistake or replay a seemingly valid trace that is actually misleading ([How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067)). ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- **Staleness / contradiction drift**: memories are not reliably updated, forgotten, or reconciled, so outdated or conflicting state persists; surveys flag contradiction handling and learned forgetting as open problems ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)). ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n- **Contamination / poisoning**: malicious or noisy memories can be injected and later retrieved to steer behavior ([AGENTPOISON](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf)). ([papers.nips.cc](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf))\\n\\nA compact summary is: memory usually fails at **write** (bad info gets stored), **manage** (bad info is not cleaned up or structured), or **read** (the wrong thing is retrieved). ([Memory for Autonomous LLM Agents](https://arxiv.org/abs/2603.07670)) ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n\\n## Sources\\n- [Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers](https://arxiv.org/abs/2603.07670)\\n- [How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior](https://arxiv.org/abs/2505.16067)\\n- [Evaluating Memory Structure in LLM Agents](https://arxiv.org/abs/2602.11243)\\n- [Active Context Compression: Autonomous Memory Management in LLM Agents](https://arxiv.org/abs/2601.07190)\\n- [AGENTPOISON: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases](https://papers.nips.cc/paper_files/paper/2024/file/eb113910e9c3f6242541c1652e30dfd6-Paper-Conference.pdf)\\n\\n## Limitations\\n- This is a synthesis from recent preprints and one conference paper, not a single canonical taxonomy.\\n- The strongest evidence is for capacity loss, retrieval errors, error propagation, and poisoning; staleness / contradiction drift is inferred from survey open challenges.\\n- I did not treat latency or cost as a main failure mode because the question is about memory quality rather than system performance.\"\n}",
+  "status": "complete"
+}

@@ -1,0 +1,301 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:39:40+00:00",
+  "finished_at": "2026-05-05T15:39:53+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.95,
+  "judge_score": 0.8333,
+  "final_score": 0.8741,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-002.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.6667,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.95,
+    "failure_tags": [],
+    "runtime_seconds": 94.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "implications",
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": true,
+          "matched_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents keep reasoning and acting in one interleaved loop: the model emits reasoning traces and task actions together, and those traces are used to update plans, handle exceptions, and fetch external information. https://arxiv.org/abs/2210.03629",
+        "Planner-executor agents split that loop: a planner creates an explicit high-level or step-by-step plan, and an executor turns the plan into environment-specific actions or tool calls. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572",
+        "Tool-use implication: ReAct keeps tool observations inside the same evolving context as the reasoning trace, while planner-executor systems can isolate noisy execution details in the executor and preserve reasoning depth in the planner. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/ https://arxiv.org/abs/2503.09572",
+        "Failure modes differ: the ReAct paper highlights hallucination and error propagation, while Plan-and-Act says accurate plan generation is difficult because LLMs are not naturally trained for planning. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572",
+        "Practical recommendation: use ReAct when you want a simple reactive loop; prefer planner-executor for long-horizon, multi-step, tool-heavy tasks where explicit plans and role separation matter. That recommendation is an engineering inference from the cited sources, not a universal rule. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769",
+        "- interleaved reasoning and acting — covered by ReAct's interleaved reasoning/action loop. https://arxiv.org/abs/2210.03629",
+        "- explicit planning stage — covered by CrewAI's step-by-step planning stage and Plan-and-Act's planner/executor split. https://docs.crewai.com/en/concepts/planning https://arxiv.org/abs/2503.09572",
+        "- tool-use implications — covered by TaskWeaver's separated planner/executor/tool tracing. https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+        "- failure modes — covered by ReAct's hallucination/error propagation and Plan-and-Act's plan-generation difficulty. https://arxiv.org/abs/2210.03629 https://arxiv.org/abs/2503.09572",
+        "- when each architecture is preferable — covered by PilotRL's long-horizon planning limitation for ReAct and AgentArch's model-specific architecture preferences. https://openreview.net/forum?id=XUF5IBVAEB https://arxiv.org/abs/2509.10769"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2503.09572",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2509.10769",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.crewai.com/en/concepts/planning",
+          "domain": "docs.crewai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+          "domain": "microsoft.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=XUF5IBVAEB",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains ReAct as a single interleaved reasoning-action loop."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly contrasts planner-executor as having a distinct planning phase before execution."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explains context/observation handling differences, though part of the benefit claim is more inferential than directly evidenced."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Names plausible failure modes for both architectures, but the discussion is brief and somewhat generalized."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Gives a usable preference rule of thumb, but it is framed as synthesis rather than directly established guidance."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct-style agents keep reasoning and acting in one interleaved loop: the model emits reasoning traces and task actions together, and those traces are used to update plans, handle exceptions, and fetch external information.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629"
+        ],
+        "reason": "This is the core ReAct framing and is plausibly supported by the cited paper."
+      },
+      {
+        "claim": "Planner-executor agents split that loop: a planner creates an explicit high-level or step-by-step plan, and an executor turns the plan into environment-specific actions or tool calls.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.crewai.com/en/concepts/planning",
+          "https://arxiv.org/abs/2503.09572"
+        ],
+        "reason": "Framework docs and a planning-focused paper plausibly support the planner/executor split."
+      },
+      {
+        "claim": "Tool-use implication: ReAct keeps tool observations inside the same evolving context as the reasoning trace, while planner-executor systems can isolate noisy execution details in the executor and preserve reasoning depth in the planner.",
+        "support": "weak",
+        "cited_urls": [
+          "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+          "https://arxiv.org/abs/2503.09572"
+        ],
+        "reason": "The separation idea is plausible, but the specific 'preserve reasoning depth' benefit reads like synthesis rather than directly supported fact."
+      },
+      {
+        "claim": "Failure modes differ: the ReAct paper highlights hallucination and error propagation, while Plan-and-Act says accurate plan generation is difficult because LLMs are not naturally trained for planning.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629",
+          "https://arxiv.org/abs/2503.09572"
+        ],
+        "reason": "Both cited works are relevant to the stated failure-mode contrast."
+      },
+      {
+        "claim": "Practical recommendation: use ReAct when you want a simple reactive loop; prefer planner-executor for long-horizon, multi-step, tool-heavy tasks where explicit plans and role separation matter.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/forum?id=XUF5IBVAEB",
+          "https://arxiv.org/abs/2509.10769"
+        ],
+        "reason": "This is useful engineering guidance, but it is presented as an inference and is broader than what the citations alone clearly establish."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "quality": "strong",
+        "reason": "Primary source for ReAct; directly relevant."
+      },
+      {
+        "url": "https://arxiv.org/abs/2503.09572",
+        "quality": "strong",
+        "reason": "Directly about planning in agents; relevant to planner-executor differences and failure modes."
+      },
+      {
+        "url": "https://arxiv.org/abs/2509.10769",
+        "quality": "strong",
+        "reason": "Benchmark/technical comparison source; relevant for architectural preference claims."
+      },
+      {
+        "url": "https://docs.crewai.com/en/concepts/planning",
+        "quality": "acceptable",
+        "reason": "Framework documentation is relevant to explicit planning behavior, though not a neutral research source."
+      },
+      {
+        "url": "https://microsoft.github.io/TaskWeaver/docs/advanced/telemetry/",
+        "quality": "acceptable",
+        "reason": "Framework documentation can inform tool-use separation, but the specific claim depends on interpretation."
+      },
+      {
+        "url": "https://openreview.net/forum?id=XUF5IBVAEB",
+        "quality": "acceptable",
+        "reason": "Likely relevant benchmark or paper source, but the exact support for the recommendation is indirect."
+      }
+    ],
+    "failure_tags": [
+      "some_inferential_claims_are_not_strictly_evidenced"
+    ],
+    "summary": "A strong, well-structured comparison that covers all required aspects, with mostly relevant citations. The main weakness is that a few engineering recommendations are synthesized more than directly demonstrated by the cited sources.",
+    "recommended_fix": "Tighten the tool-use and preference claims by either quoting more directly relevant source evidence or clearly separating sourced facts from your own synthesis.",
+    "average_score": 4.3333,
+    "normalized_score": 0.8333
+  },
+  "judge_usage": {
+    "input_tokens": 3823,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1559,
+    "output_tokens_details": {
+      "reasoning_tokens": 208
+    },
+    "total_tokens": 5382
+  },
+  "response_id": "resp_0567a2f06e768bee0069fa0f3cdd30819383978c5f23c739ae"
+}

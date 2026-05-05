@@ -1,0 +1,917 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:40:45+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "source_expectations": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:41:51+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "# Answer\nThe main failure modes of memory in LLM agents are not just forgetting; they are failures in what gets written, what gets retrieved, and what gets trusted. Short-term memory helps with the current interaction, while long-term memory extends state across sessions, but it also introduces staleness, retrieval noise, and extra maintenance cost. https://openreview.net/forum?id=KPs1EgGKcT https://arxiv.org/abs/2310.08560 ([openreview.net](https://openreview.net/forum?id=KPs1EgGKcT))\n\n## Required aspect coverage\n- context pollution — irrelevant or stale memories can leak into the active context and distort decisions; OpenAI’s SDK explicitly warns that memory can become stale and should be treated as guidance, not truth. https://openai.github.io/openai-agents-python/sandbox/memory/ ([openai.github.io](https://openai.github.io/openai-agents-python/sandbox/memory/))\n- retrieval of stale or irrelevant memories — similarity-based retrieval can surface outdated but semantically similar experiences, leading to misaligned replay and outdated answers. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- over-trusting previous agent outputs — once old runs are written back into memory, their errors can compound; the empirical study calls this error propagation. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- trade-offs between short-term and long-term memory — short-term memory preserves multi-turn state, while long-term memory spans sessions but requires tiering, update logic, and careful retrieval to avoid stale context. https://docs.langchain.com/oss/python/langgraph/add-memory https://arxiv.org/abs/2310.08560 ([docs.langchain.com](https://docs.langchain.com/oss/python/langgraph/add-memory))\n- evaluation methods for memory quality — use benchmarks that test accurate retrieval, test-time learning, long-range understanding, and conflict resolution; survey work also warns that many benchmarks are underscaled or metric-misaligned. https://huggingface.co/papers/2507.05257 https://openreview.net/forum?id=KPs1EgGKcT ([huggingface.co](https://huggingface.co/papers/2507.05257))\n\nIn one line: memory fails when it is noisy, stale, over-accepted, or poorly evaluated.\n\n# Sources\n- Survey: https://openreview.net/forum?id=KPs1EgGKcT\n- Framework docs: https://openai.github.io/openai-agents-python/sandbox/memory/ ; https://docs.langchain.com/oss/python/langgraph/add-memory\n- Agent memory paper: https://arxiv.org/abs/2310.08560\n- Benchmark: https://huggingface.co/papers/2507.05257\n- Empirical report: https://arxiv.org/abs/2505.16067\n\n# Limitations\n- The evidence base is strongest for retrieval-based and checkpointed agent memory; less is settled for all memory designs.\n- “Context pollution” is sometimes discussed under different terms (stale memory, irrelevant retrieval, misaligned replay), so the mapping is partly interpretive.\n- Benchmark design and metrics are still changing, so evaluation guidance may shift as newer memory benchmarks mature.",
+  "decomposition": {
+    "subquestions": [
+      "What are the recurrent memory failure modes reported in agent-memory papers and surveys?",
+      "How do framework docs distinguish short-term vs long-term memory and the risks of stale memory?",
+      "What empirical evidence shows memory can amplify prior errors or retrieve irrelevant experiences?",
+      "How should memory quality be evaluated beyond simple recall?",
+      "Which failure modes map to context pollution, stale retrieval, over-trusting past outputs, and memory trade-offs?"
+    ],
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "expected_source_types": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "survey memory in large language model agents failure modes stale retrieval context pollution",
+      "official framework docs agent memory short-term long-term stale memory OpenAI LangGraph",
+      "MemGPT long-term memory tiers context window paper",
+      "memory agent benchmark empirical study conflict resolution error propagation"
+    ],
+    "rationale_per_query": [
+      "Find a survey taxonomy and named failure modes.",
+      "Find implementation guidance on memory tiers and stale-memory handling.",
+      "Find a primary paper on memory tiers and long-context trade-offs.",
+      "Find benchmark/empirical evidence on retrieval quality, error propagation, and evaluation criteria."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "type": "survey",
+      "status": "accepted"
+    },
+    {
+      "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+      "type": "framework documentation",
+      "status": "accepted"
+    },
+    {
+      "url": "https://docs.langchain.com/oss/python/langgraph/add-memory",
+      "type": "framework documentation",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.08560",
+      "type": "agent memory paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://huggingface.co/papers/2507.05257",
+      "type": "evaluation benchmark",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2505.16067",
+      "type": "empirical report",
+      "status": "accepted"
+    },
+    {
+      "url": "https://www.letta.com/blog/rag-vs-agent-memory",
+      "type": "blog",
+      "status": "rejected"
+    },
+    {
+      "url": "https://aiwiki.ai/wiki/agent_memory",
+      "type": "wiki",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://openreview.net/forum?id=KPs1EgGKcT",
+      "https://openai.github.io/openai-agents-python/sandbox/memory/",
+      "https://docs.langchain.com/oss/python/langgraph/add-memory",
+      "https://arxiv.org/abs/2310.08560",
+      "https://huggingface.co/papers/2507.05257",
+      "https://arxiv.org/abs/2505.16067"
+    ],
+    "rejected_sources": [
+      "https://www.letta.com/blog/rag-vs-agent-memory",
+      "https://aiwiki.ai/wiki/agent_memory"
+    ],
+    "rejection_reasons": [
+      "Blog post: useful context, but not a primary paper/benchmark or official implementation note.",
+      "Wiki page: low provenance and unclear methodology; not suitable as a load-bearing source."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Agent memory is constrained by finite context windows, so systems must manage construction, update, and query across interactions rather than just store everything.",
+      "source_url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "source_type": "survey",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangGraph explicitly separates short-term memory (thread/state persistence for multi-turn conversations) from long-term memory (user/app data across sessions).",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/add-memory",
+      "source_type": "framework documentation",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "OpenAI’s Agents SDK warns that memory can become stale and instructs agents to treat memory as guidance rather than ground truth.",
+      "source_url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+      "source_type": "framework documentation",
+      "supported_aspect": "context pollution",
+      "confidence": "medium"
+    },
+    {
+      "claim": "MemGPT uses tiered memory to extend effective context beyond the base window, showing the benefit of long-term memory but also the need for explicit management.",
+      "source_url": "https://arxiv.org/abs/2310.08560",
+      "source_type": "agent memory paper",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "MemoryAgentBench evaluates memory with four competencies: accurate retrieval, test-time learning, long-range understanding, and conflict resolution; conflict resolution directly tests updating outdated information.",
+      "source_url": "https://huggingface.co/papers/2507.05257",
+      "source_type": "evaluation benchmark",
+      "supported_aspect": "evaluation methods for memory quality",
+      "confidence": "high"
+    },
+    {
+      "claim": "The empirical study finds an experience-following property plus error propagation and misaligned experience replay, meaning past outputs can be over-trusted and reused even when they are misleading.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "empirical report",
+      "supported_aspect": "retrieval of stale or irrelevant memories",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions were found; sources are complementary and differ mainly in terminology and evaluation scope.",
+    "uncertainty_notes": [
+      "The phrase 'context pollution' is not always used verbatim; sources often describe the same issue as stale memory, irrelevant retrieval, or misaligned replay.",
+      "Benchmark results are still evolving, so the best-supported evaluation criteria may change as new memory benchmarks appear."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Finite context windows force memory management beyond raw accumulation.",
+      "Short-term and long-term memory serve different roles.",
+      "Stale memory should not be treated as authoritative truth.",
+      "Similarity-based retrieval can replay misleading past experiences.",
+      "Memory evaluation should test more than factual recall."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The context-pollution framing is partly inferential because some sources use adjacent terms rather than the exact phrase."
+    ]
+  },
+  "finished_at": "2026-05-05T09:41:51+00:00",
+  "citations": [
+    {
+      "end_index": 8069,
+      "start_index": 8007,
+      "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective | OpenReview",
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+    },
+    {
+      "end_index": 8459,
+      "start_index": 8376,
+      "title": "Agent memory - OpenAI Agents SDK",
+      "type": "url_citation",
+      "url": "https://openai.github.io/openai-agents-python/sandbox/memory/"
+    },
+    {
+      "end_index": 8724,
+      "start_index": 8677,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 9365,
+      "start_index": 9283,
+      "title": "Memory - Docs by LangChain",
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/add-memory"
+    },
+    {
+      "end_index": 9751,
+      "start_index": 9691,
+      "title": "Paper page - Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "type": "url_citation",
+      "url": "https://huggingface.co/papers/2507.05257"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aiwiki.ai/wiki/agent_memory",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.08560",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.letta.com/blog/rag-vs-agent-memory",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb295ff481908ac556567607d250",
+      "action": {
+        "query": "survey memory in large language model agents failure modes context pollution stale memories retrieval over-trusting previous agent outputs evaluation memory quality",
+        "type": "search",
+        "queries": [
+          "survey memory in large language model agents failure modes context pollution stale memories retrieval over-trusting previous agent outputs evaluation memory quality",
+          "MemGPT paper long-term memory failure context pollution stale irrelevant memories evaluation benchmark",
+          "LLM agent memory benchmark evaluation stale irrelevant memories context pollution empirical report"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://cortexdb.ai/docs/research/benchmark-paper"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/391991757_How_Memory_Management_Impacts_LLM_Agents_An_Empirical_Study_of_Experience-Following_Behavior"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2507.05257"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2079-9292/15/6/1232"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/de3c2f7c4fd4f9bc471615b662d688e4ba42c765.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-acl.989/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.14158"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.app.nz/view/paper?id=706836"
+          },
+          {
+            "type": "url",
+            "url": "https://www.preprints.org/manuscript/202512.2119/v1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/400414944_Understanding_Multi-Agent_LLM_Frameworks_A_Unified_Benchmark_and_Experimental_Analysis/download"
+          },
+          {
+            "type": "url",
+            "url": "https://hyper.ai/en/papers/2601.11969"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1sevnbt/why_do_longrunning_agents_degrade_even_if_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1shhb7j/no_ai_memory_benchmark_tests_what_actually_breaks/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1rucoxd/temm1es_lab_%CE%BBmemory_ai_agents_lose_all_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1scr0o9/anyone_else_dealing_with_stale_context_in_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1sf1a5t/im_starting_to_think_local_agent_problems_are/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb2b891c8190b927bd2ecbcd26d3",
+      "action": {
+        "query": "MemGPT arXiv long-term memory context window external memory official paper",
+        "type": "search",
+        "queries": [
+          "MemGPT arXiv long-term memory context window external memory official paper",
+          "LangGraph memory documentation long-term memory agent official docs",
+          "OpenAI agents memory documentation official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/add-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/memory"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.08560"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.github.io/openai-agents-python/sandbox/memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.lang.chat/langgraphjs/agents/memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.github.io/openai-agents-python/ref/memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://aisharenet.com/en/memgpt/"
+          },
+          {
+            "type": "url",
+            "url": "https://research.memgpt.ai/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2408.16967"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2201.08383"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mongodb.com/company/blog/product-release-announcements/powering-long-term-memory-for-agents-langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2506.15841"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/blog/launching-long-term-memory-support-in-langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.20651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/blog/semantic-search-for-langgraph-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://tokrepo.com/en/ai-memory/memgpt"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/309332/preprint_pdf/1f64711628ebdd55a71d760b2ad65832.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://shishirpatil.github.io/publications/memgpt-2023.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ijert.org/research/long-term-agentic-memory-with-langgraph-for-autonomous-task-automation-and-intelligent-email-managem-IJERTV15IS031345.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/17cojeh"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLM/comments/1q62jpg/as_llm_context_windows_grow_larger_do_we_still/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1r58t34/using_langgraph_for_longterm_memory_rag_obsidian/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1rs07c6/how_are_you_handling_memory_persistence_across/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/AI_agent"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1kwlhed"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/d411b45856f6dfaf3ae0c24c5b9aa995014326ba.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/0382cb76309820f71c6eacd47b36ce71-Paper-Conference.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb2f122481909b8c14cd00cc413e",
+      "action": {
+        "type": "open_page",
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb302028819091f58ef37baddb6e",
+      "action": {
+        "query": "\"context pollution\" LLM agent memory",
+        "type": "search",
+        "queries": [
+          "\"context pollution\" LLM agent memory",
+          "\"stale\" \"irrelevant\" memory agent retrieval evaluation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.morphllm.com/llm-context-management"
+          },
+          {
+            "type": "url",
+            "url": "https://www.letta.com/blog/rag-vs-agent-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mongodb.com/company/blog/technical/why-multi-agent-systems-need-memory-engineering"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/agent_memory"
+          },
+          {
+            "type": "url",
+            "url": "https://web.superagi.com/towards-agi-part-1/"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2604.07911"
+          },
+          {
+            "type": "url",
+            "url": "https://oboe.com/learn/architecting-autonomous-ai-agents-5lhzpx/memory-and-state-management-architecting-autonomous-ai-agents-3"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07911"
+          },
+          {
+            "type": "url",
+            "url": "https://www.liip.ch/en/blog/preventing-context-pollution-for-ai-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rushis.com/how-ai-agent-memory-actually-works/"
+          },
+          {
+            "type": "url",
+            "url": "https://ai-assisted-software-development.com/context-hygiene/"
+          },
+          {
+            "type": "url",
+            "url": "https://mgx.dev/insights/persistent-agent-memory-a-comprehensive-review-of-fundamentals-architectures-applications-challenges-and-latest-developments/4199d7f628e5475687b0f81f21affb18"
+          },
+          {
+            "type": "url",
+            "url": "https://db0.ai/resources/what-is-ai-agent-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/tech_x/comments/1rleor2/mit_researchers_discovered_a_phenomenon_called/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.22528"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r58wm3/your_agent_keeps_looping_because_youre_treating/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1ihkleh"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.14914"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/vibecoding/comments/1rfh64q/why_your_ai_agent_gets_worse_as_your_project/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1qefmh0/vector_dbs_are_not_memory_learned_this_the_hard/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=z9RbKGJTYC"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_Individual-Bench4448/comments/1rm59kg/realworld_use_cases_of_ai_agents_that_remember/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb33765481908ab989e229d2af8b",
+      "action": {
+        "query": "\"Anatomy of Agentic Memory\" pdf context pollution stale retrieval evaluation",
+        "type": "search",
+        "queries": [
+          "\"Anatomy of Agentic Memory\" pdf context pollution stale retrieval evaluation",
+          "\"agentic memory\" taxonomy empirical analysis limitations evaluation pdf"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/en/public/202602209498836160"
+          },
+          {
+            "type": "url",
+            "url": "https://alanhou.org/blog/arxiv-anatomy-of-agentic-memory-taxonomy-and/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/abs/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.27707"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.01885"
+          },
+          {
+            "type": "url",
+            "url": "https://pro.imdb.com/title/tt40559455/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.semanticscholar.org/paper/Agentic-Memory%3A-Learning-Unified-Long-Term-and-for-Yu-Yao/fddca50008a46c925b288bae079e43ead0bbeb6e"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.01885"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/public/202602209498836160"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scribd.com/document/1009040181/Anatomy-of-Agentic-Memory-Taxonomy-and-Empirical-Analysis-of-Evaluation-and-System-Limitations"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401719157_Memory_for_Autonomous_LLM_AgentsMechanisms_Evaluation_and_Emerging_Frontiers"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.07755"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.12110"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2502.12110"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/33d48884d041c742c7dca881251da63dbbc58a0f.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=FiM0M8gcct"
+          },
+          {
+            "type": "url",
+            "url": "https://repositum.tuwien.at/bitstream/20.500.12708/216949/1/Saleh-2025-UserCentrix%20An%20Agentic%20Memory-augmented%20AI%20Framework%20for%20Smar...-smur.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.jeanmemory.com/AI_Memory.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_027732b29ee0cdc10069f9bb3fdde48190a46d70c50c1851c9",
+      "action": {
+        "query": "arxiv context pollution memory agent stale irrelevant memory paper",
+        "type": "search",
+        "queries": [
+          "arxiv context pollution memory agent stale irrelevant memory paper",
+          "site:arxiv.org context pollution LLM agent memory"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2510.12635"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.17318"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/399930336_AI_Agents_Need_Memory_Control_Over_More_Context"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/394457880_Intrinsic_Memory_Agents_Heterogeneous_Multi-Agent_LLM_Systems_through_Structured_Contextual_Memory"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.07877"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/396048337_Memory_Management_and_Contextual_Consistency_for_Long-Running_Low-Code_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2510.12635/fetch"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.27707"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.12635"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/403429517_Oblivion_Self-Adaptive_Agentic_Memory_Control_through_Decay-Driven_Activation"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.16493"
+          },
+          {
+            "type": "url",
+            "url": "https://digitaleconomy.stanford.edu/publication/memoryarena-benchmarking-agent-memory-in-interdependent-multi-session-agentic-tasks/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.deeppaper.ai/papers/2512.13564v1"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.13564"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07911"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1sevnbt/why_do_longrunning_agents_degrade_even_if_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://airaxiv.com/arxiv/pdf/3653/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r7cc6p/context_windows_arent_the_real_bottleneck_for/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1scr0o9/anyone_else_dealing_with_stale_context_in_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1rucoxd/temm1es_lab_%CE%BBmemory_ai_agents_lose_all_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s1l0oz/when_did_memory_start_making_your_agent_worse/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 31679,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 9250,
+    "output_tokens_details": {
+      "reasoning_tokens": 6822
+    },
+    "total_tokens": 40929
+  },
+  "response_id": "resp_027732b29ee0cdc10069f9bb2648dc81909c3f09e77b20794a",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What are the recurrent memory failure modes reported in agent-memory papers and surveys?\",\n      \"How do framework docs distinguish short-term vs long-term memory and the risks of stale memory?\",\n      \"What empirical evidence shows memory can amplify prior errors or retrieve irrelevant experiences?\",\n      \"How should memory quality be evaluated beyond simple recall?\",\n      \"Which failure modes map to context pollution, stale retrieval, over-trusting past outputs, and memory trade-offs?\"\n    ],\n    \"required_aspects\": [\n      \"context pollution\",\n      \"retrieval of stale or irrelevant memories\",\n      \"over-trusting previous agent outputs\",\n      \"trade-offs between short-term and long-term memory\",\n      \"evaluation methods for memory quality\"\n    ],\n    \"expected_source_types\": [\n      \"agent memory paper or survey\",\n      \"framework documentation or implementation notes\",\n      \"evaluation benchmark or empirical report\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"survey memory in large language model agents failure modes stale retrieval context pollution\",\n      \"official framework docs agent memory short-term long-term stale memory OpenAI LangGraph\",\n      \"MemGPT long-term memory tiers context window paper\",\n      \"memory agent benchmark empirical study conflict resolution error propagation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey taxonomy and named failure modes.\",\n      \"Find implementation guidance on memory tiers and stale-memory handling.\",\n      \"Find a primary paper on memory tiers and long-context trade-offs.\",\n      \"Find benchmark/empirical evidence on retrieval quality, error propagation, and evaluation criteria.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://openreview.net/forum?id=KPs1EgGKcT\",\n      \"type\": \"survey\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://openai.github.io/openai-agents-python/sandbox/memory/\",\n      \"type\": \"framework documentation\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/add-memory\",\n      \"type\": \"framework documentation\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2310.08560\",\n      \"type\": \"agent memory paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://huggingface.co/papers/2507.05257\",\n      \"type\": \"evaluation benchmark\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2505.16067\",\n      \"type\": \"empirical report\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://www.letta.com/blog/rag-vs-agent-memory\",\n      \"type\": \"blog\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"url\": \"https://aiwiki.ai/wiki/agent_memory\",\n      \"type\": \"wiki\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://openreview.net/forum?id=KPs1EgGKcT\",\n      \"https://openai.github.io/openai-agents-python/sandbox/memory/\",\n      \"https://docs.langchain.com/oss/python/langgraph/add-memory\",\n      \"https://arxiv.org/abs/2310.08560\",\n      \"https://huggingface.co/papers/2507.05257\",\n      \"https://arxiv.org/abs/2505.16067\"\n    ],\n    \"rejected_sources\": [\n      \"https://www.letta.com/blog/rag-vs-agent-memory\",\n      \"https://aiwiki.ai/wiki/agent_memory\"\n    ],\n    \"rejection_reasons\": [\n      \"Blog post: useful context, but not a primary paper/benchmark or official implementation note.\",\n      \"Wiki page: low provenance and unclear methodology; not suitable as a load-bearing source.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Agent memory is constrained by finite context windows, so systems must manage construction, update, and query across interactions rather than just store everything.\",\n      \"source_url\": \"https://openreview.net/forum?id=KPs1EgGKcT\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"trade-offs between short-term and long-term memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangGraph explicitly separates short-term memory (thread/state persistence for multi-turn conversations) from long-term memory (user/app data across sessions).\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/add-memory\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"trade-offs between short-term and long-term memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OpenAI’s Agents SDK warns that memory can become stale and instructs agents to treat memory as guidance rather than ground truth.\",\n      \"source_url\": \"https://openai.github.io/openai-agents-python/sandbox/memory/\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"context pollution\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"MemGPT uses tiered memory to extend effective context beyond the base window, showing the benefit of long-term memory but also the need for explicit management.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.08560\",\n      \"source_type\": \"agent memory paper\",\n      \"supported_aspect\": \"trade-offs between short-term and long-term memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"MemoryAgentBench evaluates memory with four competencies: accurate retrieval, test-time learning, long-range understanding, and conflict resolution; conflict resolution directly tests updating outdated information.\",\n      \"source_url\": \"https://huggingface.co/papers/2507.05257\",\n      \"source_type\": \"evaluation benchmark\",\n      \"supported_aspect\": \"evaluation methods for memory quality\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The empirical study finds an experience-following property plus error propagation and misaligned experience replay, meaning past outputs can be over-trusted and reused even when they are misleading.\",\n      \"source_url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"empirical report\",\n      \"supported_aspect\": \"retrieval of stale or irrelevant memories\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"context pollution\",\n      \"retrieval of stale or irrelevant memories\",\n      \"over-trusting previous agent outputs\",\n      \"trade-offs between short-term and long-term memory\",\n      \"evaluation methods for memory quality\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions were found; sources are complementary and differ mainly in terminology and evaluation scope.\",\n    \"uncertainty_notes\": [\n      \"The phrase 'context pollution' is not always used verbatim; sources often describe the same issue as stale memory, irrelevant retrieval, or misaligned replay.\",\n      \"Benchmark results are still evolving, so the best-supported evaluation criteria may change as new memory benchmarks appear.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Finite context windows force memory management beyond raw accumulation.\",\n      \"Short-term and long-term memory serve different roles.\",\n      \"Stale memory should not be treated as authoritative truth.\",\n      \"Similarity-based retrieval can replay misleading past experiences.\",\n      \"Memory evaluation should test more than factual recall.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The context-pollution framing is partly inferential because some sources use adjacent terms rather than the exact phrase.\"\n    ]\n  },\n  \"answer\": \"# Answer\\nThe main failure modes of memory in LLM agents are not just forgetting; they are failures in what gets written, what gets retrieved, and what gets trusted. Short-term memory helps with the current interaction, while long-term memory extends state across sessions, but it also introduces staleness, retrieval noise, and extra maintenance cost. https://openreview.net/forum?id=KPs1EgGKcT https://arxiv.org/abs/2310.08560 ([openreview.net](https://openreview.net/forum?id=KPs1EgGKcT))\\n\\n## Required aspect coverage\\n- context pollution — irrelevant or stale memories can leak into the active context and distort decisions; OpenAI’s SDK explicitly warns that memory can become stale and should be treated as guidance, not truth. https://openai.github.io/openai-agents-python/sandbox/memory/ ([openai.github.io](https://openai.github.io/openai-agents-python/sandbox/memory/))\\n- retrieval of stale or irrelevant memories — similarity-based retrieval can surface outdated but semantically similar experiences, leading to misaligned replay and outdated answers. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- over-trusting previous agent outputs — once old runs are written back into memory, their errors can compound; the empirical study calls this error propagation. https://arxiv.org/abs/2505.16067 ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- trade-offs between short-term and long-term memory — short-term memory preserves multi-turn state, while long-term memory spans sessions but requires tiering, update logic, and careful retrieval to avoid stale context. https://docs.langchain.com/oss/python/langgraph/add-memory https://arxiv.org/abs/2310.08560 ([docs.langchain.com](https://docs.langchain.com/oss/python/langgraph/add-memory))\\n- evaluation methods for memory quality — use benchmarks that test accurate retrieval, test-time learning, long-range understanding, and conflict resolution; survey work also warns that many benchmarks are underscaled or metric-misaligned. https://huggingface.co/papers/2507.05257 https://openreview.net/forum?id=KPs1EgGKcT ([huggingface.co](https://huggingface.co/papers/2507.05257))\\n\\nIn one line: memory fails when it is noisy, stale, over-accepted, or poorly evaluated.\\n\\n# Sources\\n- Survey: https://openreview.net/forum?id=KPs1EgGKcT\\n- Framework docs: https://openai.github.io/openai-agents-python/sandbox/memory/ ; https://docs.langchain.com/oss/python/langgraph/add-memory\\n- Agent memory paper: https://arxiv.org/abs/2310.08560\\n- Benchmark: https://huggingface.co/papers/2507.05257\\n- Empirical report: https://arxiv.org/abs/2505.16067\\n\\n# Limitations\\n- The evidence base is strongest for retrieval-based and checkpointed agent memory; less is settled for all memory designs.\\n- “Context pollution” is sometimes discussed under different terms (stale memory, irrelevant retrieval, misaligned replay), so the mapping is partly interpretive.\\n- Benchmark design and metrics are still changing, so evaluation guidance may shift as newer memory benchmarks mature.\"\n}",
+  "status": "complete"
+}

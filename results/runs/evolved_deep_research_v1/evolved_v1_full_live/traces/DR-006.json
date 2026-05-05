@@ -1,0 +1,615 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:31:06+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:31:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCommon failure modes in multi-agent systems are usually these:\n\n1. **Non-stationarity** — one agent’s policy updates change the environment for the others, so the learning target keeps moving (https://arxiv.org/abs/1707.09183).\n2. **Partial observability / hidden state** — agents often act from local views or histories, which makes decisions myopic or inconsistent (https://link.springer.com/article/10.1007/s10458-023-09633-6).\n3. **Credit assignment failure** — with shared outcomes, it is hard to tell which agent or action caused success/failure, so learning signals get noisy (https://link.springer.com/article/10.1007/s10462-021-09996-w).\n4. **Communication and coordination breakdowns** — agents fail to learn useful communication protocols or coherent joint action plans (https://link.springer.com/article/10.1007/s10462-021-09996-w).\n5. **Deadlock / stalled interaction** — agents can get stuck waiting on each other or issuing incompatible messages; this is explicitly formalized as communication deadlock in the literature (https://www.sciencedirect.com/science/article/pii/S1474667017570287).\n6. **Scalability blow-up** — joint action/observation spaces grow quickly with agent count, making training and execution expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6).\n\n## Sources\n- Hernandez-Leal et al., *A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity* (https://arxiv.org/abs/1707.09183)\n- Gronauer & Diepold, *Multi-agent deep reinforcement learning: a survey* (https://link.springer.com/article/10.1007/s10462-021-09996-w)\n- Papoudakis et al., *Deep multiagent reinforcement learning: challenges and directions* (https://link.springer.com/article/10.1007/s10462-022-10299-x)\n- *A survey of multi-agent deep reinforcement learning with communication* (https://link.springer.com/article/10.1007/s10458-023-09633-6)\n- *Communication deadlock in multi-agent systems* (https://www.sciencedirect.com/science/article/pii/S1474667017570287)\n\n## Limitations\nThis answer is grounded mainly in MARL surveys and one communication-deadlock paper, so it is strongest for learning-based multi-agent systems. Other multi-agent domains may add failure modes such as adversarial manipulation, brittle memory sharing, or schema mismatch. I did not attempt an exhaustive taxonomy.",
+  "decomposition": {
+    "subquestions": [
+      "What failure modes recur across multi-agent learning/systems?",
+      "Which failures are structural vs. domain-specific?",
+      "What evidence from primary papers/surveys supports each mode?"
+    ],
+    "required_aspects": [
+      "non-stationarity from co-adapting agents",
+      "partial observability / hidden state",
+      "credit assignment failure",
+      "coordination and communication breakdown",
+      "deadlock / stalled interaction",
+      "scalability / combinatorial explosion"
+    ],
+    "expected_source_types": [
+      "peer-reviewed surveys",
+      "primary research papers",
+      "authoritative abstracts/papers"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "multi-agent reinforcement learning survey non-stationarity credit assignment coordination communication",
+      "multi-agent communication deadlock paper",
+      "multi-agent learning partial observability scalability survey"
+    ],
+    "rationale_per_query": [
+      "Find survey-level consensus on the most common failure modes.",
+      "Find a primary paper documenting a concrete coordination/communication failure mode.",
+      "Confirm scalability and observability issues that recur across multi-agent settings."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Deep multiagent reinforcement learning: challenges and directions",
+      "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+      "type": "survey"
+    },
+    {
+      "title": "Multi-agent deep reinforcement learning: a survey",
+      "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+      "type": "survey"
+    },
+    {
+      "title": "A survey of multi-agent deep reinforcement learning with communication",
+      "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+      "type": "survey"
+    },
+    {
+      "title": "A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity",
+      "url": "https://arxiv.org/abs/1707.09183",
+      "type": "survey"
+    },
+    {
+      "title": "Communication deadlock in multi-agent systems",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+      "type": "primary paper"
+    },
+    {
+      "title": "Wikipedia: Multi-agent reinforcement learning",
+      "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning",
+      "type": "reference"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Deep multiagent reinforcement learning: challenges and directions",
+        "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x"
+      },
+      {
+        "title": "Multi-agent deep reinforcement learning: a survey",
+        "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w"
+      },
+      {
+        "title": "A survey of multi-agent deep reinforcement learning with communication",
+        "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6"
+      },
+      {
+        "title": "A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity",
+        "url": "https://arxiv.org/abs/1707.09183"
+      },
+      {
+        "title": "Communication deadlock in multi-agent systems",
+        "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287"
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "Wikipedia: Multi-agent reinforcement learning",
+        "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning"
+      }
+    ],
+    "rejection_reasons": [
+      "Rejected as a non-primary, non-authoritative reference; the surveys above already cover the same concepts with stronger evidence."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Non-stationarity is a core failure mode: as agents adapt simultaneously, each agent's learning target moves under its feet, destabilizing learning and convergence (https://arxiv.org/abs/1707.09183).",
+      "source_url": "https://arxiv.org/abs/1707.09183",
+      "source_type": "survey",
+      "supported_aspect": "non-stationarity",
+      "confidence": "high"
+    },
+    {
+      "claim": "Multi-agent surveys identify non-stationarity, partial observability, credit assignment, and computational complexity as the main recurring challenges (https://link.springer.com/article/10.1007/s10462-022-10299-x).",
+      "source_url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+      "source_type": "survey",
+      "supported_aspect": "core failure modes",
+      "confidence": "high"
+    },
+    {
+      "claim": "Partial observability causes agents to act on incomplete local histories rather than the true state, which makes behavior inconsistent or short-sighted (https://link.springer.com/article/10.1007/s10458-023-09633-6).",
+      "source_url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+      "source_type": "survey",
+      "supported_aspect": "partial observability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Credit assignment is a common failure mode: in cooperative settings, it is hard to tell which agent contributed to success or failure, especially with shared rewards (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+      "source_url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+      "source_type": "survey",
+      "supported_aspect": "credit assignment",
+      "confidence": "high"
+    },
+    {
+      "claim": "Communication and coordination failures are endemic: surveys highlight the difficulty of learning meaningful communication protocols and coherent action coordination (https://link.springer.com/article/10.1007/s10462-021-09996-w).",
+      "source_url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+      "source_type": "survey",
+      "supported_aspect": "communication and coordination",
+      "confidence": "high"
+    },
+    {
+      "claim": "A concrete coordination failure mode is communication deadlock; one paper formalizes it and gives conditions under which deadlock can be ruled out (https://www.sciencedirect.com/science/article/pii/S1474667017570287).",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+      "source_type": "primary paper",
+      "supported_aspect": "deadlock / stalled interaction",
+      "confidence": "medium"
+    },
+    {
+      "claim": "Scalability is a structural failure mode: joint action and observation spaces grow rapidly with the number of agents, making training and inference expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6).",
+      "source_url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+      "source_type": "survey",
+      "supported_aspect": "scalability",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "non-stationarity from co-adapting agents",
+      "partial observability / hidden state",
+      "credit assignment",
+      "communication breakdown",
+      "coordination failure",
+      "deadlock / stalled interaction",
+      "scalability / combinatorial explosion"
+    ],
+    "missing_aspects": [
+      "domain-specific safety/security failures",
+      "adversarial manipulation in open-agent settings"
+    ],
+    "followup_needed": [
+      "If you mean LLM-agent systems specifically, a second pass should add benchmark and incident-report evidence for prompt drift, tool misuse, and schema mismatch."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are consistent: they converge on the same core failures, with different papers emphasizing different subsets.",
+    "uncertainty_notes": [
+      "Most evidence comes from MARL surveys, so the list is strongest for learning-based multi-agent systems and slightly more inferential for broader non-learning agent architectures."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Non-stationarity is a core failure mode in multi-agent learning.",
+      "Partial observability, credit assignment, communication, coordination, and scalability are recurring challenges.",
+      "Communication deadlock is a documented failure mode."
+    ],
+    "unsupported_claims": [
+      "Any claim that a single exhaustive taxonomy covers all multi-agent systems.",
+      "Any quantitative ranking of which failure mode is most common across all domains."
+    ],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:31:52+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/1707.09183",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0e7aefbd46921dd70069f9b8e662188193a87d8e44713beaaa",
+      "action": {
+        "query": "multi-agent systems failure modes coordination communication credit assignment non-stationarity paper review",
+        "type": "search",
+        "queries": [
+          "multi-agent systems failure modes coordination communication credit assignment non-stationarity paper review",
+          "multi-agent reinforcement learning non-stationarity credit assignment survey paper",
+          "multi-agent systems deadlock oscillation communication failure paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2076-3417/11/11/4948/htm"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/1999-5903/15/3/107"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.09459"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S2949855424000042"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2226-4310/9/9/488"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2079-9292/14/4/820"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0925231224008397"
+          },
+          {
+            "type": "url",
+            "url": "https://springerlink.fh-diploma.de/doi/10.1007/s10462-021-09996-w"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1906.04737"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.27659"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10458-023-09633-6"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1707.09183"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2007.02529"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scitepress.org/Papers/2010/29398/29398.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://publications.ait.ac.at/files/55573089/2024_187_Non-stationarity_in_Multi-agent_Reinforcement.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://busoniu.net/files/papers/icarcv06-marl.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/533ea53e5b32c81e14b06b4528f54a68836c63a0.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r86fmq/the_real_reason_your_multiagent_system_fails_isnt/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkomls/multiagent_pipelines_break_in_weird_ways_this_one/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rx8ot0/the_reason_my_multiagent_pipeline_kept_failing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_PermashipAI/comments/1s440mh/the_reason_your_multiagent_system_will_fail_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialSentience/comments/1sic4pg/speculative_multi_agent_disconnect_error_and_fix/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/plx77g"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e7aefbd46921dd70069f9b8e9860881939d60d49153a4a6c5",
+      "action": {
+        "type": "open_page",
+        "url": "https://link.springer.com/article/10.1007/s10462-022-10299-x"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e7aefbd46921dd70069f9b8eafa408193b42fd1b95203b8a2",
+      "action": {
+        "query": "credit assignment multi-agent reinforcement learning survey paper arxiv",
+        "type": "search",
+        "queries": [
+          "credit assignment multi-agent reinforcement learning survey paper arxiv",
+          "multi-agent communication deadlock paper abstract"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.06836"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.08630"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.09459"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.06859"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.03723"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.09459"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s10462-021-09996-w"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1474667017570287"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2076-3417/11/11/4948/htm"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/asynchronous-credit-assignment-framework-multi-agent-reinforcement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/352053910_Shapley_Counterfactual_Credits_for_Multi-Agent_Reinforcement_Learning"
+          },
+          {
+            "type": "url",
+            "url": "https://research.manchester.ac.uk/en/publications/redistributing-rewards-across-time-and-agents-for-multi-agent-rei/"
+          },
+          {
+            "type": "url",
+            "url": "https://deeplearn.org/arxiv/713785/cooperative-game-theoretic-credit-assignment-for-multi-agent-policy-gradients-via-the-core"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2601.21523"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2312.10256"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/survey-temporal-credit-assignment-deep-reinforcement-learning"
+          },
+          {
+            "type": "url",
+            "url": "https://scholars.lib.ntu.edu.tw/bitstream/123456789/116025/1/00525646.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.uic.edu/~wenhao/NSF_CPS_Mixed_Autonomy/ICRA%202025_Multi_Robot_Deadlock_Resolution.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/e65331111d1091d0d90ef39cc382eb12bb0783cb.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/7e183139e56a721ce24173134a794c9d2bd083cf.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://qiniu.pattern.swarma.org/pdf/arxiv/2107.14316.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.neurips.cc/paper/8033-credit-assignment-for-collective-multiagent-rl-with-global-rewards.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/197lq1j"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1999kd5"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/18gefag"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/18gehmz"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/AgentSpeak"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Christopher_Amato"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 17499,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 5893,
+    "output_tokens_details": {
+      "reasoning_tokens": 3282
+    },
+    "total_tokens": 23392
+  },
+  "response_id": "resp_0e7aefbd46921dd70069f9b8e2e83c8193b153d30d00c1dac9",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What failure modes recur across multi-agent learning/systems?\",\n      \"Which failures are structural vs. domain-specific?\",\n      \"What evidence from primary papers/surveys supports each mode?\"\n    ],\n    \"required_aspects\": [\n      \"non-stationarity from co-adapting agents\",\n      \"partial observability / hidden state\",\n      \"credit assignment failure\",\n      \"coordination and communication breakdown\",\n      \"deadlock / stalled interaction\",\n      \"scalability / combinatorial explosion\"\n    ],\n    \"expected_source_types\": [\n      \"peer-reviewed surveys\",\n      \"primary research papers\",\n      \"authoritative abstracts/papers\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"multi-agent reinforcement learning survey non-stationarity credit assignment coordination communication\",\n      \"multi-agent communication deadlock paper\",\n      \"multi-agent learning partial observability scalability survey\"\n    ],\n    \"rationale_per_query\": [\n      \"Find survey-level consensus on the most common failure modes.\",\n      \"Find a primary paper documenting a concrete coordination/communication failure mode.\",\n      \"Confirm scalability and observability issues that recur across multi-agent settings.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Deep multiagent reinforcement learning: challenges and directions\",\n      \"url\": \"https://link.springer.com/article/10.1007/s10462-022-10299-x\",\n      \"type\": \"survey\"\n    },\n    {\n      \"title\": \"Multi-agent deep reinforcement learning: a survey\",\n      \"url\": \"https://link.springer.com/article/10.1007/s10462-021-09996-w\",\n      \"type\": \"survey\"\n    },\n    {\n      \"title\": \"A survey of multi-agent deep reinforcement learning with communication\",\n      \"url\": \"https://link.springer.com/article/10.1007/s10458-023-09633-6\",\n      \"type\": \"survey\"\n    },\n    {\n      \"title\": \"A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity\",\n      \"url\": \"https://arxiv.org/abs/1707.09183\",\n      \"type\": \"survey\"\n    },\n    {\n      \"title\": \"Communication deadlock in multi-agent systems\",\n      \"url\": \"https://www.sciencedirect.com/science/article/pii/S1474667017570287\",\n      \"type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Wikipedia: Multi-agent reinforcement learning\",\n      \"url\": \"https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning\",\n      \"type\": \"reference\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Deep multiagent reinforcement learning: challenges and directions\",\n        \"url\": \"https://link.springer.com/article/10.1007/s10462-022-10299-x\"\n      },\n      {\n        \"title\": \"Multi-agent deep reinforcement learning: a survey\",\n        \"url\": \"https://link.springer.com/article/10.1007/s10462-021-09996-w\"\n      },\n      {\n        \"title\": \"A survey of multi-agent deep reinforcement learning with communication\",\n        \"url\": \"https://link.springer.com/article/10.1007/s10458-023-09633-6\"\n      },\n      {\n        \"title\": \"A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity\",\n        \"url\": \"https://arxiv.org/abs/1707.09183\"\n      },\n      {\n        \"title\": \"Communication deadlock in multi-agent systems\",\n        \"url\": \"https://www.sciencedirect.com/science/article/pii/S1474667017570287\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"Wikipedia: Multi-agent reinforcement learning\",\n        \"url\": \"https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Rejected as a non-primary, non-authoritative reference; the surveys above already cover the same concepts with stronger evidence.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Non-stationarity is a core failure mode: as agents adapt simultaneously, each agent's learning target moves under its feet, destabilizing learning and convergence (https://arxiv.org/abs/1707.09183).\",\n      \"source_url\": \"https://arxiv.org/abs/1707.09183\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"non-stationarity\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Multi-agent surveys identify non-stationarity, partial observability, credit assignment, and computational complexity as the main recurring challenges (https://link.springer.com/article/10.1007/s10462-022-10299-x).\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s10462-022-10299-x\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"core failure modes\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Partial observability causes agents to act on incomplete local histories rather than the true state, which makes behavior inconsistent or short-sighted (https://link.springer.com/article/10.1007/s10458-023-09633-6).\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s10458-023-09633-6\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"partial observability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Credit assignment is a common failure mode: in cooperative settings, it is hard to tell which agent contributed to success or failure, especially with shared rewards (https://link.springer.com/article/10.1007/s10462-021-09996-w).\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s10462-021-09996-w\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"credit assignment\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Communication and coordination failures are endemic: surveys highlight the difficulty of learning meaningful communication protocols and coherent action coordination (https://link.springer.com/article/10.1007/s10462-021-09996-w).\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s10462-021-09996-w\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"communication and coordination\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"A concrete coordination failure mode is communication deadlock; one paper formalizes it and gives conditions under which deadlock can be ruled out (https://www.sciencedirect.com/science/article/pii/S1474667017570287).\",\n      \"source_url\": \"https://www.sciencedirect.com/science/article/pii/S1474667017570287\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"deadlock / stalled interaction\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"Scalability is a structural failure mode: joint action and observation spaces grow rapidly with the number of agents, making training and inference expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6).\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s10458-023-09633-6\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"scalability\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"non-stationarity from co-adapting agents\",\n      \"partial observability / hidden state\",\n      \"credit assignment\",\n      \"communication breakdown\",\n      \"coordination failure\",\n      \"deadlock / stalled interaction\",\n      \"scalability / combinatorial explosion\"\n    ],\n    \"missing_aspects\": [\n      \"domain-specific safety/security failures\",\n      \"adversarial manipulation in open-agent settings\"\n    ],\n    \"followup_needed\": [\n      \"If you mean LLM-agent systems specifically, a second pass should add benchmark and incident-report evidence for prompt drift, tool misuse, and schema mismatch.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources are consistent: they converge on the same core failures, with different papers emphasizing different subsets.\",\n    \"uncertainty_notes\": [\n      \"Most evidence comes from MARL surveys, so the list is strongest for learning-based multi-agent systems and slightly more inferential for broader non-learning agent architectures.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Non-stationarity is a core failure mode in multi-agent learning.\",\n      \"Partial observability, credit assignment, communication, coordination, and scalability are recurring challenges.\",\n      \"Communication deadlock is a documented failure mode.\"\n    ],\n    \"unsupported_claims\": [\n      \"Any claim that a single exhaustive taxonomy covers all multi-agent systems.\",\n      \"Any quantitative ranking of which failure mode is most common across all domains.\"\n    ],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nCommon failure modes in multi-agent systems are usually these:\\n\\n1. **Non-stationarity** — one agent’s policy updates change the environment for the others, so the learning target keeps moving (https://arxiv.org/abs/1707.09183).\\n2. **Partial observability / hidden state** — agents often act from local views or histories, which makes decisions myopic or inconsistent (https://link.springer.com/article/10.1007/s10458-023-09633-6).\\n3. **Credit assignment failure** — with shared outcomes, it is hard to tell which agent or action caused success/failure, so learning signals get noisy (https://link.springer.com/article/10.1007/s10462-021-09996-w).\\n4. **Communication and coordination breakdowns** — agents fail to learn useful communication protocols or coherent joint action plans (https://link.springer.com/article/10.1007/s10462-021-09996-w).\\n5. **Deadlock / stalled interaction** — agents can get stuck waiting on each other or issuing incompatible messages; this is explicitly formalized as communication deadlock in the literature (https://www.sciencedirect.com/science/article/pii/S1474667017570287).\\n6. **Scalability blow-up** — joint action/observation spaces grow quickly with agent count, making training and execution expensive (https://link.springer.com/article/10.1007/s10458-023-09633-6).\\n\\n## Sources\\n- Hernandez-Leal et al., *A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity* (https://arxiv.org/abs/1707.09183)\\n- Gronauer & Diepold, *Multi-agent deep reinforcement learning: a survey* (https://link.springer.com/article/10.1007/s10462-021-09996-w)\\n- Papoudakis et al., *Deep multiagent reinforcement learning: challenges and directions* (https://link.springer.com/article/10.1007/s10462-022-10299-x)\\n- *A survey of multi-agent deep reinforcement learning with communication* (https://link.springer.com/article/10.1007/s10458-023-09633-6)\\n- *Communication deadlock in multi-agent systems* (https://www.sciencedirect.com/science/article/pii/S1474667017570287)\\n\\n## Limitations\\nThis answer is grounded mainly in MARL surveys and one communication-deadlock paper, so it is strongest for learning-based multi-agent systems. Other multi-agent domains may add failure modes such as adversarial manipulation, brittle memory sharing, or schema mismatch. I did not attempt an exhaustive taxonomy.\"\n}",
+  "status": "complete"
+}

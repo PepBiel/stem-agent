@@ -1,0 +1,330 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:46:56+00:00",
+  "finished_at": "2026-05-05T09:47:06+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-005.json",
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9667,
+  "judge_score": 0.75,
+  "final_score": 0.8258,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-005.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-005",
+    "question": "What techniques exist for self-improving agents without fine-tuning?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.7778,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9667,
+    "failure_tags": [],
+    "runtime_seconds": 79.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "verbal feedback",
+          "covered": true,
+          "matched_terms": [
+            "feedback",
+            "verbal"
+          ],
+          "expected_terms": [
+            "feedback",
+            "verbal"
+          ]
+        },
+        {
+          "aspect": "reflection",
+          "covered": true,
+          "matched_terms": [
+            "reflection"
+          ],
+          "expected_terms": [
+            "reflection"
+          ]
+        },
+        {
+          "aspect": "self-refinement",
+          "covered": true,
+          "matched_terms": [
+            "refinement",
+            "self"
+          ],
+          "expected_terms": [
+            "refinement",
+            "self"
+          ]
+        },
+        {
+          "aspect": "prompt or workflow optimization",
+          "covered": true,
+          "matched_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ],
+          "expected_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "limits of self-improvement without external feedback",
+          "covered": true,
+          "matched_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ],
+          "expected_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Self-improving agents without fine-tuning usually use **test-time loops** instead of weight updates: (1) **verbal feedback + reflection** stored in memory, (2) **self-refinement** where the same model critiques and revises its own output, and (3) **prompt/workflow optimization** where candidate prompts or solutions are evaluated and fed into the next iteration. These methods can improve performance without updating model weights. ([arxiv.org](https://arxiv.org/abs/2303.11366))",
+        "- **verbal feedback** — covered by Reflexion’s use of task feedback signals, including scalar or free-form feedback, turned into verbal reflections. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))",
+        "- **reflection** — covered by Reflexion’s explicit “verbally reflect” step and reuse of that text in later trials. [Reflexion](https://arxiv.org/abs/2303.11366) ([arxiv.org](https://arxiv.org/abs/2303.11366))",
+        "- **self-refinement** — covered by Self-Refine’s same-model generate/feedback/refine loop with no extra training or RL. [Self-Refine](https://arxiv.org/abs/2303.17651) ([arxiv.org](https://arxiv.org/abs/2303.17651))",
+        "- **prompt or workflow optimization** — covered by OPRO, which iteratively optimizes prompts/solutions using evaluated candidates. [OPRO](https://arxiv.org/abs/2309.03409) ([arxiv.org](https://arxiv.org/abs/2309.03409))",
+        "- **limits of self-improvement without external feedback** — covered by evidence that intrinsic self-correction can fail or degrade without external feedback, though another paper reports success under zero temperature and unbiased prompts. [Cannot Self-Correct](https://arxiv.org/abs/2310.01798), [Intrinsic Self-Correction Ability](https://arxiv.org/pdf/2406.15673.pdf) ([arxiv.org](https://arxiv.org/abs/2310.01798))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2303.11366",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.17651",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2309.03409",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.01798",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2405.10276",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/pdf/2406.15673",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/pdf/2406.15673.pdf",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://deep-paper.org/en/paper/2303.11366/",
+          "domain": "deep-paper.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr",
+          "domain": "reddit.com",
+          "authoritative": false,
+          "weak": true
+        }
+      ],
+      "citation_count": 9,
+      "unique_citation_count": 9
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "verbal feedback",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identifies verbal feedback in Reflexion and ties it to reflections/memory."
+      },
+      {
+        "aspect": "reflection",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly explains reflection as a verbal self-critique step reused in later attempts."
+      },
+      {
+        "aspect": "self-refinement",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Correctly describes Self-Refine as an iterative generate/feedback/refine loop without training."
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Includes prompt/workflow optimization via OPRO-style iterative evaluation and prompt improvement."
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions that self-correction can fail or degrade without external feedback and notes some contradictory findings, though the limitations are not deeply unpacked."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Self-improving agents without fine-tuning usually use test-time loops instead of weight updates, including verbal feedback/reflection, self-refinement, and prompt/workflow optimization.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366"
+        ],
+        "reason": "This is a reasonable high-level synthesis consistent with the cited Reflexion paper and the other cited papers named in the answer."
+      },
+      {
+        "claim": "Reflexion uses task feedback signals, including scalar or free-form feedback, turned into verbal reflections.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366"
+        ],
+        "reason": "Plausibly supported by the Reflexion paper title and known topic; the claim is directly aligned with the paper."
+      },
+      {
+        "claim": "Self-Refine uses a same-model generate/feedback/refine loop with no extra training or RL.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.17651"
+        ],
+        "reason": "Directly matches the Self-Refine paper's subject and stated mechanism."
+      },
+      {
+        "claim": "OPRO iteratively optimizes prompts/solutions using evaluated candidates.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2309.03409"
+        ],
+        "reason": "This is the core topic of the cited 'Large Language Models as Optimizers' paper."
+      },
+      {
+        "claim": "Intrinsic self-correction can fail or degrade without external feedback, though another paper reports success under zero temperature and unbiased prompts.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.01798",
+          "https://arxiv.org/pdf/2406.15673"
+        ],
+        "reason": "The cited papers are directly about self-correction limitations and potential intrinsic self-correction ability."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "quality": "strong",
+        "reason": "Primary source and directly relevant Reflexion paper."
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651",
+        "quality": "strong",
+        "reason": "Primary source and directly relevant Self-Refine paper."
+      },
+      {
+        "url": "https://arxiv.org/abs/2309.03409",
+        "quality": "strong",
+        "reason": "Primary source for prompt optimization / LLM-as-optimizer ideas."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.01798",
+        "quality": "strong",
+        "reason": "Primary source for limits of self-correction without external feedback."
+      },
+      {
+        "url": "https://arxiv.org/abs/2405.10276",
+        "quality": "strong",
+        "reason": "Relevant follow-up paper on OPRO limitations, though not essential to the core answer."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2406.15673",
+        "quality": "acceptable",
+        "reason": "Relevant academic source, but the PDF URL is less clean than an abs page and the exact claim is more nuanced."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2406.15673.pdf",
+        "quality": "acceptable",
+        "reason": "Likely duplicate/format variant of the same paper; still relevant but redundant."
+      },
+      {
+        "url": "https://deep-paper.org/en/paper/2303.11366/",
+        "quality": "weak",
+        "reason": "Secondary site rather than primary literature; not needed given the arXiv source."
+      },
+      {
+        "url": "https://www.reddit.com/r/reinforcementlearning/comments/147sqnr",
+        "quality": "irrelevant",
+        "reason": "Low-authority discussion thread; not appropriate as evidence for this benchmark answer."
+      }
+    ],
+    "failure_tags": [
+      "minor_source_quality",
+      "shallow_uncertainty_handling"
+    ],
+    "summary": "A strong, mostly complete answer with the right techniques and relevant primary sources. Main weaknesses are light treatment of the limits/trade-offs and some unnecessary low-quality source inclusion.",
+    "recommended_fix": "Deepen the limitations section with concrete failure modes and remove secondary/low-authority citations in favor of only primary papers.",
+    "average_score": 4.0,
+    "normalized_score": 0.75
+  },
+  "judge_usage": {
+    "input_tokens": 4201,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1477,
+    "output_tokens_details": {
+      "reasoning_tokens": 127
+    },
+    "total_tokens": 5678
+  },
+  "response_id": "resp_0152bdf08ef0acfa0069f9bc98e7fc8195a00948d22456cff5"
+}

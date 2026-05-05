@@ -1,0 +1,127 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-008.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.75,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9625,
+  "failure_tags": [],
+  "runtime_seconds": 56.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": true,
+        "matched_terms": [
+          "controllability"
+        ],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": true,
+        "matched_terms": [
+          "observability"
+        ],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": true,
+        "matched_terms": [
+          "cost"
+        ],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": true,
+        "matched_terms": [
+          "reproducibility"
+        ],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "recovery"
+        ],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Autonomous agents trade predictability for adaptability. Workflow-based agents are better when you want a fixed path, stronger control, and easier debugging; autonomous agents are better when the task is open-ended and the system must decide what to do next on the fly. Source-backed framing: workflows are predetermined code paths, while agents are dynamic and define their own processes/tool usage, and agents can run in continuous feedback loops with more autonomy than workflows. https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "**Inference:** if your task is messy, novel, or requires adaptive tool selection, use an autonomous agent; if the task is repeatable, policy-heavy, or must be easy to audit, use a workflow. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "- **flexibility** — Autonomous agents are more flexible because they choose processes and tools dynamically; workflows are more rigid because they follow predetermined paths. https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "- **controllability** — Workflow-based patterns are easier to control; autonomous agents need explicit guardrails, and OpenAI notes they should halt and transfer control on failure. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "- **observability** — Autonomous agents need more instrumentation because monitoring decision making matters for safety; Symphony adds observability to debug concurrent runs. https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "- **cost** — Autonomous agents can be costlier in practice because model choice, multi-step execution, and monitoring add overhead; OpenAI explicitly calls out cost/latency trade-offs. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf",
+      "- **reproducibility** — Workflow-based systems are more reproducible because the path is predetermined and Symphony keeps workflow policy in-repo. https://docs.langchain.com/oss/python/langgraph/workflows-agents https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "- **failure recovery** — Workflow orchestration makes recovery easier to operationalize; OpenAI's agent guide says an agent can halt and hand control back, and Symphony restarts crashed or stalled agents. https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/ https://openai.com/index/open-source-codex-orchestration-symphony/"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf",
+        "domain": "cdn.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 4,
+    "unique_citation_count": 4
+  }
+}

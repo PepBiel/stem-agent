@@ -1,0 +1,302 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:33:56+00:00",
+  "finished_at": "2026-05-05T09:34:05+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-008.json",
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.7833,
+  "judge_score": 0.5,
+  "final_score": 0.5992,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-008.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-008",
+    "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+    "metrics": {
+      "coverage_score": 0.3333,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.6667,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.7833,
+    "failure_tags": [
+      "missing_required_aspect"
+    ],
+    "runtime_seconds": 44.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "flexibility",
+          "covered": true,
+          "matched_terms": [
+            "flexibility"
+          ],
+          "expected_terms": [
+            "flexibility"
+          ]
+        },
+        {
+          "aspect": "controllability",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "controllability"
+          ]
+        },
+        {
+          "aspect": "observability",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "observability"
+          ]
+        },
+        {
+          "aspect": "cost",
+          "covered": true,
+          "matched_terms": [
+            "cost"
+          ],
+          "expected_terms": [
+            "cost"
+          ]
+        },
+        {
+          "aspect": "reproducibility",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "reproducibility"
+          ]
+        },
+        {
+          "aspect": "failure recovery",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "failure",
+            "recovery"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Autonomous agents optimize for **flexibility**: the model can choose its next step and tools at runtime. Workflow-based agents optimize for **control**: the path is predefined, so behavior is more predictable and easier to validate. Anthropic explicitly distinguishes these as different architectures, and recommends workflows for well-defined tasks and agents when flexible, model-driven decision-making is needed at scale. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+        "- **Autonomous agents:** better on open-ended or changing tasks, but they usually add latency, cost, and operational risk because the system must reason, select tools, and recover from mistakes dynamically. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+        "- **Workflow-based agents:** better for repeatable tasks, compliance, and debugging because the control flow is explicit; the downside is rigidity, and complex declarative flows can get cumbersome as branching increases. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+        "- **Engineering effort:** workflow systems can be simpler to test and govern, while autonomous systems often require stronger guardrails, execution infrastructure, and careful tool design. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+        "A practical rule from the sources is: **start with the simplest workflow that solves the problem, then add autonomy only when variability or scale justifies the extra complexity.** ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/.",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/index/equip-responses-api-computer-environment",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/index/equip-responses-api-computer-environment/.",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/solutions/use-case/agents/",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "domain": "anthropic.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.anthropic.com/engineering/building-effective-agents.",
+          "domain": "anthropic.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.anthropic.com/research/building-effective-agents/",
+          "domain": "anthropic.com",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 9,
+      "unique_citation_count": 9
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 2,
+      "evidence_quality": 3,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "flexibility",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly contrasts autonomous agents as more flexible and workflow-based agents as more fixed."
+      },
+      {
+        "aspect": "controllability",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explains workflow-based agents as predefined and easier to validate, which maps to controllability."
+      },
+      {
+        "aspect": "observability",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Mentions debugging and governance, but does not directly address observability or traceability differences."
+      },
+      {
+        "aspect": "cost",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "States autonomous agents usually add latency and cost; this addresses the cost trade-off."
+      },
+      {
+        "aspect": "reproducibility",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not explicitly discuss reproducibility or run-to-run consistency."
+      },
+      {
+        "aspect": "failure recovery",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions recovering from mistakes dynamically and stronger guardrails, but does not compare failure recovery strategies between the two approaches."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Autonomous agents optimize for flexibility; workflow-based agents optimize for control; Anthropic distinguishes these architectures and recommends workflows for well-defined tasks.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.anthropic.com/research/building-effective-agents/"
+        ],
+        "reason": "This is consistent with the cited Anthropic guidance on workflows vs agents and when to use each."
+      },
+      {
+        "claim": "Autonomous agents usually add latency, cost, and operational risk because the system must reason, select tools, and recover from mistakes dynamically.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.anthropic.com/research/building-effective-agents/"
+        ],
+        "reason": "The general direction is plausible, but the specific bundle of latency, cost, operational risk, and dynamic recovery is broader than what can be confidently attributed from the citation alone."
+      },
+      {
+        "claim": "Workflow-based agents are better for repeatable tasks, compliance, and debugging because the control flow is explicit; the downside is rigidity and branching complexity.",
+        "support": "weak",
+        "cited_urls": [
+          "https://www.anthropic.com/research/building-effective-agents/"
+        ],
+        "reason": "The explicit-flow and rigidity parts are plausible, but 'compliance' and branching-complexity claims are not well grounded by the citation as presented."
+      },
+      {
+        "claim": "Workflow systems can be simpler to test and govern, while autonomous systems often require stronger guardrails, execution infrastructure, and careful tool design.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+        ],
+        "reason": "Plausible engineering advice, but the support is generic and does not clearly substantiate each specific sub-claim."
+      },
+      {
+        "claim": "Start with the simplest workflow that solves the problem, then add autonomy only when variability or scale justifies the extra complexity.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.anthropic.com/research/building-effective-agents/"
+        ],
+        "reason": "This is aligned with standard agent-design guidance and is plausibly supported by the cited Anthropic material."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://www.anthropic.com/research/building-effective-agents/",
+        "quality": "strong",
+        "reason": "Directly relevant framework guidance on workflows versus agents."
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "quality": "strong",
+        "reason": "Relevant agent-building guidance from a primary vendor source."
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment",
+        "quality": "acceptable",
+        "reason": "Primary source from OpenAI, but more about a specific agent/computer-environment setup than a direct trade-off comparison."
+      },
+      {
+        "url": "https://openai.com/solutions/use-case/agents/",
+        "quality": "acceptable",
+        "reason": "Relevant to agents generally, though less directly tied to workflow-vs-autonomy trade-offs."
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "quality": "weak",
+        "reason": "Likely a malformed or duplicate citation; unclear and less usable as a source reference."
+      }
+    ],
+    "failure_tags": [
+      "missing_required_aspect",
+      "partial_tradeoff_coverage",
+      "weak_citation_granularity"
+    ],
+    "summary": "Good high-level comparison of flexibility, control, and cost, but it misses key required dimensions like observability and reproducibility, and only partially addresses failure recovery.",
+    "recommended_fix": "Explicitly cover observability, reproducibility, and failure recovery with direct autonomous-vs-workflow comparisons, and tie each claim to a source that clearly supports that specific trade-off.",
+    "average_score": 3.0,
+    "normalized_score": 0.5
+  },
+  "judge_usage": {
+    "input_tokens": 3459,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1325,
+    "output_tokens_details": {
+      "reasoning_tokens": 40
+    },
+    "total_tokens": 4784
+  },
+  "response_id": "resp_0082e07f5cc1f3310069f9b98c56208190ac7a5827ae95ae1f"
+}

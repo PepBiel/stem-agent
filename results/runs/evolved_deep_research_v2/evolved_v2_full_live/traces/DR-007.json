@@ -1,0 +1,721 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:48:23+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "source_expectations": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:49:17+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAudit citations in deep research agents by verifying each atomic claim against the underlying source text, not by checking whether the report merely *looks* well-cited. A good audit loop is: extract claims, retrieve the cited evidence, match passage-to-claim support, then make a calibrated judgment on whether the claim is supported, partially supported, unsupported, or conflicting. That decomposition is explicitly recommended by CiteAudit, which frames citation checking as metadata extraction, retrieval, passage matching, and final judgment (https://arxiv.org/abs/2602.23452).\n\nUse source relevance as a gate: the source should be both retrievable and appropriate for the question, and the report should preserve source metadata so reviewers can verify it. OpenAI’s deep research docs say to include inline citations and return all source metadata, and the help center says outputs include citations or source links for verification (https://developers.openai.com/api/docs/guides/deep-research; https://help.openai.com/en/articles/10500283-deep-research-faq).\n\nFor citation granularity, audit at the finest unit the evidence supports. In practice, that usually means sentence- or claim-level checks, with page-level tracing when the source is a long PDF or report. Deep-Research Eval explicitly treats citation reliability as a fine-grained, page-aware evaluation problem, and NVIDIA’s deep-researcher blueprint logs which citations were kept or removed and why (https://www.mdpi.com/2076-3417/16/5/2546; https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html).\n\nDetect unsupported claims by flagging any statement that has no direct supporting passage, relies on a citation that does not actually say the thing being claimed, or appears to be a fabricated reference. The hallucinated-references paper shows that internal consistency checks can help identify fake references even without external lookup, which is useful as a secondary audit signal (https://huggingface.co/papers/2305.18248; https://arxiv.org/abs/2602.23452).\n\nHandle conflicting sources by surfacing the disagreement instead of forcing a single narrative. If one claim is stitched together from multiple sources and no single source fully supports it, mark it partial/uncertain or split it into smaller claims. The groundedness paper notes that single-source grounding can miss “scattered” correct information across multiple documents, so conflict handling should preserve uncertainty rather than overstate support (https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf).\n\n### Required aspect coverage\n- claim-level evidence — audit atomic claims against passages, then judge support: https://arxiv.org/abs/2602.23452\n- source relevance — prefer reliable, up-to-date sources and preserve source metadata for verification: https://developers.openai.com/api/docs/guides/deep-research\n- citation granularity — use fine-grained, page-aware or sentence-aware checking rather than whole-report validation: https://www.mdpi.com/2076-3417/16/5/2546\n- unsupported claim detection — flag claims with no supporting passage or a citation that does not substantiate the statement: https://arxiv.org/abs/2602.23452\n- handling conflicting sources — surface disagreement, mark uncertainty, and split claims when no single source fully supports them: https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\n\n## Sources\n- OpenAI Deep research API guide: https://developers.openai.com/api/docs/guides/deep-research\n- OpenAI Deep Research FAQ: https://help.openai.com/en/articles/10500283-deep-research-faq\n- NVIDIA AI-Q Blueprint Deep Researcher Agent: https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html\n- CiteAudit: You Cited It, But Did You Read It?: https://arxiv.org/abs/2602.23452\n- Deep-Research Eval: https://www.mdpi.com/2076-3417/16/5/2546\n- Groundedness in Retrieval-augmented Long-form Generation: https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\n\n## Limitations\nThis answer is evidence-backed but not a formal standard. The strongest support comes from documentation plus recent benchmarks, so some recommendations are inferred rather than stated as a universal rule. The literature also does not converge on one fixed audit granularity; different systems use claim-, sentence-, or page-level units, so an implementation should choose the smallest unit the evidence can truly support. ",
+  "decomposition": {
+    "subquestions": [
+      "What is the minimal evidence-backed workflow for auditing citations in deep research outputs?",
+      "What should be checked at the claim, source, and report level?",
+      "How should unsupported or conflicting evidence be handled?"
+    ],
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "expected_source_types": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "OpenAI deep research citations source metadata official docs",
+      "citation verification benchmark claim evidence retrieval support unsupported hallucinated references",
+      "deep research citation quality benchmark source-aware evaluation",
+      "groundedness multi-source conflicting evidence retrieval long-form generation"
+    ],
+    "rationale_per_query": [
+      "Find official deep research guidance on citations and reviewability.",
+      "Find a citation-audit framework that decomposes verification into claim/evidence steps.",
+      "Find benchmarks that explicitly score citation quality and factual reliability in deep research.",
+      "Find guidance for claims that span multiple sources or face conflicting evidence."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "OpenAI Deep research API guide",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "type": "deep research agent documentation"
+    },
+    {
+      "title": "OpenAI Deep Research FAQ",
+      "url": "https://help.openai.com/en/articles/10500283-deep-research-faq",
+      "type": "deep research agent documentation"
+    },
+    {
+      "title": "NVIDIA AI-Q Blueprint: Deep Researcher Agent",
+      "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html",
+      "type": "deep research agent documentation"
+    },
+    {
+      "title": "CiteAudit: You Cited It, But Did You Read It?",
+      "url": "https://arxiv.org/abs/2602.23452",
+      "type": "citation/factuality evaluation guidance"
+    },
+    {
+      "title": "Deep-Research Eval",
+      "url": "https://www.mdpi.com/2076-3417/16/5/2546",
+      "type": "retrieval/source-grounding benchmark"
+    },
+    {
+      "title": "Groundedness in Retrieval-augmented Long-form Generation",
+      "url": "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf",
+      "type": "retrieval/source-grounding benchmark"
+    },
+    {
+      "title": "Fake citation from Deep Research (Reddit anecdote)",
+      "url": "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/",
+      "type": "anecdotal discussion"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://developers.openai.com/api/docs/guides/deep-research",
+      "https://help.openai.com/en/articles/10500283-deep-research-faq",
+      "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html",
+      "https://arxiv.org/abs/2602.23452",
+      "https://www.mdpi.com/2076-3417/16/5/2546",
+      "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf"
+    ],
+    "rejected_sources": [
+      "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/"
+    ],
+    "rejection_reasons": [
+      "Anecdotal and unverified; useful as a signal of failure modes, but not reliable enough to ground audit procedure claims."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Audit citations at the claim level: decompose the answer into atomic claims, retrieve evidence, match passages, then judge support.",
+      "source_url": "https://arxiv.org/abs/2602.23452",
+      "source_type": "citation/factuality evaluation guidance",
+      "supported_aspect": "claim-level evidence",
+      "confidence": "high"
+    },
+    {
+      "claim": "Prefer relevant, reliable sources and return source metadata so a reviewer can verify the report.",
+      "source_url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "source_type": "deep research agent documentation",
+      "supported_aspect": "source relevance",
+      "confidence": "high"
+    },
+    {
+      "claim": "Use fine-grained citation units; the evaluation literature supports page-level or page-aware grounding rather than treating a long report as one block.",
+      "source_url": "https://www.mdpi.com/2076-3417/16/5/2546",
+      "source_type": "retrieval/source-grounding benchmark",
+      "supported_aspect": "citation granularity",
+      "confidence": "high"
+    },
+    {
+      "claim": "Detect unsupported or hallucinated citations by checking whether the cited reference exists and whether it actually supports the claim.",
+      "source_url": "https://arxiv.org/abs/2602.23452",
+      "source_type": "citation/factuality evaluation guidance",
+      "supported_aspect": "unsupported claim detection",
+      "confidence": "high"
+    },
+    {
+      "claim": "If one source cannot fully support a sentence assembled from multiple sources, mark it partial/uncertain or split the claim.",
+      "source_url": "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf",
+      "source_type": "retrieval/source-grounding benchmark",
+      "supported_aspect": "handling conflicting sources",
+      "confidence": "medium"
+    },
+    {
+      "claim": "A deterministic post-processing verifier should log which citations were retained or removed and why.",
+      "source_url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html",
+      "source_type": "deep research agent documentation",
+      "supported_aspect": "citation granularity",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions were found. The sources are complementary: docs describe desired behavior, while benchmarks and grounding papers define how to verify it.",
+    "uncertainty_notes": [
+      "The literature does not give one universal citation-audit standard for all deep research agents.",
+      "Granularity varies across sources (claim-level, sentence-level, page-level); the safest audit unit is the smallest unit the evidence can actually support."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Deep research outputs should include inline citations and source metadata.",
+      "Citation checks should be claim-level, not report-level only.",
+      "A verifier should reject citations that do not resolve to retrieved sources or do not support the claim.",
+      "Granularity should be fine enough to localize errors and retain an audit trail.",
+      "Conflicting evidence should be surfaced as uncertainty rather than silently merged."
+    ],
+    "unsupported_claims": [
+      "There is a single universally accepted citation-audit standard for all deep research agents."
+    ],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:49:17+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.23452",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research;",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/10500283-deep-research-faq",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://huggingface.co/papers/2305.18248;",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.mdpi.com/2076-3417/16/5/2546",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.mdpi.com/2076-3417/16/5/2546;",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcf1735c8196b7290c15bad3b5ee",
+      "action": {
+        "query": "OpenAI deep research citations source grounding claims official documentation",
+        "type": "search",
+        "queries": [
+          "OpenAI deep research citations source grounding claims official documentation",
+          "OpenAI deep research agent documentation citations evaluation source grounding",
+          "retrieval augmented generation citation audit unsupported claims benchmark source grounding official",
+          "deep research benchmark citation factuality evaluation guidance source relevance citation granularity"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/10500283-deep-research-faq?_bhlid=0b076fa13fbdaacdbc75dca9b2aee1d3e2de19a7"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/pt-PT/index/introducing-deep-research/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-deep-research/?video=1052827364"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/deep-research-system-card/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.11685"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research?lang=curl"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/inside-our-in-house-data-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2076-3417/16/5/2546"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.15804"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.06401"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/API/docs/deep_research_blog.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.19209"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2402.03181"
+          },
+          {
+            "type": "url",
+            "url": "https://trec.nist.gov/pubs/trec34/papers/cfdalab.rag.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1jj0439"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/deep-research-system-card.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AiAutomations/comments/1sidkud/rag_is_retrieving_the_right_docs_but_the_answer/"
+          },
+          {
+            "type": "url",
+            "url": "https://techxplore.com/news/2025-02-viewpoint-openai-deep-agent-fallible.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1jk14wz"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI4tech/comments/1sidjoc/rag_is_retrieving_the_right_docs_but_the_answer/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/DigitalMarketing/comments/1rrkrel/your_ai_citation_window_has_an_expiration_date/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcf476108196942115ef3bb63130",
+      "action": {
+        "type": "open_page",
+        "url": "https://platform.openai.com/docs/guides/deep-research"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcf5f15481968c4efb2e025daeec",
+      "action": {
+        "query": "DRACO benchmark citation quality deep research accuracy completeness objectivity official paper",
+        "type": "search",
+        "queries": [
+          "DRACO benchmark citation quality deep research accuracy completeness objectivity official paper",
+          "hallucinated references benchmark citation quality papers official",
+          "citation quality benchmark claim-to-source alignment deep research agent"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.11685"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.11685"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/400742178_DRACO_a_Cross-Domain_Benchmark_for_Deep_Research_Accuracy_Completeness_and_Objectivity"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.23452"
+          },
+          {
+            "type": "url",
+            "url": "https://hyper.ai/en/papers/2602.11685"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/ja/paper/236833"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2305.18248"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.06718"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2505.00506"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.07287"
+          },
+          {
+            "type": "url",
+            "url": "https://sciety.org/articles/activity/10.64898/2026.04.02.26350091"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2602.11167v1"
+          },
+          {
+            "type": "url",
+            "url": "https://geol.ai/briefing/sourcebench-evaluating-the-quality-of-ai-generated-citations"
+          },
+          {
+            "type": "url",
+            "url": "https://research.perplexity.ai/articles/evaluating-deep-research-performance-in-the-wild-with-the-draco-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.nature.com/articles/d41586-026-00969-z"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.05930"
+          },
+          {
+            "type": "url",
+            "url": "https://waltersport.com/wp-content/uploads/2026/04/Hallucinated-citations-are-polluting-the-scientific-literature.-What-can-be-done-Naddaf-y-Quill-2026.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.tandfonline.com/doi/pdf/10.1080/08989621.2026.2645390"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Hallucination_%28artificial_intelligence%29"
+          },
+          {
+            "type": "url",
+            "url": "https://www.explorationpub.com/uploads/Article/A1001385/1001385.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.medrxiv.org/content/10.64898/2026.04.02.26350091v1.full.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ResearchML/comments/1r07663/do_citation_mistakes_actually_damage_research/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.nature.com/articles/s41586-025-10072-4.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/automation/comments/1sabbws/hallucinated_citations_are_polluting_the/"
+          },
+          {
+            "type": "url",
+            "url": "https://seclab.bu.edu/people/gianluca/papers/hallucinator-metacrisp2026.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcf830f88196a68768c0068309d1",
+      "action": {
+        "type": "open_page",
+        "url": "https://huggingface.co/papers/2305.18248"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcfb10bc8196a55a15367eecd439",
+      "action": {
+        "query": "citation verification framework claim-source alignment unsupported claim detection benchmark official paper",
+        "type": "search",
+        "queries": [
+          "citation verification framework claim-source alignment unsupported claim detection benchmark official paper",
+          "source-grounded evaluation claim-level evidence unsupported claims conflict resolution research paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0959475219307066"
+          },
+          {
+            "type": "url",
+            "url": "https://researchportalplus.anu.edu.au/en/publications/the-truth-the-whole-truth-and-nothing-but-the-truth-a-pragmatic-g/"
+          },
+          {
+            "type": "url",
+            "url": "https://gsdrc.org/document-library/practice-without-evidence-interrogating-conflict-resolution-approaches-and-assumptions/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.23452"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.09537"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.21717"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2511.16198"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s11229-022-03580-7"
+          },
+          {
+            "type": "url",
+            "url": "https://journals.sagepub.com/doi/10.3233/SW-212838"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S2949719124000141"
+          },
+          {
+            "type": "url",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8156189/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/399594139_ConRAG_Contradiction-Aware_Retrieval-Augmented_Generation_under_Multi-Source_Conflicting_Evidence"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0364021300000331"
+          },
+          {
+            "type": "url",
+            "url": "https://eric.ed.gov/?id=EJ1113246"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0952197611000303"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/403742400_CiteLens_A_Multi-Agent_Collaborative_Framework_for_Traceable_Miscitation_Detection_and_Verification_in_Scientific_Literature"
+          },
+          {
+            "type": "url",
+            "url": "https://groundedtheoryreview.org/index.php/gtr/article/download/240/194/1153"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-emnlp.1185.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/sdp/2024.sdp-1.25.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.eacl-demo.27.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/GEO_optimization/comments/1swx9xi/validation_gap_analysis_why_source_verification/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0491bfe49faeb29f0069f9bcfdb96c81969349f17c50b524bf",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2602.23452"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 28784,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 7169,
+    "output_tokens_details": {
+      "reasoning_tokens": 4418
+    },
+    "total_tokens": 35953
+  },
+  "response_id": "resp_0491bfe49faeb29f0069f9bcef54048196ac087a5309607003",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is the minimal evidence-backed workflow for auditing citations in deep research outputs?\",\n      \"What should be checked at the claim, source, and report level?\",\n      \"How should unsupported or conflicting evidence be handled?\"\n    ],\n    \"required_aspects\": [\n      \"claim-level evidence\",\n      \"source relevance\",\n      \"citation granularity\",\n      \"unsupported claim detection\",\n      \"handling conflicting sources\"\n    ],\n    \"expected_source_types\": [\n      \"citation or factuality evaluation guidance\",\n      \"deep research agent documentation\",\n      \"retrieval or source-grounding benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"OpenAI deep research citations source metadata official docs\",\n      \"citation verification benchmark claim evidence retrieval support unsupported hallucinated references\",\n      \"deep research citation quality benchmark source-aware evaluation\",\n      \"groundedness multi-source conflicting evidence retrieval long-form generation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find official deep research guidance on citations and reviewability.\",\n      \"Find a citation-audit framework that decomposes verification into claim/evidence steps.\",\n      \"Find benchmarks that explicitly score citation quality and factual reliability in deep research.\",\n      \"Find guidance for claims that span multiple sources or face conflicting evidence.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"OpenAI Deep research API guide\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"type\": \"deep research agent documentation\"\n    },\n    {\n      \"title\": \"OpenAI Deep Research FAQ\",\n      \"url\": \"https://help.openai.com/en/articles/10500283-deep-research-faq\",\n      \"type\": \"deep research agent documentation\"\n    },\n    {\n      \"title\": \"NVIDIA AI-Q Blueprint: Deep Researcher Agent\",\n      \"url\": \"https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html\",\n      \"type\": \"deep research agent documentation\"\n    },\n    {\n      \"title\": \"CiteAudit: You Cited It, But Did You Read It?\",\n      \"url\": \"https://arxiv.org/abs/2602.23452\",\n      \"type\": \"citation/factuality evaluation guidance\"\n    },\n    {\n      \"title\": \"Deep-Research Eval\",\n      \"url\": \"https://www.mdpi.com/2076-3417/16/5/2546\",\n      \"type\": \"retrieval/source-grounding benchmark\"\n    },\n    {\n      \"title\": \"Groundedness in Retrieval-augmented Long-form Generation\",\n      \"url\": \"https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\",\n      \"type\": \"retrieval/source-grounding benchmark\"\n    },\n    {\n      \"title\": \"Fake citation from Deep Research (Reddit anecdote)\",\n      \"url\": \"https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/\",\n      \"type\": \"anecdotal discussion\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"https://help.openai.com/en/articles/10500283-deep-research-faq\",\n      \"https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html\",\n      \"https://arxiv.org/abs/2602.23452\",\n      \"https://www.mdpi.com/2076-3417/16/5/2546\",\n      \"https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\"\n    ],\n    \"rejected_sources\": [\n      \"https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/\"\n    ],\n    \"rejection_reasons\": [\n      \"Anecdotal and unverified; useful as a signal of failure modes, but not reliable enough to ground audit procedure claims.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Audit citations at the claim level: decompose the answer into atomic claims, retrieve evidence, match passages, then judge support.\",\n      \"source_url\": \"https://arxiv.org/abs/2602.23452\",\n      \"source_type\": \"citation/factuality evaluation guidance\",\n      \"supported_aspect\": \"claim-level evidence\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Prefer relevant, reliable sources and return source metadata so a reviewer can verify the report.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/deep-research\",\n      \"source_type\": \"deep research agent documentation\",\n      \"supported_aspect\": \"source relevance\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Use fine-grained citation units; the evaluation literature supports page-level or page-aware grounding rather than treating a long report as one block.\",\n      \"source_url\": \"https://www.mdpi.com/2076-3417/16/5/2546\",\n      \"source_type\": \"retrieval/source-grounding benchmark\",\n      \"supported_aspect\": \"citation granularity\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Detect unsupported or hallucinated citations by checking whether the cited reference exists and whether it actually supports the claim.\",\n      \"source_url\": \"https://arxiv.org/abs/2602.23452\",\n      \"source_type\": \"citation/factuality evaluation guidance\",\n      \"supported_aspect\": \"unsupported claim detection\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"If one source cannot fully support a sentence assembled from multiple sources, mark it partial/uncertain or split the claim.\",\n      \"source_url\": \"https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\",\n      \"source_type\": \"retrieval/source-grounding benchmark\",\n      \"supported_aspect\": \"handling conflicting sources\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"A deterministic post-processing verifier should log which citations were retained or removed and why.\",\n      \"source_url\": \"https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html\",\n      \"source_type\": \"deep research agent documentation\",\n      \"supported_aspect\": \"citation granularity\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"claim-level evidence\",\n      \"source relevance\",\n      \"citation granularity\",\n      \"unsupported claim detection\",\n      \"handling conflicting sources\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions were found. The sources are complementary: docs describe desired behavior, while benchmarks and grounding papers define how to verify it.\",\n    \"uncertainty_notes\": [\n      \"The literature does not give one universal citation-audit standard for all deep research agents.\",\n      \"Granularity varies across sources (claim-level, sentence-level, page-level); the safest audit unit is the smallest unit the evidence can actually support.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Deep research outputs should include inline citations and source metadata.\",\n      \"Citation checks should be claim-level, not report-level only.\",\n      \"A verifier should reject citations that do not resolve to retrieved sources or do not support the claim.\",\n      \"Granularity should be fine enough to localize errors and retain an audit trail.\",\n      \"Conflicting evidence should be surfaced as uncertainty rather than silently merged.\"\n    ],\n    \"unsupported_claims\": [\n      \"There is a single universally accepted citation-audit standard for all deep research agents.\"\n    ],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAudit citations in deep research agents by verifying each atomic claim against the underlying source text, not by checking whether the report merely *looks* well-cited. A good audit loop is: extract claims, retrieve the cited evidence, match passage-to-claim support, then make a calibrated judgment on whether the claim is supported, partially supported, unsupported, or conflicting. That decomposition is explicitly recommended by CiteAudit, which frames citation checking as metadata extraction, retrieval, passage matching, and final judgment (https://arxiv.org/abs/2602.23452).\\n\\nUse source relevance as a gate: the source should be both retrievable and appropriate for the question, and the report should preserve source metadata so reviewers can verify it. OpenAI’s deep research docs say to include inline citations and return all source metadata, and the help center says outputs include citations or source links for verification (https://developers.openai.com/api/docs/guides/deep-research; https://help.openai.com/en/articles/10500283-deep-research-faq).\\n\\nFor citation granularity, audit at the finest unit the evidence supports. In practice, that usually means sentence- or claim-level checks, with page-level tracing when the source is a long PDF or report. Deep-Research Eval explicitly treats citation reliability as a fine-grained, page-aware evaluation problem, and NVIDIA’s deep-researcher blueprint logs which citations were kept or removed and why (https://www.mdpi.com/2076-3417/16/5/2546; https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html).\\n\\nDetect unsupported claims by flagging any statement that has no direct supporting passage, relies on a citation that does not actually say the thing being claimed, or appears to be a fabricated reference. The hallucinated-references paper shows that internal consistency checks can help identify fake references even without external lookup, which is useful as a secondary audit signal (https://huggingface.co/papers/2305.18248; https://arxiv.org/abs/2602.23452).\\n\\nHandle conflicting sources by surfacing the disagreement instead of forcing a single narrative. If one claim is stitched together from multiple sources and no single source fully supports it, mark it partial/uncertain or split it into smaller claims. The groundedness paper notes that single-source grounding can miss “scattered” correct information across multiple documents, so conflict handling should preserve uncertainty rather than overstate support (https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf).\\n\\n### Required aspect coverage\\n- claim-level evidence — audit atomic claims against passages, then judge support: https://arxiv.org/abs/2602.23452\\n- source relevance — prefer reliable, up-to-date sources and preserve source metadata for verification: https://developers.openai.com/api/docs/guides/deep-research\\n- citation granularity — use fine-grained, page-aware or sentence-aware checking rather than whole-report validation: https://www.mdpi.com/2076-3417/16/5/2546\\n- unsupported claim detection — flag claims with no supporting passage or a citation that does not substantiate the statement: https://arxiv.org/abs/2602.23452\\n- handling conflicting sources — surface disagreement, mark uncertainty, and split claims when no single source fully supports them: https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\\n\\n## Sources\\n- OpenAI Deep research API guide: https://developers.openai.com/api/docs/guides/deep-research\\n- OpenAI Deep Research FAQ: https://help.openai.com/en/articles/10500283-deep-research-faq\\n- NVIDIA AI-Q Blueprint Deep Researcher Agent: https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html\\n- CiteAudit: You Cited It, But Did You Read It?: https://arxiv.org/abs/2602.23452\\n- Deep-Research Eval: https://www.mdpi.com/2076-3417/16/5/2546\\n- Groundedness in Retrieval-augmented Long-form Generation: https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf\\n\\n## Limitations\\nThis answer is evidence-backed but not a formal standard. The strongest support comes from documentation plus recent benchmarks, so some recommendations are inferred rather than stated as a universal rule. The literature also does not converge on one fixed audit granularity; different systems use claim-, sentence-, or page-level units, so an implementation should choose the smallest unit the evidence can truly support. \"\n}",
+  "status": "complete"
+}

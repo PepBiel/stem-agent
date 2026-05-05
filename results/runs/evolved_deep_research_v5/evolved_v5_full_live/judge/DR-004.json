@@ -1,0 +1,297 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:45:37+00:00",
+  "finished_at": "2026-05-05T15:45:48+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-004.json",
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8917,
+  "judge_score": 0.875,
+  "final_score": 0.8808,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-004.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-004",
+    "question": "What is agentic RAG and how does it differ from standard RAG?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.9167,
+      "source_quality_score": 0.5,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.9167,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8917,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 47.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "standard retrieve-then-generate workflow",
+          "covered": true,
+          "matched_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ],
+          "expected_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "planning or iterative retrieval",
+          "covered": true,
+          "matched_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ]
+        },
+        {
+          "aspect": "tool use",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "tool"
+          ]
+        },
+        {
+          "aspect": "reflection or verification",
+          "covered": true,
+          "matched_terms": [
+            "reflection",
+            "verification"
+          ],
+          "expected_terms": [
+            "reflection",
+            "verification"
+          ]
+        },
+        {
+          "aspect": "added complexity and failure modes",
+          "covered": true,
+          "matched_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "**Direct source-backed facts**",
+        "- Standard RAG is a retrieve-then-generate pattern: the model retrieves relevant passages from an external index and then conditions generation on that retrieved context. https://arxiv.org/abs/2005.11401",
+        "- Agentic RAG is a RAG variant that inserts autonomous agents into the retrieval-generation pipeline so the system can do multi-step reasoning and manage retrieval more dynamically. https://arxiv.org/abs/2501.09136",
+        "- Official implementation docs show this in practice: LlamaIndex lets agents use RAG query engines as tools, with query planning and step-wise execution. https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+        "- LlamaIndex workflows also support reflection, loops, branches, and query planning, which are common building blocks for agentic RAG. https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "- So, the core difference is control: standard RAG usually retrieves once and answers, while agentic RAG can decide what to retrieve, retry retrieval, call tools, and verify or refine intermediate results before answering. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "- That extra control can improve harder queries, but it also adds orchestration complexity and new failure modes such as looping, branching mistakes, tool/API errors, coordination issues, and harder debugging. This is an inference from the survey's open challenges plus the workflow docs' discussion of loops and complexity. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "- standard retrieve-then-generate workflow: standard RAG retrieves relevant passages and then generates from them. https://arxiv.org/abs/2005.11401",
+        "- planning or iterative retrieval: agentic RAG uses planning and iterative retrieval strategies rather than a single fixed fetch step. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+        "- tool use: agentic workflows can call RAG query engines and other tools as part of the loop. https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/ https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "- reflection or verification: workflows support reflection loops that improve or judge queries and responses before final output. https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "- added complexity and failure modes: multi-step loops, branches, memory, and routing make agentic RAG more complex and create more places for errors; this is an inference supported by the docs and survey. https://arxiv.org/abs/2501.09136 https://developers.llamaindex.ai/python/llamaagents/workflows/"
+      ],
+      "unsupported_claim_lines": [
+        "**Direct source-backed facts**"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2005.11401",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2501.09136",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+          "domain": "developers.llamaindex.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.llamaindex.ai/python/llamaagents/workflows/",
+          "domain": "developers.llamaindex.ai",
+          "authoritative": false,
+          "weak": false
+        }
+      ],
+      "citation_count": 4,
+      "unique_citation_count": 4
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 5,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains standard RAG as retrieve first, then generate from retrieved context."
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Describes planning, query planning, retrying retrieval, and step-wise execution as core agentic behavior."
+      },
+      {
+        "aspect": "tool use",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly states that agents can call RAG query engines and other tools."
+      },
+      {
+        "aspect": "reflection or verification",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Mentions reflection loops and verifying/refining intermediate results before final answering."
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Addresses orchestration complexity and multiple concrete failure modes such as looping, branching mistakes, and tool/API errors."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Standard RAG is a retrieve-then-generate pattern: the model retrieves relevant passages from an external index and then conditions generation on that retrieved context.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2005.11401"
+        ],
+        "reason": "This is the canonical RAG baseline paper and plausibly supports the retrieve-then-generate description."
+      },
+      {
+        "claim": "Agentic RAG is a RAG variant that inserts autonomous agents into the retrieval-generation pipeline so the system can do multi-step reasoning and manage retrieval more dynamically.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136"
+        ],
+        "reason": "A survey on agentic RAG plausibly supports this high-level characterization."
+      },
+      {
+        "claim": "LlamaIndex lets agents use RAG query engines as tools, with query planning and step-wise execution.",
+        "support": "supported",
+        "cited_urls": [
+          "https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/"
+        ],
+        "reason": "Implementation docs are appropriate evidence for tool use and planning in an agentic RAG framework."
+      },
+      {
+        "claim": "LlamaIndex workflows also support reflection, loops, branches, and query planning, which are common building blocks for agentic RAG.",
+        "support": "supported",
+        "cited_urls": [
+          "https://developers.llamaindex.ai/python/llamaagents/workflows/"
+        ],
+        "reason": "Framework workflow documentation plausibly supports the presence of these mechanisms."
+      },
+      {
+        "claim": "The core difference is control: standard RAG usually retrieves once and answers, while agentic RAG can decide what to retrieve, retry retrieval, call tools, and verify or refine intermediate results before answering.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136",
+          "https://developers.llamaindex.ai/python/llamaagents/workflows/"
+        ],
+        "reason": "This is a reasonable synthesis of the cited survey and workflow docs."
+      },
+      {
+        "claim": "That extra control can improve harder queries, but it also adds orchestration complexity and new failure modes such as looping, branching mistakes, tool/API errors, coordination issues, and harder debugging.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136",
+          "https://developers.llamaindex.ai/python/llamaagents/workflows/"
+        ],
+        "reason": "The complexity point is well supported, but the detailed failure-mode list is partly inferential rather than directly evidenced by the cited sources."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "quality": "strong",
+        "reason": "Primary baseline RAG paper; highly relevant and authoritative."
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "quality": "strong",
+        "reason": "Directly relevant agentic RAG survey/reference; appropriate source type."
+      },
+      {
+        "url": "https://developers.llamaindex.ai/python/framework/optimizing/agentic_strategies/agentic_strategies/",
+        "quality": "acceptable",
+        "reason": "Useful implementation documentation for agentic strategies, though framework-specific rather than general theory."
+      },
+      {
+        "url": "https://developers.llamaindex.ai/python/llamaagents/workflows/",
+        "quality": "acceptable",
+        "reason": "Relevant workflow docs for loops, reflection, and planning, but still framework-specific."
+      }
+    ],
+    "failure_tags": [
+      "weak_source",
+      "lightly_inferential_failure_modes"
+    ],
+    "summary": "Strong, well-structured answer with full coverage and mostly appropriate citations; the main weakness is that some failure-mode detail goes beyond what the cited sources directly establish.",
+    "recommended_fix": "Tighten the failure-mode discussion by either citing a source that explicitly discusses agentic-RAG trade-offs or clearly marking the listed failure modes as examples rather than source-backed claims.",
+    "average_score": 4.5,
+    "normalized_score": 0.875
+  },
+  "judge_usage": {
+    "input_tokens": 3690,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1353,
+    "output_tokens_details": {
+      "reasoning_tokens": 59
+    },
+    "total_tokens": 5043
+  },
+  "response_id": "resp_05a747b3498b0ae00069fa10a14b3c81969ed529426a4b7f8d"
+}

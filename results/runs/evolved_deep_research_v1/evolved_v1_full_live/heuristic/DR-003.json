@@ -1,0 +1,182 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-003.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "metrics": {
+    "coverage_score": 0.6,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.8571,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.8786,
+  "failure_tags": [],
+  "runtime_seconds": 77.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "task success",
+        "covered": true,
+        "matched_terms": [
+          "success",
+          "task"
+        ],
+        "expected_terms": [
+          "success",
+          "task"
+        ]
+      },
+      {
+        "aspect": "tool-call correctness",
+        "covered": true,
+        "matched_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ],
+        "expected_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "argument validity",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "argument",
+          "validity"
+        ]
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "covered": false,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "cost and latency",
+        "covered": true,
+        "matched_terms": [
+          "cost",
+          "latency"
+        ],
+        "expected_terms": [
+          "cost",
+          "latency"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "1. **Function-call correctness benchmarks**: measure whether the model picks the right tool and forms valid arguments. A leading example is BFCL v4, which evaluates multi-task, multi-turn function calling and uses AST-based validation for scalable scoring: https://gorilla.cs.berkeley.edu/leaderboard. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))",
+      "2. **Interactive end-to-end task benchmarks**: judge whether an agent can complete a realistic workflow over multiple turns. τ-bench does this by simulating user-agent dialogue in real domains and checking the final database state against the goal state, plus a pass^k reliability metric: https://arxiv.org/abs/2406.12045. ([arxiv.org](https://arxiv.org/abs/2406.12045))",
+      "3. **Claims-based / partial-credit evaluation on real tool stacks**: use a runnable harness and score satisfied factual claims rather than requiring exact string matches. MCP-Atlas is a current example: it uses 36 real MCP servers, 220 tools, and a claims-based rubric with internal diagnostics: https://arxiv.org/abs/2602.00933. ([arxiv.org](https://arxiv.org/abs/2602.00933))",
+      "4. **Step-level / process evaluation**: score the trajectory, not just the final answer. T-Eval decomposes tool use into instruction following, planning, reasoning, retrieval, understanding, and review: https://arxiv.org/abs/2312.14033. AgentProcessBench is a newer version of this idea, with human-labeled step annotations for realistic tool trajectories: https://arxiv.org/abs/2603.14465. ([arxiv.org](https://arxiv.org/abs/2312.14033))",
+      "5. **Taxonomy-driven evaluation design**: surveys now frame tool-use evaluation along both *what* to evaluate (capabilities, reliability, safety) and *how* to evaluate (interaction mode, benchmark choice, metric computation, tooling): https://arxiv.org/abs/2507.21504. ([arxiv.org](https://arxiv.org/abs/2507.21504))",
+      "Bottom line: the current trend is away from single final-answer accuracy and toward **multi-granularity evaluation** that combines tool-selection correctness, multi-step task success, reliability across trials, and trajectory/process diagnostics. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2304.08244",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2312.14033",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2312.14033.",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.12045",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.12045.",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2507.21504",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2507.21504.",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.00933",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.00933.",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.14465",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.14465.",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://gorilla.cs.berkeley.edu/leaderboard",
+        "domain": "gorilla.cs.berkeley.edu",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://gorilla.cs.berkeley.edu/leaderboard.",
+        "domain": "gorilla.cs.berkeley.edu",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 14,
+    "unique_citation_count": 14
+  }
+}

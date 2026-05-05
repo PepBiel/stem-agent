@@ -1,0 +1,1183 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:27:43+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:29:00+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCurrent approaches to evaluating tool use in LLM agents cluster into a few complementary families:\n\n1. **Function-call correctness benchmarks**: measure whether the model picks the right tool and forms valid arguments. A leading example is BFCL v4, which evaluates multi-task, multi-turn function calling and uses AST-based validation for scalable scoring: https://gorilla.cs.berkeley.edu/leaderboard. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\n\n2. **Interactive end-to-end task benchmarks**: judge whether an agent can complete a realistic workflow over multiple turns. τ-bench does this by simulating user-agent dialogue in real domains and checking the final database state against the goal state, plus a pass^k reliability metric: https://arxiv.org/abs/2406.12045. ([arxiv.org](https://arxiv.org/abs/2406.12045))\n\n3. **Claims-based / partial-credit evaluation on real tool stacks**: use a runnable harness and score satisfied factual claims rather than requiring exact string matches. MCP-Atlas is a current example: it uses 36 real MCP servers, 220 tools, and a claims-based rubric with internal diagnostics: https://arxiv.org/abs/2602.00933. ([arxiv.org](https://arxiv.org/abs/2602.00933))\n\n4. **Step-level / process evaluation**: score the trajectory, not just the final answer. T-Eval decomposes tool use into instruction following, planning, reasoning, retrieval, understanding, and review: https://arxiv.org/abs/2312.14033. AgentProcessBench is a newer version of this idea, with human-labeled step annotations for realistic tool trajectories: https://arxiv.org/abs/2603.14465. ([arxiv.org](https://arxiv.org/abs/2312.14033))\n\n5. **Taxonomy-driven evaluation design**: surveys now frame tool-use evaluation along both *what* to evaluate (capabilities, reliability, safety) and *how* to evaluate (interaction mode, benchmark choice, metric computation, tooling): https://arxiv.org/abs/2507.21504. ([arxiv.org](https://arxiv.org/abs/2507.21504))\n\nBottom line: the current trend is away from single final-answer accuracy and toward **multi-granularity evaluation** that combines tool-selection correctness, multi-step task success, reliability across trials, and trajectory/process diagnostics. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\n\n## Sources\n- BFCL v4: https://gorilla.cs.berkeley.edu/leaderboard. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\n- T-Eval: https://arxiv.org/abs/2312.14033. ([arxiv.org](https://arxiv.org/abs/2312.14033))\n- τ-bench: https://arxiv.org/abs/2406.12045. ([arxiv.org](https://arxiv.org/abs/2406.12045))\n- MCP-Atlas: https://arxiv.org/abs/2602.00933. ([arxiv.org](https://arxiv.org/abs/2602.00933))\n- AgentProcessBench: https://arxiv.org/abs/2603.14465. ([arxiv.org](https://arxiv.org/abs/2603.14465))\n- Survey on evaluation of LLM agents: https://arxiv.org/abs/2507.21504. ([arxiv.org](https://arxiv.org/abs/2507.21504))\n\n## Limitations\n- I used a small set of high-signal benchmarks, so this is a coverage-oriented summary, not an exhaustive catalog.\n- I did not deeply cover safety/security benchmarks, GUI/OS-level tool use, or cost/latency benchmarking.\n- Metrics differ across benchmarks, so their scores are useful within a benchmark family but not directly comparable across families.",
+  "decomposition": {
+    "subquestions": [
+      "What evaluation patterns are being used now for tool use in LLM agents?",
+      "What metrics do current benchmarks emphasize: final success, tool-call correctness, or step/process quality?",
+      "What parts of the tool-use lifecycle are currently under-evaluated?"
+    ],
+    "required_aspects": [
+      "Taxonomy of current evaluation approaches",
+      "Concrete benchmark examples with metrics",
+      "Evidence for multi-turn / interactive evaluation",
+      "Evidence for step-level or process-level evaluation",
+      "Current gaps / limitations"
+    ],
+    "expected_source_types": [
+      "Survey papers",
+      "Primary benchmark papers",
+      "Official benchmark / leaderboard pages",
+      "Repository or technical report pages"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "survey evaluation LLM agents tool use benchmark arxiv",
+      "BFCL function calling leaderboard official paper",
+      "tau-bench tool-agent-user interaction arxiv",
+      "step-level tool use evaluation benchmark arxiv"
+    ],
+    "rationale_per_query": [
+      "Find a current taxonomy of agent/tool-use evaluation.",
+      "Find the most established function-calling benchmark and scoring method.",
+      "Find an interactive, multi-turn evaluation approach based on task completion.",
+      "Find fine-grained process/trajectory-level evaluation methods."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://arxiv.org/abs/2507.21504",
+      "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
+      "type": "survey",
+      "status": "accepted"
+    },
+    {
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard",
+      "title": "Berkeley Function Calling Leaderboard (BFCL) V4",
+      "type": "official benchmark page",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.14033",
+      "title": "T-Eval: Evaluating the Tool Utilization Capability of Large Language Models Step by Step",
+      "type": "primary benchmark paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.12045",
+      "title": "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "type": "primary benchmark paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2602.00933",
+      "title": "MCP-Atlas: A Large-Scale Benchmark for Tool-Use Competency with Real MCP Servers",
+      "type": "primary benchmark paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.14465",
+      "title": "AgentProcessBench: Diagnosing Step-Level Process Quality in Tool-Using Agents",
+      "type": "primary benchmark paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+      "title": "OpenAI Function Calling Guide",
+      "type": "product documentation",
+      "status": "rejected"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.08244",
+      "title": "API-Bank: A Comprehensive Benchmark for Tool-Augmented LLMs",
+      "type": "primary benchmark paper",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/abs/2507.21504",
+      "https://gorilla.cs.berkeley.edu/leaderboard",
+      "https://arxiv.org/abs/2312.14033",
+      "https://arxiv.org/abs/2406.12045",
+      "https://arxiv.org/abs/2602.00933",
+      "https://arxiv.org/abs/2603.14465"
+    ],
+    "rejected_sources": [
+      "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+      "https://arxiv.org/abs/2304.08244"
+    ],
+    "rejection_reasons": [
+      "OpenAI guide explains tool calling mechanics, but it is product documentation rather than comparative evidence about evaluation approaches.",
+      "API-Bank is foundational but older; with the source budget constrained, newer benchmarks better represent current approaches."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "The field is fragmented, and current evaluation should separate what is being evaluated (capabilities, reliability, safety) from how it is evaluated (interaction modes, datasets, metric computation, tooling).",
+      "source_url": "https://arxiv.org/abs/2507.21504",
+      "source_type": "survey",
+      "supported_aspect": "taxonomy",
+      "confidence": "high"
+    },
+    {
+      "claim": "BFCL v4 evaluates tool/function calling with a large, multi-task, multi-turn setup and uses AST-based validation instead of executing every function call.",
+      "source_url": "https://gorilla.cs.berkeley.edu/leaderboard",
+      "source_type": "official benchmark page",
+      "supported_aspect": "function-call correctness and scalable scoring",
+      "confidence": "high"
+    },
+    {
+      "claim": "T-Eval decomposes tool use into sub-processes such as instruction following, planning, reasoning, retrieval, understanding, and review, giving a finer-grained alternative to outcome-only scoring.",
+      "source_url": "https://arxiv.org/abs/2312.14033",
+      "source_type": "primary benchmark paper",
+      "supported_aspect": "step-level / process evaluation",
+      "confidence": "high"
+    },
+    {
+      "claim": "τ-bench evaluates dynamic user-agent conversations in real-world domains by comparing the final database state with the annotated goal state and adds a pass^k reliability metric.",
+      "source_url": "https://arxiv.org/abs/2406.12045",
+      "source_type": "primary benchmark paper",
+      "supported_aspect": "interactive task success and reliability",
+      "confidence": "high"
+    },
+    {
+      "claim": "MCP-Atlas uses 36 real MCP servers and 220 tools, asks agents to orchestrate 3-6 tool calls across multiple servers, and scores with a claims-based rubric plus internal diagnostics.",
+      "source_url": "https://arxiv.org/abs/2602.00933",
+      "source_type": "primary benchmark paper",
+      "supported_aspect": "real-tool multi-step evaluation",
+      "confidence": "high"
+    },
+    {
+      "claim": "AgentProcessBench focuses on step-level effectiveness in realistic tool-augmented trajectories using 1,000 trajectories and 8,509 human-labeled step annotations.",
+      "source_url": "https://arxiv.org/abs/2603.14465",
+      "source_type": "primary benchmark paper",
+      "supported_aspect": "process-quality / trajectory diagnostics",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "Taxonomy of evaluation approaches",
+      "Outcome-based function-calling accuracy",
+      "Multi-turn interactive task completion",
+      "Claims-based partial-credit scoring on real tools",
+      "Step-level / process-level diagnostics",
+      "Reliability across repeated trials"
+    ],
+    "missing_aspects": [
+      "Safety/security-specific tool-use evaluation",
+      "OS-level or GUI tool-use evaluation",
+      "Cost/latency tradeoff evaluation",
+      "Human preference or LLM-as-judge protocols beyond claims-based scoring"
+    ],
+    "followup_needed": [
+      "If you want, I can narrow this to one domain (web browsing, enterprise APIs, coding tools, or OS/GUI agents) and list the most relevant benchmarks only."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct contradictions; the sources describe complementary evaluation layers. BFCL emphasizes function-call correctness, τ-bench emphasizes end-state task success in interaction, and T-Eval/AgentProcessBench emphasize process-level diagnostics.",
+    "uncertainty_notes": [
+      "Benchmark scores are not directly comparable across suites because they use different tasks, tool environments, and metrics.",
+      "The literature is moving quickly, so the taxonomy is stable only at the level of broad evaluation families."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Current evaluation is multi-dimensional rather than a single metric.",
+      "BFCL uses scalable function-call validation.",
+      "T-Eval is step-by-step and process-oriented.",
+      "τ-bench is interactive and end-state based.",
+      "MCP-Atlas uses real MCP servers and claims-based scoring.",
+      "AgentProcessBench measures step-level process quality."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:29:00+00:00",
+  "citations": [
+    {
+      "end_index": 8810,
+      "start_index": 8738,
+      "title": "\n        Berkeley Function Calling Leaderboard (BFCL) V4\n    ",
+      "type": "url_citation",
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard"
+    },
+    {
+      "end_index": 9184,
+      "start_index": 9137,
+      "title": "[2406.12045] $τ$-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2406.12045"
+    },
+    {
+      "end_index": 9565,
+      "start_index": 9518,
+      "title": "[2602.00933] MCP-Atlas: A Large-Scale Benchmark for Tool-Use Competency with Real MCP Servers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.00933"
+    },
+    {
+      "end_index": 10007,
+      "start_index": 9960,
+      "title": "[2312.14033] T-Eval: Evaluating the Tool Utilization Capability of Large Language Models Step by Step",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2312.14033"
+    },
+    {
+      "end_index": 10327,
+      "start_index": 10280,
+      "title": "[2507.21504] Evaluation and Benchmarking of LLM Agents: A Survey",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.21504"
+    },
+    {
+      "end_index": 11181,
+      "start_index": 11134,
+      "title": "[2603.14465] AgentProcessBench: Diagnosing Step-Level Process Quality in Tool-Using Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.14465"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2304.08244",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2312.14033.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2406.12045.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.21504.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2602.00933.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.14465.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0439b75a42a910660069f9b81b7160819797aa11899ae315f2",
+      "action": {
+        "query": "LLM agent tool use evaluation benchmark tool calling BFCL official paper",
+        "type": "search",
+        "queries": [
+          "LLM agent tool use evaluation benchmark tool calling BFCL official paper",
+          "tool use evaluation LLM agents benchmark official docs API-Bank ToolBench BFCL tau-bench paper",
+          "OpenAI function calling eval tool use benchmark official docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/8555517-function-calling-in-the-openai-api%29%5B"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/8555517-function-calling-in-the-openai-api%23.eps"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/function-calling?api-mode=chat"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/evals?lang=go"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/9492280-function-calling-in-the-chat-playground%3F.flac"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/evaluation-getting-started"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/evals/cancelRun"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/function-calling?api-mode=responses&lang=python"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/external-models"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00392"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.24943"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/tools?api-mode=chat"
+          },
+          {
+            "type": "url",
+            "url": "https://cookbook.openai.com/examples/evaluation/getting_started_with_openai_evals"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/assistants/docs/guides/function-calling"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.20453"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.08262"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2206.10498"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/08b7dee4-8bc6-4955-a219-7793fb69090c/Technical_report__Research_Preview_of_gpt_oss_safeguard.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.01231"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/5e10f4ab-d6f7-442e-9508-59515c65e35d/browsecomp.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b81d0aa481978b0df88be0343def",
+      "action": {
+        "query": "API-Bank tool use benchmark arxiv",
+        "type": "search",
+        "queries": [
+          "API-Bank tool use benchmark arxiv",
+          "ToolBench benchmark arxiv tool use agents",
+          "BFCL benchmark function calling arxiv",
+          "tau-bench tool use benchmark arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.11710"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2304.08244"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.01357"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/06/12/tau-bench-tool-agent-user-interaction-real-world-domains"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/tau-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://llmdb.com/benchmarks/tau-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2304.08244"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.engineering.vips.edu/agent-protocols/tau-bench-tool-augmented"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/06/18/tau-squared-bench-dual-control-conversational-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://hal.cs.princeton.edu/taubench_airline"
+          },
+          {
+            "type": "url",
+            "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.uni-trier.de/rec/journals/corr/abs-2304-08244.html"
+          },
+          {
+            "type": "url",
+            "url": "https://hub.benchflow.ai/benchmarks/benchflow/TauBench"
+          },
+          {
+            "type": "url",
+            "url": "https://ainews.cool/article/20260426-gorilla-bfcl-benchmark-analysis"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://bengio.abracadoudou.com/cv/publications/pdf/xiu_2026_arxiv.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/emnlp/2023.emnlp-main.187.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1r0e4io/r_airsbench_a_benchmark_for_ai_agents_on_the_full/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2023.emnlp-main.187.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.neurips.cc/paper_files/paper/2024/file/61cce86d180b1184949e58939c4f983d-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/15fm55d"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1etyrs8"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/15g5w7f"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s1o8gs/we_tested_6_llms_with_up_to_150_mcp_tools_openai/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1rshcv1/function_calling_evaluation_for_recently_released/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLM/comments/1r88kox/benchmark_leaderboard_for_agentic_capabilities/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b81f73748197baece500689e07ba",
+      "action": {
+        "query": "site:bfcl.xyz BFCL benchmark official",
+        "type": "search",
+        "queries": [
+          "site:bfcl.xyz BFCL benchmark official",
+          "site:gorilla.cs.berkeley.edu BFCL benchmark",
+          "site:arxiv.org BFCL function calling leaderboard",
+          "site:arxiv.org ToolBench tool use benchmark"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.11710"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.06185"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.14465"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/leaderboard"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/15_bfcl_v4_web_search.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/12_bfcl_v2_live.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/17_bfcl_v4_prompt_variation.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/16_bfcl_v4_memory.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blog.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2206.10498"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/13_bfcl_v3_multi_turn.html?trk=public_post_comment-text"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/?trk=public_post_comment-text"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/7_open_functions_v2.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/5_how_to_gorilla.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.00023"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.04847"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2309.04259"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b8225644819793f877283da78ec4",
+      "action": {
+        "query": "survey tool use evaluation LLM agents benchmark arxiv",
+        "type": "search",
+        "queries": [
+          "survey tool use evaluation LLM agents benchmark arxiv",
+          "tool use evaluation taxonomy LLM agents paper arxiv",
+          "function calling evaluation benchmark survey arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.05804"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.11557"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.22862"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/survey-evaluation-llm-based-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2312.14033"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2308.03688"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.12294"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2605.00136"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentarxiv.org/papers/cmn2d4ldj0002pscyfvw455z1"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.00835"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.coling-main.652.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rivista.ai/wp-content/uploads/2025/06/1749500273238.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.findings-emnlp.267.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r3p8zk/curated_list_of_ai_agent_papers_2026_filtering/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/LLM-as-a-Judge"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1meveri"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LanguageTechnology/comments/19ccygb"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b824e6e4819793eda86e3288af4d",
+      "action": {
+        "query": "arXiv T-Eval evaluating the tool utilization capability step by step",
+        "type": "search",
+        "queries": [
+          "arXiv T-Eval evaluating the tool utilization capability step by step",
+          "arXiv BFCL function calling perspective scalable large language model agent evaluation",
+          "arXiv ToolBench large language models master 16000 APIs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2312.14033"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2312.14033"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2307.16789"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2307.16789"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20316"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.dagstuhl.de/rec/journals/corr/abs-2312-14033.html"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.515.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/teval-evaluating-tool-utilization-capability-large-language-models-step-by"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/toolllm-facilitating-large-language-models-to-master-16000-real-world-apis--arxiv-2307.16789/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclweb.org/anthology/2024.acl-long.515.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/bfcl"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=2GmDdhBdDk&noteId=4XRcIe03dD"
+          },
+          {
+            "type": "url",
+            "url": "https://agentwiki.org/toolllm"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/berkeley-function-calling-benchmark-bfcl"
+          },
+          {
+            "type": "url",
+            "url": "https://ai-data-base.com/archives/54120"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/15fm55d"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/15g5w7f"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=dHng2O0Jjr&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/15fg7ra"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b82b83f88197b7677d26a45407a0",
+      "action": {
+        "type": "open_page",
+        "url": "https://gorilla.cs.berkeley.edu/leaderboard"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b82d47488197ab26fe51a3fed1de",
+      "action": {
+        "query": "arXiv tau-bench tool-agent-user interaction real-world domains",
+        "type": "search",
+        "queries": [
+          "arXiv tau-bench tool-agent-user interaction real-world domains",
+          "arXiv τ-bench tool-agent-user interaction real-world domains"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/06/12/tau-bench-tool-agent-user-interaction-real-world-domains"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/381517740_tau-bench_A_Benchmark_for_Tool-Agent-User_Interaction_in_Real-World_Domains"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2406-12045"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/dollartaudollar-bench-benchmark-tool-agent-user-interaction"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://collaborate.princeton.edu/en/publications/%CF%84-bench-a-benchmark-for-tool-agent-user-interaction-in-real-world/"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/ca/bean-labs/research-logs/2026/06/12/tau-bench-tool-agent-user-interaction-real-world-domains"
+          },
+          {
+            "type": "url",
+            "url": "https://www.tau-bench.com/"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/tau-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/sierra-research/tau2-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.01675"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.07982"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.10866"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://rdi.berkeley.edu/agentic-ai/slides/LLM%20Agent%20Evaluations%20%26%20Project%20Overview.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=roNSXZpUDN"
+          },
+          {
+            "type": "url",
+            "url": "https://rdi.berkeley.edu/assets/agentbeats-competition-info-session-deck.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=uWlyzJOm3B"
+          },
+          {
+            "type": "url",
+            "url": "https://cme295.stanford.edu/slides/fall25-cme295-lecture8.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://sierra.ai/-/cdn/document?src=https%3A%2F%2Fcdn.sanity.io%2Ffiles%2Fca4jck6w%2Fproduction%2F24362e7e6ff296c9b160287f46bba258223ab555.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/CompetitiveAI/comments/1r6rrl6/the_benchmark_zoo_a_guide_to_every_major_ai_eval/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLM/comments/1r88kox/benchmark_leaderboard_for_agentic_capabilities/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b8317cd881979616f1275ba2e3da",
+      "action": {
+        "query": "tool use evaluation process-level benchmark arxiv 2026 tool-using agents",
+        "type": "search",
+        "queries": [
+          "tool use evaluation process-level benchmark arxiv 2026 tool-using agents",
+          "step-level tool-use evaluation benchmark arxiv 2026"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.14465"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.12294"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.01357"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.12294"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/agentprocessbench-diagnosing-steplevel-process-quality-in-toolusing-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2601.12294v1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentarxiv.org/papers/cmmv0eh710002hv8d5e95ct47"
+          },
+          {
+            "type": "url",
+            "url": "https://www.semanticscholar.org/paper/MCP-Atlas%3A-A-Large-Scale-Benchmark-for-Tool-Use-MCP-Bandi-Hertzberg/ca23c337b804f33f8a11f50edda785b8d6b860fa"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.14465"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.14465"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/toolprmbench-evaluating-and-advancing-process-reward-models-for-toolusing-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2603.15309v1"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.12147"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://bengio.abracadoudou.com/cv/publications/pdf/xiu_2026_arxiv.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/6c1d7ae4553a24f724b3958811375a12d6de7b05.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=8HX1Orwbit"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b83606e08197830ee4acfe3fda1a",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2406.12045"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b83d062c8197a5aba6b8f352c49b",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2602.00933"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0439b75a42a910660069f9b844507481978e510c3ffb19180c",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2603.14465"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 47407,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8316,
+    "output_tokens_details": {
+      "reasoning_tokens": 5495
+    },
+    "total_tokens": 55723
+  },
+  "response_id": "resp_0439b75a42a910660069f9b81793e48197829c4a22abc5208f",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What evaluation patterns are being used now for tool use in LLM agents?\",\n      \"What metrics do current benchmarks emphasize: final success, tool-call correctness, or step/process quality?\",\n      \"What parts of the tool-use lifecycle are currently under-evaluated?\"\n    ],\n    \"required_aspects\": [\n      \"Taxonomy of current evaluation approaches\",\n      \"Concrete benchmark examples with metrics\",\n      \"Evidence for multi-turn / interactive evaluation\",\n      \"Evidence for step-level or process-level evaluation\",\n      \"Current gaps / limitations\"\n    ],\n    \"expected_source_types\": [\n      \"Survey papers\",\n      \"Primary benchmark papers\",\n      \"Official benchmark / leaderboard pages\",\n      \"Repository or technical report pages\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"survey evaluation LLM agents tool use benchmark arxiv\",\n      \"BFCL function calling leaderboard official paper\",\n      \"tau-bench tool-agent-user interaction arxiv\",\n      \"step-level tool use evaluation benchmark arxiv\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a current taxonomy of agent/tool-use evaluation.\",\n      \"Find the most established function-calling benchmark and scoring method.\",\n      \"Find an interactive, multi-turn evaluation approach based on task completion.\",\n      \"Find fine-grained process/trajectory-level evaluation methods.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://arxiv.org/abs/2507.21504\",\n      \"title\": \"Evaluation and Benchmarking of LLM Agents: A Survey\",\n      \"type\": \"survey\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://gorilla.cs.berkeley.edu/leaderboard\",\n      \"title\": \"Berkeley Function Calling Leaderboard (BFCL) V4\",\n      \"type\": \"official benchmark page\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2312.14033\",\n      \"title\": \"T-Eval: Evaluating the Tool Utilization Capability of Large Language Models Step by Step\",\n      \"type\": \"primary benchmark paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2406.12045\",\n      \"title\": \"τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains\",\n      \"type\": \"primary benchmark paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2602.00933\",\n      \"title\": \"MCP-Atlas: A Large-Scale Benchmark for Tool-Use Competency with Real MCP Servers\",\n      \"type\": \"primary benchmark paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2603.14465\",\n      \"title\": \"AgentProcessBench: Diagnosing Step-Level Process Quality in Tool-Using Agents\",\n      \"type\": \"primary benchmark paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://platform.openai.com/docs/guides/function-calling?api-mode=chat\",\n      \"title\": \"OpenAI Function Calling Guide\",\n      \"type\": \"product documentation\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2304.08244\",\n      \"title\": \"API-Bank: A Comprehensive Benchmark for Tool-Augmented LLMs\",\n      \"type\": \"primary benchmark paper\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://arxiv.org/abs/2507.21504\",\n      \"https://gorilla.cs.berkeley.edu/leaderboard\",\n      \"https://arxiv.org/abs/2312.14033\",\n      \"https://arxiv.org/abs/2406.12045\",\n      \"https://arxiv.org/abs/2602.00933\",\n      \"https://arxiv.org/abs/2603.14465\"\n    ],\n    \"rejected_sources\": [\n      \"https://platform.openai.com/docs/guides/function-calling?api-mode=chat\",\n      \"https://arxiv.org/abs/2304.08244\"\n    ],\n    \"rejection_reasons\": [\n      \"OpenAI guide explains tool calling mechanics, but it is product documentation rather than comparative evidence about evaluation approaches.\",\n      \"API-Bank is foundational but older; with the source budget constrained, newer benchmarks better represent current approaches.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"The field is fragmented, and current evaluation should separate what is being evaluated (capabilities, reliability, safety) from how it is evaluated (interaction modes, datasets, metric computation, tooling).\",\n      \"source_url\": \"https://arxiv.org/abs/2507.21504\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"taxonomy\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"BFCL v4 evaluates tool/function calling with a large, multi-task, multi-turn setup and uses AST-based validation instead of executing every function call.\",\n      \"source_url\": \"https://gorilla.cs.berkeley.edu/leaderboard\",\n      \"source_type\": \"official benchmark page\",\n      \"supported_aspect\": \"function-call correctness and scalable scoring\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"T-Eval decomposes tool use into sub-processes such as instruction following, planning, reasoning, retrieval, understanding, and review, giving a finer-grained alternative to outcome-only scoring.\",\n      \"source_url\": \"https://arxiv.org/abs/2312.14033\",\n      \"source_type\": \"primary benchmark paper\",\n      \"supported_aspect\": \"step-level / process evaluation\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"τ-bench evaluates dynamic user-agent conversations in real-world domains by comparing the final database state with the annotated goal state and adds a pass^k reliability metric.\",\n      \"source_url\": \"https://arxiv.org/abs/2406.12045\",\n      \"source_type\": \"primary benchmark paper\",\n      \"supported_aspect\": \"interactive task success and reliability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"MCP-Atlas uses 36 real MCP servers and 220 tools, asks agents to orchestrate 3-6 tool calls across multiple servers, and scores with a claims-based rubric plus internal diagnostics.\",\n      \"source_url\": \"https://arxiv.org/abs/2602.00933\",\n      \"source_type\": \"primary benchmark paper\",\n      \"supported_aspect\": \"real-tool multi-step evaluation\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"AgentProcessBench focuses on step-level effectiveness in realistic tool-augmented trajectories using 1,000 trajectories and 8,509 human-labeled step annotations.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.14465\",\n      \"source_type\": \"primary benchmark paper\",\n      \"supported_aspect\": \"process-quality / trajectory diagnostics\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"Taxonomy of evaluation approaches\",\n      \"Outcome-based function-calling accuracy\",\n      \"Multi-turn interactive task completion\",\n      \"Claims-based partial-credit scoring on real tools\",\n      \"Step-level / process-level diagnostics\",\n      \"Reliability across repeated trials\"\n    ],\n    \"missing_aspects\": [\n      \"Safety/security-specific tool-use evaluation\",\n      \"OS-level or GUI tool-use evaluation\",\n      \"Cost/latency tradeoff evaluation\",\n      \"Human preference or LLM-as-judge protocols beyond claims-based scoring\"\n    ],\n    \"followup_needed\": [\n      \"If you want, I can narrow this to one domain (web browsing, enterprise APIs, coding tools, or OS/GUI agents) and list the most relevant benchmarks only.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct contradictions; the sources describe complementary evaluation layers. BFCL emphasizes function-call correctness, τ-bench emphasizes end-state task success in interaction, and T-Eval/AgentProcessBench emphasize process-level diagnostics.\",\n    \"uncertainty_notes\": [\n      \"Benchmark scores are not directly comparable across suites because they use different tasks, tool environments, and metrics.\",\n      \"The literature is moving quickly, so the taxonomy is stable only at the level of broad evaluation families.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Current evaluation is multi-dimensional rather than a single metric.\",\n      \"BFCL uses scalable function-call validation.\",\n      \"T-Eval is step-by-step and process-oriented.\",\n      \"τ-bench is interactive and end-state based.\",\n      \"MCP-Atlas uses real MCP servers and claims-based scoring.\",\n      \"AgentProcessBench measures step-level process quality.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nCurrent approaches to evaluating tool use in LLM agents cluster into a few complementary families:\\n\\n1. **Function-call correctness benchmarks**: measure whether the model picks the right tool and forms valid arguments. A leading example is BFCL v4, which evaluates multi-task, multi-turn function calling and uses AST-based validation for scalable scoring: https://gorilla.cs.berkeley.edu/leaderboard. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\\n\\n2. **Interactive end-to-end task benchmarks**: judge whether an agent can complete a realistic workflow over multiple turns. τ-bench does this by simulating user-agent dialogue in real domains and checking the final database state against the goal state, plus a pass^k reliability metric: https://arxiv.org/abs/2406.12045. ([arxiv.org](https://arxiv.org/abs/2406.12045))\\n\\n3. **Claims-based / partial-credit evaluation on real tool stacks**: use a runnable harness and score satisfied factual claims rather than requiring exact string matches. MCP-Atlas is a current example: it uses 36 real MCP servers, 220 tools, and a claims-based rubric with internal diagnostics: https://arxiv.org/abs/2602.00933. ([arxiv.org](https://arxiv.org/abs/2602.00933))\\n\\n4. **Step-level / process evaluation**: score the trajectory, not just the final answer. T-Eval decomposes tool use into instruction following, planning, reasoning, retrieval, understanding, and review: https://arxiv.org/abs/2312.14033. AgentProcessBench is a newer version of this idea, with human-labeled step annotations for realistic tool trajectories: https://arxiv.org/abs/2603.14465. ([arxiv.org](https://arxiv.org/abs/2312.14033))\\n\\n5. **Taxonomy-driven evaluation design**: surveys now frame tool-use evaluation along both *what* to evaluate (capabilities, reliability, safety) and *how* to evaluate (interaction mode, benchmark choice, metric computation, tooling): https://arxiv.org/abs/2507.21504. ([arxiv.org](https://arxiv.org/abs/2507.21504))\\n\\nBottom line: the current trend is away from single final-answer accuracy and toward **multi-granularity evaluation** that combines tool-selection correctness, multi-step task success, reliability across trials, and trajectory/process diagnostics. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\\n\\n## Sources\\n- BFCL v4: https://gorilla.cs.berkeley.edu/leaderboard. ([gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/leaderboard))\\n- T-Eval: https://arxiv.org/abs/2312.14033. ([arxiv.org](https://arxiv.org/abs/2312.14033))\\n- τ-bench: https://arxiv.org/abs/2406.12045. ([arxiv.org](https://arxiv.org/abs/2406.12045))\\n- MCP-Atlas: https://arxiv.org/abs/2602.00933. ([arxiv.org](https://arxiv.org/abs/2602.00933))\\n- AgentProcessBench: https://arxiv.org/abs/2603.14465. ([arxiv.org](https://arxiv.org/abs/2603.14465))\\n- Survey on evaluation of LLM agents: https://arxiv.org/abs/2507.21504. ([arxiv.org](https://arxiv.org/abs/2507.21504))\\n\\n## Limitations\\n- I used a small set of high-signal benchmarks, so this is a coverage-oriented summary, not an exhaustive catalog.\\n- I did not deeply cover safety/security benchmarks, GUI/OS-level tool use, or cost/latency benchmarking.\\n- Metrics differ across benchmarks, so their scores are useful within a benchmark family but not directly comparable across families.\"\n}",
+  "status": "complete"
+}

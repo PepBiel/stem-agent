@@ -1,0 +1,299 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:48:37+00:00",
+  "finished_at": "2026-05-05T15:48:47+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-006.json",
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.975,
+  "judge_score": 0.75,
+  "final_score": 0.8288,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-006.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-006",
+    "question": "What are common failure modes in multi-agent systems?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.8333,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.975,
+    "failure_tags": [],
+    "runtime_seconds": 75.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "coordination overhead",
+          "covered": true,
+          "matched_terms": [
+            "coordination",
+            "overhead"
+          ],
+          "expected_terms": [
+            "coordination",
+            "overhead"
+          ]
+        },
+        {
+          "aspect": "role confusion",
+          "covered": true,
+          "matched_terms": [
+            "confusion",
+            "role"
+          ],
+          "expected_terms": [
+            "confusion",
+            "role"
+          ]
+        },
+        {
+          "aspect": "error propagation",
+          "covered": true,
+          "matched_terms": [
+            "error",
+            "propagation"
+          ],
+          "expected_terms": [
+            "error",
+            "propagation"
+          ]
+        },
+        {
+          "aspect": "consensus without correctness",
+          "covered": true,
+          "matched_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ],
+          "expected_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ]
+        },
+        {
+          "aspect": "evaluation difficulty",
+          "covered": true,
+          "matched_terms": [
+            "difficulty",
+            "evaluation"
+          ],
+          "expected_terms": [
+            "difficulty",
+            "evaluation"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Common failure modes in multi-agent systems are dominated by coordination, role/hand-off, and verification problems. A trace-based empirical study found 14 failure modes grouped into system design issues, inter-agent misalignment, and task verification, which matches that pattern. https://arxiv.org/abs/2503.13657",
+        "Direct evidence also shows that multi-agent setups can add communication and coordination overhead, and that naive handoffs can confuse the receiving agent or waste tokens if context is passed too broadly. https://link.springer.com/article/10.1007/s44336-024-00009-2 https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs",
+        "- coordination overhead — covered: surveys note significant communication/coordination overhead in large decentralized MAS, and official docs warn that context management and token costs matter. https://link.springer.com/article/10.1007/s44336-024-00009-2 https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+        "- role confusion — covered as an inference: the survey contrasts unordered cooperation without fixed role assignments with ordered cooperation using assigned roles and expertise. https://link.springer.com/article/10.1007/s44336-024-00009-2",
+        "- error propagation — covered: polling/aggregation can amplify shared misconceptions because model errors are correlated. https://arxiv.org/abs/2603.06612",
+        "- consensus without correctness — covered: more agreement does not reliably mean more truth in unverified domains. https://arxiv.org/abs/2603.06612",
+        "- evaluation difficulty — covered: failure attribution is hard because MAS traces are nondeterministic, natural-language, and partially observable. https://openreview.net/forum?id=kLLYJ6Bm7n"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2503.13657",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.06612",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+          "domain": "link.springer.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=kLLYJ6Bm7n",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "coordination overhead",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identifies communication/coordination overhead and token/context-management costs as a failure mode."
+      },
+      {
+        "aspect": "role confusion",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Addresses handoff ambiguity and role assignment confusion, though it is framed as an inference rather than a direct named failure mode."
+      },
+      {
+        "aspect": "error propagation",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly states that shared misconceptions can be amplified through polling/aggregation and correlated model errors."
+      },
+      {
+        "aspect": "consensus without correctness",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly distinguishes agreement from truth in unverified domains."
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly notes attribution difficulty due to nondeterministic, natural-language, partially observable traces."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "A trace-based empirical study found 14 failure modes grouped into system design issues, inter-agent misalignment, and task verification.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2503.13657"
+        ],
+        "reason": "Plausibly supported by an empirical failure analysis paper; the claim is appropriately scoped."
+      },
+      {
+        "claim": "Multi-agent setups can add communication and coordination overhead, and naive handoffs can confuse the receiving agent or waste tokens if context is passed too broadly.",
+        "support": "supported",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+          "https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs"
+        ],
+        "reason": "Relevant sources for MAS overhead and framework handoff trade-offs; claim is specific and plausible."
+      },
+      {
+        "claim": "Role confusion is inferred from the survey's contrast between unordered cooperation and assigned roles/expertise.",
+        "support": "weak",
+        "cited_urls": [
+          "https://link.springer.com/article/10.1007/s44336-024-00009-2"
+        ],
+        "reason": "This is a reasonable inference, but the citation may support role assignment concepts more than the exact failure mode of role confusion."
+      },
+      {
+        "claim": "Polling/aggregation can amplify shared misconceptions because model errors are correlated.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.06612"
+        ],
+        "reason": "A truthfulness/consensus study is a plausible source for correlated-error and aggregation-amplification claims."
+      },
+      {
+        "claim": "More agreement does not reliably mean more truth in unverified domains.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.06612"
+        ],
+        "reason": "Directly aligned with a consensus-versus-correctness claim."
+      },
+      {
+        "claim": "Failure attribution is hard because MAS traces are nondeterministic, natural-language, and partially observable.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openreview.net/forum?id=kLLYJ6Bm7n"
+        ],
+        "reason": "Fits a benchmark on failure attribution; the source type is relevant to evaluation difficulty."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2503.13657",
+        "quality": "strong",
+        "reason": "Direct empirical failure analysis, highly relevant."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.06612",
+        "quality": "strong",
+        "reason": "Relevant empirical/theoretical evidence for consensus and error propagation."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs",
+        "quality": "strong",
+        "reason": "Framework documentation directly addresses handoffs and context management trade-offs."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/multi-agent/index",
+        "quality": "strong",
+        "reason": "Relevant agent framework documentation for coordination concerns."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+        "quality": "acceptable",
+        "reason": "Relevant survey source, though the exact article context is not visible here."
+      },
+      {
+        "url": "https://openreview.net/forum?id=kLLYJ6Bm7n",
+        "quality": "strong",
+        "reason": "Relevant benchmark or empirical analysis of failure attribution."
+      }
+    ],
+    "failure_tags": [
+      "minor_inference_instead_of_direct_support"
+    ],
+    "summary": "The answer is largely correct and covers all required failure modes with relevant sources, but one key point—role confusion—is inferred rather than directly grounded.",
+    "recommended_fix": "Replace the inferred role-confusion wording with a directly supported explanation from a source that explicitly discusses role ambiguity, misassignment, or handoff errors in multi-agent systems.",
+    "average_score": 4.0,
+    "normalized_score": 0.75
+  },
+  "judge_usage": {
+    "input_tokens": 3196,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1344,
+    "output_tokens_details": {
+      "reasoning_tokens": 58
+    },
+    "total_tokens": 4540
+  },
+  "response_id": "resp_0951cf0ed1ba8d580069fa1156293881938672b20a4bc94160"
+}

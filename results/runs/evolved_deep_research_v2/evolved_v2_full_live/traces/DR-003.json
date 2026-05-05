@@ -1,0 +1,761 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:43:26+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "source_expectations": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:44:38+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCurrent approaches to evaluating tool use in LLM agents cluster into five practical layers: (1) **task success** on realistic or executable benchmarks, (2) **tool-call correctness** via trace- or step-level checks, (3) **argument validity** via parameter/data-precision scoring, (4) **recovery from tool errors** via perturbation and fault-injection stress tests, and (5) **cost and latency** tracking for production readiness. The literature is moving from single-run success rates toward more realistic, fine-grained, and operationally relevant evaluation. `https://arxiv.org/abs/2503.16416` `https://developers.openai.com/api/docs/guides/trace-grading` ([arxiv.org](https://arxiv.org/abs/2503.16416))\n\n### Required aspect coverage\n- **task success** — Benchmarks like GTA emphasize end-to-end completion on real-world tasks with real deployed tools and multimodal inputs; the survey also notes a shift toward more realistic benchmarks. `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))\n- **tool-call correctness** — Current framework docs grade traces with structured criteria and explicitly ask whether the agent selected and invoked the right tool. `https://developers.openai.com/api/docs/guides/trace-grading` `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))\n- **argument validity** — A common pattern is `data precision`: verifying the tool is called with the correct arguments extracted from context. `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))\n- **recovery from tool errors** — Newer benchmarks inject timeouts, rate limits, partial responses, schema drift, and other failures to measure fault tolerance and recovery. `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))\n- **cost and latency** — Operational evaluation frameworks increasingly log per-tool-call latency, token usage, and USD cost; the survey notes cost-efficiency remains an open gap. `https://iris-eval.com/` `https://arxiv.org/abs/2503.16416` ([iris-eval.com](https://www.iris-eval.com/))\n\n## Sources\n- Survey on Evaluation of LLM-based Agents — `https://arxiv.org/abs/2503.16416` ([arxiv.org](https://arxiv.org/abs/2503.16416))\n- GTA: A Benchmark for General Tool Agents — `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))\n- Trace grading — `https://developers.openai.com/api/docs/guides/trace-grading` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))\n- Evaluation best practices — `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))\n- ReliabilityBench — `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))\n- Iris eval standard — `https://iris-eval.com/` ([iris-eval.com](https://www.iris-eval.com/))\n\n## Limitations\nEvidence is strongest for task success, trace/step correctness, and robustness stress tests. Cost and latency are discussed more in provider/framework documentation than in a single widely adopted benchmark, so standards remain fragmented. Evaluation practice also varies in granularity: some systems grade final answers, others traces, and others individual tool calls. ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))",
+  "decomposition": {
+    "subquestions": [
+      "What are the dominant evaluation paradigms used for tool-using LLM agents today?",
+      "How are task success, tool-call correctness, and argument validity measured?",
+      "How do current benchmarks test recovery from tool/API failures?",
+      "How are cost and latency incorporated into agent evaluation?"
+    ],
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "expected_source_types": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "survey evaluating tool use in LLM agents benchmark tool-call correctness argument validity recovery from tool errors cost latency",
+      "tool use benchmark LLM agents tool call correctness argument validity recovery errors latency evaluation paper",
+      "agent evaluation survey tool use LLM agents evaluation dimensions task success cost latency paper",
+      "provider framework evaluation documentation tool calling agents latency cost evaluation"
+    ],
+    "rationale_per_query": [
+      "Find a survey taxonomy for current evaluation approaches and gaps.",
+      "Find benchmark papers that operationalize tool-use metrics and robustness checks.",
+      "Find survey evidence for task success, robustness, and cost-efficiency trends.",
+      "Find framework documentation for trace grading, argument validation, and operational metrics."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Survey on Evaluation of LLM-based Agents",
+      "url": "https://arxiv.org/abs/2503.16416",
+      "type": "agent evaluation survey"
+    },
+    {
+      "title": "GTA: A Benchmark for General Tool Agents",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+      "type": "tool-use benchmark"
+    },
+    {
+      "title": "Trace grading",
+      "url": "https://developers.openai.com/api/docs/guides/trace-grading",
+      "type": "provider or framework evaluation documentation"
+    },
+    {
+      "title": "Evaluation best practices",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "type": "provider or framework evaluation documentation"
+    },
+    {
+      "title": "ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
+      "url": "https://arxiv.org/abs/2601.06112",
+      "type": "tool-use benchmark"
+    },
+    {
+      "title": "Iris — The Agent Eval Standard for MCP",
+      "url": "https://iris-eval.com/",
+      "type": "provider or framework evaluation documentation"
+    },
+    {
+      "title": "ResearchGate mirror of the survey",
+      "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+      "type": "secondary mirror"
+    },
+    {
+      "title": "Hevo voice-agent evaluation platform",
+      "url": "https://www.hevo.dev/",
+      "type": "irrelevant product page"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/abs/2503.16416",
+      "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+      "https://developers.openai.com/api/docs/guides/trace-grading",
+      "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "https://arxiv.org/abs/2601.06112",
+      "https://iris-eval.com/"
+    ],
+    "rejected_sources": [
+      "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+      "https://www.hevo.dev/",
+      "https://papers.cool/arxiv/2507.21504"
+    ],
+    "rejection_reasons": [
+      "Secondary mirror of the survey; not needed when the arXiv primary is available.",
+      "Unrelated voice-agent product page; not about tool-use evaluation methods for LLM agents.",
+      "Secondary aggregator page; the primary survey source is already available."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Current evaluation has shifted toward more realistic, challenging benchmarks for agent workflows.",
+      "source_url": "https://arxiv.org/abs/2503.16416",
+      "source_type": "agent evaluation survey",
+      "supported_aspect": "task success",
+      "confidence": "high"
+    },
+    {
+      "claim": "Task success is commonly measured with executable, end-to-end benchmarks on real tasks and real tools.",
+      "source_url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "task success",
+      "confidence": "high"
+    },
+    {
+      "claim": "Trace grading scores end-to-end traces with structured criteria to identify workflow-level issues, including tool-call behavior.",
+      "source_url": "https://developers.openai.com/api/docs/guides/trace-grading",
+      "source_type": "provider or framework evaluation documentation",
+      "supported_aspect": "tool-call correctness",
+      "confidence": "high"
+    },
+    {
+      "claim": "Tool selection and data precision are explicit evaluation targets; data precision checks whether the agent calls the tool with the correct arguments.",
+      "source_url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "source_type": "provider or framework evaluation documentation",
+      "supported_aspect": "argument validity",
+      "confidence": "high"
+    },
+    {
+      "claim": "Recovery is increasingly tested via perturbations and fault injection, including timeouts, rate limits, partial responses, and schema drift.",
+      "source_url": "https://arxiv.org/abs/2601.06112",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "recovery from tool errors",
+      "confidence": "high"
+    },
+    {
+      "claim": "Operational eval stacks increasingly log per-tool-call latency, token usage, and USD cost.",
+      "source_url": "https://iris-eval.com/",
+      "source_type": "provider or framework evaluation documentation",
+      "supported_aspect": "cost and latency",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive conflict among the selected sources; they mostly differ in evaluation granularity (final outcome, trace-level, step-level, or robustness stress testing).",
+    "uncertainty_notes": [
+      "Cost and latency are less standardized than task success in the literature; evidence comes more from framework/docs than from a single canonical benchmark.",
+      "Some systems evaluate final answers, while others evaluate traces or individual tool-call steps, so metric definitions are not fully uniform."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Task-success evaluation still dominates, but benchmarks are becoming more realistic and executable.",
+      "Trace grading is used for workflow-level debugging and regression finding.",
+      "Tool selection and argument precision are evaluated separately in current best-practice docs.",
+      "Robustness evaluation now includes perturbations and tool/API fault injection.",
+      "Some eval frameworks explicitly track latency, token usage, and cost."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "Cost/latency evidence is primarily from a provider/framework documentation page rather than a peer-reviewed benchmark paper."
+    ]
+  },
+  "finished_at": "2026-05-05T09:44:38+00:00",
+  "citations": [
+    {
+      "end_index": 8664,
+      "start_index": 8617,
+      "title": "[2503.16416] Survey on Evaluation of LLM-based Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2503.16416"
+    },
+    {
+      "end_index": 9204,
+      "start_index": 9041,
+      "title": "GTA: A Benchmark for General Tool Agents",
+      "type": "url_citation",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html"
+    },
+    {
+      "end_index": 9585,
+      "start_index": 9507,
+      "title": "Trace grading | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/trace-grading"
+    },
+    {
+      "end_index": 9895,
+      "start_index": 9805,
+      "title": "Evaluation best practices | OpenAI API",
+      "type": "url_citation",
+      "url": "https://platform.openai.com/docs/guides/evaluation-best-practices"
+    },
+    {
+      "end_index": 10153,
+      "start_index": 10106,
+      "title": "[2601.06112] ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2601.06112"
+    },
+    {
+      "end_index": 10440,
+      "start_index": 10395,
+      "title": "Iris — The Agent Eval Standard for MCP",
+      "type": "url_citation",
+      "url": "https://www.iris-eval.com/"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2503.16416`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2601.06112`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/trace-grading",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/trace-grading`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://iris-eval.com/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://iris-eval.com/`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.cool/arxiv/2507.21504",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.hevo.dev/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbc827c481939b23770d56576f44",
+      "action": {
+        "query": "survey evaluating tool use in LLM agents benchmark tool-call correctness argument validity recovery from tool errors cost latency",
+        "type": "search",
+        "queries": [
+          "survey evaluating tool use in LLM agents benchmark tool-call correctness argument validity recovery from tool errors cost latency",
+          "tool use benchmark LLM agents tool call correctness argument validity recovery errors latency evaluation paper",
+          "agent evaluation survey tool use LLM agents evaluation dimensions task success cost latency paper",
+          "provider framework evaluation documentation tool calling agents latency cost evaluation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.hevo.dev/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.06112"
+          },
+          {
+            "type": "url",
+            "url": "https://clawrxiv.org/papers/2026.00002"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.12294"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.22458"
+          },
+          {
+            "type": "url",
+            "url": "https://www.iris-eval.com/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.22386"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2505.13328v1"
+          },
+          {
+            "type": "url",
+            "url": "https://ai-paper-delta.vercel.app/en/papers/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://inferencelatency.com/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rivista.ai/wp-content/uploads/2025/06/1749500273238.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/8a75ee6d4b2eb0b777f549a32a5a5c28-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1rweggk/what_broke_when_i_evaluated_an_ai_agent_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.preprints.org/manuscript/202512.2119/v1/download"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLM/comments/1rwefmq/what_broke_when_i_evaluated_an_ai_agent_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://os-agent-survey.github.io/paper.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbcb40548193b47128f14de7375d",
+      "action": {
+        "query": "site:platform.openai.com/docs evals agents tool calling evaluation official docs",
+        "type": "search",
+        "queries": [
+          "site:platform.openai.com/docs evals agents tool calling evaluation official docs",
+          "site:openai.com index evals tool use agents official documentation",
+          "site:docs.anthropic.com tool use evaluation official documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/evals?lang=go"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/evaluation-getting-started"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/external-models"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents/agent-builder%20rel%3D"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/trace-grading"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/evaluation-best-practices"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/graders/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/fine-tuning"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/evals?api-mode=chat"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder-safety"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/cua/CUA_eval_extra_information.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/5e10f4ab-d6f7-442e-9508-59515c65e35d/browsecomp.pdf?_bhlid=5e37ec605bdb75a861131661072e162d73bf8dd5"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/22265bac-3191-44e5-b057-7aaacd8e90cd/paperbench.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/d57827c6-10bc-47fe-91aa-0fde55bd3901/monitoring-monitorability.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/ai-in-the-enterprise.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/evmbench/evmbench.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbcd63088193bb8d75527d549f78",
+      "action": {
+        "query": "ToolBench benchmark tool-using LLM agents paper arxiv",
+        "type": "search",
+        "queries": [
+          "ToolBench benchmark tool-using LLM agents paper arxiv",
+          "GTA benchmark general tool agents paper proceedings"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.20453"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.24943"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.18998"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.12294"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.15715"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.11270"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.06185"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://www.proceedings.com/079017-2412.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/397198330_GTA_A_Benchmark_for_General_Tool_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.18998"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.22862"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/open-compass/GTA"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2310.03128v6"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2407-08713"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/8a75ee6d4b2eb0b777f549a32a5a5c28-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.proceedings.com/content/079/079017-2412open.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=akEt8QAa6V"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/a40629476fe535a5e12f7e0ceeff42500a2ffd38.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://airaxiv.com/arxiv/pdf/3669/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_Background-Horror151/comments/1sgl988/kingskill_opensource_extended_cognition/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1r0e4io/r_airsbench_a_benchmark_for_ai_agents_on_the_full/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ClaudeAI/comments/1quub76/carbench_tests_different_agent_capabilities_and/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/15fm55d"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbd38c5c8193a6e6f38425f3da16",
+      "action": {
+        "type": "open_page",
+        "url": "https://platform.openai.com/docs/guides/agent-evals"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbd4ec8c8193bb18c2bfdee1e863",
+      "action": {
+        "type": "open_page",
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbd7f6708193806c08e218b7fe59",
+      "action": {
+        "pattern": "latency",
+        "type": "find_in_page",
+        "url": "https://arxiv.org/abs/2503.16416"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0e98dda5ee4e2c530069f9bbda1ef881938e0a990e3788fff1",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.iris-eval.com/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 35124,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 10542,
+    "output_tokens_details": {
+      "reasoning_tokens": 7731
+    },
+    "total_tokens": 45666
+  },
+  "response_id": "resp_0e98dda5ee4e2c530069f9bbc65a54819397e6a7ed6168b350",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What are the dominant evaluation paradigms used for tool-using LLM agents today?\",\n      \"How are task success, tool-call correctness, and argument validity measured?\",\n      \"How do current benchmarks test recovery from tool/API failures?\",\n      \"How are cost and latency incorporated into agent evaluation?\"\n    ],\n    \"required_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"expected_source_types\": [\n      \"agent evaluation survey\",\n      \"tool-use benchmark\",\n      \"provider or framework evaluation documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"survey evaluating tool use in LLM agents benchmark tool-call correctness argument validity recovery from tool errors cost latency\",\n      \"tool use benchmark LLM agents tool call correctness argument validity recovery errors latency evaluation paper\",\n      \"agent evaluation survey tool use LLM agents evaluation dimensions task success cost latency paper\",\n      \"provider framework evaluation documentation tool calling agents latency cost evaluation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey taxonomy for current evaluation approaches and gaps.\",\n      \"Find benchmark papers that operationalize tool-use metrics and robustness checks.\",\n      \"Find survey evidence for task success, robustness, and cost-efficiency trends.\",\n      \"Find framework documentation for trace grading, argument validation, and operational metrics.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Survey on Evaluation of LLM-based Agents\",\n      \"url\": \"https://arxiv.org/abs/2503.16416\",\n      \"type\": \"agent evaluation survey\"\n    },\n    {\n      \"title\": \"GTA: A Benchmark for General Tool Agents\",\n      \"url\": \"https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html\",\n      \"type\": \"tool-use benchmark\"\n    },\n    {\n      \"title\": \"Trace grading\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/trace-grading\",\n      \"type\": \"provider or framework evaluation documentation\"\n    },\n    {\n      \"title\": \"Evaluation best practices\",\n      \"url\": \"https://developers.openai.com/api/docs/guides/evaluation-best-practices\",\n      \"type\": \"provider or framework evaluation documentation\"\n    },\n    {\n      \"title\": \"ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions\",\n      \"url\": \"https://arxiv.org/abs/2601.06112\",\n      \"type\": \"tool-use benchmark\"\n    },\n    {\n      \"title\": \"Iris — The Agent Eval Standard for MCP\",\n      \"url\": \"https://iris-eval.com/\",\n      \"type\": \"provider or framework evaluation documentation\"\n    },\n    {\n      \"title\": \"ResearchGate mirror of the survey\",\n      \"url\": \"https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents\",\n      \"type\": \"secondary mirror\"\n    },\n    {\n      \"title\": \"Hevo voice-agent evaluation platform\",\n      \"url\": \"https://www.hevo.dev/\",\n      \"type\": \"irrelevant product page\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://arxiv.org/abs/2503.16416\",\n      \"https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html\",\n      \"https://developers.openai.com/api/docs/guides/trace-grading\",\n      \"https://developers.openai.com/api/docs/guides/evaluation-best-practices\",\n      \"https://arxiv.org/abs/2601.06112\",\n      \"https://iris-eval.com/\"\n    ],\n    \"rejected_sources\": [\n      \"https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents\",\n      \"https://www.hevo.dev/\",\n      \"https://papers.cool/arxiv/2507.21504\"\n    ],\n    \"rejection_reasons\": [\n      \"Secondary mirror of the survey; not needed when the arXiv primary is available.\",\n      \"Unrelated voice-agent product page; not about tool-use evaluation methods for LLM agents.\",\n      \"Secondary aggregator page; the primary survey source is already available.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Current evaluation has shifted toward more realistic, challenging benchmarks for agent workflows.\",\n      \"source_url\": \"https://arxiv.org/abs/2503.16416\",\n      \"source_type\": \"agent evaluation survey\",\n      \"supported_aspect\": \"task success\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Task success is commonly measured with executable, end-to-end benchmarks on real tasks and real tools.\",\n      \"source_url\": \"https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"task success\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Trace grading scores end-to-end traces with structured criteria to identify workflow-level issues, including tool-call behavior.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/trace-grading\",\n      \"source_type\": \"provider or framework evaluation documentation\",\n      \"supported_aspect\": \"tool-call correctness\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Tool selection and data precision are explicit evaluation targets; data precision checks whether the agent calls the tool with the correct arguments.\",\n      \"source_url\": \"https://developers.openai.com/api/docs/guides/evaluation-best-practices\",\n      \"source_type\": \"provider or framework evaluation documentation\",\n      \"supported_aspect\": \"argument validity\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Recovery is increasingly tested via perturbations and fault injection, including timeouts, rate limits, partial responses, and schema drift.\",\n      \"source_url\": \"https://arxiv.org/abs/2601.06112\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"recovery from tool errors\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Operational eval stacks increasingly log per-tool-call latency, token usage, and USD cost.\",\n      \"source_url\": \"https://iris-eval.com/\",\n      \"source_type\": \"provider or framework evaluation documentation\",\n      \"supported_aspect\": \"cost and latency\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No substantive conflict among the selected sources; they mostly differ in evaluation granularity (final outcome, trace-level, step-level, or robustness stress testing).\",\n    \"uncertainty_notes\": [\n      \"Cost and latency are less standardized than task success in the literature; evidence comes more from framework/docs than from a single canonical benchmark.\",\n      \"Some systems evaluate final answers, while others evaluate traces or individual tool-call steps, so metric definitions are not fully uniform.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Task-success evaluation still dominates, but benchmarks are becoming more realistic and executable.\",\n      \"Trace grading is used for workflow-level debugging and regression finding.\",\n      \"Tool selection and argument precision are evaluated separately in current best-practice docs.\",\n      \"Robustness evaluation now includes perturbations and tool/API fault injection.\",\n      \"Some eval frameworks explicitly track latency, token usage, and cost.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"Cost/latency evidence is primarily from a provider/framework documentation page rather than a peer-reviewed benchmark paper.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nCurrent approaches to evaluating tool use in LLM agents cluster into five practical layers: (1) **task success** on realistic or executable benchmarks, (2) **tool-call correctness** via trace- or step-level checks, (3) **argument validity** via parameter/data-precision scoring, (4) **recovery from tool errors** via perturbation and fault-injection stress tests, and (5) **cost and latency** tracking for production readiness. The literature is moving from single-run success rates toward more realistic, fine-grained, and operationally relevant evaluation. `https://arxiv.org/abs/2503.16416` `https://developers.openai.com/api/docs/guides/trace-grading` ([arxiv.org](https://arxiv.org/abs/2503.16416))\\n\\n### Required aspect coverage\\n- **task success** — Benchmarks like GTA emphasize end-to-end completion on real-world tasks with real deployed tools and multimodal inputs; the survey also notes a shift toward more realistic benchmarks. `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))\\n- **tool-call correctness** — Current framework docs grade traces with structured criteria and explicitly ask whether the agent selected and invoked the right tool. `https://developers.openai.com/api/docs/guides/trace-grading` `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))\\n- **argument validity** — A common pattern is `data precision`: verifying the tool is called with the correct arguments extracted from context. `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))\\n- **recovery from tool errors** — Newer benchmarks inject timeouts, rate limits, partial responses, schema drift, and other failures to measure fault tolerance and recovery. `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))\\n- **cost and latency** — Operational evaluation frameworks increasingly log per-tool-call latency, token usage, and USD cost; the survey notes cost-efficiency remains an open gap. `https://iris-eval.com/` `https://arxiv.org/abs/2503.16416` ([iris-eval.com](https://www.iris-eval.com/))\\n\\n## Sources\\n- Survey on Evaluation of LLM-based Agents — `https://arxiv.org/abs/2503.16416` ([arxiv.org](https://arxiv.org/abs/2503.16416))\\n- GTA: A Benchmark for General Tool Agents — `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))\\n- Trace grading — `https://developers.openai.com/api/docs/guides/trace-grading` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))\\n- Evaluation best practices — `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))\\n- ReliabilityBench — `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))\\n- Iris eval standard — `https://iris-eval.com/` ([iris-eval.com](https://www.iris-eval.com/))\\n\\n## Limitations\\nEvidence is strongest for task success, trace/step correctness, and robustness stress tests. Cost and latency are discussed more in provider/framework documentation than in a single widely adopted benchmark, so standards remain fragmented. Evaluation practice also varies in granularity: some systems grade final answers, others traces, and others individual tool calls. ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))\"\n}",
+  "status": "complete"
+}

@@ -1,0 +1,313 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:48:12+00:00",
+  "finished_at": "2026-05-05T09:48:23+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-006.json",
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.8929,
+  "judge_score": 0.75,
+  "final_score": 0.8,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-006.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-006",
+    "question": "What are common failure modes in multi-agent systems?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.2857,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.8929,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 66.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "coordination overhead",
+          "covered": true,
+          "matched_terms": [
+            "coordination",
+            "overhead"
+          ],
+          "expected_terms": [
+            "coordination",
+            "overhead"
+          ]
+        },
+        {
+          "aspect": "role confusion",
+          "covered": true,
+          "matched_terms": [
+            "confusion",
+            "role"
+          ],
+          "expected_terms": [
+            "confusion",
+            "role"
+          ]
+        },
+        {
+          "aspect": "error propagation",
+          "covered": true,
+          "matched_terms": [
+            "error",
+            "propagation"
+          ],
+          "expected_terms": [
+            "error",
+            "propagation"
+          ]
+        },
+        {
+          "aspect": "consensus without correctness",
+          "covered": true,
+          "matched_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ],
+          "expected_terms": [
+            "consensus",
+            "correctness",
+            "without"
+          ]
+        },
+        {
+          "aspect": "evaluation difficulty",
+          "covered": true,
+          "matched_terms": [
+            "difficulty",
+            "evaluation"
+          ],
+          "expected_terms": [
+            "difficulty",
+            "evaluation"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Common multi-agent failure modes cluster around coordination, role assignment, cascading errors, consensus quality, and evaluation limits. Broader literature also lists coordination failures, adversarial misalignment, input spoofing/filtering, and goal co-option or direct hacking as recurring interaction failures (https://arxiv.org/abs/1810.10862).",
+        "- coordination overhead: multi-agent orchestration adds extra chatter and state management; AutoGen says auto speaker selection uses a nested chat over all group messages, which can strain context length and raise inference time and token cost (https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/).",
+        "- role confusion: agent systems can drift from assigned roles or fail to choose a single next speaker; AutoGen's group chat docs require explicit role names and retry when selection returns multiple or no names, and the risk report evaluates role-definition effectiveness (https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/ ; https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).",
+        "- error propagation: a single bad output can be passed downstream unchallenged, where each agent builds on the faulty premise and amplifies the original mistake into a system-wide failure (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/2604.08906).",
+        "- consensus without correctness: agents can converge on an erroneous majority view or reinforce a shared misconception, especially when they lack ground truth or when conformity/voting dynamics dominate (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/1810.10862).",
+        "- evaluation difficulty: multi-agent behavior often emerges only through interactions over time, so simulation and single benchmarks can miss deployment failures; the report says simulation cannot fully predict deployment behavior and validity must be checked across multiple dimensions (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf)."
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/1810.10862",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.08906",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+          "domain": "autogenhub.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+          "domain": "autogenhub.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393",
+          "domain": "psbigbig.medium.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+          "domain": "gradientinstitute.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/",
+          "domain": "reddit.com",
+          "authoritative": false,
+          "weak": true
+        }
+      ],
+      "citation_count": 7,
+      "unique_citation_count": 7
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "coordination overhead",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explains orchestration overhead, extra chatter/state management, and token/context cost."
+      },
+      {
+        "aspect": "role confusion",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Covers role drift and ambiguity in speaker selection/role assignment."
+      },
+      {
+        "aspect": "error propagation",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly describes downstream amplification of a bad output into broader failure."
+      },
+      {
+        "aspect": "consensus without correctness",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Addresses convergence on wrong majority views and conformity without ground truth."
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Notes that interactions over time make deployment failures hard to catch with simple benchmarks/simulations."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Common multi-agent failure modes cluster around coordination, role assignment, cascading errors, consensus quality, and evaluation limits.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/1810.10862"
+        ],
+        "reason": "A multi-agent failure-mode paper/survey plausibly supports this high-level grouping."
+      },
+      {
+        "claim": "Coordination overhead comes from extra chatter/state management and nested speaker-selection chats can raise context length and cost.",
+        "support": "supported",
+        "cited_urls": [
+          "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/"
+        ],
+        "reason": "The AutoGen documentation is directly relevant to speaker-selection orchestration overhead."
+      },
+      {
+        "claim": "Role confusion arises when agents drift from assigned roles or fail to choose a single next speaker.",
+        "support": "supported",
+        "cited_urls": [
+          "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+          "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+        ],
+        "reason": "Docs and report plausibly support role ambiguity and enforcement issues."
+      },
+      {
+        "claim": "A single bad output can be passed downstream unchallenged and amplified into a system-wide failure.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+          "https://arxiv.org/abs/2604.08906"
+        ],
+        "reason": "The report and empirical analysis are relevant to cascading failures in agent pipelines."
+      },
+      {
+        "claim": "Agents can converge on an erroneous majority view or reinforce a shared misconception when conformity/voting dominates.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+          "https://arxiv.org/abs/1810.10862"
+        ],
+        "reason": "Relevant to consensus failures, though the exact phrasing is synthesized rather than directly quoted."
+      },
+      {
+        "claim": "Multi-agent behavior can emerge only through interactions over time, so simulation and single benchmarks may miss deployment failures.",
+        "support": "supported",
+        "cited_urls": [
+          "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+        ],
+        "reason": "Plausibly supported by a risk-analysis report emphasizing limits of simulation and validation."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/1810.10862",
+        "quality": "strong",
+        "reason": "Relevant multi-agent paper/survey source for failure modes."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.08906",
+        "quality": "strong",
+        "reason": "Relevant empirical analysis of agentic framework failures."
+      },
+      {
+        "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+        "quality": "acceptable",
+        "reason": "Official framework documentation; useful for role-selection behavior, though not a broad research source."
+      },
+      {
+        "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+        "quality": "acceptable",
+        "reason": "Official docs relevant to orchestration overhead."
+      },
+      {
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+        "quality": "acceptable",
+        "reason": "Relevant risk-analysis report, but not clearly a peer-reviewed paper."
+      },
+      {
+        "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393",
+        "quality": "weak",
+        "reason": "Blog post on Medium; may be useful contextually but is not a strong evidence source."
+      },
+      {
+        "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/",
+        "quality": "irrelevant",
+        "reason": "Reddit thread is not a reliable or relevant source for benchmark-grade claims."
+      }
+    ],
+    "failure_tags": [
+      "weak_source"
+    ],
+    "summary": "The answer fully covers the required failure modes and gives generally plausible support, but its evidence mix includes weaker non-scholarly sources and some synthesized phrasing rather than tightly sourced claims.",
+    "recommended_fix": "Replace the weak blog/Reddit-style references with stronger survey, paper, or framework-doc citations and tighten each claim so it is directly supported by the cited source.",
+    "average_score": 4.0,
+    "normalized_score": 0.75
+  },
+  "judge_usage": {
+    "input_tokens": 3496,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1527,
+    "output_tokens_details": {
+      "reasoning_tokens": 156
+    },
+    "total_tokens": 5023
+  },
+  "response_id": "resp_0f2506a8daa95b390069f9bce517c481968270005820b2859d"
+}

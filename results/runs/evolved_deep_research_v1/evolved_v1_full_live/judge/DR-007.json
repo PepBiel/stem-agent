@@ -1,0 +1,334 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:33:02+00:00",
+  "finished_at": "2026-05-05T09:33:12+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-007.json",
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.7542,
+  "judge_score": 0.625,
+  "final_score": 0.6702,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-007.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-007",
+    "question": "How should citations be audited in deep research agents?",
+    "metrics": {
+      "coverage_score": 0.8,
+      "citation_support_score": 0.6667,
+      "source_quality_score": 0.5833,
+      "unsupported_claim_count": 1,
+      "unsupported_claim_score": 0.6667,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.7542,
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source"
+    ],
+    "runtime_seconds": 60.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "claim-level evidence",
+          "covered": true,
+          "matched_terms": [
+            "claim",
+            "evidence",
+            "level"
+          ],
+          "expected_terms": [
+            "claim",
+            "evidence",
+            "level"
+          ]
+        },
+        {
+          "aspect": "source relevance",
+          "covered": true,
+          "matched_terms": [
+            "source"
+          ],
+          "expected_terms": [
+            "relevance",
+            "source"
+          ]
+        },
+        {
+          "aspect": "citation granularity",
+          "covered": true,
+          "matched_terms": [
+            "citation"
+          ],
+          "expected_terms": [
+            "citation",
+            "granularity"
+          ]
+        },
+        {
+          "aspect": "unsupported claim detection",
+          "covered": true,
+          "matched_terms": [
+            "claim",
+            "unsupported"
+          ],
+          "expected_terms": [
+            "claim",
+            "detection",
+            "unsupported"
+          ]
+        },
+        {
+          "aspect": "handling conflicting sources",
+          "covered": false,
+          "matched_terms": [
+            "sources"
+          ],
+          "expected_terms": [
+            "conflicting",
+            "handling",
+            "sources"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Audit citations in deep research agents **at the claim level, not the paragraph level**. Break the output into atomic facts, then verify for each fact that the cited source is retrievable, the cited passage actually supports the claim, and the citation is specific enough to cover all subclaims. OpenAI’s deep research docs say outputs include citations/source links, a sources-used section, and activity history for reference checking (`https://help.openai.com/en/articles/10500283`), and the API docs show inline citations with visible annotations (`https://developers.openai.com/api/docs/guides/deep-research`).",
+        "Use a **multi-part audit**, not just a yes/no support check. ALCE evaluates citation systems on fluency, correctness, and citation quality, and reports that even strong systems still miss complete citation support often (`https://aclanthology.org/2023.emnlp-main.398/`). FActScore shows why you should decompose generated text into atomic facts and score each fact against a reliable knowledge source (`https://arxiv.org/abs/2305.14251`). CiteEval adds that binary NLI-style support is too coarse; auditors should inspect the full retrieval context, user query, and generated text together (`https://arxiv.org/abs/2506.01829`).",
+        "Practical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory."
+      ],
+      "unsupported_claim_lines": [
+        "Practical rule: flag **unsupported, overstated, or over-broad** citations; prefer primary or official sources when possible; and record uncertainty when support is partial or contradictory."
+      ],
+      "sources": [
+        {
+          "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research",
+          "domain": "academy.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://aclanthology.org/2023.emnlp-main.398/",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://aclanthology.org/2023.emnlp-main.398/`",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.14251",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.14251`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2506.01829",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2506.01829`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/deep-research",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://developers.openai.com/api/docs/guides/deep-research`",
+          "domain": "developers.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://help.openai.com/en/articles/10500283",
+          "domain": "help.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://help.openai.com/en/articles/10500283`",
+          "domain": "help.openai.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openai.com/index/introducing-deep-research/`",
+          "domain": "openai.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 12,
+      "unique_citation_count": 12
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 4,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "claim-level evidence",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly says to audit at the claim level and decompose into atomic facts."
+      },
+      {
+        "aspect": "source relevance",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "States that the cited source must be retrievable and relevant/official sources should be preferred, though it does not deeply explain relevance criteria."
+      },
+      {
+        "aspect": "citation granularity",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly addresses specificity enough to cover all subclaims and warns against paragraph-level auditing."
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Explicitly instructs flagging unsupported, overstated, or over-broad citations, but does not give a concrete audit procedure beyond labeling."
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Mentions recording uncertainty when support is partial or contradictory, but does not explain how to adjudicate conflicts between sources."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Audit citations at the claim level, not the paragraph level, and verify the cited passage actually supports the claim and all subclaims.",
+        "support": "supported",
+        "cited_urls": [
+          "https://help.openai.com/en/articles/10500283",
+          "https://developers.openai.com/api/docs/guides/deep-research"
+        ],
+        "reason": "The cited OpenAI docs plausibly support that deep research outputs include citations/source links and inline annotations, but they do not themselves prove the normative auditing recommendation; the support is only partial for the broader instruction."
+      },
+      {
+        "claim": "ALCE evaluates citation systems on fluency, correctness, and citation quality, and shows complete citation support is often missed.",
+        "support": "supported",
+        "cited_urls": [
+          "https://aclanthology.org/2023.emnlp-main.398/"
+        ],
+        "reason": "This is a plausible summary of the ALCE paper and is relevant to citation auditing."
+      },
+      {
+        "claim": "FActScore shows why text should be decomposed into atomic facts and each fact scored against a reliable knowledge source.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2305.14251"
+        ],
+        "reason": "This is aligned with the paper’s factuality-evaluation framing and supports claim-level auditing."
+      },
+      {
+        "claim": "CiteEval adds that binary NLI-style support is too coarse and auditors should inspect retrieval context, user query, and generated text together.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2506.01829"
+        ],
+        "reason": "Plausibly relevant, but the answer may overstate the specific methodology without demonstrating it from the source."
+      },
+      {
+        "claim": "Prefer primary or official sources when possible; record uncertainty when support is partial or contradictory.",
+        "support": "unsupported",
+        "cited_urls": [
+          "https://openai.com/index/introducing-deep-research/"
+        ],
+        "reason": "This is generic guidance and not clearly supported by the cited OpenAI announcement; it reads as the model’s own advice rather than grounded evidence."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://aclanthology.org/2023.emnlp-main.398/",
+        "quality": "strong",
+        "reason": "Peer-reviewed research paper directly relevant to citation evaluation."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.14251",
+        "quality": "strong",
+        "reason": "Relevant factuality benchmark paper; appropriate for claim-level evidence auditing."
+      },
+      {
+        "url": "https://arxiv.org/abs/2506.01829",
+        "quality": "strong",
+        "reason": "Research source on citation evaluation, relevant if the described claims are accurate."
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "quality": "acceptable",
+        "reason": "Relevant product documentation for deep research agent behavior and citations."
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283",
+        "quality": "acceptable",
+        "reason": "Relevant OpenAI help documentation, though likely less detailed than a technical spec."
+      },
+      {
+        "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research",
+        "quality": "weak",
+        "reason": "The resource is not clearly a canonical or authoritative reference for citation auditing and appears loosely related."
+      },
+      {
+        "url": "https://openai.com/index/introducing-deep-research/",
+        "quality": "acceptable",
+        "reason": "Official announcement, but it is secondary for audit methodology and mainly useful for general product context."
+      }
+    ],
+    "failure_tags": [
+      "unsupported_claim",
+      "weak_source",
+      "partial_conflict_handling"
+    ],
+    "summary": "The answer is solid on claim-level auditing, granularity, and using factuality/citation benchmarks, but it only partially addresses conflicting sources and includes some generic, weakly supported guidance.",
+    "recommended_fix": "Add a concrete procedure for resolving conflicting sources (priority rules, corroboration thresholds, and how to record disagreements) and remove or better ground the generic advice about preferring primary sources.",
+    "average_score": 3.5,
+    "normalized_score": 0.625
+  },
+  "judge_usage": {
+    "input_tokens": 3562,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1415,
+    "output_tokens_details": {
+      "reasoning_tokens": 70
+    },
+    "total_tokens": 4977
+  },
+  "response_id": "resp_02763127d5e2cd620069f9b956da8481968953c61fc83c128d"
+}

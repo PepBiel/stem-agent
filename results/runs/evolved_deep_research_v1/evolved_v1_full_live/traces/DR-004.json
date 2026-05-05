@@ -1,0 +1,627 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:29:11+00:00",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:29:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAgentic RAG is a retrieval-augmented generation system where an LLM-driven agent decides when and how to retrieve information during reasoning, instead of relying on a fixed retrieve-then-generate pipeline (`https://docs.langchain.com/oss/python/langchain/retrieval`, `https://arxiv.org/abs/2501.09136`). Standard RAG, by contrast, is the simpler architecture where retrieval happens first and generation happens after the context is fetched (`https://arxiv.org/abs/2005.11401`, `https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\n\nIn practice, the main difference is control flow: standard RAG is mostly static and predictable, while agentic RAG is adaptive and can do multi-step planning, tool use, iterative retrieval, and sometimes multi-source or multi-agent coordination (`https://arxiv.org/abs/2501.09136`, `https://www.ibm.com/think/topics/agentic-rag`). ([arxiv.org](https://arxiv.org/abs/2501.09136))\n\nThe tradeoff is that agentic RAG can handle more complex queries, but it usually adds orchestration complexity and variable latency, whereas 2-step RAG is simpler and more predictable (`https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\n\n## Sources\n- Original RAG paper: `https://arxiv.org/abs/2005.11401` — defines the standard retrieval-plus-generation setup. ([arxiv.org](https://arxiv.org/abs/2005.11401))\n- Agentic RAG survey: `https://arxiv.org/abs/2501.09136` — defines agentic RAG and its patterns. ([arxiv.org](https://arxiv.org/abs/2501.09136))\n- LangChain retrieval docs: `https://docs.langchain.com/oss/python/langchain/retrieval` — contrasts 2-step RAG and agentic RAG. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\n- IBM explainer: `https://www.ibm.com/think/topics/agentic-rag` — corroborates the practical distinction and use of agents. ([ibm.com](https://www.ibm.com/think/topics/agentic-rag))\n\n## Limitations\nAgentic RAG is a broad label, not one fixed architecture, so implementations vary by framework and use case (`https://arxiv.org/abs/2501.09136`, `https://docs.langchain.com/oss/python/langchain/retrieval`). I did not include benchmark numbers because the question asked for a concept comparison, not a performance review. ([arxiv.org](https://arxiv.org/abs/2501.09136))",
+  "decomposition": {
+    "subquestions": [
+      "What is agentic RAG?",
+      "What is standard RAG?",
+      "What architectural/control-flow differences separate them?",
+      "What are the main tradeoffs?"
+    ],
+    "required_aspects": [
+      "Concise definition of agentic RAG",
+      "Concise definition of standard RAG",
+      "Direct comparison of pipeline/control flow",
+      "Practical tradeoffs and uncertainty/terminology caveat"
+    ],
+    "expected_source_types": [
+      "Primary research paper for standard RAG",
+      "Survey paper for agentic RAG taxonomy/definition",
+      "Official product/framework documentation describing agentic vs 2-step RAG",
+      "Official industry explainer for practical interpretation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "agentic RAG survey arXiv",
+      "retrieval augmented generation original paper arXiv",
+      "LangChain agentic RAG docs",
+      "IBM what is agentic RAG"
+    ],
+    "rationale_per_query": [
+      "Find a primary survey that defines agentic RAG and its distinguishing features.",
+      "Find the original RAG paper to anchor the standard RAG definition.",
+      "Use official framework docs for a concrete standard-vs-agentic control-flow comparison.",
+      "Use an official industry explainer to corroborate practical tradeoffs and terminology."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "why_considered": "Primary paper defining the original RAG setup."
+    },
+    {
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "why_considered": "Survey defining agentic RAG and its design patterns."
+    },
+    {
+      "title": "Retrieval - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+      "why_considered": "Official docs comparing 2-step RAG, agentic RAG, and hybrid approaches."
+    },
+    {
+      "title": "What is Agentic RAG? | IBM",
+      "url": "https://www.ibm.com/think/topics/agentic-rag",
+      "why_considered": "Official explainer on how agentic RAG differs from traditional RAG."
+    },
+    {
+      "title": "Build a RAG agent with LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain/rag",
+      "why_considered": "Official tutorial showing an agentic RAG implementation."
+    },
+    {
+      "title": "Wikipedia: Retrieval-augmented generation",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "why_considered": "Background reference only; not primary."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "reason": "Primary source for the original standard RAG formulation."
+      },
+      {
+        "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+        "url": "https://arxiv.org/abs/2501.09136",
+        "reason": "Primary survey defining agentic RAG and its patterns."
+      },
+      {
+        "title": "Retrieval - Docs by LangChain",
+        "url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+        "reason": "Official docs give a crisp 2-step vs agentic comparison."
+      },
+      {
+        "title": "What is Agentic RAG? | IBM",
+        "url": "https://www.ibm.com/think/topics/agentic-rag",
+        "reason": "Official explainer corroborates practical differences and tradeoffs."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "Wikipedia: Retrieval-augmented generation",
+        "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+      },
+      {
+        "title": "TechRadar article on agent-based architectures",
+        "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures"
+      }
+    ],
+    "rejection_reasons": [
+      "Wikipedia is not a primary or authoritative source for a technical definition.",
+      "TechRadar is commentary/news, not a primary technical source; too speculative for a definition question."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Standard RAG was introduced as a pretrained seq2seq model augmented by a dense vector index and neural retriever, with retrieval before generation in the basic formulation.",
+      "source_url": "https://arxiv.org/abs/2005.11401",
+      "source_type": "primary research paper",
+      "supported_aspect": "standard RAG definition",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangChain describes 2-step RAG as an architecture where retrieval always happens before generation, making it simple and predictable.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+      "source_type": "official documentation",
+      "supported_aspect": "standard RAG control flow",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic RAG is RAG with an LLM-powered agent that decides when and how to retrieve during reasoning instead of following a fixed retrieve-then-generate path.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+      "source_type": "official documentation",
+      "supported_aspect": "agentic RAG definition",
+      "confidence": "high"
+    },
+    {
+      "claim": "The agentic RAG survey says traditional RAG is constrained by static workflows, while agentic RAG embeds autonomous agents and uses reflection, planning, tool use, and multi-agent collaboration.",
+      "source_url": "https://arxiv.org/abs/2501.09136",
+      "source_type": "primary survey",
+      "supported_aspect": "agentic RAG distinguishing features",
+      "confidence": "high"
+    },
+    {
+      "claim": "IBM characterizes traditional RAG as reactive and agentic RAG as more adaptive, with agents able to query multiple sources and manage more complex workflows.",
+      "source_url": "https://www.ibm.com/think/topics/agentic-rag",
+      "source_type": "official explainer",
+      "supported_aspect": "practical difference and tradeoff",
+      "confidence": "medium"
+    },
+    {
+      "claim": "LangChain notes that agentic RAG has higher flexibility but variable latency, while 2-step RAG is more predictable.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/retrieval",
+      "source_type": "official documentation",
+      "supported_aspect": "tradeoff",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "Definition of agentic RAG",
+      "Definition of standard RAG",
+      "Control-flow difference",
+      "Tradeoffs: flexibility vs predictability",
+      "Terminology variability across sources"
+    ],
+    "missing_aspects": [
+      "No benchmark comparison with numeric performance claims",
+      "No deep dive into specific agent frameworks or implementation patterns"
+    ],
+    "followup_needed": [
+      "If you want, I can next compare agentic RAG implementations such as ReAct, plan-and-execute, and hybrid RAG."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are consistent: they all frame agentic RAG as a more adaptive, agent-controlled extension of standard RAG rather than a separate unrelated paradigm.",
+    "uncertainty_notes": [
+      "The term 'agentic RAG' is not standardized across all authors; the exact architecture varies by framework and use case.",
+      "Most sources agree on the core idea, but not on a single canonical implementation."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Standard RAG definition and original formulation",
+      "Agentic RAG definition",
+      "Difference in retrieval timing/control flow",
+      "Tradeoff between flexibility and predictability",
+      "Need for caution about non-standardized terminology"
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "IBM explainer is secondary/industry-facing rather than primary research, so it is used only to corroborate the survey and official docs."
+    ]
+  },
+  "finished_at": "2026-05-05T09:29:52+00:00",
+  "citations": [
+    {
+      "end_index": 8859,
+      "start_index": 8778,
+      "title": "Retrieval - Docs by LangChain",
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/retrieval"
+    },
+    {
+      "end_index": 9241,
+      "start_index": 9194,
+      "title": "[2501.09136] Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136"
+    },
+    {
+      "end_index": 9749,
+      "start_index": 9702,
+      "title": "[2005.11401] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2005.11401"
+    },
+    {
+      "end_index": 10289,
+      "start_index": 10232,
+      "title": "What is Agentic RAG? | IBM",
+      "type": "url_citation",
+      "url": "https://www.ibm.com/think/topics/agentic-rag"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2005.11401`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/rag",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/retrieval`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.ibm.com/think/topics/agentic-rag`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0d01e23dfb4edb580069f9b87084f88194a6e4648c5fda371f",
+      "action": {
+        "query": "agentic RAG paper retrieval augmented generation agentic official",
+        "type": "search",
+        "queries": [
+          "agentic RAG paper retrieval augmented generation agentic official",
+          "standard RAG retrieval augmented generation paper official",
+          "agentic retrieval augmented generation survey paper",
+          "LangChain agentic RAG docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5630330"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/403250802_Self-Improving_and_Meta-Reasoning_in_Agentic_Retrieval-Augmented_Generation_A_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1574013726000341"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.03442"
+          },
+          {
+            "type": "url",
+            "url": "https://paperium.net/article/en/6946/agentic-retrieval-augmented-generation-a-survey-on-agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/396209481_Graph-Based_Agentic_Retrieval-Augmented_Generation_A_Comprehensive_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/topics/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2202.01110"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.25518"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures"
+          },
+          {
+            "type": "url",
+            "url": "https://www.thesedonaconference.org/sites/default/files/meeting_paper/9-4%20Retrieval-Augmented%20Generation%20-%20A%20Comprehensive%20Survey%20of%20Architectures%2C.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/LangChain"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Contextual_AI"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1o68loq"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1qfprm4/opensourced_a_rag_pipeline_voyage_ai_qdrant/"
+          },
+          {
+            "type": "url",
+            "url": "https://wjarr.com/sites/default/files/fulltext_pdf/WJARR-2026-0570.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1s1infx/langchain_docs_as_graphrag/"
+          },
+          {
+            "type": "url",
+            "url": "https://fr.wikipedia.org/wiki/LangChain"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d01e23dfb4edb580069f9b872b4b0819493321cca0fb35f78",
+      "action": {
+        "query": "arXiv retrieval augmented generation for knowledge-intensive NLP tasks 2020",
+        "type": "search",
+        "queries": [
+          "arXiv retrieval augmented generation for knowledge-intensive NLP tasks 2020",
+          "arXiv agentic retrieval augmented generation survey 2025",
+          "LangChain agentic retrieval augmented generation docs",
+          "IBM agentic rag article"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/topics/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.00054"
+          },
+          {
+            "type": "url",
+            "url": "https://www.langchain.com/retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/news/ai-detectives-agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/tutorials/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://developer.ibm.com/articles/agentic-rag-pipeline/"
+          },
+          {
+            "type": "url",
+            "url": "https://research.ibm.com/publications/self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/it-it/think/topics/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2504.10147"
+          },
+          {
+            "type": "url",
+            "url": "https://research.ibm.com/blog/conversational-RAG-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+          },
+          {
+            "type": "url",
+            "url": "https://ijcttjournal.org/2025/Volume-73%20Issue-1/IJCTT-V73I1P111.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/LangChain"
+          },
+          {
+            "type": "url",
+            "url": "https://files.eric.ed.gov/fulltext/EJ1489068.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://newsroom.ibm.com/2025-05-06-ibm-accelerates-enterprise-gen-ai-revolution-with-hybrid-capabilities?asPDF=1"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/IBM_Bob"
+          },
+          {
+            "type": "url",
+            "url": "https://es.wikipedia.org/wiki/Generaci%C3%B3n_aumentada_por_recuperaci%C3%B3n"
+          },
+          {
+            "type": "url",
+            "url": "https://it.wikipedia.org/wiki/Retrieval_augmented_generation"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d01e23dfb4edb580069f9b87509ec8194b3074defd0023870",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 17507,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 5632,
+    "output_tokens_details": {
+      "reasoning_tokens": 3066
+    },
+    "total_tokens": 23139
+  },
+  "response_id": "resp_0d01e23dfb4edb580069f9b86f68548194a677762cd60067f4",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is agentic RAG?\",\n      \"What is standard RAG?\",\n      \"What architectural/control-flow differences separate them?\",\n      \"What are the main tradeoffs?\"\n    ],\n    \"required_aspects\": [\n      \"Concise definition of agentic RAG\",\n      \"Concise definition of standard RAG\",\n      \"Direct comparison of pipeline/control flow\",\n      \"Practical tradeoffs and uncertainty/terminology caveat\"\n    ],\n    \"expected_source_types\": [\n      \"Primary research paper for standard RAG\",\n      \"Survey paper for agentic RAG taxonomy/definition\",\n      \"Official product/framework documentation describing agentic vs 2-step RAG\",\n      \"Official industry explainer for practical interpretation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"agentic RAG survey arXiv\",\n      \"retrieval augmented generation original paper arXiv\",\n      \"LangChain agentic RAG docs\",\n      \"IBM what is agentic RAG\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a primary survey that defines agentic RAG and its distinguishing features.\",\n      \"Find the original RAG paper to anchor the standard RAG definition.\",\n      \"Use official framework docs for a concrete standard-vs-agentic control-flow comparison.\",\n      \"Use an official industry explainer to corroborate practical tradeoffs and terminology.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n      \"url\": \"https://arxiv.org/abs/2005.11401\",\n      \"why_considered\": \"Primary paper defining the original RAG setup.\"\n    },\n    {\n      \"title\": \"Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG\",\n      \"url\": \"https://arxiv.org/abs/2501.09136\",\n      \"why_considered\": \"Survey defining agentic RAG and its design patterns.\"\n    },\n    {\n      \"title\": \"Retrieval - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/retrieval\",\n      \"why_considered\": \"Official docs comparing 2-step RAG, agentic RAG, and hybrid approaches.\"\n    },\n    {\n      \"title\": \"What is Agentic RAG? | IBM\",\n      \"url\": \"https://www.ibm.com/think/topics/agentic-rag\",\n      \"why_considered\": \"Official explainer on how agentic RAG differs from traditional RAG.\"\n    },\n    {\n      \"title\": \"Build a RAG agent with LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/rag\",\n      \"why_considered\": \"Official tutorial showing an agentic RAG implementation.\"\n    },\n    {\n      \"title\": \"Wikipedia: Retrieval-augmented generation\",\n      \"url\": \"https://en.wikipedia.org/wiki/Retrieval-augmented_generation\",\n      \"why_considered\": \"Background reference only; not primary.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n        \"url\": \"https://arxiv.org/abs/2005.11401\",\n        \"reason\": \"Primary source for the original standard RAG formulation.\"\n      },\n      {\n        \"title\": \"Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG\",\n        \"url\": \"https://arxiv.org/abs/2501.09136\",\n        \"reason\": \"Primary survey defining agentic RAG and its patterns.\"\n      },\n      {\n        \"title\": \"Retrieval - Docs by LangChain\",\n        \"url\": \"https://docs.langchain.com/oss/python/langchain/retrieval\",\n        \"reason\": \"Official docs give a crisp 2-step vs agentic comparison.\"\n      },\n      {\n        \"title\": \"What is Agentic RAG? | IBM\",\n        \"url\": \"https://www.ibm.com/think/topics/agentic-rag\",\n        \"reason\": \"Official explainer corroborates practical differences and tradeoffs.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"Wikipedia: Retrieval-augmented generation\",\n        \"url\": \"https://en.wikipedia.org/wiki/Retrieval-augmented_generation\"\n      },\n      {\n        \"title\": \"TechRadar article on agent-based architectures\",\n        \"url\": \"https://www.techradar.com/pro/rag-is-dead-why-enterprises-are-shifting-to-agent-based-ai-architectures\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Wikipedia is not a primary or authoritative source for a technical definition.\",\n      \"TechRadar is commentary/news, not a primary technical source; too speculative for a definition question.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Standard RAG was introduced as a pretrained seq2seq model augmented by a dense vector index and neural retriever, with retrieval before generation in the basic formulation.\",\n      \"source_url\": \"https://arxiv.org/abs/2005.11401\",\n      \"source_type\": \"primary research paper\",\n      \"supported_aspect\": \"standard RAG definition\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangChain describes 2-step RAG as an architecture where retrieval always happens before generation, making it simple and predictable.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/retrieval\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"standard RAG control flow\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic RAG is RAG with an LLM-powered agent that decides when and how to retrieve during reasoning instead of following a fixed retrieve-then-generate path.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/retrieval\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"agentic RAG definition\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The agentic RAG survey says traditional RAG is constrained by static workflows, while agentic RAG embeds autonomous agents and uses reflection, planning, tool use, and multi-agent collaboration.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.09136\",\n      \"source_type\": \"primary survey\",\n      \"supported_aspect\": \"agentic RAG distinguishing features\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"IBM characterizes traditional RAG as reactive and agentic RAG as more adaptive, with agents able to query multiple sources and manage more complex workflows.\",\n      \"source_url\": \"https://www.ibm.com/think/topics/agentic-rag\",\n      \"source_type\": \"official explainer\",\n      \"supported_aspect\": \"practical difference and tradeoff\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"LangChain notes that agentic RAG has higher flexibility but variable latency, while 2-step RAG is more predictable.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/retrieval\",\n      \"source_type\": \"official documentation\",\n      \"supported_aspect\": \"tradeoff\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"Definition of agentic RAG\",\n      \"Definition of standard RAG\",\n      \"Control-flow difference\",\n      \"Tradeoffs: flexibility vs predictability\",\n      \"Terminology variability across sources\"\n    ],\n    \"missing_aspects\": [\n      \"No benchmark comparison with numeric performance claims\",\n      \"No deep dive into specific agent frameworks or implementation patterns\"\n    ],\n    \"followup_needed\": [\n      \"If you want, I can next compare agentic RAG implementations such as ReAct, plan-and-execute, and hybrid RAG.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources are consistent: they all frame agentic RAG as a more adaptive, agent-controlled extension of standard RAG rather than a separate unrelated paradigm.\",\n    \"uncertainty_notes\": [\n      \"The term 'agentic RAG' is not standardized across all authors; the exact architecture varies by framework and use case.\",\n      \"Most sources agree on the core idea, but not on a single canonical implementation.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Standard RAG definition and original formulation\",\n      \"Agentic RAG definition\",\n      \"Difference in retrieval timing/control flow\",\n      \"Tradeoff between flexibility and predictability\",\n      \"Need for caution about non-standardized terminology\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"IBM explainer is secondary/industry-facing rather than primary research, so it is used only to corroborate the survey and official docs.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nAgentic RAG is a retrieval-augmented generation system where an LLM-driven agent decides when and how to retrieve information during reasoning, instead of relying on a fixed retrieve-then-generate pipeline (`https://docs.langchain.com/oss/python/langchain/retrieval`, `https://arxiv.org/abs/2501.09136`). Standard RAG, by contrast, is the simpler architecture where retrieval happens first and generation happens after the context is fetched (`https://arxiv.org/abs/2005.11401`, `https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\\n\\nIn practice, the main difference is control flow: standard RAG is mostly static and predictable, while agentic RAG is adaptive and can do multi-step planning, tool use, iterative retrieval, and sometimes multi-source or multi-agent coordination (`https://arxiv.org/abs/2501.09136`, `https://www.ibm.com/think/topics/agentic-rag`). ([arxiv.org](https://arxiv.org/abs/2501.09136))\\n\\nThe tradeoff is that agentic RAG can handle more complex queries, but it usually adds orchestration complexity and variable latency, whereas 2-step RAG is simpler and more predictable (`https://docs.langchain.com/oss/python/langchain/retrieval`). ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\\n\\n## Sources\\n- Original RAG paper: `https://arxiv.org/abs/2005.11401` — defines the standard retrieval-plus-generation setup. ([arxiv.org](https://arxiv.org/abs/2005.11401))\\n- Agentic RAG survey: `https://arxiv.org/abs/2501.09136` — defines agentic RAG and its patterns. ([arxiv.org](https://arxiv.org/abs/2501.09136))\\n- LangChain retrieval docs: `https://docs.langchain.com/oss/python/langchain/retrieval` — contrasts 2-step RAG and agentic RAG. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/retrieval))\\n- IBM explainer: `https://www.ibm.com/think/topics/agentic-rag` — corroborates the practical distinction and use of agents. ([ibm.com](https://www.ibm.com/think/topics/agentic-rag))\\n\\n## Limitations\\nAgentic RAG is a broad label, not one fixed architecture, so implementations vary by framework and use case (`https://arxiv.org/abs/2501.09136`, `https://docs.langchain.com/oss/python/langchain/retrieval`). I did not include benchmark numbers because the question asked for a concept comparison, not a performance review. ([arxiv.org](https://arxiv.org/abs/2501.09136))\"\n}",
+  "status": "complete"
+}

@@ -1,0 +1,579 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v2",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v2.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:47:06+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "source_expectations": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:48:12+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCommon multi-agent failure modes cluster around coordination, role assignment, cascading errors, consensus quality, and evaluation limits. Broader literature also lists coordination failures, adversarial misalignment, input spoofing/filtering, and goal co-option or direct hacking as recurring interaction failures (https://arxiv.org/abs/1810.10862).\n\n### Required aspect coverage\n- coordination overhead: multi-agent orchestration adds extra chatter and state management; AutoGen says auto speaker selection uses a nested chat over all group messages, which can strain context length and raise inference time and token cost (https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/).\n- role confusion: agent systems can drift from assigned roles or fail to choose a single next speaker; AutoGen's group chat docs require explicit role names and retry when selection returns multiple or no names, and the risk report evaluates role-definition effectiveness (https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/ ; https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).\n- error propagation: a single bad output can be passed downstream unchallenged, where each agent builds on the faulty premise and amplifies the original mistake into a system-wide failure (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/2604.08906).\n- consensus without correctness: agents can converge on an erroneous majority view or reinforce a shared misconception, especially when they lack ground truth or when conformity/voting dynamics dominate (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/1810.10862).\n- evaluation difficulty: multi-agent behavior often emerges only through interactions over time, so simulation and single benchmarks can miss deployment failures; the report says simulation cannot fully predict deployment behavior and validity must be checked across multiple dimensions (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).\n\n## Sources\n- https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf — governed LLM-based multi-agent risk analysis report; strongest source for cascading failures, conformity bias, and evaluation limits.\n- https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/ — official AutoGen GroupChat documentation on role-based speaker selection.\n- https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/ — official AutoGen docs on nested speaker-selection chats and context/token overhead.\n- https://arxiv.org/abs/1810.10862 — multi-agent failure-mode paper/survey.\n- https://arxiv.org/abs/2604.08906 — empirical failure analysis of agentic frameworks.\n\n## Limitations\nThe evidence mixes classic multi-agent-systems literature with newer LLM-agent framework documentation, so some terms are synthesized rather than standardized. In particular, \"role confusion\" is inferred from role drift and role-selection ambiguity rather than named exactly that way (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/). The evaluation-difficulty evidence is mostly about validity and staged testing, not a single universal benchmark (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).",
+  "decomposition": {
+    "subquestions": [
+      "What multi-agent failure modes are most common across the literature?",
+      "How do coordination, role assignment, cascading errors, conformity, and evaluation limits show up in practice?",
+      "Which claims are directly supported by primary sources versus inferred from adjacent evidence?"
+    ],
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "expected_source_types": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "multi-agent systems coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+      "site:autogenhub.github.io AutoGen group chat speaker selection role context length documentation",
+      "empirical analysis multi-agent frameworks failure modes orchestration faults"
+    ],
+    "rationale_per_query": [
+      "Find a broad multi-agent failure-mode paper/survey that names canonical interaction failures.",
+      "Find official framework documentation showing how orchestration, roles, and speaker selection create operational overhead and ambiguity.",
+      "Find an empirical study of agentic frameworks to ground concrete bugs and failure symptoms."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+      "type": "multi-agent system paper/report",
+      "status": "accepted"
+    },
+    {
+      "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+      "type": "agent framework documentation",
+      "status": "accepted"
+    },
+    {
+      "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+      "type": "agent framework documentation",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/1810.10862",
+      "type": "multi-agent system paper",
+      "status": "accepted"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.08906",
+      "type": "empirical failure analysis",
+      "status": "accepted"
+    },
+    {
+      "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393",
+      "type": "blog post",
+      "status": "rejected"
+    },
+    {
+      "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/",
+      "type": "forum post",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+        "reason": "Primary report on governed LLM-based multi-agent systems; directly discusses cascading failures, conformity bias, role definitions, and validity limits."
+      },
+      {
+        "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+        "reason": "Official framework docs; clearly describes role-based speaker selection and retries when selection is ambiguous."
+      },
+      {
+        "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+        "reason": "Official framework docs; explicitly notes nested speaker-selection chats, context-length pressure, and token-cost overhead."
+      },
+      {
+        "url": "https://arxiv.org/abs/1810.10862",
+        "reason": "Primary paper/survey on multi-agent failure modes; names coordination failures and related interaction failures."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.08906",
+        "reason": "Empirical study of 409 fixed bugs across five agentic frameworks; strong evidence for orchestration-related failure symptoms."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393",
+        "reason": "Anecdotal blog post; useful for intuition but too weak for load-bearing claims."
+      },
+      {
+        "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/",
+        "reason": "Forum discussion; not a reliable or stable source for research claims."
+      }
+    ],
+    "rejection_reasons": [
+      "Non-primary, anecdotal source.",
+      "Community discussion without verifiable methodology."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Multi-agent orchestration adds coordination overhead because speaker selection itself can require a nested chat over all group messages, increasing context length, inference time, and token cost.",
+      "source_url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "coordination overhead",
+      "confidence": "high"
+    },
+    {
+      "claim": "Role confusion shows up as agents drifting from assigned roles or the system failing to select a single next speaker; role definitions and retry logic are needed to recover from ambiguity.",
+      "source_url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "role confusion",
+      "confidence": "medium"
+    },
+    {
+      "claim": "A single incorrect agent output can cascade through downstream agents, where each step builds on the faulty premise and amplifies the original error into system-wide failure.",
+      "source_url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+      "source_type": "multi-agent system paper/report",
+      "supported_aspect": "error propagation",
+      "confidence": "high"
+    },
+    {
+      "claim": "Multi-agent groups can converge on an erroneous consensus or majority view even when no agent has evidence that the claim is correct, especially under conformity or voting pressure and weak ground truth.",
+      "source_url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+      "source_type": "multi-agent system paper/report",
+      "supported_aspect": "consensus without correctness",
+      "confidence": "high"
+    },
+    {
+      "claim": "Evaluating multi-agent systems is difficult because relevant dynamics often emerge only through interaction over time, and simulation cannot fully predict deployment behavior; multiple validity dimensions are needed.",
+      "source_url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+      "source_type": "multi-agent system paper/report",
+      "supported_aspect": "evaluation difficulty",
+      "confidence": "high"
+    },
+    {
+      "claim": "An empirical study of 409 fixed bugs across five agentic frameworks found orchestration symptoms such as unexpected execution sequences, ignored user configurations, cognitive context mismanagement, and orchestration faults.",
+      "source_url": "https://arxiv.org/abs/2604.08906",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "error propagation",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive contradictions surfaced. The sources are consistent but use different terminology for similar problems.",
+    "uncertainty_notes": [
+      "Role confusion is an inference from role-drift, role-definition, and speaker-selection ambiguity rather than a term used uniformly across sources.",
+      "Evaluation difficulty is supported mainly through validity and staged-testing language, not a single universal benchmark."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Coordination overhead is supported by AutoGen's nested speaker-selection chat and token/context management docs.",
+      "Role confusion is supported by role-based speaker selection, multiple/no-name retries, and role-definition effectiveness in the risk report.",
+      "Error propagation is supported by the cascade language in the risk report and the empirical study's orchestration-fault findings.",
+      "Consensus without correctness is supported by conformity-bias and erroneous-consensus passages in the risk report.",
+      "Evaluation difficulty is supported by the report's discussion of validity, simulation limits, and staged testing."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "Role confusion is not a standardized label in the sources; it is a synthesis of adjacent evidence."
+    ]
+  },
+  "finished_at": "2026-05-05T09:48:12+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/1810.10862",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.08906",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_036c929bebfa90820069f9bca3acf88193bd5384f2ec92f935",
+      "action": {
+        "query": "multi-agent systems coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+        "type": "search",
+        "queries": [
+          "multi-agent systems coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+          "AutoGen multi-agent documentation agent orchestration failure modes role confusion",
+          "empirical analysis multi-agent systems failure mode coordination overhead error propagation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S000510981930130X"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0005109814004038"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.cmu.edu/afs/cs/usr/pstone/public/papers/97MAS-survey/revised-survey.html"
+          },
+          {
+            "type": "url",
+            "url": "https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/Use-Cases/agent_chat/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aicodex.to/articles/multi-agent-failure-handling"
+          },
+          {
+            "type": "url",
+            "url": "https://rapidclaw.dev/blog/multi-agent-orchestration-patterns-2026"
+          },
+          {
+            "type": "url",
+            "url": "https://research.ibm.com/publications/detection-and-resolution-of-normative-conflicts-in-multi-agent-systems-a-literature-survey-jaamas-track"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mathnet.ru/php/archive.phtml?jrnid=ubs&option_lang=eng&paperid=510&wshow=paper"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0925231216300418"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.08906"
+          },
+          {
+            "type": "url",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13066405/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1703.09877"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.08906"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1810.10862"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.04691"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/"
+          },
+          {
+            "type": "url",
+            "url": "https://thesaelafield.com/files/multi_agent_coherence_saelarien_constraint_2026.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=99893625bef510475698a6479834fe079d54122f&repid=rep1&type=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPTPro/comments/1p84axw/multiagent_workflows_break_unpredictably_has/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bca68a808193ae06a46e8c2e53ce",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/1810.10862"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bca8a4c48193a067802617ed62d4",
+      "action": {
+        "query": "site:python.langchain.com LangGraph supervisor worker agent roles documentation",
+        "type": "search",
+        "queries": [
+          "site:python.langchain.com LangGraph supervisor worker agent roles documentation",
+          "site:autogenhub.github.io AutoGen group chat manager speaker role documentation",
+          "site:crewAI.com role confusion delegation agent roles documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/using_custom_model_client_classes/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/tutorial/conversation-patterns/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/customized_speaker_selection/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/notebooks/agentchat_groupchat_finite_state_machine/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/topics/non-openai-models/best-tips-for-nonopenai-models/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/notebooks/agentchat_groupchat_RAG/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/notebooks/agentchat_swarm/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/reference/agentchat/contrib/society_of_mind_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/autogen-studio/usage/"
+          },
+          {
+            "type": "url",
+            "url": "https://autogenhub.github.io/autogen/docs/Use-Cases/agent_chat/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bcaab6a0819385c22ee8f172ec21",
+      "action": {
+        "pattern": "evaluation",
+        "type": "find_in_page",
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bcacebb08193919f79a49e626965",
+      "action": {
+        "pattern": "role",
+        "type": "find_in_page",
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bcae5f6c8193874164ac73e0d4a3",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bcb7a28081938560cd87f4cb0d9f",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_036c929bebfa90820069f9bcb8eb988193a73e8296ea082df0",
+      "action": {
+        "type": "open_page",
+        "url": "https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 39414,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8754,
+    "output_tokens_details": {
+      "reasoning_tokens": 6103
+    },
+    "total_tokens": 48168
+  },
+  "response_id": "resp_036c929bebfa90820069f9bca24390819389114ec8690b0017",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What multi-agent failure modes are most common across the literature?\",\n      \"How do coordination, role assignment, cascading errors, conformity, and evaluation limits show up in practice?\",\n      \"Which claims are directly supported by primary sources versus inferred from adjacent evidence?\"\n    ],\n    \"required_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"expected_source_types\": [\n      \"multi-agent system paper or survey\",\n      \"agent framework documentation\",\n      \"empirical failure analysis\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"multi-agent systems coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey\",\n      \"site:autogenhub.github.io AutoGen group chat speaker selection role context length documentation\",\n      \"empirical analysis multi-agent frameworks failure modes orchestration faults\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a broad multi-agent failure-mode paper/survey that names canonical interaction failures.\",\n      \"Find official framework documentation showing how orchestration, roles, and speaker selection create operational overhead and ambiguity.\",\n      \"Find an empirical study of agentic frameworks to ground concrete bugs and failure symptoms.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf\",\n      \"type\": \"multi-agent system paper/report\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/\",\n      \"type\": \"agent framework documentation\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/\",\n      \"type\": \"agent framework documentation\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/1810.10862\",\n      \"type\": \"multi-agent system paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://arxiv.org/abs/2604.08906\",\n      \"type\": \"empirical failure analysis\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393\",\n      \"type\": \"blog post\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"url\": \"https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/\",\n      \"type\": \"forum post\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf\",\n        \"reason\": \"Primary report on governed LLM-based multi-agent systems; directly discusses cascading failures, conformity bias, role definitions, and validity limits.\"\n      },\n      {\n        \"url\": \"https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/\",\n        \"reason\": \"Official framework docs; clearly describes role-based speaker selection and retries when selection is ambiguous.\"\n      },\n      {\n        \"url\": \"https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/\",\n        \"reason\": \"Official framework docs; explicitly notes nested speaker-selection chats, context-length pressure, and token-cost overhead.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/1810.10862\",\n        \"reason\": \"Primary paper/survey on multi-agent failure modes; names coordination failures and related interaction failures.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2604.08906\",\n        \"reason\": \"Empirical study of 409 fixed bugs across five agentic frameworks; strong evidence for orchestration-related failure symptoms.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://psbigbig.medium.com/why-multi-agent-ai-systems-deadlock-debugging-orchestration-failures-in-llm-pipelines-c17b4cbc5393\",\n        \"reason\": \"Anecdotal blog post; useful for intuition but too weak for load-bearing claims.\"\n      },\n      {\n        \"url\": \"https://www.reddit.com/r/aiagents/comments/1s3joj3/most_multiagent_systems_arent_automated_theyre/\",\n        \"reason\": \"Forum discussion; not a reliable or stable source for research claims.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Non-primary, anecdotal source.\",\n      \"Community discussion without verifiable methodology.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Multi-agent orchestration adds coordination overhead because speaker selection itself can require a nested chat over all group messages, increasing context length, inference time, and token cost.\",\n      \"source_url\": \"https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Role confusion shows up as agents drifting from assigned roles or the system failing to select a single next speaker; role definitions and retry logic are needed to recover from ambiguity.\",\n      \"source_url\": \"https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"role confusion\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"A single incorrect agent output can cascade through downstream agents, where each step builds on the faulty premise and amplifies the original error into system-wide failure.\",\n      \"source_url\": \"https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf\",\n      \"source_type\": \"multi-agent system paper/report\",\n      \"supported_aspect\": \"error propagation\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Multi-agent groups can converge on an erroneous consensus or majority view even when no agent has evidence that the claim is correct, especially under conformity or voting pressure and weak ground truth.\",\n      \"source_url\": \"https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf\",\n      \"source_type\": \"multi-agent system paper/report\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Evaluating multi-agent systems is difficult because relevant dynamics often emerge only through interaction over time, and simulation cannot fully predict deployment behavior; multiple validity dimensions are needed.\",\n      \"source_url\": \"https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf\",\n      \"source_type\": \"multi-agent system paper/report\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"An empirical study of 409 fixed bugs across five agentic frameworks found orchestration symptoms such as unexpected execution sequences, ignored user configurations, cognitive context mismanagement, and orchestration faults.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.08906\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"error propagation\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No substantive contradictions surfaced. The sources are consistent but use different terminology for similar problems.\",\n    \"uncertainty_notes\": [\n      \"Role confusion is an inference from role-drift, role-definition, and speaker-selection ambiguity rather than a term used uniformly across sources.\",\n      \"Evaluation difficulty is supported mainly through validity and staged-testing language, not a single universal benchmark.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Coordination overhead is supported by AutoGen's nested speaker-selection chat and token/context management docs.\",\n      \"Role confusion is supported by role-based speaker selection, multiple/no-name retries, and role-definition effectiveness in the risk report.\",\n      \"Error propagation is supported by the cascade language in the risk report and the empirical study's orchestration-fault findings.\",\n      \"Consensus without correctness is supported by conformity-bias and erroneous-consensus passages in the risk report.\",\n      \"Evaluation difficulty is supported by the report's discussion of validity, simulation limits, and staged testing.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"Role confusion is not a standardized label in the sources; it is a synthesis of adjacent evidence.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nCommon multi-agent failure modes cluster around coordination, role assignment, cascading errors, consensus quality, and evaluation limits. Broader literature also lists coordination failures, adversarial misalignment, input spoofing/filtering, and goal co-option or direct hacking as recurring interaction failures (https://arxiv.org/abs/1810.10862).\\n\\n### Required aspect coverage\\n- coordination overhead: multi-agent orchestration adds extra chatter and state management; AutoGen says auto speaker selection uses a nested chat over all group messages, which can strain context length and raise inference time and token cost (https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/).\\n- role confusion: agent systems can drift from assigned roles or fail to choose a single next speaker; AutoGen's group chat docs require explicit role names and retry when selection returns multiple or no names, and the risk report evaluates role-definition effectiveness (https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/ ; https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).\\n- error propagation: a single bad output can be passed downstream unchallenged, where each agent builds on the faulty premise and amplifies the original mistake into a system-wide failure (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/2604.08906).\\n- consensus without correctness: agents can converge on an erroneous majority view or reinforce a shared misconception, especially when they lack ground truth or when conformity/voting dynamics dominate (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://arxiv.org/abs/1810.10862).\\n- evaluation difficulty: multi-agent behavior often emerges only through interactions over time, so simulation and single benchmarks can miss deployment failures; the report says simulation cannot fully predict deployment behavior and validity must be checked across multiple dimensions (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).\\n\\n## Sources\\n- https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf — governed LLM-based multi-agent risk analysis report; strongest source for cascading failures, conformity bias, and evaluation limits.\\n- https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/ — official AutoGen GroupChat documentation on role-based speaker selection.\\n- https://autogenhub.github.io/autogen/docs/topics/groupchat/transform_messages_speaker_selection/ — official AutoGen docs on nested speaker-selection chats and context/token overhead.\\n- https://arxiv.org/abs/1810.10862 — multi-agent failure-mode paper/survey.\\n- https://arxiv.org/abs/2604.08906 — empirical failure analysis of agentic frameworks.\\n\\n## Limitations\\nThe evidence mixes classic multi-agent-systems literature with newer LLM-agent framework documentation, so some terms are synthesized rather than standardized. In particular, \\\"role confusion\\\" is inferred from role drift and role-selection ambiguity rather than named exactly that way (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf ; https://autogenhub.github.io/autogen/docs/reference/agentchat/groupchat/). The evaluation-difficulty evidence is mostly about validity and staged testing, not a single universal benchmark (https://www.gradientinstitute.org/assets/gradient_multiagent_report.pdf).\"\n}",
+  "status": "complete"
+}

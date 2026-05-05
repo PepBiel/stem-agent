@@ -1,0 +1,355 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T09:30:56+00:00",
+  "finished_at": "2026-05-05T09:31:06+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-005.json",
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.95,
+  "judge_score": 0.7917,
+  "final_score": 0.8471,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-005.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-005",
+    "question": "What techniques exist for self-improving agents without fine-tuning?",
+    "metrics": {
+      "coverage_score": 0.8,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.95,
+    "failure_tags": [],
+    "runtime_seconds": 52.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "verbal feedback",
+          "covered": true,
+          "matched_terms": [
+            "feedback",
+            "verbal"
+          ],
+          "expected_terms": [
+            "feedback",
+            "verbal"
+          ]
+        },
+        {
+          "aspect": "reflection",
+          "covered": true,
+          "matched_terms": [
+            "reflection"
+          ],
+          "expected_terms": [
+            "reflection"
+          ]
+        },
+        {
+          "aspect": "self-refinement",
+          "covered": true,
+          "matched_terms": [
+            "refinement",
+            "self"
+          ],
+          "expected_terms": [
+            "refinement",
+            "self"
+          ]
+        },
+        {
+          "aspect": "prompt or workflow optimization",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "limits of self-improvement without external feedback",
+          "covered": true,
+          "matched_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "self",
+            "without"
+          ],
+          "expected_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Without fine-tuning, self-improving agents usually improve **at test time** by changing prompts, memory, search state, or tool-use behavior rather than model weights. The main families of techniques are: **reflection/memory**, **iterative self-feedback and revision**, **reasoning+acting with external tools**, **search over multiple reasoning branches**, **self-consistency over sampled solutions**, and **curriculum/skill-library accumulation**. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+        "- **Reflection + episodic memory:** the agent critiques its own past behavior, stores the reflection, and reuses it on later attempts. ([arxiv.org](https://arxiv.org/abs/2303.11366?utm_source=openai))",
+        "- **Iterative self-feedback / rewrite:** the same model generates an answer, critiques it, and revises it in a loop, with no extra training. ([arxiv.org](https://arxiv.org/abs/2303.17651?utm_source=openai))",
+        "- **Reasoning + acting:** the agent alternates between internal reasoning and external actions (APIs, environments, tools) to gather new information and update plans. ([arxiv.org](https://arxiv.org/abs/2210.03629?utm_source=openai))",
+        "- **Search / backtracking over thoughts:** the agent branches over candidate reasoning steps, evaluates them, and can backtrack when a branch looks weak. ([arxiv.org](https://arxiv.org/abs/2305.10601?utm_source=openai))",
+        "- **Self-consistency:** the agent samples multiple reasoning paths and selects the most consistent final answer. ([arxiv.org](https://arxiv.org/abs/2203.11171?utm_source=openai))",
+        "- **Curriculum + skill library:** the agent accumulates reusable skills and follows an automatic curriculum, improving via black-box prompting rather than fine-tuning. ([arxiv.org](https://arxiv.org/abs/2305.16291?utm_source=openai))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2203.11171",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2203.11171?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2210.03629?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.11366",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.11366?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.17651",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.17651?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.10601",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.10601?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.16291",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.16291?utm_source=openai",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/pdf/2406.15673",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 13,
+      "unique_citation_count": 13
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 4,
+      "evidence_quality": 5,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "verbal feedback",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly covers Reflexion as self-critique/verbal reinforcement learning."
+      },
+      {
+        "aspect": "reflection",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly describes critique of past behavior plus storing and reusing reflections."
+      },
+      {
+        "aspect": "self-refinement",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly includes iterative self-feedback/rewrite loops without extra training."
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions changing prompts and black-box prompting, but gives limited detail on concrete prompt/workflow optimization methods."
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "score": 3,
+        "verdict": "partial",
+        "reason": "Includes a brief limitations note, but it stays generic and does not clearly explain failure modes or why external feedback is needed."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Without fine-tuning, self-improving agents usually improve at test time by changing prompts, memory, search state, or tool-use behavior rather than model weights.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366?utm_source=openai"
+        ],
+        "reason": "Reflexion supports test-time self-improvement via verbal feedback and memory; the broader generalization is reasonable though slightly expansive."
+      },
+      {
+        "claim": "Reflection + episodic memory: the agent critiques its own past behavior, stores the reflection, and reuses it on later attempts.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366?utm_source=openai"
+        ],
+        "reason": "This is aligned with Reflexion's core mechanism."
+      },
+      {
+        "claim": "Iterative self-feedback / rewrite: the same model generates an answer, critiques it, and revises it in a loop, with no extra training.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.17651?utm_source=openai"
+        ],
+        "reason": "Self-Refine is directly about iterative self-feedback and revision."
+      },
+      {
+        "claim": "Reasoning + acting: the agent alternates between internal reasoning and external actions (APIs, environments, tools) to gather new information and update plans.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629?utm_source=openai"
+        ],
+        "reason": "ReAct supports this reasoning-and-acting description."
+      },
+      {
+        "claim": "Search / backtracking over thoughts: the agent branches over candidate reasoning steps, evaluates them, and can backtrack when a branch looks weak.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2305.10601?utm_source=openai"
+        ],
+        "reason": "Tree of Thoughts explicitly uses branching, evaluation, and backtracking."
+      },
+      {
+        "claim": "Self-consistency: the agent samples multiple reasoning paths and selects the most consistent final answer.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2203.11171?utm_source=openai"
+        ],
+        "reason": "This is the central method of the cited paper."
+      },
+      {
+        "claim": "Curriculum + skill library: the agent accumulates reusable skills and follows an automatic curriculum, improving via black-box prompting rather than fine-tuning.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2305.16291?utm_source=openai"
+        ],
+        "reason": "Voyager supports skill accumulation and curriculum-driven improvement in prompt/tool space."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "quality": "strong",
+        "reason": "Primary paper on verbal feedback/reflection for agents."
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651",
+        "quality": "strong",
+        "reason": "Primary paper on iterative self-refinement with self-feedback."
+      },
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "quality": "strong",
+        "reason": "Primary agent design paper on reasoning plus acting."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.10601",
+        "quality": "strong",
+        "reason": "Primary paper on search/tree-based reasoning over multiple branches."
+      },
+      {
+        "url": "https://arxiv.org/abs/2203.11171",
+        "quality": "strong",
+        "reason": "Primary paper on self-consistency via multiple sampled reasoning paths."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.16291",
+        "quality": "strong",
+        "reason": "Primary agent paper on skill accumulation and curriculum-like open-ended improvement."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2406.15673",
+        "quality": "acceptable",
+        "reason": "Likely relevant as an extra analysis paper, but not clearly necessary for the main answer."
+      }
+    ],
+    "failure_tags": [
+      "limited_limitations_discussion",
+      "slightly_broad_generalization"
+    ],
+    "summary": "A strong, well-cited synthesis of major no-fine-tuning self-improvement techniques for agents. Coverage is good, but the limitations section is too generic for a top score.",
+    "recommended_fix": "Add a sharper discussion of the limits of self-improvement without external feedback, including concrete failure modes like self-confirmation bias, compounding errors, reward hacking, and the ceiling imposed by the base model's capabilities.",
+    "average_score": 4.1667,
+    "normalized_score": 0.7917
+  },
+  "judge_usage": {
+    "input_tokens": 4448,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1580,
+    "output_tokens_details": {
+      "reasoning_tokens": 122
+    },
+    "total_tokens": 6028
+  },
+  "response_id": "resp_0ab7944e221411150069f9b8d86d8c819783d25aece7997adc"
+}

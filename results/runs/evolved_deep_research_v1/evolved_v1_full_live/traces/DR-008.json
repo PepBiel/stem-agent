@@ -1,0 +1,435 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v1.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:33:12+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [],
+    "source_expectations": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:33:56+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents optimize for **flexibility**: the model can choose its next step and tools at runtime. Workflow-based agents optimize for **control**: the path is predefined, so behavior is more predictable and easier to validate. Anthropic explicitly distinguishes these as different architectures, and recommends workflows for well-defined tasks and agents when flexible, model-driven decision-making is needed at scale. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n\n**Main trade-offs:**\n- **Autonomous agents:** better on open-ended or changing tasks, but they usually add latency, cost, and operational risk because the system must reason, select tools, and recover from mistakes dynamically. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- **Workflow-based agents:** better for repeatable tasks, compliance, and debugging because the control flow is explicit; the downside is rigidity, and complex declarative flows can get cumbersome as branching increases. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- **Engineering effort:** workflow systems can be simpler to test and govern, while autonomous systems often require stronger guardrails, execution infrastructure, and careful tool design. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n\nA practical rule from the sources is: **start with the simplest workflow that solves the problem, then add autonomy only when variability or scale justifies the extra complexity.** ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n\n## Sources\n- Anthropic, *Building Effective AI Agents*: https://www.anthropic.com/engineering/building-effective-agents. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\n- OpenAI, *A practical guide to building agents*: https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\n- OpenAI, *From model to agent: Equipping the Responses API with a computer environment*: https://openai.com/index/equip-responses-api-computer-environment/. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))\n\n## Limitations\nThis is a synthesis of vendor engineering guidance, not a controlled benchmark comparison, so the exact trade-off depends on the task, toolset, and reliability requirements. Terminology also varies across vendors: some call both patterns \"agentic systems\" and separate them only by how much control the model has. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+  "decomposition": {
+    "subquestions": [
+      "How do autonomous agents differ architecturally from workflow-based agents?",
+      "What benefits do autonomous agents provide over fixed workflows?",
+      "What benefits do workflow-based agents provide over autonomous agents?",
+      "What are the practical costs/risks of each approach?",
+      "When should a team choose one over the other?"
+    ],
+    "required_aspects": [
+      "definition/difference in control flow",
+      "predictability vs flexibility",
+      "latency/cost vs task performance",
+      "debuggability/governance/safety",
+      "guidance on when to use each"
+    ],
+    "expected_source_types": [
+      "official vendor engineering docs",
+      "official product/architecture guides",
+      "primary technical documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:anthropic.com building effective agents workflows vs agents",
+      "site:openai.com practical guide building agents workflow agent trade-offs",
+      "site:openai.com agent computer environment workflow system trade-offs"
+    ],
+    "rationale_per_query": [
+      "Find an official definition and explicit trade-off discussion between workflows and agents.",
+      "Find official guidance on orchestration patterns, flexibility, and complexity costs.",
+      "Find official discussion of operational overhead when agents execute real-world tasks."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Anthropic: Building Effective AI Agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "note": "Directly defines workflows vs agents and states trade-offs."
+    },
+    {
+      "title": "OpenAI: A practical guide to building agents",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "note": "Directly discusses orchestration patterns, declarative graphs, and when to use multi-agent systems."
+    },
+    {
+      "title": "OpenAI: From model to agent: Equipping the Responses API with a computer environment",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "note": "Explains execution-environment overhead, orchestration loops, and operational concerns for agents."
+    },
+    {
+      "title": "OpenAI: OpenAI for agentic workflows",
+      "url": "https://openai.com/solutions/use-case/agents/",
+      "note": "Rejected: useful overview, but mostly marketing-oriented and less directly comparative."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Anthropic: Building Effective AI Agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "reason": "Best direct source for the workflows-vs-agents distinction and explicit trade-offs."
+      },
+      {
+        "title": "OpenAI: A practical guide to building agents",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "reason": "Strong official guidance on agent orchestration, declarative graphs, and complexity."
+      },
+      {
+        "title": "OpenAI: From model to agent: Equipping the Responses API with a computer environment",
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+        "reason": "Useful for operational overhead, execution loops, and reliability considerations."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "OpenAI: OpenAI for agentic workflows",
+        "url": "https://openai.com/solutions/use-case/agents/"
+      }
+    ],
+    "rejection_reasons": [
+      "Marketing-heavy overview; overlaps with the accepted OpenAI technical guide and adds little direct comparison."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Workflows are systems where LLMs and tools follow predefined code paths, while autonomous agents let the LLM dynamically direct its own process and tool use.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "official engineering blog",
+      "supported_aspect": "definition/control flow",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflow-based systems are generally more predictable and consistent for well-defined tasks.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "official engineering blog",
+      "supported_aspect": "predictability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Autonomous agents are better when flexibility and model-driven decision-making are needed at scale.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "official engineering blog",
+      "supported_aspect": "flexibility/scalability",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic systems often trade latency and cost for better task performance.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "official engineering blog",
+      "supported_aspect": "cost/latency trade-off",
+      "confidence": "high"
+    },
+    {
+      "claim": "Declarative workflow graphs can become cumbersome and harder to manage as workflows grow more dynamic and complex.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "official technical guide",
+      "supported_aspect": "maintainability",
+      "confidence": "high"
+    },
+    {
+      "claim": "A code-first, dynamic orchestration approach is more adaptable, but it requires guardrails and execution infrastructure.",
+      "source_url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      "source_type": "official technical guide",
+      "supported_aspect": "adaptability/operational overhead",
+      "confidence": "medium"
+    },
+    {
+      "claim": "Running agents in a real computer environment introduces practical concerns such as file handling, networking, timeouts, retries, and the need for an orchestrator.",
+      "source_url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "source_type": "official product/architecture post",
+      "supported_aspect": "operational complexity",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "definition/difference in control flow",
+      "predictability vs flexibility",
+      "latency/cost vs task performance",
+      "maintainability/debuggability",
+      "operational complexity",
+      "selection guidance"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive conflict. The sources use slightly different terminology, but both distinguish fixed orchestration/workflows from dynamically controlled agent behavior.",
+    "uncertainty_notes": [
+      "Vendor terminology varies: some sources call both patterns 'agentic systems' and then separate workflows from agents.",
+      "The evidence is guidance-oriented rather than benchmark-based, so exact performance deltas depend on the task and implementation."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Workflows use predefined paths; autonomous agents choose actions dynamically.",
+      "Workflows are more predictable for narrow tasks.",
+      "Agents are more flexible for dynamic tasks.",
+      "Agents usually cost more in latency/complexity.",
+      "Dynamic graph-based orchestration can be harder to maintain.",
+      "Real agent deployments need orchestration and guardrails."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:33:56+00:00",
+  "citations": [
+    {
+      "end_index": 8336,
+      "start_index": 8256,
+      "title": "Building Effective AI Agents \\ Anthropic",
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/research/building-effective-agents/"
+    },
+    {
+      "end_index": 9248,
+      "start_index": 9143,
+      "title": "A practical guide to building agents | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+    },
+    {
+      "end_index": 10208,
+      "start_index": 10127,
+      "title": "From model to agent: Equipping the Responses API with a computer environment  | OpenAI",
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/index/equip-responses-api-computer-environment/.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/solutions/use-case/agents/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents.",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_06a770025ce5648e0069f9b96590548190bcf7a1b48eaf5364",
+      "action": {
+        "query": "site:anthropic.com building effective agents workflows vs agents",
+        "type": "search",
+        "queries": [
+          "site:anthropic.com building effective agents workflows vs agents",
+          "site:openai.com agents workflows vs agents official",
+          "site:docs.langchain.com agents workflows official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/research/building-effective-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/academy/workspace-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/solutions/use-case/agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/workspace-agents//"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-workspace-agents-in-chatgpt/"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-agentkit/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agents/agent-builder%20rel%3D"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/equip-responses-api-computer-environment"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-builder"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/index/introducing-workspace-agents-in-chatgpt/"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/building-effective-ai-agents"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_06a770025ce5648e0069f9b96856488190ba6e41ef1ff572cb",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.anthropic.com/research/building-effective-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_06a770025ce5648e0069f9b96e29808190ac3223462edd66ff",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 18539,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 5853,
+    "output_tokens_details": {
+      "reasoning_tokens": 3563
+    },
+    "total_tokens": 24392
+  },
+  "response_id": "resp_06a770025ce5648e0069f9b960cc948190962d8092c29bdcde",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"How do autonomous agents differ architecturally from workflow-based agents?\",\n      \"What benefits do autonomous agents provide over fixed workflows?\",\n      \"What benefits do workflow-based agents provide over autonomous agents?\",\n      \"What are the practical costs/risks of each approach?\",\n      \"When should a team choose one over the other?\"\n    ],\n    \"required_aspects\": [\n      \"definition/difference in control flow\",\n      \"predictability vs flexibility\",\n      \"latency/cost vs task performance\",\n      \"debuggability/governance/safety\",\n      \"guidance on when to use each\"\n    ],\n    \"expected_source_types\": [\n      \"official vendor engineering docs\",\n      \"official product/architecture guides\",\n      \"primary technical documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:anthropic.com building effective agents workflows vs agents\",\n      \"site:openai.com practical guide building agents workflow agent trade-offs\",\n      \"site:openai.com agent computer environment workflow system trade-offs\"\n    ],\n    \"rationale_per_query\": [\n      \"Find an official definition and explicit trade-off discussion between workflows and agents.\",\n      \"Find official guidance on orchestration patterns, flexibility, and complexity costs.\",\n      \"Find official discussion of operational overhead when agents execute real-world tasks.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Anthropic: Building Effective AI Agents\",\n      \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"note\": \"Directly defines workflows vs agents and states trade-offs.\"\n    },\n    {\n      \"title\": \"OpenAI: A practical guide to building agents\",\n      \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"note\": \"Directly discusses orchestration patterns, declarative graphs, and when to use multi-agent systems.\"\n    },\n    {\n      \"title\": \"OpenAI: From model to agent: Equipping the Responses API with a computer environment\",\n      \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"note\": \"Explains execution-environment overhead, orchestration loops, and operational concerns for agents.\"\n    },\n    {\n      \"title\": \"OpenAI: OpenAI for agentic workflows\",\n      \"url\": \"https://openai.com/solutions/use-case/agents/\",\n      \"note\": \"Rejected: useful overview, but mostly marketing-oriented and less directly comparative.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Anthropic: Building Effective AI Agents\",\n        \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n        \"reason\": \"Best direct source for the workflows-vs-agents distinction and explicit trade-offs.\"\n      },\n      {\n        \"title\": \"OpenAI: A practical guide to building agents\",\n        \"url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n        \"reason\": \"Strong official guidance on agent orchestration, declarative graphs, and complexity.\"\n      },\n      {\n        \"title\": \"OpenAI: From model to agent: Equipping the Responses API with a computer environment\",\n        \"url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n        \"reason\": \"Useful for operational overhead, execution loops, and reliability considerations.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"OpenAI: OpenAI for agentic workflows\",\n        \"url\": \"https://openai.com/solutions/use-case/agents/\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Marketing-heavy overview; overlaps with the accepted OpenAI technical guide and adds little direct comparison.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Workflows are systems where LLMs and tools follow predefined code paths, while autonomous agents let the LLM dynamically direct its own process and tool use.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"official engineering blog\",\n      \"supported_aspect\": \"definition/control flow\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflow-based systems are generally more predictable and consistent for well-defined tasks.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"official engineering blog\",\n      \"supported_aspect\": \"predictability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Autonomous agents are better when flexibility and model-driven decision-making are needed at scale.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"official engineering blog\",\n      \"supported_aspect\": \"flexibility/scalability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic systems often trade latency and cost for better task performance.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"official engineering blog\",\n      \"supported_aspect\": \"cost/latency trade-off\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Declarative workflow graphs can become cumbersome and harder to manage as workflows grow more dynamic and complex.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"official technical guide\",\n      \"supported_aspect\": \"maintainability\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"A code-first, dynamic orchestration approach is more adaptable, but it requires guardrails and execution infrastructure.\",\n      \"source_url\": \"https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/\",\n      \"source_type\": \"official technical guide\",\n      \"supported_aspect\": \"adaptability/operational overhead\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"Running agents in a real computer environment introduces practical concerns such as file handling, networking, timeouts, retries, and the need for an orchestrator.\",\n      \"source_url\": \"https://openai.com/index/equip-responses-api-computer-environment/\",\n      \"source_type\": \"official product/architecture post\",\n      \"supported_aspect\": \"operational complexity\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"definition/difference in control flow\",\n      \"predictability vs flexibility\",\n      \"latency/cost vs task performance\",\n      \"maintainability/debuggability\",\n      \"operational complexity\",\n      \"selection guidance\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No substantive conflict. The sources use slightly different terminology, but both distinguish fixed orchestration/workflows from dynamically controlled agent behavior.\",\n    \"uncertainty_notes\": [\n      \"Vendor terminology varies: some sources call both patterns 'agentic systems' and then separate workflows from agents.\",\n      \"The evidence is guidance-oriented rather than benchmark-based, so exact performance deltas depend on the task and implementation.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Workflows use predefined paths; autonomous agents choose actions dynamically.\",\n      \"Workflows are more predictable for narrow tasks.\",\n      \"Agents are more flexible for dynamic tasks.\",\n      \"Agents usually cost more in latency/complexity.\",\n      \"Dynamic graph-based orchestration can be harder to maintain.\",\n      \"Real agent deployments need orchestration and guardrails.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAutonomous agents optimize for **flexibility**: the model can choose its next step and tools at runtime. Workflow-based agents optimize for **control**: the path is predefined, so behavior is more predictable and easier to validate. Anthropic explicitly distinguishes these as different architectures, and recommends workflows for well-defined tasks and agents when flexible, model-driven decision-making is needed at scale. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n\\n**Main trade-offs:**\\n- **Autonomous agents:** better on open-ended or changing tasks, but they usually add latency, cost, and operational risk because the system must reason, select tools, and recover from mistakes dynamically. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- **Workflow-based agents:** better for repeatable tasks, compliance, and debugging because the control flow is explicit; the downside is rigidity, and complex declarative flows can get cumbersome as branching increases. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- **Engineering effort:** workflow systems can be simpler to test and govern, while autonomous systems often require stronger guardrails, execution infrastructure, and careful tool design. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n\\nA practical rule from the sources is: **start with the simplest workflow that solves the problem, then add autonomy only when variability or scale justifies the extra complexity.** ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n\\n## Sources\\n- Anthropic, *Building Effective AI Agents*: https://www.anthropic.com/engineering/building-effective-agents. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\\n- OpenAI, *A practical guide to building agents*: https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))\\n- OpenAI, *From model to agent: Equipping the Responses API with a computer environment*: https://openai.com/index/equip-responses-api-computer-environment/. ([openai.com](https://openai.com/index/equip-responses-api-computer-environment))\\n\\n## Limitations\\nThis is a synthesis of vendor engineering guidance, not a controlled benchmark comparison, so the exact trade-off depends on the task, toolset, and reliability requirements. Terminology also varies across vendors: some call both patterns \\\"agentic systems\\\" and separate them only by how much control the model has. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))\"\n}",
+  "status": "complete"
+}

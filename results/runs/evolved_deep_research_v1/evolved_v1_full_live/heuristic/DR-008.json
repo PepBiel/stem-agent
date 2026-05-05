@@ -1,0 +1,147 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v1\\evolved_v1_full_live\\traces\\DR-008.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 0.3333,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.6667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.7833,
+  "failure_tags": [
+    "missing_required_aspect"
+  ],
+  "runtime_seconds": 44.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": true,
+        "matched_terms": [
+          "cost"
+        ],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": false,
+        "matched_terms": [],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Autonomous agents optimize for **flexibility**: the model can choose its next step and tools at runtime. Workflow-based agents optimize for **control**: the path is predefined, so behavior is more predictable and easier to validate. Anthropic explicitly distinguishes these as different architectures, and recommends workflows for well-defined tasks and agents when flexible, model-driven decision-making is needed at scale. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- **Autonomous agents:** better on open-ended or changing tasks, but they usually add latency, cost, and operational risk because the system must reason, select tools, and recover from mistakes dynamically. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- **Workflow-based agents:** better for repeatable tasks, compliance, and debugging because the control flow is explicit; the downside is rigidity, and complex declarative flows can get cumbersome as branching increases. ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))",
+      "- **Engineering effort:** workflow systems can be simpler to test and govern, while autonomous systems often require stronger guardrails, execution infrastructure, and careful tool design. ([openai.com](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/))",
+      "A practical rule from the sources is: **start with the simplest workflow that solves the problem, then add autonomy only when variability or scale justifies the extra complexity.** ([anthropic.com](https://www.anthropic.com/research/building-effective-agents/))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/.",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/index/equip-responses-api-computer-environment/.",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/solutions/use-case/agents/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents.",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/research/building-effective-agents/",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 9,
+    "unique_citation_count": 9
+  }
+}

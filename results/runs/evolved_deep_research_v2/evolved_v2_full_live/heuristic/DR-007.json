@@ -1,0 +1,171 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-007.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.2,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.88,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 54.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "relevance",
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation",
+          "granularity"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": true,
+        "matched_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Audit citations in deep research agents by verifying each atomic claim against the underlying source text, not by checking whether the report merely *looks* well-cited. A good audit loop is: extract claims, retrieve the cited evidence, match passage-to-claim support, then make a calibrated judgment on whether the claim is supported, partially supported, unsupported, or conflicting. That decomposition is explicitly recommended by CiteAudit, which frames citation checking as metadata extraction, retrieval, passage matching, and final judgment (https://arxiv.org/abs/2602.23452).",
+      "Use source relevance as a gate: the source should be both retrievable and appropriate for the question, and the report should preserve source metadata so reviewers can verify it. OpenAI’s deep research docs say to include inline citations and return all source metadata, and the help center says outputs include citations or source links for verification (https://developers.openai.com/api/docs/guides/deep-research; https://help.openai.com/en/articles/10500283-deep-research-faq).",
+      "For citation granularity, audit at the finest unit the evidence supports. In practice, that usually means sentence- or claim-level checks, with page-level tracing when the source is a long PDF or report. Deep-Research Eval explicitly treats citation reliability as a fine-grained, page-aware evaluation problem, and NVIDIA’s deep-researcher blueprint logs which citations were kept or removed and why (https://www.mdpi.com/2076-3417/16/5/2546; https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html).",
+      "Detect unsupported claims by flagging any statement that has no direct supporting passage, relies on a citation that does not actually say the thing being claimed, or appears to be a fabricated reference. The hallucinated-references paper shows that internal consistency checks can help identify fake references even without external lookup, which is useful as a secondary audit signal (https://huggingface.co/papers/2305.18248; https://arxiv.org/abs/2602.23452).",
+      "Handle conflicting sources by surfacing the disagreement instead of forcing a single narrative. If one claim is stitched together from multiple sources and no single source fully supports it, mark it partial/uncertain or split it into smaller claims. The groundedness paper notes that single-source grounding can miss “scattered” correct information across multiple documents, so conflict handling should preserve uncertainty rather than overstate support (https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf).",
+      "- claim-level evidence — audit atomic claims against passages, then judge support: https://arxiv.org/abs/2602.23452",
+      "- source relevance — prefer reliable, up-to-date sources and preserve source metadata for verification: https://developers.openai.com/api/docs/guides/deep-research",
+      "- citation granularity — use fine-grained, page-aware or sentence-aware checking rather than whole-report validation: https://www.mdpi.com/2076-3417/16/5/2546",
+      "- unsupported claim detection — flag claims with no supporting passage or a citation that does not substantiate the statement: https://arxiv.org/abs/2602.23452",
+      "- handling conflicting sources — surface disagreement, mark uncertainty, and split claims when no single source fully supports them: https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://aclanthology.org/anthology-files/pdf/findings/2024.findings-naacl.100.pdf",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.23452",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research;",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html",
+        "domain": "docs.nvidia.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283-deep-research-faq",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://huggingface.co/papers/2305.18248;",
+        "domain": "huggingface.co",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://www.mdpi.com/2076-3417/16/5/2546",
+        "domain": "mdpi.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.mdpi.com/2076-3417/16/5/2546;",
+        "domain": "mdpi.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.reddit.com/r/ChatGPTPro/comments/1j4hplr/fake_citation_from_deep_research/",
+        "domain": "reddit.com",
+        "authoritative": false,
+        "weak": true
+      }
+    ],
+    "citation_count": 10,
+    "unique_citation_count": 10
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T14:45:46+00:00",
+  "finished_at": "2026-05-05T14:45:57+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.5571,
+  "judge_score": 0.5833,
+  "final_score": 0.5741,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-002.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 0.0,
+      "source_quality_score": 0.7143,
+      "unsupported_claim_count": 12,
+      "unsupported_claim_score": 0.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.5571,
+    "failure_tags": [
+      "unsupported_claim"
+    ],
+    "runtime_seconds": 88.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "implications",
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": true,
+          "matched_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "**Direct source-backed facts**",
+        "- ReAct interleaves reasoning traces and actions in one loop: thoughts update plans and handle exceptions, and actions fetch external observations. citeturn4view0",
+        "- Planner-executor / plan-and-execute splits the job: one component plans, a separate executor carries out steps. citeturn2search3turn9view0",
+        "- Tool-use implication: ReAct is tightly feedback-driven after each observation; plan-execute can amortize planning, and ReWOO reports lower token consumption from decoupling reasoning from observations. citeturn4view0turn3view0",
+        "- Failure modes differ: ReAct can still suffer hallucination/error propagation and context-limit pressure on complex tasks; planner-executor systems are sensitive to planner quality, planner memory, and prompt-injection against planner↔executor channels. citeturn4view0turn9view0",
+        "- Prefer ReAct when the task is open-ended, tool availability is uncertain, or you want adaptation after each tool result. citeturn4view0turn7search1",
+        "- Prefer planner-executor when the task decomposes cleanly into steps and you want more structure plus better amortized efficiency. citeturn2search3turn3view0turn9view0",
+        "- interleaved reasoning and acting — covered by ReAct’s stepwise thought/action loop. citeturn4view0",
+        "- explicit planning stage — covered by plan-and-execute / planner-executor docs. citeturn2search3turn9view0",
+        "- tool-use implications — covered by ReAct’s per-step tool feedback and ReWOO’s decoupled token-efficiency claim. citeturn4view0turn3view0",
+        "- failure modes — covered by hallucination/error propagation for ReAct and planner weakness / injection risk for planner-executor. citeturn4view0turn9view0",
+        "- when each architecture is preferable — covered as an inference from the architecture and benchmark evidence. citeturn4view0turn3view0turn9view0"
+      ],
+      "unsupported_claim_lines": [
+        "**Direct source-backed facts**",
+        "- ReAct interleaves reasoning traces and actions in one loop: thoughts update plans and handle exceptions, and actions fetch external observations. citeturn4view0",
+        "- Planner-executor / plan-and-execute splits the job: one component plans, a separate executor carries out steps. citeturn2search3turn9view0",
+        "- Tool-use implication: ReAct is tightly feedback-driven after each observation; plan-execute can amortize planning, and ReWOO reports lower token consumption from decoupling reasoning from observations. citeturn4view0turn3view0",
+        "- Failure modes differ: ReAct can still suffer hallucination/error propagation and context-limit pressure on complex tasks; planner-executor systems are sensitive to planner quality, planner memory, and prompt-injection against planner↔executor channels. citeturn4view0turn9view0",
+        "- Prefer ReAct when the task is open-ended, tool availability is uncertain, or you want adaptation after each tool result. citeturn4view0turn7search1",
+        "- Prefer planner-executor when the task decomposes cleanly into steps and you want more structure plus better amortized efficiency. citeturn2search3turn3view0turn9view0",
+        "- interleaved reasoning and acting — covered by ReAct’s stepwise thought/action loop. citeturn4view0",
+        "- explicit planning stage — covered by plan-and-execute / planner-executor docs. citeturn2search3turn9view0",
+        "- tool-use implications — covered by ReAct’s per-step tool feedback and ReWOO’s decoupled token-efficiency claim. citeturn4view0turn3view0",
+        "- failure modes — covered by hallucination/error propagation for ReAct and planner weakness / injection risk for planner-executor. citeturn4view0turn9view0",
+        "- when each architecture is preferable — covered as an inference from the architecture and benchmark evidence. citeturn4view0turn3view0turn9view0"
+      ],
+      "sources": [
+        {
+          "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+          "domain": "aclanthology.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+          "domain": "api.python.langchain.com",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.18323",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/pdf/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain-agents",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent",
+          "domain": "github.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://papers.cool/arxiv/2210.03629",
+          "domain": "papers.cool",
+          "authoritative": false,
+          "weak": true
+        }
+      ],
+      "citation_count": 7,
+      "unique_citation_count": 7
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 3,
+      "coverage": 5,
+      "evidence_quality": 1,
+      "uncertainty_handling": 2,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains ReAct as a thought-action-observation loop."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly contrasts planner-executor as having a separate planning component before execution."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Discusses feedback after each observation, amortized planning, and token-efficiency implications."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions hallucination/error propagation, context pressure, planner quality, memory, and injection risk, though somewhat generically."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Gives reasonable guidance on open-ended vs cleanly decomposable tasks, but the trade-off discussion is brief."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct interleaves reasoning traces and actions in one loop: thoughts update plans and handle exceptions, and actions fetch external observations.",
+        "support": "weak",
+        "cited_urls": [
+          "https://aclanthology.org/2026.findings-eacl.237.pdf"
+        ],
+        "reason": "The cited URL may be a relevant paper source, but the specific claim is not verifiable from metadata alone; the support is plausible but not demonstrated."
+      },
+      {
+        "claim": "Planner-executor / plan-and-execute splits the job: one component plans, a separate executor carries out steps.",
+        "support": "weak",
+        "cited_urls": [
+          "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+          "https://docs.langchain.com/oss/python/langchain-agents"
+        ],
+        "reason": "These are appropriate framework docs, but the exact framing is not directly substantiated by the provided metadata."
+      },
+      {
+        "claim": "Tool-use implication: ReAct is tightly feedback-driven after each observation; plan-execute can amortize planning, and ReWOO reports lower token consumption from decoupling reasoning from observations.",
+        "support": "weak",
+        "cited_urls": [
+          "https://aclanthology.org/2026.findings-eacl.237.pdf",
+          "https://arxiv.org/abs/2305.18323"
+        ],
+        "reason": "The ReWOO source is relevant, but the broader efficiency comparison and amortization claim are not directly evidenced here."
+      },
+      {
+        "claim": "Failure modes differ: ReAct can still suffer hallucination/error propagation and context-limit pressure on complex tasks; planner-executor systems are sensitive to planner quality, planner memory, and prompt-injection against planner↔executor channels.",
+        "support": "weak",
+        "cited_urls": [
+          "https://aclanthology.org/2026.findings-eacl.237.pdf",
+          "https://docs.langchain.com/oss/python/langchain-agents"
+        ],
+        "reason": "Plausible engineering trade-offs, but the answer overstates the precision of source support for specific failure modes."
+      },
+      {
+        "claim": "Prefer ReAct when the task is open-ended, tool availability is uncertain, or you want adaptation after each tool result.",
+        "support": "weak",
+        "cited_urls": [
+          "https://aclanthology.org/2026.findings-eacl.237.pdf",
+          "https://docs.langchain.com/oss/python/langchain-agents"
+        ],
+        "reason": "This is a reasonable inference, but the preference guidance is largely interpretive rather than directly supported."
+      },
+      {
+        "claim": "Prefer planner-executor when the task decomposes cleanly into steps and you want more structure plus better amortized efficiency.",
+        "support": "weak",
+        "cited_urls": [
+          "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+          "https://arxiv.org/abs/2305.18323"
+        ],
+        "reason": "Reasonable, but the efficiency claim especially is not firmly supported by the citation metadata."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+        "quality": "strong",
+        "reason": "Primary venue paper source; highly relevant if it is indeed the ReAct-related paper referenced."
+      },
+      {
+        "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+        "quality": "acceptable",
+        "reason": "Official framework documentation, relevant for planner-executor style agents."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.18323",
+        "quality": "strong",
+        "reason": "Relevant primary paper source for a comparison/decoupling approach."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2210.03629",
+        "quality": "strong",
+        "reason": "Primary paper PDF, likely the core ReAct source."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain-agents",
+        "quality": "strong",
+        "reason": "Official documentation, relevant to agent architecture patterns."
+      },
+      {
+        "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent",
+        "quality": "weak",
+        "reason": "A single GitHub project is not strong evidence for general architectural claims."
+      },
+      {
+        "url": "https://papers.cool/arxiv/2210.03629",
+        "quality": "weak",
+        "reason": "Secondary mirror/aggregator, less authoritative than the arXiv paper itself."
+      }
+    ],
+    "failure_tags": [
+      "unsupported_claim",
+      "overconfident_inference"
+    ],
+    "summary": "Good conceptual coverage and structure, but the answer leans on several claims that are only weakly supported by the cited sources and sometimes reads more inferential than evidentially grounded.",
+    "recommended_fix": "Tighten each comparison point to claims directly supported by the cited primary sources, and separate clearly sourced facts from inference-based recommendations.",
+    "average_score": 3.3333,
+    "normalized_score": 0.5833
+  },
+  "judge_usage": {
+    "input_tokens": 4465,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1549,
+    "output_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "total_tokens": 6014
+  },
+  "response_id": "resp_0d905c4e02da26bf0069fa02a54a3c81939c194adec02a5c9f"
+}

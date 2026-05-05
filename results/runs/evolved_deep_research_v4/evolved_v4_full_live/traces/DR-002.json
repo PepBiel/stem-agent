@@ -1,0 +1,926 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v4",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v4",
+  "genome_version": 4,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v4.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T14:44:18+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "source_expectations": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T14:45:46+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\n\n**Direct source-backed facts**\n- ReAct interleaves reasoning traces and actions in one loop: thoughts update plans and handle exceptions, and actions fetch external observations. citeturn4view0\n- Planner-executor / plan-and-execute splits the job: one component plans, a separate executor carries out steps. citeturn2search3turn9view0\n- Tool-use implication: ReAct is tightly feedback-driven after each observation; plan-execute can amortize planning, and ReWOO reports lower token consumption from decoupling reasoning from observations. citeturn4view0turn3view0\n- Failure modes differ: ReAct can still suffer hallucination/error propagation and context-limit pressure on complex tasks; planner-executor systems are sensitive to planner quality, planner memory, and prompt-injection against planner↔executor channels. citeturn4view0turn9view0\n\n**Inference / recommendation**\n- Prefer ReAct when the task is open-ended, tool availability is uncertain, or you want adaptation after each tool result. citeturn4view0turn7search1\n- Prefer planner-executor when the task decomposes cleanly into steps and you want more structure plus better amortized efficiency. citeturn2search3turn3view0turn9view0\n\n### Required aspect coverage\n- interleaved reasoning and acting — covered by ReAct’s stepwise thought/action loop. citeturn4view0\n- explicit planning stage — covered by plan-and-execute / planner-executor docs. citeturn2search3turn9view0\n- tool-use implications — covered by ReAct’s per-step tool feedback and ReWOO’s decoupled token-efficiency claim. citeturn4view0turn3view0\n- failure modes — covered by hallucination/error propagation for ReAct and planner weakness / injection risk for planner-executor. citeturn4view0turn9view0\n- when each architecture is preferable — covered as an inference from the architecture and benchmark evidence. citeturn4view0turn3view0turn9view0\n\n## Sources\n- ReAct paper (primary): ReAct: Synergizing Reasoning and Acting in Language Models. citeturn4view0\n- ReWOO paper (primary comparison): ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models. citeturn3view0\n- LangChain agents docs (official framework docs). citeturn7search1\n- LangChain plan-and-execute docs (official framework docs). citeturn2search3\n- PEAR benchmark (benchmark/robustness evidence). citeturn9view0\n\n## Limitations\n- The terminology is not fully standardized across frameworks; \"planner-executor\" can mean a separate planner/executor pair or a graph/workflow variant. citeturn2search3turn9view0turn7search1\n- I did not find a single head-to-head benchmark directly comparing generic ReAct and generic planner-executor on the same suite, so the \"preferable\" guidance is an engineering inference rather than a universal rule. citeturn4view0turn3view0turn9view0",
+  "decomposition": {
+    "subquestions": [
+      "What does ReAct do at each step?",
+      "What is the planner-executor / plan-and-execute structure?",
+      "How do tool calls differ operationally?",
+      "What are the main failure modes?",
+      "In what cases is each architecture preferable?"
+    ],
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "expected_source_types": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "ReAct paper arXiv reasoning and acting language models tool use",
+      "ReWOO paper plan-and-execute tool use LLM",
+      "planner-executor agent framework documentation plan execute docs",
+      "planner-executor robustness benchmark planner executor agents"
+    ],
+    "rationale_per_query": [
+      "Find the primary ReAct definition and stated limitations.",
+      "Find a primary technical comparison that explicitly separates planning from observation-conditioned reasoning.",
+      "Find official framework docs that define plan-and-execute style agents.",
+      "Find a benchmark or empirical paper on planner-executor robustness/failure modes."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/pdf/2210.03629",
+      "status": "accepted",
+      "why_considered": "Primary paper; directly defines interleaved reasoning and acting."
+    },
+    {
+      "title": "ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models",
+      "url": "https://arxiv.org/abs/2305.18323",
+      "status": "accepted",
+      "why_considered": "Primary technical comparison; directly contrasts decoupled planning/reasoning with observation-conditioned loops."
+    },
+    {
+      "title": "Agents - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain-agents",
+      "status": "accepted",
+      "why_considered": "Official framework documentation; summarizes ReAct-style agent behavior."
+    },
+    {
+      "title": "plan_and_execute - LangChain reference docs",
+      "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+      "status": "accepted",
+      "why_considered": "Official framework documentation; states the planner/executor split."
+    },
+    {
+      "title": "PEAR: Planner-Executor Agent Robustness Benchmark",
+      "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "status": "accepted",
+      "why_considered": "Benchmark/empirical paper on planner-executor robustness and vulnerabilities."
+    },
+    {
+      "title": "ReAct paper mirror on papers.cool",
+      "url": "https://papers.cool/arxiv/2210.03629",
+      "status": "rejected",
+      "why_considered": "Discovery lead only; secondary aggregator."
+    },
+    {
+      "title": "GitHub - saurav-dhait/Plan-and-Execute-Agent",
+      "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent",
+      "status": "rejected",
+      "why_considered": "Illustrative repo, but not authoritative for general architecture claims."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+        "url": "https://arxiv.org/pdf/2210.03629",
+        "source_type": "ReAct paper"
+      },
+      {
+        "title": "ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models",
+        "url": "https://arxiv.org/abs/2305.18323",
+        "source_type": "technical comparison"
+      },
+      {
+        "title": "Agents - Docs by LangChain",
+        "url": "https://docs.langchain.com/oss/python/langchain-agents",
+        "source_type": "agent framework documentation"
+      },
+      {
+        "title": "plan_and_execute - LangChain reference docs",
+        "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+        "source_type": "agent framework documentation"
+      },
+      {
+        "title": "PEAR: Planner-Executor Agent Robustness Benchmark",
+        "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+        "source_type": "technical comparison or benchmark"
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "ReAct paper mirror on papers.cool",
+        "url": "https://papers.cool/arxiv/2210.03629"
+      },
+      {
+        "title": "GitHub - saurav-dhait/Plan-and-Execute-Agent",
+        "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent"
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary aggregator; replaced with the primary arXiv paper.",
+      "Implementation example only; not a general-source authority for architecture-level claims."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "ReAct generates reasoning traces and task-specific actions in an interleaved manner; reasoning updates plans and handles exceptions, while actions gather external information.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "ReAct paper",
+      "supported_aspect": "interleaved reasoning and acting",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct’s interleaving is intended to improve interpretability and to reduce hallucination/error propagation by grounding reasoning in observations.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "ReAct paper",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Plan-and-execute agents separate planning from execution: an LLM plans tasks and a separate agent executes them.",
+      "source_url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "explicit planning stage",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangChain’s agent docs describe ReAct-style agents as alternating brief reasoning steps with targeted tool calls and feeding observations into subsequent decisions.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain-agents",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "tool-use implications",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReWOO argues that decoupling reasoning from observations reduces redundant prompting and token consumption, and reports robustness under tool-failure scenarios.",
+      "source_url": "https://arxiv.org/abs/2305.18323",
+      "source_type": "technical comparison",
+      "supported_aspect": "tool-use implications",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "PEAR finds that planner quality matters more than executor quality, planner memory is more important than executor memory, and planner-executor systems are vulnerable to prompt-injection along planner/executor communication paths.",
+      "source_url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "source_type": "technical comparison or benchmark",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "benchmark",
+      "confidence": "high"
+    },
+    {
+      "claim": "ReAct is preferable for open-ended, highly interactive tasks that need frequent adaptation after each observation; planner-executor is preferable when tasks decompose cleanly and you want more structure and amortized efficiency.",
+      "source_url": "https://arxiv.org/pdf/2210.03629",
+      "source_type": "inference from primary and benchmark sources",
+      "supported_aspect": "when each architecture is preferable",
+      "support_directness": "inference",
+      "source_authority": "primary",
+      "confidence": "medium"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradictions. The sources are complementary: ReAct emphasizes tight observe-reason-act loops, while plan-and-execute sources emphasize a separate planning stage plus execution.",
+    "uncertainty_notes": [
+      "Terminology varies across frameworks; 'planner-executor' can mean a separate planner/executor pair or a graph/workflow variant.",
+      "The 'preferable when' guidance is an engineering inference, not a universal rule from a single head-to-head benchmark."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "ReAct interleaves reasoning and acting.",
+      "Planner-executor has an explicit planning stage.",
+      "ReAct has tool-use and feedback-loop implications.",
+      "Planner-executor failure modes include planner weakness and injection risk.",
+      "Preference depends on task structure and adaptability needs."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T14:45:46+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2305.18323",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2210.03629",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain-agents",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.cool/arxiv/2210.03629",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa0251c04c8196a638850a127fba22",
+      "action": {
+        "query": "ReAct paper arXiv reasoning and acting language models tool use",
+        "type": "search",
+        "queries": [
+          "ReAct paper arXiv reasoning and acting language models tool use",
+          "ReWOO paper plan-and-execute agents explicit planning tool use failure modes",
+          "planner-executor agent framework documentation plan execute agent docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.01262"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.09014"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.09970"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://engineersofai.com/docs/research/paper-breakdowns/react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.04406"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/react-synergizing-reasoning-and-acting-in-language-models--arxiv-2210.03629/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11381"
+          },
+          {
+            "type": "url",
+            "url": "https://heidloff.net/article/react-reasoning-acting/"
+          },
+          {
+            "type": "url",
+            "url": "https://agentwiki.org/react_framework"
+          },
+          {
+            "type": "url",
+            "url": "https://studylib.net/doc/27814734/2210.03629v3"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2210-03629"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2411.00927"
+          },
+          {
+            "type": "url",
+            "url": "https://medium.com/papers-i-found/e26-react-synergizing-reasoning-and-acting-in-language-models-14a08f46c33d"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/y1mosn"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://ryanzhumich.github.io/cse587/slides_ReAct.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=631ff67a6275122f83a5069498401d0d6eef72da&repid=rep1&type=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MLQuestions/comments/1c08ca1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/11tmsbd"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/y0j0ji"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/19ek3jk"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/zgr7nr"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa0256bf048196b6579f0552b7d4b4",
+      "action": {
+        "query": "site:langchain-ai.github.io langgraph plan and execute agent documentation",
+        "type": "search",
+        "queries": [
+          "site:langchain-ai.github.io langgraph plan and execute agent documentation",
+          "site:learn.microsoft.com planner executor agent documentation planning workflow",
+          "site:arxiv.org ReWOO plan and execute tool use LLM"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/Planner/turn-off-planner-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/de-de/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/core-concepts/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/agent-protocol/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/pt-pt/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/python/api/agent-framework-core/agent_framework.magenticorchestratorexecutor?view=agent-framework-python-latest"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/nl-nl/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/ja-jp/agent-framework/workflows/advanced/agent-executor"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/get-started/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.01390"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.18323"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.08646"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.22862"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.16334"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2206.10498"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/office365/enterprise/downloads/msft-m365-groups.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.01637"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa025b22dc81968c79032312d3c97a",
+      "action": {
+        "query": "site:python.langchain.com plan and execute agents documentation",
+        "type": "search",
+        "queries": [
+          "site:python.langchain.com plan and execute agents documentation",
+          "site:langchain-ai.github.io langgraph plan execute tutorial",
+          "site:github.com langgraph plan execute agent"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://github.com/topics/plan-and-execute"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/discussions/571"
+          },
+          {
+            "type": "url",
+            "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute/langchain_experimental.plan_and_execute.agent_executor.PlanAndExecute.html"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/react-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/KameniAlexNea/langgraph-agentflow"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/agent-protocol"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langtalks/swe-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/social-media-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/ska-sa/meqtrees/wiki/Intro1.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/tomolimo/processmaker/wiki/docs/BPMN%202%20Process%20Editor%20and%20workflow%20Engine%20for%20GLPI.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/apache/arrow-datafusion/files/14586286/DataFusion_Query_Engine___SIGMOD_2024.8.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/BeyondTrust/pbis-open/wiki/docs/adb-quick-start-guide.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/mozilla/pdf.js/files/3721640/issue9552.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa025e52688196900574de0316136a",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2305.18323"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa025f3b50819694be8af1ad6b1428",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/pdf/2210.03629"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa02600d1c8196811f7cbbcae806a0",
+      "action": {
+        "type": "open_page",
+        "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa0260eab88196bb613ade8511e9ec",
+      "action": {
+        "type": "open_page",
+        "url": "https://api.python.langchain.com/en/latest/experimental/plan_and_execute/langchain_experimental.plan_and_execute.agent_executor.PlanAndExecute.html"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa0261c2bc8196bc343d3fc4c2be08",
+      "action": {
+        "query": "site:docs.langchain.com plan and execute agents langchain",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com plan and execute agents langchain",
+          "site:docs.langchain.com ReAct agent LangGraph docs",
+          "site:docs.langchain.com planning agent executor langgraph"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/docs/integrations/providers/bedrock"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/deploy"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/harness"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/going-to-production"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/langgraph/pregel"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/acp"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph-platform/generative-ui-react"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/releases/langgraph-v1"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/frontend/overview"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa02687c508196984028c98a6cc5d7",
+      "action": {
+        "query": "planner executor failure modes benchmark plan execute agent robustness paper",
+        "type": "search",
+        "queries": [
+          "planner executor failure modes benchmark plan execute agent robustness paper",
+          "site:arxiv.org plan-execute agents failure modes benchmark",
+          "site:aclanthology.org planner executor robustness benchmark agents"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/403068786_PEAR_Planner-Executor_Agent_Robustness_Benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=202502200245311414"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/pear-planner-executor-agent-robustness-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/396374424_PEAR_Planner-Executor_Agent_Robustness_Benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.07505"
+          },
+          {
+            "type": "url",
+            "url": "https://www.research.ed.ac.uk/en/publications/adb84111-b8f2-4ea5-8af1-f1ed66614ae7/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/258885946_Multi-agent_Reactive_Planning_for_Solving_Plan_Failures"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.dagstuhl.de/rec/journals/corr/abs-2510-07505.html"
+          },
+          {
+            "type": "url",
+            "url": "https://strathprints.strath.ac.uk/70194/"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/paper/198142"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/000437029400083D"
+          },
+          {
+            "type": "url",
+            "url": "https://www.deepdyve.com/lp/unpaywall/pear-planner-executor-agent-robustness-benchmark-3FjHXTY8Bb"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2003.09401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.03560"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.11143"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=H1lhsqUyc4"
+          },
+          {
+            "type": "url",
+            "url": "https://groups.csail.mit.edu/mers/papers/ieee-aero.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0b93a8a9d5879eaf0069fa026b6c888196a9a0b9350c369f7b",
+      "action": {
+        "type": "open_page",
+        "url": "https://aclanthology.org/2026.findings-eacl.237.pdf"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 39554,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11596,
+    "output_tokens_details": {
+      "reasoning_tokens": 8491
+    },
+    "total_tokens": 51150
+  },
+  "response_id": "resp_0b93a8a9d5879eaf0069fa024e6430819691981d0a8cd4f77e",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What does ReAct do at each step?\",\n      \"What is the planner-executor / plan-and-execute structure?\",\n      \"How do tool calls differ operationally?\",\n      \"What are the main failure modes?\",\n      \"In what cases is each architecture preferable?\"\n    ],\n    \"required_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"expected_source_types\": [\n      \"ReAct paper\",\n      \"agent framework documentation\",\n      \"technical comparison or benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"ReAct paper arXiv reasoning and acting language models tool use\",\n      \"ReWOO paper plan-and-execute tool use LLM\",\n      \"planner-executor agent framework documentation plan execute docs\",\n      \"planner-executor robustness benchmark planner executor agents\"\n    ],\n    \"rationale_per_query\": [\n      \"Find the primary ReAct definition and stated limitations.\",\n      \"Find a primary technical comparison that explicitly separates planning from observation-conditioned reasoning.\",\n      \"Find official framework docs that define plan-and-execute style agents.\",\n      \"Find a benchmark or empirical paper on planner-executor robustness/failure modes.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"status\": \"accepted\",\n      \"why_considered\": \"Primary paper; directly defines interleaved reasoning and acting.\"\n    },\n    {\n      \"title\": \"ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models\",\n      \"url\": \"https://arxiv.org/abs/2305.18323\",\n      \"status\": \"accepted\",\n      \"why_considered\": \"Primary technical comparison; directly contrasts decoupled planning/reasoning with observation-conditioned loops.\"\n    },\n    {\n      \"title\": \"Agents - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain-agents\",\n      \"status\": \"accepted\",\n      \"why_considered\": \"Official framework documentation; summarizes ReAct-style agent behavior.\"\n    },\n    {\n      \"title\": \"plan_and_execute - LangChain reference docs\",\n      \"url\": \"https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html\",\n      \"status\": \"accepted\",\n      \"why_considered\": \"Official framework documentation; states the planner/executor split.\"\n    },\n    {\n      \"title\": \"PEAR: Planner-Executor Agent Robustness Benchmark\",\n      \"url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n      \"status\": \"accepted\",\n      \"why_considered\": \"Benchmark/empirical paper on planner-executor robustness and vulnerabilities.\"\n    },\n    {\n      \"title\": \"ReAct paper mirror on papers.cool\",\n      \"url\": \"https://papers.cool/arxiv/2210.03629\",\n      \"status\": \"rejected\",\n      \"why_considered\": \"Discovery lead only; secondary aggregator.\"\n    },\n    {\n      \"title\": \"GitHub - saurav-dhait/Plan-and-Execute-Agent\",\n      \"url\": \"https://github.com/saurav-dhait/Plan-and-Execute-Agent\",\n      \"status\": \"rejected\",\n      \"why_considered\": \"Illustrative repo, but not authoritative for general architecture claims.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n        \"url\": \"https://arxiv.org/pdf/2210.03629\",\n        \"source_type\": \"ReAct paper\"\n      },\n      {\n        \"title\": \"ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models\",\n        \"url\": \"https://arxiv.org/abs/2305.18323\",\n        \"source_type\": \"technical comparison\"\n      },\n      {\n        \"title\": \"Agents - Docs by LangChain\",\n        \"url\": \"https://docs.langchain.com/oss/python/langchain-agents\",\n        \"source_type\": \"agent framework documentation\"\n      },\n      {\n        \"title\": \"plan_and_execute - LangChain reference docs\",\n        \"url\": \"https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html\",\n        \"source_type\": \"agent framework documentation\"\n      },\n      {\n        \"title\": \"PEAR: Planner-Executor Agent Robustness Benchmark\",\n        \"url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n        \"source_type\": \"technical comparison or benchmark\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"ReAct paper mirror on papers.cool\",\n        \"url\": \"https://papers.cool/arxiv/2210.03629\"\n      },\n      {\n        \"title\": \"GitHub - saurav-dhait/Plan-and-Execute-Agent\",\n        \"url\": \"https://github.com/saurav-dhait/Plan-and-Execute-Agent\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Secondary aggregator; replaced with the primary arXiv paper.\",\n      \"Implementation example only; not a general-source authority for architecture-level claims.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"ReAct generates reasoning traces and task-specific actions in an interleaved manner; reasoning updates plans and handles exceptions, while actions gather external information.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"ReAct paper\",\n      \"supported_aspect\": \"interleaved reasoning and acting\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct’s interleaving is intended to improve interpretability and to reduce hallucination/error propagation by grounding reasoning in observations.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"ReAct paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Plan-and-execute agents separate planning from execution: an LLM plans tasks and a separate agent executes them.\",\n      \"source_url\": \"https://api.python.langchain.com/en/latest/experimental/plan_and_execute.html\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangChain’s agent docs describe ReAct-style agents as alternating brief reasoning steps with targeted tool calls and feeding observations into subsequent decisions.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain-agents\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReWOO argues that decoupling reasoning from observations reduces redundant prompting and token consumption, and reports robustness under tool-failure scenarios.\",\n      \"source_url\": \"https://arxiv.org/abs/2305.18323\",\n      \"source_type\": \"technical comparison\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"PEAR finds that planner quality matters more than executor quality, planner memory is more important than executor memory, and planner-executor systems are vulnerable to prompt-injection along planner/executor communication paths.\",\n      \"source_url\": \"https://aclanthology.org/2026.findings-eacl.237.pdf\",\n      \"source_type\": \"technical comparison or benchmark\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"benchmark\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ReAct is preferable for open-ended, highly interactive tasks that need frequent adaptation after each observation; planner-executor is preferable when tasks decompose cleanly and you want more structure and amortized efficiency.\",\n      \"source_url\": \"https://arxiv.org/pdf/2210.03629\",\n      \"source_type\": \"inference from primary and benchmark sources\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"support_directness\": \"inference\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradictions. The sources are complementary: ReAct emphasizes tight observe-reason-act loops, while plan-and-execute sources emphasize a separate planning stage plus execution.\",\n    \"uncertainty_notes\": [\n      \"Terminology varies across frameworks; 'planner-executor' can mean a separate planner/executor pair or a graph/workflow variant.\",\n      \"The 'preferable when' guidance is an engineering inference, not a universal rule from a single head-to-head benchmark.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"ReAct interleaves reasoning and acting.\",\n      \"Planner-executor has an explicit planning stage.\",\n      \"ReAct has tool-use and feedback-loop implications.\",\n      \"Planner-executor failure modes include planner weakness and injection risk.\",\n      \"Preference depends on task structure and adaptability needs.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\n\\n**Direct source-backed facts**\\n- ReAct interleaves reasoning traces and actions in one loop: thoughts update plans and handle exceptions, and actions fetch external observations. \\uE200cite\\uE202turn4view0\\uE201\\n- Planner-executor / plan-and-execute splits the job: one component plans, a separate executor carries out steps. \\uE200cite\\uE202turn2search3\\uE202turn9view0\\uE201\\n- Tool-use implication: ReAct is tightly feedback-driven after each observation; plan-execute can amortize planning, and ReWOO reports lower token consumption from decoupling reasoning from observations. \\uE200cite\\uE202turn4view0\\uE202turn3view0\\uE201\\n- Failure modes differ: ReAct can still suffer hallucination/error propagation and context-limit pressure on complex tasks; planner-executor systems are sensitive to planner quality, planner memory, and prompt-injection against planner\\u2194executor channels. \\uE200cite\\uE202turn4view0\\uE202turn9view0\\uE201\\n\\n**Inference / recommendation**\\n- Prefer ReAct when the task is open-ended, tool availability is uncertain, or you want adaptation after each tool result. \\uE200cite\\uE202turn4view0\\uE202turn7search1\\uE201\\n- Prefer planner-executor when the task decomposes cleanly into steps and you want more structure plus better amortized efficiency. \\uE200cite\\uE202turn2search3\\uE202turn3view0\\uE202turn9view0\\uE201\\n\\n### Required aspect coverage\\n- interleaved reasoning and acting \\u2014 covered by ReAct\\u2019s stepwise thought/action loop. \\uE200cite\\uE202turn4view0\\uE201\\n- explicit planning stage \\u2014 covered by plan-and-execute / planner-executor docs. \\uE200cite\\uE202turn2search3\\uE202turn9view0\\uE201\\n- tool-use implications \\u2014 covered by ReAct\\u2019s per-step tool feedback and ReWOO\\u2019s decoupled token-efficiency claim. \\uE200cite\\uE202turn4view0\\uE202turn3view0\\uE201\\n- failure modes \\u2014 covered by hallucination/error propagation for ReAct and planner weakness / injection risk for planner-executor. \\uE200cite\\uE202turn4view0\\uE202turn9view0\\uE201\\n- when each architecture is preferable \\u2014 covered as an inference from the architecture and benchmark evidence. \\uE200cite\\uE202turn4view0\\uE202turn3view0\\uE202turn9view0\\uE201\\n\\n## Sources\\n- ReAct paper (primary): ReAct: Synergizing Reasoning and Acting in Language Models. \\uE200cite\\uE202turn4view0\\uE201\\n- ReWOO paper (primary comparison): ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models. \\uE200cite\\uE202turn3view0\\uE201\\n- LangChain agents docs (official framework docs). \\uE200cite\\uE202turn7search1\\uE201\\n- LangChain plan-and-execute docs (official framework docs). \\uE200cite\\uE202turn2search3\\uE201\\n- PEAR benchmark (benchmark/robustness evidence). \\uE200cite\\uE202turn9view0\\uE201\\n\\n## Limitations\\n- The terminology is not fully standardized across frameworks; \\\"planner-executor\\\" can mean a separate planner/executor pair or a graph/workflow variant. \\uE200cite\\uE202turn2search3\\uE202turn9view0\\uE202turn7search1\\uE201\\n- I did not find a single head-to-head benchmark directly comparing generic ReAct and generic planner-executor on the same suite, so the \\\"preferable\\\" guidance is an engineering inference rather than a universal rule. \\uE200cite\\uE202turn4view0\\uE202turn3view0\\uE202turn9view0\\uE201\"\n}",
+  "status": "complete"
+}

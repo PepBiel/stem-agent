@@ -1,0 +1,213 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-003.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-003",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.4444,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9167,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 72.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "task success",
+        "covered": true,
+        "matched_terms": [
+          "success",
+          "task"
+        ],
+        "expected_terms": [
+          "success",
+          "task"
+        ]
+      },
+      {
+        "aspect": "tool-call correctness",
+        "covered": true,
+        "matched_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ],
+        "expected_terms": [
+          "call",
+          "correctness",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "argument validity",
+        "covered": true,
+        "matched_terms": [
+          "argument",
+          "validity"
+        ],
+        "expected_terms": [
+          "argument",
+          "validity"
+        ]
+      },
+      {
+        "aspect": "recovery from tool errors",
+        "covered": true,
+        "matched_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ],
+        "expected_terms": [
+          "errors",
+          "recovery",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "cost and latency",
+        "covered": true,
+        "matched_terms": [
+          "cost",
+          "latency"
+        ],
+        "expected_terms": [
+          "cost",
+          "latency"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Current approaches to evaluating tool use in LLM agents cluster into five practical layers: (1) **task success** on realistic or executable benchmarks, (2) **tool-call correctness** via trace- or step-level checks, (3) **argument validity** via parameter/data-precision scoring, (4) **recovery from tool errors** via perturbation and fault-injection stress tests, and (5) **cost and latency** tracking for production readiness. The literature is moving from single-run success rates toward more realistic, fine-grained, and operationally relevant evaluation. `https://arxiv.org/abs/2503.16416` `https://developers.openai.com/api/docs/guides/trace-grading` ([arxiv.org](https://arxiv.org/abs/2503.16416))",
+      "- **task success** — Benchmarks like GTA emphasize end-to-end completion on real-world tasks with real deployed tools and multimodal inputs; the survey also notes a shift toward more realistic benchmarks. `https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html))",
+      "- **tool-call correctness** — Current framework docs grade traces with structured criteria and explicitly ask whether the agent selected and invoked the right tool. `https://developers.openai.com/api/docs/guides/trace-grading` `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/trace-grading))",
+      "- **argument validity** — A common pattern is `data precision`: verifying the tool is called with the correct arguments extracted from context. `https://developers.openai.com/api/docs/guides/evaluation-best-practices` ([platform.openai.com](https://platform.openai.com/docs/guides/evaluation-best-practices))",
+      "- **recovery from tool errors** — Newer benchmarks inject timeouts, rate limits, partial responses, schema drift, and other failures to measure fault tolerance and recovery. `https://arxiv.org/abs/2601.06112` ([arxiv.org](https://arxiv.org/abs/2601.06112))",
+      "- **cost and latency** — Operational evaluation frameworks increasingly log per-tool-call latency, token usage, and USD cost; the survey notes cost-efficiency remains an open gap. `https://iris-eval.com/` `https://arxiv.org/abs/2503.16416` ([iris-eval.com](https://www.iris-eval.com/))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2503.16416",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2503.16416`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.06112",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.06112`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices`",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/trace-grading",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/trace-grading`",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://iris-eval.com/",
+        "domain": "iris-eval.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://iris-eval.com/`",
+        "domain": "iris-eval.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://papers.cool/arxiv/2507.21504",
+        "domain": "papers.cool",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/evaluation-best-practices",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://platform.openai.com/docs/guides/trace-grading",
+        "domain": "platform.openai.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html",
+        "domain": "proceedings.neurips.cc",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/8a75ee6d4b2eb0b777f549a32a5a5c28-Abstract-Datasets_and_Benchmarks_Track.html`",
+        "domain": "proceedings.neurips.cc",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://www.hevo.dev/",
+        "domain": "hevo.dev",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.iris-eval.com/",
+        "domain": "iris-eval.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents",
+        "domain": "researchgate.net",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 18,
+    "unique_citation_count": 18
+  }
+}

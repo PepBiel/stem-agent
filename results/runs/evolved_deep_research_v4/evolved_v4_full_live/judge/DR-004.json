@@ -1,0 +1,365 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T14:49:23+00:00",
+  "finished_at": "2026-05-05T14:49:34+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-004.json",
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.9182,
+  "judge_score": 0.8333,
+  "final_score": 0.863,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-004.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-004",
+    "question": "What is agentic RAG and how does it differ from standard RAG?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.4545,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.9182,
+    "failure_tags": [
+      "weak_source"
+    ],
+    "runtime_seconds": 59.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "standard retrieve-then-generate workflow",
+          "covered": true,
+          "matched_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ],
+          "expected_terms": [
+            "generate",
+            "retrieve",
+            "standard",
+            "then",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "planning or iterative retrieval",
+          "covered": true,
+          "matched_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "iterative",
+            "planning",
+            "retrieval"
+          ]
+        },
+        {
+          "aspect": "tool use",
+          "covered": true,
+          "matched_terms": [
+            "tool"
+          ],
+          "expected_terms": [
+            "tool"
+          ]
+        },
+        {
+          "aspect": "reflection or verification",
+          "covered": true,
+          "matched_terms": [
+            "reflection",
+            "verification"
+          ],
+          "expected_terms": [
+            "reflection",
+            "verification"
+          ]
+        },
+        {
+          "aspect": "added complexity and failure modes",
+          "covered": true,
+          "matched_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "added",
+            "complexity",
+            "failure",
+            "modes"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Agentic RAG is a RAG system where the model behaves more like an agent: it can decide when to retrieve, what to retrieve next, which tools to call, and whether to reflect or verify before answering. Standard RAG is the simpler retrieve-then-generate pattern: fetch context, then generate the answer from that context. ([arxiv.org](https://arxiv.org/abs/2005.11401))",
+        "The practical difference is control and adaptivity. Agentic RAG can help on multi-hop or long-form tasks by iterating over retrieval and checking its own outputs, but it adds more moving parts, more inference calls, and failure modes like skipping a needed search or making unnecessary searches. ([arxiv.org](https://arxiv.org/abs/2310.11511))",
+        "- standard retrieve-then-generate workflow — The original RAG paper frames the method as retrieving external memory and then generating; LangChain also contrasts this with a two-step chain that injects retrieved context into the prompt. ([arxiv.org](https://arxiv.org/abs/2005.11401))",
+        "- planning or iterative retrieval — The agentic RAG survey explicitly lists planning and iterative refinement, and FLARE retrieves repeatedly during generation based on low-confidence tokens. ([arxiv.org](https://arxiv.org/abs/2501.09136))",
+        "- tool use — LangChain shows the LLM emitting tool calls for retrieval, and LlamaIndex says agents use tools and can use RAG as one tool among others. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))",
+        "- reflection or verification — Self-RAG learns to critique via self-reflection, and the survey includes reflection as a core agentic design pattern. ([arxiv.org](https://arxiv.org/abs/2310.11511))",
+        "- added complexity and failure modes — LangChain notes extra inference calls and reduced control, including skipped or unnecessary searches; the survey also emphasizes trade-offs in design and control. ([docs.langchain.com](https://docs.langchain.com/oss/python/langchain/rag))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2005.11401",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2305.06983",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.11511",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2501.09136",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://developers.llamaindex.ai/python/framework/",
+          "domain": "developers.llamaindex.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/rag",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.llamaindex.ai/",
+          "domain": "docs.llamaindex.ai",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "domain": "en.wikipedia.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://papers.cool/arxiv/2501.09136",
+          "domain": "papers.cool",
+          "authoritative": false,
+          "weak": true
+        },
+        {
+          "url": "https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/",
+          "domain": "geeksforgeeks.org",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/",
+          "domain": "reddit.com",
+          "authoritative": false,
+          "weak": true
+        }
+      ],
+      "citation_count": 11,
+      "unique_citation_count": 11
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly defines standard RAG as retrieve-then-generate and contrasts it with agentic behavior."
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly states iterative retrieval and planning/refinement as a core difference."
+      },
+      {
+        "aspect": "tool use",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Mentions tool calls and explains RAG as one tool among others in agentic systems."
+      },
+      {
+        "aspect": "reflection or verification",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Includes reflection/verification and ties it to self-critique behavior."
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Notes extra inference calls, more moving parts, and concrete failure modes like skipped or unnecessary searches."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Standard RAG is the simpler retrieve-then-generate pattern: fetch context, then generate the answer from that context.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2005.11401"
+        ],
+        "reason": "This is aligned with the original RAG baseline paper and is a plausible support for the standard workflow."
+      },
+      {
+        "claim": "Agentic RAG can decide when to retrieve, what to retrieve next, which tools to call, and whether to reflect or verify before answering.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136"
+        ],
+        "reason": "The cited survey is the right source type for the agentic RAG concept and likely supports these design dimensions."
+      },
+      {
+        "claim": "Agentic RAG can help on multi-hop or long-form tasks by iterating over retrieval and checking its own outputs, but it adds more moving parts, more inference calls, and failure modes like skipping a needed search or making unnecessary searches.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.11511"
+        ],
+        "reason": "Self-RAG supports reflection/critique; the specific failure-mode wording is more inferential but still plausible in context."
+      },
+      {
+        "claim": "The agentic RAG survey explicitly lists planning and iterative refinement, and FLARE retrieves repeatedly during generation based on low-confidence tokens.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136",
+          "https://arxiv.org/abs/2305.06983"
+        ],
+        "reason": "Survey + FLARE are appropriate sources for iterative retrieval and refinement."
+      },
+      {
+        "claim": "LangChain shows the LLM emitting tool calls for retrieval, and LlamaIndex says agents use tools and can use RAG as one tool among others.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/rag",
+          "https://docs.llamaindex.ai/"
+        ],
+        "reason": "The docs are relevant framework documentation, but the citation is broad and not pinned to a specific documented statement."
+      },
+      {
+        "claim": "The answer’s umbrella-term limitation note: Agentic RAG is not a single canonical architecture and implementation details vary.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2501.09136"
+        ],
+        "reason": "A survey is an appropriate source for this qualifier."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "quality": "strong",
+        "reason": "Canonical baseline RAG paper; directly relevant."
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "quality": "strong",
+        "reason": "Directly on-topic agentic RAG survey."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.11511",
+        "quality": "strong",
+        "reason": "Relevant for reflection/self-critique mechanisms in RAG."
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.06983",
+        "quality": "strong",
+        "reason": "Relevant for iterative or adaptive retrieval during generation."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/rag",
+        "quality": "strong",
+        "reason": "Framework documentation; relevant to tool-based RAG implementation."
+      },
+      {
+        "url": "https://docs.llamaindex.ai/",
+        "quality": "acceptable",
+        "reason": "Relevant framework docs, though the root docs URL is broad."
+      },
+      {
+        "url": "https://developers.llamaindex.ai/python/framework/",
+        "quality": "acceptable",
+        "reason": "Relevant implementation docs, but broad and not tightly cited to a specific claim."
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+        "quality": "weak",
+        "reason": "Generic overview source; not ideal for this benchmark."
+      },
+      {
+        "url": "https://papers.cool/arxiv/2501.09136",
+        "quality": "weak",
+        "reason": "Secondary mirror of an arXiv paper; adds little over the primary source."
+      },
+      {
+        "url": "https://www.geeksforgeeks.org/artificial-intelligence/building-agentic-rag-system-using-llamaindex/",
+        "quality": "weak",
+        "reason": "Non-authoritative tutorial source."
+      },
+      {
+        "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/",
+        "quality": "irrelevant",
+        "reason": "User forum post; not a reliable source for the claim."
+      }
+    ],
+    "failure_tags": [
+      "weak_source"
+    ],
+    "summary": "The answer is substantively correct and covers all required aspects, but it relies on some broad or weak secondary sources beyond the strongest primary references.",
+    "recommended_fix": "Trim the weak sources and tighten each claim to primary sources or specific framework docs pages that directly state the relevant behavior.",
+    "average_score": 4.3333,
+    "normalized_score": 0.8333
+  },
+  "judge_usage": {
+    "input_tokens": 4152,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1704,
+    "output_tokens_details": {
+      "reasoning_tokens": 174
+    },
+    "total_tokens": 5856
+  },
+  "response_id": "resp_0e4479e4a1b1ad790069fa037ef27c819799e3c92c370e298e"
+}

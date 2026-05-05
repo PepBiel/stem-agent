@@ -1,0 +1,312 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T15:37:56+00:00",
+  "finished_at": "2026-05-05T15:38:06+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 1.0,
+  "judge_score": 0.7083,
+  "final_score": 0.8104,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-001.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 1.0,
+    "failure_tags": [],
+    "runtime_seconds": 82.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "The main failure modes of memory in LLM agents are less about “not storing enough” and more about **badly managing what gets recalled, when, and with what confidence**. Across the sources, the recurring problems are: polluted context from irrelevant retrieval, stale or contradictory memories resurfacing, over-reliance on prior agent outputs, and the classic short-term-vs-long-term memory trade-off where compression helps budget but hurts faithful recall. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf https://openreview.net/pdf?id=W1vKCYeAM1",
+        "- **context pollution** — Retrieval can inject irrelevant or unhelpful items that add noise and reduce utility, which is essentially context pollution. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+        "- **retrieval of stale or irrelevant memories** — Similarity-based retrieval can surface stale observations or failed tool logs, and long-term benchmarks report reuse of invalid memories. https://openreview.net/pdf?id=W1vKCYeAM1 https://openreview.net/forum?id=YzFNBzlQbo",
+        "- **over-trusting previous agent outputs** — Empirically, similar retrieved memories often lead to similar current outputs, so past errors can be replayed and amplified. https://arxiv.org/abs/2505.16067",
+        "- **trade-offs between short-term and long-term memory** — Summarization and sliding windows improve scalability, but they can discard decisive constraints and reduce long-term recall reliability. https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+        "- **evaluation methods for memory quality** — MemAE uses accurate retrieval, test-time learning, long-range understanding, and conflict resolution; Memora adds grounding checks, human eval, and FAMA for obsolete memory. https://openreview.net/forum?id=ZgQ0t3zYTQ https://openreview.net/forum?id=YzFNBzlQbo"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2505.16067",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://github.com/letta-ai/ai-memory-sdk",
+          "domain": "github.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=YzFNBzlQbo",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly addresses noisy/irrelevant retrieval injecting bad context."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly discusses stale observations, failed logs, and invalid memories resurfacing."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Captures replay/amplification of past errors, though the framing is somewhat indirect."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains compression/sliding-window scalability versus recall fidelity trade-off."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions retrieval, grounding checks, human eval, and obsolete-memory evaluation, but does not deeply compare methods or metrics."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Main failure modes are polluted context, stale/contradictory memories, over-reliance on prior outputs, and short-term vs long-term trade-offs.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+          "https://openreview.net/pdf?id=W1vKCYeAM1"
+        ],
+        "reason": "Plausible overall, but the citation is broad and the bundled summary claim is a synthesis rather than a directly supported statement from the cited sources."
+      },
+      {
+        "claim": "Retrieval can inject irrelevant or unhelpful items that add noise and reduce utility, which is context pollution.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+        ],
+        "reason": "This is a direct and reasonable paraphrase of retrieval noise / irrelevant-context problems."
+      },
+      {
+        "claim": "Similarity-based retrieval can surface stale observations or failed tool logs, and long-term benchmarks report reuse of invalid memories.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openreview.net/pdf?id=W1vKCYeAM1",
+          "https://openreview.net/forum?id=YzFNBzlQbo"
+        ],
+        "reason": "Plausibly supported by memory/retrieval benchmark and paper citations focused on stale or invalid memory reuse."
+      },
+      {
+        "claim": "Similar retrieved memories often lead to similar current outputs, so past errors can be replayed and amplified.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "The direction of the claim is plausible, but the citation is not obviously specific enough from metadata alone to support this exact causal framing."
+      },
+      {
+        "claim": "Summarization and sliding windows improve scalability, but they can discard decisive constraints and reduce long-term recall reliability.",
+        "support": "supported",
+        "cited_urls": [
+          "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf"
+        ],
+        "reason": "This is a standard and plausible short-term/long-term memory trade-off claim."
+      },
+      {
+        "claim": "MemAE uses accurate retrieval, test-time learning, long-range understanding, and conflict resolution; Memora adds grounding checks, human eval, and FAMA for obsolete memory.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+          "https://openreview.net/forum?id=YzFNBzlQbo"
+        ],
+        "reason": "Evaluation-method names are plausible, but the answer compresses multiple benchmark notions into a single line without clearly distinguishing what each source actually measures."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://openreview.net/pdf/98c3fad1f896d4e66146ed72688c024989748b71.pdf",
+        "quality": "strong",
+        "reason": "Relevant research-paper PDF likely about agent memory or retrieval behavior."
+      },
+      {
+        "url": "https://openreview.net/pdf?id=W1vKCYeAM1",
+        "quality": "strong",
+        "reason": "Relevant paper PDF from OpenReview, likely directly about memory in agents."
+      },
+      {
+        "url": "https://openreview.net/forum?id=YzFNBzlQbo",
+        "quality": "strong",
+        "reason": "OpenReview forum page is a suitable source for a paper or benchmark relevant to memory evaluation."
+      },
+      {
+        "url": "https://openreview.net/forum?id=ZgQ0t3zYTQ",
+        "quality": "strong",
+        "reason": "Likely a research paper or benchmark entry, appropriate for evaluation methods."
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "quality": "strong",
+        "reason": "ArXiv preprint is relevant and potentially empirical, though metadata alone does not confirm exact claims."
+      },
+      {
+        "url": "https://github.com/letta-ai/ai-memory-sdk",
+        "quality": "acceptable",
+        "reason": "Implementation documentation can be useful for memory design, but it is weaker evidence than a paper or benchmark."
+      }
+    ],
+    "failure_tags": [],
+    "summary": "The answer covers all required aspects and is structurally strong, but several claims are summarized broadly and the evidence is only moderately specific for some of the more interpretive points.",
+    "recommended_fix": "Tighten the evaluation-methods section by naming concrete metrics and what each benchmark actually measures, and replace broad synthesis claims with source-specific, directly supported statements.",
+    "average_score": 3.8333,
+    "normalized_score": 0.7083
+  },
+  "judge_usage": {
+    "input_tokens": 3582,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1629,
+    "output_tokens_details": {
+      "reasoning_tokens": 176
+    },
+    "total_tokens": 5211
+  },
+  "response_id": "resp_0b6986f93d56d8d20069fa0ed50b3081959d70da9b1696a8c8"
+}

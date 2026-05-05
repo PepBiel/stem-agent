@@ -1,0 +1,146 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-005.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 1.0,
+  "failure_tags": [],
+  "runtime_seconds": 83.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": true,
+        "matched_terms": [
+          "feedback",
+          "verbal"
+        ],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "refinement",
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": true,
+        "matched_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- **Verbal feedback / reflection loops:** the agent turns task feedback into natural-language reflections and stores them for later attempts. Reflexion is the canonical example. https://arxiv.org/abs/2303.11366",
+      "- **Self-refinement loops:** the same model critiques its own draft and revises iteratively; Self-Refine does this without supervised training, extra training, or RL. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+      "- **Prompt/workflow optimization:** instead of changing weights, the system searches over prompts or instruction variants and keeps higher-scoring candidates. OPRO is the canonical prompt-optimization approach, and later ACL work shows small models may only get modest gains. https://arxiv.org/abs/2309.03409 https://aclanthology.org/2024.findings-acl.100/",
+      "- **Limits without external feedback:** purely intrinsic self-correction is fragile; one paper finds it can fail or degrade, while another says it can work only under careful settings like zero temperature and fair prompts. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673",
+      "- verbal feedback — Reflexion explicitly uses verbal feedback signals and episodic memory to improve later actions. https://arxiv.org/abs/2303.11366",
+      "- reflection — Reflexion’s core mechanism is self-reflection on failures before the next attempt. https://arxiv.org/abs/2303.11366",
+      "- self-refinement — Self-Refine iteratively critiques and revises its own output without extra training. https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+      "- prompt or workflow optimization — OPRO iteratively optimizes instructions/prompts using prior candidates and scores. https://arxiv.org/abs/2309.03409",
+      "- limits of self-improvement without external feedback — self-correction is not reliably strong on its own and may require careful prompts/decoding. https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2406.15673"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://aclanthology.org/2024.findings-acl.100/",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2309.03409",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.01798",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2406.15673",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91edff07232fb1b55a505a9e9f6c0ff3-Abstract-Conference.html",
+        "domain": "proceedings.neurips.cc",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

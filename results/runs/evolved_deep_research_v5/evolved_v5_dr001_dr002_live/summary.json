@@ -1,0 +1,123 @@
+{
+  "schema_version": "2026-05-04",
+  "run_id": "evolved_v5_dr001_dr002_live",
+  "agent": "evolved_deep_research_v5",
+  "requested_agent": "evolved_v5",
+  "config_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "dry_run": false,
+  "started_at": "2026-05-05T15:36:33+00:00",
+  "finished_at": "2026-05-05T15:39:53+00:00",
+  "question_count": 2,
+  "artifact_root": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live",
+  "questions": [
+    {
+      "question_id": "DR-001",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-001.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\heuristic\\DR-001.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\judge\\DR-001.json",
+      "heuristic_score": 1.0,
+      "judge_score": 0.7083,
+      "final_score": 0.8104,
+      "runtime_seconds": 82.0,
+      "agent_usage": {
+        "input_tokens": 40838,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 9419,
+        "output_tokens_details": {
+          "reasoning_tokens": 6972
+        },
+        "total_tokens": 50257
+      },
+      "judge_usage": {
+        "input_tokens": 3582,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1629,
+        "output_tokens_details": {
+          "reasoning_tokens": 176
+        },
+        "total_tokens": 5211
+      },
+      "summary": "The answer covers all required aspects and is structurally strong, but several claims are summarized broadly and the evidence is only moderately specific for some of the more interpretive points.",
+      "recommended_fix": "Tighten the evaluation-methods section by naming concrete metrics and what each benchmark actually measures, and replace broad synthesis claims with source-specific, directly supported statements."
+    },
+    {
+      "question_id": "DR-002",
+      "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\traces\\DR-002.json",
+      "heuristic_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\heuristic\\DR-002.json",
+      "judge_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_dr001_dr002_live\\judge\\DR-002.json",
+      "heuristic_score": 0.95,
+      "judge_score": 0.8333,
+      "final_score": 0.8741,
+      "runtime_seconds": 94.0,
+      "agent_usage": {
+        "input_tokens": 38493,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 12677,
+        "output_tokens_details": {
+          "reasoning_tokens": 9480
+        },
+        "total_tokens": 51170
+      },
+      "judge_usage": {
+        "input_tokens": 3823,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1559,
+        "output_tokens_details": {
+          "reasoning_tokens": 208
+        },
+        "total_tokens": 5382
+      },
+      "summary": "A strong, well-structured comparison that covers all required aspects, with mostly relevant citations. The main weakness is that a few engineering recommendations are synthesized more than directly demonstrated by the cited sources.",
+      "recommended_fix": "Tighten the tool-use and preference claims by either quoting more directly relevant source evidence or clearly separating sourced facts from your own synthesis."
+    }
+  ],
+  "aggregate": {
+    "heuristic_score_avg": 0.975,
+    "judge_score_avg": 0.7708,
+    "final_score_avg": 0.8422
+  },
+  "usage_totals": {
+    "agent": {
+      "input_tokens": 79331,
+      "input_tokens_details": {
+        "cached_tokens": 4736
+      },
+      "output_tokens": 22096,
+      "output_tokens_details": {
+        "reasoning_tokens": 16452
+      },
+      "total_tokens": 101427
+    },
+    "judge": {
+      "input_tokens": 7405,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 3188,
+      "output_tokens_details": {
+        "reasoning_tokens": 384
+      },
+      "total_tokens": 10593
+    },
+    "combined": {
+      "input_tokens": 86736,
+      "input_tokens_details": {
+        "cached_tokens": 4736
+      },
+      "output_tokens": 25284,
+      "output_tokens_details": {
+        "reasoning_tokens": 16836
+      },
+      "total_tokens": 112020
+    }
+  }
+}

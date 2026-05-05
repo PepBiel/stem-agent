@@ -1,0 +1,191 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-005.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.7143,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9571,
+  "failure_tags": [],
+  "runtime_seconds": 95.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "verbal feedback",
+        "covered": true,
+        "matched_terms": [
+          "feedback",
+          "verbal"
+        ],
+        "expected_terms": [
+          "feedback",
+          "verbal"
+        ]
+      },
+      {
+        "aspect": "reflection",
+        "covered": true,
+        "matched_terms": [
+          "reflection"
+        ],
+        "expected_terms": [
+          "reflection"
+        ]
+      },
+      {
+        "aspect": "self-refinement",
+        "covered": true,
+        "matched_terms": [
+          "refinement",
+          "self"
+        ],
+        "expected_terms": [
+          "refinement",
+          "self"
+        ]
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "covered": true,
+        "matched_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ],
+        "expected_terms": [
+          "optimization",
+          "prompt",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "covered": true,
+        "matched_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ],
+        "expected_terms": [
+          "external",
+          "feedback",
+          "improvement",
+          "limits",
+          "self",
+          "without"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Self-improving agents without fine-tuning usually fall into three evidence-backed patterns: (1) **verbal self-feedback/reflection loops** that store lessons in memory, (2) **iterative self-refinement** where the same model critiques and revises its own output, and (3) **prompt/workflow optimization** that searches over prompts or declarative pipelines instead of changing weights. A key caveat is that self-improvement can drift into **reward hacking** or **self-bias**, so external or independent evaluation often matters for reliable gains. ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+      "- verbal feedback — Reflexion converts task feedback into verbal summaries and uses them as extra context for later trials. `https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf` ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+      "- reflection — Reflexion is explicitly built around self-reflection on prior failures to improve future decisions. `https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf` ([proceedings.nips.cc](https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf))",
+      "- self-refinement — Self-Refine alternates FEEDBACK and REFINE steps, using one LLM to generate, critique, and revise outputs without extra training. `https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf` ([proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf))",
+      "- prompt or workflow optimization — APO edits prompts via natural-language gradients plus beam search, and DSPy optimizes declarative LM pipelines and agent loops to maximize a metric. `https://arxiv.org/abs/2305.03495` `https://arxiv.org/abs/2310.03714` ([arxiv.org](https://arxiv.org/abs/2305.03495))",
+      "- limits of self-improvement without external feedback — Iterative self-refinement can reward-hack its own evaluator, and self-bias can increase unless external feedback or better assessment is added. `https://arxiv.org/abs/2407.04549` `https://arxiv.org/abs/2402.11436` ([arxiv.org](https://arxiv.org/abs/2407.04549))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2305.03495",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2305.03495`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.03714",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.03714`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2402.11436",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2402.11436`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2407.04549",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2407.04549`",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://papers.cool/arxiv/2303.17651",
+        "domain": "papers.cool",
+        "authoritative": false,
+        "weak": true
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+        "domain": "proceedings.neurips.cc",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf`",
+        "domain": "proceedings.neurips.cc",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+        "domain": "proceedings.nips.cc",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://proceedings.nips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf`",
+        "domain": "proceedings.nips.cc",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.reddit.com/r/MachineLearning/comments/1215dbl",
+        "domain": "reddit.com",
+        "authoritative": false,
+        "weak": true
+      }
+    ],
+    "citation_count": 14,
+    "unique_citation_count": 14
+  }
+}

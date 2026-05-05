@@ -1,0 +1,143 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v3\\evolved_v3_full_live\\traces\\DR-004.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 0.8333,
+    "source_quality_score": 0.6,
+    "unsupported_claim_count": 1,
+    "unsupported_claim_score": 0.8333,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.8733,
+  "failure_tags": [
+    "unsupported_claim"
+  ],
+  "runtime_seconds": 15.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "covered": true,
+        "matched_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ],
+        "expected_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "covered": true,
+        "matched_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ],
+        "expected_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ]
+      },
+      {
+        "aspect": "tool use",
+        "covered": true,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "tool"
+        ]
+      },
+      {
+        "aspect": "reflection or verification",
+        "covered": true,
+        "matched_terms": [
+          "reflection",
+          "verification"
+        ],
+        "expected_terms": [
+          "reflection",
+          "verification"
+        ]
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "covered": true,
+        "matched_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Agentic RAG is a RAG system where an LLM agent does more than a single retrieve-then-generate pass: it can plan sub-steps, choose tools, decide when to retrieve, iterate on queries, and sometimes reflect or verify before answering. In contrast, standard RAG is usually a fixed pipeline that retrieves context first and then generates an answer from that context.",
+      "- **standard retrieve-then-generate workflow** — standard RAG retrieves external passages and then conditions generation on them: https://arxiv.org/abs/2005.11401",
+      "- **planning or iterative retrieval** — agentic RAG uses planning and iterative retrieval rather than a single fixed fetch: https://arxiv.org/abs/2501.09136",
+      "- **tool use** — agentic systems expose retrievers and other knowledge sources as tools the agent can invoke: https://docs.langchain.com/oss/python/langgraph/agentic-rag",
+      "- **reflection or verification** — agentic workflows can include reflection and error-correction: https://docs.llamaindex.ai/en/stable/optimizing/agentic_strategies/agentic_strategies/",
+      "- **added complexity and failure modes** — more flexibility comes with extra orchestration complexity and more places for failure: https://arxiv.org/abs/2501.09136"
+    ],
+    "unsupported_claim_lines": [
+      "Agentic RAG is a RAG system where an LLM agent does more than a single retrieve-then-generate pass: it can plan sub-steps, choose tools, decide when to retrieve, iterate on queries, and sometimes reflect or verify before answering. In contrast, standard RAG is usually a fixed pipeline that retrieves context first and then generates an answer from that context."
+    ],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/agentic-rag",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.llamaindex.ai/",
+        "domain": "docs.llamaindex.ai",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.llamaindex.ai/en/stable/optimizing/agentic_strategies/agentic_strategies/",
+        "domain": "docs.llamaindex.ai",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 5,
+    "unique_citation_count": 5
+  }
+}

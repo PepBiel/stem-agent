@@ -1,0 +1,157 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v4\\evolved_v4_full_live\\traces\\DR-006.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.4444,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9167,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 69.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination",
+          "overhead"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": true,
+        "matched_terms": [
+          "confusion",
+          "role"
+        ],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": true,
+        "matched_terms": [
+          "error",
+          "propagation"
+        ],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": true,
+        "matched_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": true,
+        "matched_terms": [
+          "difficulty",
+          "evaluation"
+        ],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Across the sources, the recurring failure modes in multi-agent systems are: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty. Some are stated explicitly in framework docs and empirical papers; others are reasonable engineering inferences from the failure patterns described there. ([arxiv.org](https://arxiv.org/abs/2501.06322))",
+      "- coordination overhead — covered: hierarchical supervisors, delegation, and message-history control add orchestration cost, and CrewAI flags excessive back-and-forth as a problem. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))",
+      "- role confusion — covered: CrewAI explicitly warns against vague/overlapping roles and recommends clear role definitions and responsibilities. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))",
+      "- error propagation — covered: the consensus-trap paper shows that flawed intermediate logic can survive into final answers when aggregation is vote-based. ([arxiv.org](https://arxiv.org/abs/2604.17139))",
+      "- consensus without correctness — covered: both the consensus-trap paper and DEBATE show that agreement or convergence can still be wrong. ([arxiv.org](https://arxiv.org/abs/2604.17139))",
+      "- evaluation difficulty — covered: DEBATE and the evaluation paper both show that multi-agent behavior is hard to benchmark and that many answer paths complicate reliable assessment. ([arxiv.org](https://arxiv.org/abs/2510.25110))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2501.06322",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2510.25110",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.17139",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/pdf/2311.09721",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.crewai.com/changelog",
+        "domain": "docs.crewai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.crewai.com/concepts/collaboration",
+        "domain": "docs.crewai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.crewai.com/en/concepts/collaboration",
+        "domain": "docs.crewai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.crewai.com/en/introduction",
+        "domain": "docs.crewai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+        "domain": "langchain-ai.github.io",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 9,
+    "unique_citation_count": 9
+  }
+}

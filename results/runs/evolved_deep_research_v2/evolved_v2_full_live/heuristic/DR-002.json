@@ -1,0 +1,158 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v2\\evolved_v2_full_live\\traces\\DR-002.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.25,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.8875,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 77.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "covered": true,
+        "matched_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ],
+        "expected_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ]
+      },
+      {
+        "aspect": "explicit planning stage",
+        "covered": true,
+        "matched_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ],
+        "expected_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ]
+      },
+      {
+        "aspect": "tool-use implications",
+        "covered": true,
+        "matched_terms": [
+          "implications",
+          "tool"
+        ],
+        "expected_terms": [
+          "implications",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "failure modes",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "failure",
+          "modes"
+        ]
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "covered": true,
+        "matched_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ],
+        "expected_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "ReAct-style agents keep reasoning and acting in a single interleaved loop: the model emits thoughts that can create, track, and update action plans, then acts to fetch new information from the environment. Planner-executor agents split that loop into a planning phase and an execution phase. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "Tool-use implication: ReAct treats tool calls as part of the same thought-action-observation trace, so the model can revise after each observation; planner-executor makes tool calls downstream of a prior plan, which is easier to route, chain, checkpoint, and subject to approval. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "Failure modes differ: ReAct’s paper explicitly discusses prompting limits and notes hallucination/error propagation in reasoning-heavy settings, while PEAR reports that planner quality matters more than executor quality and that prompt-injection on planner-executor communication or planner prompts can cause substantial end-to-end failures. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "Prefer ReAct when the task is open-ended, information is uncertain, and you want a tight think-act-observe loop; prefer planner-executor when the task benefits from upfront decomposition, sequential handoff, observability, or human approval before tool use. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "- interleaved reasoning and acting — ReAct generates reasoning traces and actions in an interleaved manner. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "- explicit planning stage — planner-executor separates a planner that decomposes the request into subtasks from an executor that performs them. ([aclanthology.org](https://aclanthology.org/2026.findings-eacl.237.pdf))",
+      "- tool-use implications — ReAct uses tools inside the same loop; planner-executor centralizes tool calls in the executor and supports chaining/approval. ([learn.microsoft.com](https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai))",
+      "- failure modes — ReAct can suffer hallucination/error propagation; planner-executor is vulnerable to weak planners and planner-channel injection. ([arxiv.org](https://arxiv.org/pdf/2210.03629))",
+      "- when each architecture is preferable — ReAct for uncertain, reactive tasks; planner-executor for multi-stage workflows needing control and review. ([arxiv.org](https://arxiv.org/pdf/2210.03629))"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://aclanthology.org/2026.findings-eacl.237.pdf",
+        "domain": "aclanthology.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/pdf/2210.03629",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/sequential",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/advanced/agent-executor?utm_source=openai",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://www.emergentmind.com/topics/planner-executor-agentic-framework",
+        "domain": "emergentmind.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 8,
+    "unique_citation_count": 8
+  }
+}

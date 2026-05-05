@@ -1,0 +1,736 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v4",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v4",
+  "genome_version": 4,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v4.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T14:51:19+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "source_expectations": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T14:52:28+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAcross the sources, the recurring failure modes in multi-agent systems are: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty. Some are stated explicitly in framework docs and empirical papers; others are reasonable engineering inferences from the failure patterns described there. ([arxiv.org](https://arxiv.org/abs/2501.06322))\n\n### Required aspect coverage\n- coordination overhead — covered: hierarchical supervisors, delegation, and message-history control add orchestration cost, and CrewAI flags excessive back-and-forth as a problem. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\n- role confusion — covered: CrewAI explicitly warns against vague/overlapping roles and recommends clear role definitions and responsibilities. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\n- error propagation — covered: the consensus-trap paper shows that flawed intermediate logic can survive into final answers when aggregation is vote-based. ([arxiv.org](https://arxiv.org/abs/2604.17139))\n- consensus without correctness — covered: both the consensus-trap paper and DEBATE show that agreement or convergence can still be wrong. ([arxiv.org](https://arxiv.org/abs/2604.17139))\n- evaluation difficulty — covered: DEBATE and the evaluation paper both show that multi-agent behavior is hard to benchmark and that many answer paths complicate reliable assessment. ([arxiv.org](https://arxiv.org/abs/2510.25110))\n\n## Sources\n- Survey: Multi-Agent Collaboration Mechanisms: A Survey of LLMs. ([arxiv.org](https://arxiv.org/abs/2501.06322))\n- Official docs: CrewAI collaboration troubleshooting and best practices. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\n- Official docs: LangGraph multi-agent supervisor. ([langchain-ai.github.io](https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html))\n- Empirical failure analysis: The Consensus Trap. ([arxiv.org](https://arxiv.org/abs/2604.17139))\n- Benchmark: DEBATE. ([arxiv.org](https://arxiv.org/abs/2510.25110))\n- Evaluation paper: On Evaluating the Integration of Reasoning and Action in LLM Agents. ([arxiv.org](https://arxiv.org/pdf/2311.09721))\n\n## Limitations\nThe evidence is strongest for LLM-based multi-agent systems, not every kind of multi-agent system. Also, \"coordination overhead\" and \"role confusion\" are partly inferred from framework troubleshooting guidance rather than always named as formal failure modes in the papers. Finally, consensus is shown to be an unreliable proxy for truth, but some tasks may still benefit from consensus as a heuristic. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))",
+  "decomposition": {
+    "subquestions": [
+      "Which recurring failure modes show up across multi-agent system research, framework docs, and empirical analyses?",
+      "Which sources directly support each required aspect: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty?",
+      "Where are we making inference from engineering guidance rather than citing an explicit failure taxonomy?"
+    ],
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "expected_source_types": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "multi-agent collaboration survey coordination protocols role-based strategies",
+      "agent framework documentation delegation roles back-and-forth hierarchy",
+      "empirical multi-agent debate consensus correctness evaluation benchmark"
+    ],
+    "rationale_per_query": [
+      "Find a survey or paper that names core coordination mechanisms and scaling challenges.",
+      "Find official framework docs that expose operational failure modes like vague roles, delegation loops, and excessive back-and-forth.",
+      "Find empirical studies/benchmarks showing incorrect consensus, error propagation, and why evaluation is hard."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Multi-Agent Collaboration Mechanisms: A Survey of LLMs",
+      "url": "https://arxiv.org/abs/2501.06322",
+      "status": "accepted",
+      "note": "Primary survey; covers collaboration structures, role-based strategies, and coordination protocols."
+    },
+    {
+      "title": "CrewAI Collaboration Documentation",
+      "url": "https://docs.crewai.com/en/concepts/collaboration",
+      "status": "accepted",
+      "note": "Official framework docs; explicitly discuss excessive back-and-forth, vague roles, and delegation loops."
+    },
+    {
+      "title": "LangGraph Multi-Agent Supervisor",
+      "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+      "status": "accepted",
+      "note": "Official framework docs; shows centralized communication and task delegation."
+    },
+    {
+      "title": "The Consensus Trap: Rescuing Multi-Agent LLMs from Adversarial Majorities via Token-Level Collaboration",
+      "url": "https://arxiv.org/abs/2604.17139",
+      "status": "accepted",
+      "note": "Primary empirical/theoretical paper; strong evidence for wrong-majority failure and blind voting."
+    },
+    {
+      "title": "DEBATE: A Large-Scale Benchmark for Evaluating Opinion Dynamics in Role-Playing LLM Agents",
+      "url": "https://arxiv.org/abs/2510.25110",
+      "status": "accepted",
+      "note": "Primary benchmark; shows premature convergence and evaluation gaps."
+    },
+    {
+      "title": "On Evaluating the Integration of Reasoning and Action in LLM Agents",
+      "url": "https://arxiv.org/pdf/2311.09721",
+      "status": "accepted",
+      "note": "Primary evaluation paper; explains why many answer paths complicate annotation and why reference-free evaluation is used."
+    },
+    {
+      "title": "CrewAI Introduction",
+      "url": "https://docs.crewai.com/en/introduction",
+      "status": "rejected",
+      "note": "Marketing-style overview; redundant and less diagnostic than the troubleshooting-oriented collaboration page."
+    },
+    {
+      "title": "CrewAI Changelog",
+      "url": "https://docs.crewai.com/changelog",
+      "status": "rejected",
+      "note": "Product update log; not needed for failure-mode evidence."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://arxiv.org/abs/2501.06322",
+        "reason": "Primary survey with explicit coordination structures and protocols."
+      },
+      {
+        "url": "https://docs.crewai.com/en/concepts/collaboration",
+        "reason": "Official docs with concrete troubleshooting of delegation, roles, and back-and-forth."
+      },
+      {
+        "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+        "reason": "Official docs for centralized orchestration and message-history control."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.17139",
+        "reason": "Direct empirical/theoretical evidence for wrong-majority and flawed-logic aggregation."
+      },
+      {
+        "url": "https://arxiv.org/abs/2510.25110",
+        "reason": "Benchmark evidence for premature convergence and evaluation gaps."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2311.09721",
+        "reason": "Direct evidence that multi-path annotation and reference-free evaluation are hard."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://docs.crewai.com/en/introduction",
+        "reason": "Redundant overview; less specific than collaboration troubleshooting guidance."
+      },
+      {
+        "url": "https://docs.crewai.com/changelog",
+        "reason": "Product changelog, not a failure-analysis source."
+      }
+    ],
+    "rejection_reasons": [
+      "Relevance and specificity were prioritized over generic product or release pages."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Multi-agent collaboration is organized around actors, structures, role-based strategies, and coordination protocols, which implies coordination burden as systems scale.",
+      "source_url": "https://arxiv.org/abs/2501.06322",
+      "source_type": "survey",
+      "supported_aspect": "coordination overhead",
+      "support_directness": "indirect",
+      "source_authority": "primary",
+      "confidence": "medium"
+    },
+    {
+      "claim": "CrewAI explicitly treats excessive back-and-forth as a collaboration problem and recommends better context and specific roles.",
+      "source_url": "https://docs.crewai.com/en/concepts/collaboration",
+      "source_type": "framework documentation",
+      "supported_aspect": "coordination overhead",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "CrewAI warns that vague or overlapping roles cause delegation loops and recommends clear role definitions and responsibilities.",
+      "source_url": "https://docs.crewai.com/en/concepts/collaboration",
+      "source_type": "framework documentation",
+      "supported_aspect": "role confusion",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangGraph’s supervisor pattern centralizes communication flow and task delegation, showing that multi-agent orchestration requires explicit control of message history and handoff.",
+      "source_url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html",
+      "source_type": "framework documentation",
+      "supported_aspect": "coordination overhead",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Response-level aggregation can fail when corrupted agents form a local majority because voting is blind to flawed intermediate logic.",
+      "source_url": "https://arxiv.org/abs/2604.17139",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "error propagation",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "The same majority-vote failure shows that agreement among agents does not prove correctness.",
+      "source_url": "https://arxiv.org/abs/2604.17139",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "consensus without correctness",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "DEBATE reports premature convergence in role-playing multi-agent simulations and that surface-level gains can coexist with deeper semantic mismatch.",
+      "source_url": "https://arxiv.org/abs/2510.25110",
+      "source_type": "benchmark",
+      "supported_aspect": "consensus without correctness",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "DEBATE also shows that authentic multi-agent behavior is hard to benchmark and that shallow metrics do not fully capture belief updating.",
+      "source_url": "https://arxiv.org/abs/2510.25110",
+      "source_type": "benchmark",
+      "supported_aspect": "evaluation difficulty",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Reference-free evaluation is needed because many possible answer pathways complicate annotation; the paper also notes human evaluation remains a limitation.",
+      "source_url": "https://arxiv.org/pdf/2311.09721",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "evaluation difficulty",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive conflict: sources agree that coordination and consensus heuristics can help, but they are not correctness guarantees.",
+    "uncertainty_notes": [
+      "The strongest evidence is for LLM-based multi-agent systems, so generalization to all multi-agent systems is an inference.",
+      "Role confusion and coordination overhead are partly inferred from framework troubleshooting guidance rather than named as a formal taxonomy in the sources."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Coordination overhead arises from orchestration, delegation, and message-flow control.",
+      "Vague or overlapping roles can cause delegation loops and excessive back-and-forth.",
+      "Voting or convergence can amplify incorrect reasoning instead of fixing it.",
+      "Evaluation is hard because many answer paths and weak metrics can miss deeper behavioral failures."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T14:52:28+00:00",
+  "citations": [
+    {
+      "end_index": 11026,
+      "start_index": 10979,
+      "title": "[2501.06322] Multi-Agent Collaboration Mechanisms: A Survey of LLMs",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.06322"
+    },
+    {
+      "end_index": 11308,
+      "start_index": 11241,
+      "title": "Collaboration - CrewAI",
+      "type": "url_citation",
+      "url": "https://docs.crewai.com/concepts/collaboration"
+    },
+    {
+      "end_index": 11726,
+      "start_index": 11679,
+      "title": "[2604.17139] The Consensus Trap: Rescuing Multi-Agent LLMs from Adversarial Majorities via Token-Level Collaboration",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.17139"
+    },
+    {
+      "end_index": 12146,
+      "start_index": 12099,
+      "title": "[2510.25110] DEBATE: A Large-Scale Benchmark for Evaluating Opinion Dynamics in Role-Playing LLM Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2510.25110"
+    },
+    {
+      "end_index": 12585,
+      "start_index": 12471,
+      "title": "@langchain/langgraph-supervisor | LangGraph.js API Reference",
+      "type": "url_citation",
+      "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html"
+    },
+    {
+      "end_index": 12892,
+      "start_index": 12845,
+      "title": "",
+      "type": "url_citation",
+      "url": "https://arxiv.org/pdf/2311.09721"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.crewai.com/changelog",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.crewai.com/en/concepts/collaboration",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.crewai.com/en/introduction",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0d3978fc99eae1e40069fa03f4912c81908708457a8dc94b79",
+      "action": {
+        "query": "multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+        "type": "search",
+        "queries": [
+          "multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+          "multi-agent system framework documentation coordination overhead roles agents docs",
+          "empirical failure analysis multi-agent LLM debate consensus correctness evaluation difficulty paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2511.07784"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.25110"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.17139"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/agentic"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/core-concepts/Agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.16750"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/core-concepts/Memory"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/agentic-framework/initialization"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/how-to/bring-your-own-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/core-concepts/Tools/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/introduction"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/introduction"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/pt-BR/introduction"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/collaboration"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/tasks"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2312.12806"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.04622"
+          },
+          {
+            "type": "url",
+            "url": "https://www.arxiv.org/pdf/2407.17022"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/1910.02240"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d3978fc99eae1e40069fa03f6ec10819082aa1f11ebb2153e",
+      "action": {
+        "query": "site:arxiv.org multi-agent LLM coordination overhead role confusion survey",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org multi-agent LLM coordination overhead role confusion survey",
+          "site:arxiv.org multi-agent debate consensus without correctness evaluation difficulty empirical",
+          "site:docs.crewai.com role confusion agents roles collaboration documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.14743"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.06322"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07667"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2511.07784"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/collaboration"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/pt-BR/concepts/collaboration"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/agentic"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/enterprise/features/rbac"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/ko/concepts/collaboration"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/core-concepts/Agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/changelog"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/en/concepts/tools"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/concepts/tasks"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/ar/learn/customizing-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/ar/concepts/collaboration"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.crewai.com/core-concepts/Tools/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/1910.02240"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.01072"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.10707"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/1904.03285.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d3978fc99eae1e40069fa03f915948190ac599b834bcb1a11",
+      "action": {
+        "query": "site:arxiv.org multi-agent evaluation difficulty LLM agents benchmark debate evaluation hard",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org multi-agent evaluation difficulty LLM agents benchmark debate evaluation hard",
+          "site:arxiv.org multi-agent systems evaluation difficulty reproducibility benchmark survey",
+          "site:arxiv.org empirical analysis multi-agent LLM failure consensus majority voting incorrect"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.17139"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.25110"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2511.07784"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.09341"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.01231"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2312.12806"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d3978fc99eae1e40069fa03fe997c8190a2e16fa5a67af798",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2501.06322"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d3978fc99eae1e40069fa03ffe9f48190be61203ef40524db",
+      "action": {
+        "pattern": "role",
+        "type": "find_in_page",
+        "url": "https://docs.crewai.com/concepts/collaboration"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d3978fc99eae1e40069fa040182788190a3583ab66dd71e80",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/pdf/2311.09721"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 31040,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 9736,
+    "output_tokens_details": {
+      "reasoning_tokens": 6739
+    },
+    "total_tokens": 40776
+  },
+  "response_id": "resp_0d3978fc99eae1e40069fa03f2ced8819089add1ec6b6850cb",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"Which recurring failure modes show up across multi-agent system research, framework docs, and empirical analyses?\",\n      \"Which sources directly support each required aspect: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty?\",\n      \"Where are we making inference from engineering guidance rather than citing an explicit failure taxonomy?\"\n    ],\n    \"required_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"expected_source_types\": [\n      \"multi-agent system paper or survey\",\n      \"agent framework documentation\",\n      \"empirical failure analysis\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"multi-agent collaboration survey coordination protocols role-based strategies\",\n      \"agent framework documentation delegation roles back-and-forth hierarchy\",\n      \"empirical multi-agent debate consensus correctness evaluation benchmark\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey or paper that names core coordination mechanisms and scaling challenges.\",\n      \"Find official framework docs that expose operational failure modes like vague roles, delegation loops, and excessive back-and-forth.\",\n      \"Find empirical studies/benchmarks showing incorrect consensus, error propagation, and why evaluation is hard.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Multi-Agent Collaboration Mechanisms: A Survey of LLMs\",\n      \"url\": \"https://arxiv.org/abs/2501.06322\",\n      \"status\": \"accepted\",\n      \"note\": \"Primary survey; covers collaboration structures, role-based strategies, and coordination protocols.\"\n    },\n    {\n      \"title\": \"CrewAI Collaboration Documentation\",\n      \"url\": \"https://docs.crewai.com/en/concepts/collaboration\",\n      \"status\": \"accepted\",\n      \"note\": \"Official framework docs; explicitly discuss excessive back-and-forth, vague roles, and delegation loops.\"\n    },\n    {\n      \"title\": \"LangGraph Multi-Agent Supervisor\",\n      \"url\": \"https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html\",\n      \"status\": \"accepted\",\n      \"note\": \"Official framework docs; shows centralized communication and task delegation.\"\n    },\n    {\n      \"title\": \"The Consensus Trap: Rescuing Multi-Agent LLMs from Adversarial Majorities via Token-Level Collaboration\",\n      \"url\": \"https://arxiv.org/abs/2604.17139\",\n      \"status\": \"accepted\",\n      \"note\": \"Primary empirical/theoretical paper; strong evidence for wrong-majority failure and blind voting.\"\n    },\n    {\n      \"title\": \"DEBATE: A Large-Scale Benchmark for Evaluating Opinion Dynamics in Role-Playing LLM Agents\",\n      \"url\": \"https://arxiv.org/abs/2510.25110\",\n      \"status\": \"accepted\",\n      \"note\": \"Primary benchmark; shows premature convergence and evaluation gaps.\"\n    },\n    {\n      \"title\": \"On Evaluating the Integration of Reasoning and Action in LLM Agents\",\n      \"url\": \"https://arxiv.org/pdf/2311.09721\",\n      \"status\": \"accepted\",\n      \"note\": \"Primary evaluation paper; explains why many answer paths complicate annotation and why reference-free evaluation is used.\"\n    },\n    {\n      \"title\": \"CrewAI Introduction\",\n      \"url\": \"https://docs.crewai.com/en/introduction\",\n      \"status\": \"rejected\",\n      \"note\": \"Marketing-style overview; redundant and less diagnostic than the troubleshooting-oriented collaboration page.\"\n    },\n    {\n      \"title\": \"CrewAI Changelog\",\n      \"url\": \"https://docs.crewai.com/changelog\",\n      \"status\": \"rejected\",\n      \"note\": \"Product update log; not needed for failure-mode evidence.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://arxiv.org/abs/2501.06322\",\n        \"reason\": \"Primary survey with explicit coordination structures and protocols.\"\n      },\n      {\n        \"url\": \"https://docs.crewai.com/en/concepts/collaboration\",\n        \"reason\": \"Official docs with concrete troubleshooting of delegation, roles, and back-and-forth.\"\n      },\n      {\n        \"url\": \"https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html\",\n        \"reason\": \"Official docs for centralized orchestration and message-history control.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2604.17139\",\n        \"reason\": \"Direct empirical/theoretical evidence for wrong-majority and flawed-logic aggregation.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2510.25110\",\n        \"reason\": \"Benchmark evidence for premature convergence and evaluation gaps.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/pdf/2311.09721\",\n        \"reason\": \"Direct evidence that multi-path annotation and reference-free evaluation are hard.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://docs.crewai.com/en/introduction\",\n        \"reason\": \"Redundant overview; less specific than collaboration troubleshooting guidance.\"\n      },\n      {\n        \"url\": \"https://docs.crewai.com/changelog\",\n        \"reason\": \"Product changelog, not a failure-analysis source.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Relevance and specificity were prioritized over generic product or release pages.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Multi-agent collaboration is organized around actors, structures, role-based strategies, and coordination protocols, which implies coordination burden as systems scale.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.06322\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"support_directness\": \"indirect\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"claim\": \"CrewAI explicitly treats excessive back-and-forth as a collaboration problem and recommends better context and specific roles.\",\n      \"source_url\": \"https://docs.crewai.com/en/concepts/collaboration\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"CrewAI warns that vague or overlapping roles cause delegation loops and recommends clear role definitions and responsibilities.\",\n      \"source_url\": \"https://docs.crewai.com/en/concepts/collaboration\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"role confusion\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangGraph’s supervisor pattern centralizes communication flow and task delegation, showing that multi-agent orchestration requires explicit control of message history and handoff.\",\n      \"source_url\": \"https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html\",\n      \"source_type\": \"framework documentation\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Response-level aggregation can fail when corrupted agents form a local majority because voting is blind to flawed intermediate logic.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.17139\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"error propagation\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The same majority-vote failure shows that agreement among agents does not prove correctness.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.17139\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"DEBATE reports premature convergence in role-playing multi-agent simulations and that surface-level gains can coexist with deeper semantic mismatch.\",\n      \"source_url\": \"https://arxiv.org/abs/2510.25110\",\n      \"source_type\": \"benchmark\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"DEBATE also shows that authentic multi-agent behavior is hard to benchmark and that shallow metrics do not fully capture belief updating.\",\n      \"source_url\": \"https://arxiv.org/abs/2510.25110\",\n      \"source_type\": \"benchmark\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Reference-free evaluation is needed because many possible answer pathways complicate annotation; the paper also notes human evaluation remains a limitation.\",\n      \"source_url\": \"https://arxiv.org/pdf/2311.09721\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No substantive conflict: sources agree that coordination and consensus heuristics can help, but they are not correctness guarantees.\",\n    \"uncertainty_notes\": [\n      \"The strongest evidence is for LLM-based multi-agent systems, so generalization to all multi-agent systems is an inference.\",\n      \"Role confusion and coordination overhead are partly inferred from framework troubleshooting guidance rather than named as a formal taxonomy in the sources.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Coordination overhead arises from orchestration, delegation, and message-flow control.\",\n      \"Vague or overlapping roles can cause delegation loops and excessive back-and-forth.\",\n      \"Voting or convergence can amplify incorrect reasoning instead of fixing it.\",\n      \"Evaluation is hard because many answer paths and weak metrics can miss deeper behavioral failures.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAcross the sources, the recurring failure modes in multi-agent systems are: coordination overhead, role confusion, error propagation, consensus without correctness, and evaluation difficulty. Some are stated explicitly in framework docs and empirical papers; others are reasonable engineering inferences from the failure patterns described there. ([arxiv.org](https://arxiv.org/abs/2501.06322))\\n\\n### Required aspect coverage\\n- coordination overhead — covered: hierarchical supervisors, delegation, and message-history control add orchestration cost, and CrewAI flags excessive back-and-forth as a problem. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\\n- role confusion — covered: CrewAI explicitly warns against vague/overlapping roles and recommends clear role definitions and responsibilities. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\\n- error propagation — covered: the consensus-trap paper shows that flawed intermediate logic can survive into final answers when aggregation is vote-based. ([arxiv.org](https://arxiv.org/abs/2604.17139))\\n- consensus without correctness — covered: both the consensus-trap paper and DEBATE show that agreement or convergence can still be wrong. ([arxiv.org](https://arxiv.org/abs/2604.17139))\\n- evaluation difficulty — covered: DEBATE and the evaluation paper both show that multi-agent behavior is hard to benchmark and that many answer paths complicate reliable assessment. ([arxiv.org](https://arxiv.org/abs/2510.25110))\\n\\n## Sources\\n- Survey: Multi-Agent Collaboration Mechanisms: A Survey of LLMs. ([arxiv.org](https://arxiv.org/abs/2501.06322))\\n- Official docs: CrewAI collaboration troubleshooting and best practices. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\\n- Official docs: LangGraph multi-agent supervisor. ([langchain-ai.github.io](https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html))\\n- Empirical failure analysis: The Consensus Trap. ([arxiv.org](https://arxiv.org/abs/2604.17139))\\n- Benchmark: DEBATE. ([arxiv.org](https://arxiv.org/abs/2510.25110))\\n- Evaluation paper: On Evaluating the Integration of Reasoning and Action in LLM Agents. ([arxiv.org](https://arxiv.org/pdf/2311.09721))\\n\\n## Limitations\\nThe evidence is strongest for LLM-based multi-agent systems, not every kind of multi-agent system. Also, \\\"coordination overhead\\\" and \\\"role confusion\\\" are partly inferred from framework troubleshooting guidance rather than always named as formal failure modes in the papers. Finally, consensus is shown to be an unreliable proxy for truth, but some tasks may still benefit from consensus as a heuristic. ([docs.crewai.com](https://docs.crewai.com/concepts/collaboration))\"\n}",
+  "status": "complete"
+}

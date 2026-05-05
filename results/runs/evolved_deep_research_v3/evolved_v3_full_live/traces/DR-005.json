@@ -1,0 +1,569 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v3",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 3,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v3.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T09:38:07+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 2,
+    "max_sources": 4,
+    "max_model_calls": 4,
+    "max_runtime_seconds": 180,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "source_expectations": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T09:38:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nSelf-improving agents without fine-tuning usually fall into three families: (1) **verbal-feedback / reflection loops**, where the agent critiques its own outputs and uses the critique as the next-step signal; (2) **iterative self-refinement**, where the model alternates between generating feedback and revising its answer; and (3) **prompt/workflow optimization**, where the system searches over prompts, plans, or agent workflows instead of updating weights. Reflexion is the canonical example of the first family, using verbal reinforcement learning and reflection to improve agents without costly fine-tuning. Self-Refine is the canonical example of the second. PromptAgent and related prompt-optimization methods show the third family by turning prompt improvement into a search/planning problem. \n\n**Required aspect coverage**\n- **verbal feedback** — covered by Reflexion's verbal reinforcement learning. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \n- **reflection** — covered by Reflexion's reflection step that converts mistakes into future guidance. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \n- **self-refinement** — covered by SELF-REFINE's FEEDBACK/REFINE loop without additional training. [Self-Refine PDF](https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf) \n- **prompt or workflow optimization** — covered by PromptAgent and Automatic Prompt Optimization, both of which search over prompts/workflows rather than fine-tune weights. [PromptAgent](https://arxiv.org/abs/2310.16427), [APO](https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf) \n- **limits of self-improvement without external feedback** — partially covered: Reflexion motivates its approach by noting that traditional RL needs extensive training samples and expensive fine-tuning, but this is not a proof that self-improvement cannot work without external signals. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \n\n## Sources\n1. Reflexion: Language Agents with Verbal Reinforcement Learning — https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\n2. SELF-REFINE: Iterative Refinement with Self-Feedback — https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf\n3. PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization — https://arxiv.org/abs/2310.16427\n4. Automatic Prompt Optimization with \"Gradient Descent\" and Beam Search — https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf\n\n## Limitations\nEvidence is strongest for inference-time reflection, self-feedback, and prompt-search methods. The literature here supports practical improvement without fine-tuning, but it does not establish a general theorem for when self-improvement will fail without external feedback. Also, the most direct limit evidence I found is motivation-level rather than a formal impossibility result. ",
+  "decomposition": {
+    "subquestions": [
+      "What self-improvement loops work without updating model weights?",
+      "How do verbal feedback and reflection get converted into better outputs?",
+      "How do prompt/workflow optimization methods improve agents without fine-tuning?",
+      "What are the main limits when no external feedback is available?"
+    ],
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "expected_source_types": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "Reflexion paper self-improving agents without fine-tuning verbal feedback reflection prompt optimization PDF",
+      "Self-Refine paper agent prompt optimization iterative feedback reflection PDF"
+    ],
+    "rationale_per_query": [
+      "Find the canonical Reflexion paper to ground verbal feedback + reflection loops and the no-fine-tuning framing.",
+      "Find Self-Refine for iterative self-feedback/self-refinement without additional training, then add a prompt/workflow optimization paper for broader agent design."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "type": "Reflexion paper"
+    },
+    {
+      "title": "SELF-REFINE: Iterative Refinement with Self-Feedback",
+      "url": "https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+      "type": "Self-Refine paper"
+    },
+    {
+      "title": "PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization",
+      "url": "https://arxiv.org/abs/2310.16427",
+      "type": "agent design or optimization paper"
+    },
+    {
+      "title": "Automatic Prompt Optimization with \"Gradient Descent\" and Beam Search",
+      "url": "https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf",
+      "type": "agent design or optimization paper"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+        "reason": "Primary paper; directly addresses verbal feedback, reflection, and no-fine-tuning self-improvement."
+      },
+      {
+        "title": "SELF-REFINE: Iterative Refinement with Self-Feedback",
+        "url": "https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+        "reason": "Primary paper; directly addresses iterative self-refinement without additional training."
+      },
+      {
+        "title": "PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization",
+        "url": "https://arxiv.org/abs/2310.16427",
+        "reason": "Primary paper; provides prompt/workflow optimization via planning and error feedback."
+      },
+      {
+        "title": "Automatic Prompt Optimization with \"Gradient Descent\" and Beam Search",
+        "url": "https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf",
+        "reason": "Primary paper; adds a concrete agentic prompt-optimization/search method."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "ResearchGate copy of Self-Refine"
+      },
+      {
+        "title": "Blog/summary pages and non-primary mirrors"
+      }
+    ],
+    "rejection_reasons": [
+      "Not primary sources; lower trust and unnecessary because official paper PDFs/abstracts were available.",
+      "Do not add unique evidence beyond the accepted papers."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Reflexion improves agents by using verbal reinforcement learning: it feeds natural-language feedback back into the agent rather than fine-tuning model weights.",
+      "source_url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "source_type": "Reflexion paper",
+      "supported_aspect": "verbal feedback",
+      "confidence": "high"
+    },
+    {
+      "claim": "Reflexion frames the agent as learning from trial-and-error through reflection, turning mistakes into future guidance.",
+      "source_url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "source_type": "Reflexion paper",
+      "supported_aspect": "reflection",
+      "confidence": "high"
+    },
+    {
+      "claim": "SELF-REFINE alternates FEEDBACK and REFINE steps and explicitly claims iterative self-refinement without additional training.",
+      "source_url": "https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+      "source_type": "Self-Refine paper",
+      "supported_aspect": "self-refinement",
+      "confidence": "high"
+    },
+    {
+      "claim": "PromptAgent treats prompt optimization as strategic planning and improves prompts by reflecting on model errors and generating constructive feedback.",
+      "source_url": "https://arxiv.org/abs/2310.16427",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "confidence": "high"
+    },
+    {
+      "claim": "Automatic Prompt Optimization with Gradient Descent and Beam Search uses text-based gradient-like updates and beam search to search prompt space without fine-tuning weights.",
+      "source_url": "https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "confidence": "high"
+    },
+    {
+      "claim": "Reflexion notes that traditional RL typically needs extensive training samples and expensive model fine-tuning, motivating a non-weight-update alternative.",
+      "source_url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "source_type": "Reflexion paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No major contradiction: the papers agree that inference-time feedback/reflection can improve outputs without fine-tuning, but they differ in mechanism (reflection loop vs. prompt search/planning).",
+    "uncertainty_notes": [
+      "These methods are primarily demonstrated on task-level performance, not guaranteed general self-improvement across all domains.",
+      "The strongest evidence for limits comes from Reflexion's motivation rather than a formal impossibility result."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Self-improving agents can use verbal feedback and reflection loops without fine-tuning.",
+      "Iterative self-refinement can be done via FEEDBACK/REFINE cycles.",
+      "Prompt/workflow optimization can be done by search or planning over prompts.",
+      "Existing RL-style self-improvement often depends on expensive fine-tuning or external signals."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T09:38:35+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.16427",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_078d4daf9ad684370069f9ba8895b08196a683ffd0f0ba5cbf",
+      "action": {
+        "query": "Reflexion paper self-improving agents without fine-tuning verbal feedback reflection prompt optimization PDF",
+        "type": "search",
+        "queries": [
+          "Reflexion paper self-improving agents without fine-tuning verbal feedback reflection prompt optimization PDF",
+          "Self-Refine paper agent prompt optimization iterative feedback reflection PDF"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401454370_Self-Refine_Iterative_Refinement_with_Self-Feedback"
+          },
+          {
+            "type": "url",
+            "url": "https://thesesjournal.com/index.php/1/article/view/2392"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.18388"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/392314643_Reflect_Retry_Reward_Self-Improving_LLMs_via_Reinforcement_Learning"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2079-9292/15/6/1232"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2079-8954/13/9/748"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.16427"
+          },
+          {
+            "type": "url",
+            "url": "https://www.proceedings.com/075280-2019.html"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2501.11425"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.03359"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/813d200291ce09bed83cb83e143493d2dd7cb444.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.05863"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00790"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/a9579f7db5843fb0aa65b0a405f90e27dd0985c6.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/e9289574e24a3a2ff62a3af86cec1fa2f189ce54.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_078d4daf9ad684370069f9ba8be2548196b53370fa74439b33",
+      "action": {
+        "query": "PromptAgent strategic planning with language models expert-level prompt optimization arXiv PDF",
+        "type": "search",
+        "queries": [
+          "PromptAgent strategic planning with language models expert-level prompt optimization arXiv PDF",
+          "automatic prompt optimization gradient descent beam search paper arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.16427"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.03495"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2305.03495"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.19499"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.08601"
+          },
+          {
+            "type": "url",
+            "url": "https://par.nsf.gov/biblio/10503079-automatic-prompt-optimization-gradient-descent-beam-search"
+          },
+          {
+            "type": "url",
+            "url": "https://axi.lims.ac.uk/paper/2310.16427"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.14241"
+          },
+          {
+            "type": "url",
+            "url": "https://yiyibooks.cn/information/arxiv/2310.16427v2/"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp1.uni-trier.de/rec/journals/corr/abs-2305-03495.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/376404623_Automatic_Prompt_Optimization_with_Gradient_Descent_and_Beam_Search"
+          },
+          {
+            "type": "url",
+            "url": "https://scrapbox.io/gunosydm/PromptAgent%3A_Strategic_Planning_with_Language_Models_Enables_Expert-level_Prompt_Optimization"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/XinyuanWangCS/PromptAgent"
+          },
+          {
+            "type": "url",
+            "url": "https://researchr.org/publication/PryzantI0L0023"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/chatpaper/es/paper/5999"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2512.13598"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=22pyNMuIoa"
+          },
+          {
+            "type": "url",
+            "url": "https://xinyuanwangcs.github.io/assets/pdf/promptagnet_poster_2023.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=kpT5rbbLdY"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/anthology-files/pdf/findings/2024.findings-emnlp.588.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=Ryjxb6fll9&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Stochastic_gradient_descent"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Prompt_engineering"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/deeplearning/comments/12n16jx"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1c84wtw"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPT/comments/15ep7rh"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1lgtgwt/how_do_you_optimize_prompts/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1fi7ovt"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/17mehsg"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1lacngy/the_master_prompt_framework/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1q5apxb/this_a_good_prompt/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 13379,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 3854,
+    "output_tokens_details": {
+      "reasoning_tokens": 638
+    },
+    "total_tokens": 17233
+  },
+  "response_id": "resp_078d4daf9ad684370069f9ba880af88196ad3b28569463b937",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What self-improvement loops work without updating model weights?\",\n      \"How do verbal feedback and reflection get converted into better outputs?\",\n      \"How do prompt/workflow optimization methods improve agents without fine-tuning?\",\n      \"What are the main limits when no external feedback is available?\"\n    ],\n    \"required_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"expected_source_types\": [\n      \"Reflexion paper\",\n      \"Self-Refine paper\",\n      \"agent design or optimization paper\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"Reflexion paper self-improving agents without fine-tuning verbal feedback reflection prompt optimization PDF\",\n      \"Self-Refine paper agent prompt optimization iterative feedback reflection PDF\"\n    ],\n    \"rationale_per_query\": [\n      \"Find the canonical Reflexion paper to ground verbal feedback + reflection loops and the no-fine-tuning framing.\",\n      \"Find Self-Refine for iterative self-feedback/self-refinement without additional training, then add a prompt/workflow optimization paper for broader agent design.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n      \"url\": \"https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\",\n      \"type\": \"Reflexion paper\"\n    },\n    {\n      \"title\": \"SELF-REFINE: Iterative Refinement with Self-Feedback\",\n      \"url\": \"https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf\",\n      \"type\": \"Self-Refine paper\"\n    },\n    {\n      \"title\": \"PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization\",\n      \"url\": \"https://arxiv.org/abs/2310.16427\",\n      \"type\": \"agent design or optimization paper\"\n    },\n    {\n      \"title\": \"Automatic Prompt Optimization with \\\"Gradient Descent\\\" and Beam Search\",\n      \"url\": \"https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf\",\n      \"type\": \"agent design or optimization paper\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n        \"url\": \"https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\",\n        \"reason\": \"Primary paper; directly addresses verbal feedback, reflection, and no-fine-tuning self-improvement.\"\n      },\n      {\n        \"title\": \"SELF-REFINE: Iterative Refinement with Self-Feedback\",\n        \"url\": \"https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf\",\n        \"reason\": \"Primary paper; directly addresses iterative self-refinement without additional training.\"\n      },\n      {\n        \"title\": \"PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization\",\n        \"url\": \"https://arxiv.org/abs/2310.16427\",\n        \"reason\": \"Primary paper; provides prompt/workflow optimization via planning and error feedback.\"\n      },\n      {\n        \"title\": \"Automatic Prompt Optimization with \\\"Gradient Descent\\\" and Beam Search\",\n        \"url\": \"https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf\",\n        \"reason\": \"Primary paper; adds a concrete agentic prompt-optimization/search method.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"ResearchGate copy of Self-Refine\"\n      },\n      {\n        \"title\": \"Blog/summary pages and non-primary mirrors\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Not primary sources; lower trust and unnecessary because official paper PDFs/abstracts were available.\",\n      \"Do not add unique evidence beyond the accepted papers.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Reflexion improves agents by using verbal reinforcement learning: it feeds natural-language feedback back into the agent rather than fine-tuning model weights.\",\n      \"source_url\": \"https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\",\n      \"source_type\": \"Reflexion paper\",\n      \"supported_aspect\": \"verbal feedback\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Reflexion frames the agent as learning from trial-and-error through reflection, turning mistakes into future guidance.\",\n      \"source_url\": \"https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\",\n      \"source_type\": \"Reflexion paper\",\n      \"supported_aspect\": \"reflection\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"SELF-REFINE alternates FEEDBACK and REFINE steps and explicitly claims iterative self-refinement without additional training.\",\n      \"source_url\": \"https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf\",\n      \"source_type\": \"Self-Refine paper\",\n      \"supported_aspect\": \"self-refinement\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"PromptAgent treats prompt optimization as strategic planning and improves prompts by reflecting on model errors and generating constructive feedback.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.16427\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Automatic Prompt Optimization with Gradient Descent and Beam Search uses text-based gradient-like updates and beam search to search prompt space without fine-tuning weights.\",\n      \"source_url\": \"https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Reflexion notes that traditional RL typically needs extensive training samples and expensive model fine-tuning, motivating a non-weight-update alternative.\",\n      \"source_url\": \"https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\",\n      \"source_type\": \"Reflexion paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No major contradiction: the papers agree that inference-time feedback/reflection can improve outputs without fine-tuning, but they differ in mechanism (reflection loop vs. prompt search/planning).\",\n    \"uncertainty_notes\": [\n      \"These methods are primarily demonstrated on task-level performance, not guaranteed general self-improvement across all domains.\",\n      \"The strongest evidence for limits comes from Reflexion's motivation rather than a formal impossibility result.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Self-improving agents can use verbal feedback and reflection loops without fine-tuning.\",\n      \"Iterative self-refinement can be done via FEEDBACK/REFINE cycles.\",\n      \"Prompt/workflow optimization can be done by search or planning over prompts.\",\n      \"Existing RL-style self-improvement often depends on expensive fine-tuning or external signals.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nSelf-improving agents without fine-tuning usually fall into three families: (1) **verbal-feedback / reflection loops**, where the agent critiques its own outputs and uses the critique as the next-step signal; (2) **iterative self-refinement**, where the model alternates between generating feedback and revising its answer; and (3) **prompt/workflow optimization**, where the system searches over prompts, plans, or agent workflows instead of updating weights. Reflexion is the canonical example of the first family, using verbal reinforcement learning and reflection to improve agents without costly fine-tuning. Self-Refine is the canonical example of the second. PromptAgent and related prompt-optimization methods show the third family by turning prompt improvement into a search/planning problem. \\n\\n**Required aspect coverage**\\n- **verbal feedback** — covered by Reflexion's verbal reinforcement learning. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \\n- **reflection** — covered by Reflexion's reflection step that converts mistakes into future guidance. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \\n- **self-refinement** — covered by SELF-REFINE's FEEDBACK/REFINE loop without additional training. [Self-Refine PDF](https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf) \\n- **prompt or workflow optimization** — covered by PromptAgent and Automatic Prompt Optimization, both of which search over prompts/workflows rather than fine-tune weights. [PromptAgent](https://arxiv.org/abs/2310.16427), [APO](https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf) \\n- **limits of self-improvement without external feedback** — partially covered: Reflexion motivates its approach by noting that traditional RL needs extensive training samples and expensive fine-tuning, but this is not a proof that self-improvement cannot work without external signals. [Reflexion PDF](https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf) \\n\\n## Sources\\n1. Reflexion: Language Agents with Verbal Reinforcement Learning — https://papers.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf\\n2. SELF-REFINE: Iterative Refinement with Self-Feedback — https://papers.nips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf\\n3. PromptAgent: Strategic Planning with Language Models Enables Expert-level Prompt Optimization — https://arxiv.org/abs/2310.16427\\n4. Automatic Prompt Optimization with \\\"Gradient Descent\\\" and Beam Search — https://www.microsoft.com/en-us/research/uploads/prod/2023/05/2305.03495.pdf\\n\\n## Limitations\\nEvidence is strongest for inference-time reflection, self-feedback, and prompt-search methods. The literature here supports practical improvement without fine-tuning, but it does not establish a general theorem for when self-improvement will fail without external feedback. Also, the most direct limit evidence I found is motivation-level rather than a formal impossibility result. \"\n}",
+  "status": "complete"
+}

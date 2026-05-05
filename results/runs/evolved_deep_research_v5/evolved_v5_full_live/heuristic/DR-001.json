@@ -1,0 +1,157 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_v5_full_live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.8571,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9786,
+  "failure_tags": [],
+  "runtime_seconds": 73.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "The main failure modes of memory in LLM agents are: **context pollution**, **stale/irrelevant retrieval**, **error amplification from trusting prior outputs too much**, and **poor partitioning between short-term working context and long-term storage**. A good mental model is that agent memory is a **write–manage–read loop**; failures happen when writes are noisy, retrieval returns the wrong items, or the system keeps old state around without enough filtering or forgetting. https://arxiv.org/abs/2603.07670 https://arxiv.org/abs/2505.16067",
+      "- **context pollution** — Multi-agent systems can let one agent’s partial outputs and pending questions contaminate another agent’s context, degrading decisions. https://arxiv.org/abs/2604.07911",
+      "- **retrieval of stale or irrelevant memories** — Empirical evidence shows outdated or misaligned experiences can negatively influence current tasks, so retrieval quality matters as much as storage. https://arxiv.org/abs/2505.16067",
+      "- **over-trusting previous agent outputs** — Reusing earlier outputs can cause experience-following and error propagation; this is best treated as an inference from the empirical findings, not as a separately named theorem. https://arxiv.org/abs/2505.16067",
+      "- **trade-offs between short-term and long-term memory** — Short-term memory is thread-scoped but fragile to overflow and distraction; long-term memory persists across threads/sessions but needs explicit management to stay useful. https://docs.langchain.com/oss/python/concepts/memory https://docs.langchain.com/oss/python/langchain/long-term-memory",
+      "- **evaluation methods for memory quality** — Better evals are multi-turn and stateful, measuring accurate retrieval, test-time learning, long-range understanding, and selective forgetting; frameworks like Letta Evals inspect memory blocks and trajectories directly. https://arxiv.org/abs/2507.05257 https://docs.letta.com/guides/evals/concepts/overview"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2507.05257",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.07911",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/concepts/memory",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/long-term-memory",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.letta.com/guides/evals/concepts/overview",
+        "domain": "docs.letta.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 7,
+    "unique_citation_count": 7
+  }
+}
