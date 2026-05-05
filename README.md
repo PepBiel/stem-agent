@@ -109,9 +109,8 @@ need.
 
 The project currently has model-only and web-search baseline variants, saved
 traces, a transparent heuristic scorer, and a stricter model-assisted judge. The
-project also defines the first evolved deep-research genome and a schema
-validator. The next implementation step is the runner that executes this
-evolved workflow.
+project also defines the first evolved deep-research genome, validates it, and
+can execute it through an evolved-agent runner that writes workflow artifacts.
 
 Smoke check:
 
@@ -125,6 +124,17 @@ python -m stem_agent validate-genome
 `configs/genome_schema.yaml`. This is the contract that keeps specialization
 controlled: the evolved agent can change workflow and prompts, but it must stay
 inside fixed tool, budget, trace, and evaluation boundaries.
+
+Run the evolved agent without spending API credits:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001 --dry-run
+```
+
+The evolved runner validates the genome before execution and writes trace
+artifacts for decomposition, search planning, source triage, evidence
+extraction, coverage audit, contradiction audit, citation audit, and the final
+answer.
 
 Run the baseline without spending API credits:
 
@@ -177,6 +187,7 @@ Run a full evaluation batch:
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
 python -m stem_agent run-eval-batch --agent baseline_web --dry-run
+python -m stem_agent run-eval-batch --agent evolved --dry-run
 ```
 
 Live batches require explicit confirmation because they make model calls for
@@ -185,6 +196,7 @@ each answer and each judge evaluation:
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
 python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
+python -m stem_agent run-eval-batch --agent evolved --confirm-live
 ```
 
 `baseline_no_web` makes one answer call per question plus one judge call per

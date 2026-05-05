@@ -106,3 +106,16 @@ Rationale:
 - prevents mislabeled or unsafe candidate agents from entering the comparison
 - gives the final write-up a concrete evolution artifact rather than only a
   better prompt
+
+## 2026-05-05: Start With A Single-Call Evolved Runner
+
+The first evolved runner executes the full validated workflow in one model call
+while still requiring structured trace artifacts for each workflow stage.
+
+Rationale:
+
+- keeps the first evolved implementation cheap enough to smoke test
+- makes the architecture observable before adding multi-call orchestration
+- preserves a clear comparison against the web-search baseline
+- leaves a natural future evolution step: split planning, evidence extraction,
+  auditing, and synthesis into separate calls if the v1 trace shows value

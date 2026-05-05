@@ -11,6 +11,7 @@ from stem_agent.evaluation.batch import (
     BatchInput,
     default_config_path,
     default_run_id,
+    default_schema_path,
     run_evaluation_batch,
 )
 from stem_agent.evaluation.scoring import (
@@ -20,6 +21,7 @@ from stem_agent.evaluation.scoring import (
 )
 from stem_agent.evaluation.judge import JudgeInput, judge_trace
 from stem_agent.workflows.baseline import run_baseline
+from stem_agent.workflows.evolved import run_evolved
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -81,6 +83,40 @@ def build_parser() -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Validate the pipeline without calling the OpenAI API.",
+    )
+
+    evolved_parser = subparsers.add_parser(
+        "run-evolved",
+        help="Run the evolved deep-research agent for one question.",
+    )
+    evolved_input = evolved_parser.add_mutually_exclusive_group(required=True)
+    evolved_input.add_argument(
+        "--question",
+        help="Research question to answer.",
+    )
+    evolved_input.add_argument(
+        "--question-id",
+        help="Question ID from evals/questions.json, for example DR-001.",
+    )
+    evolved_parser.add_argument(
+        "--genome",
+        default="configs/evolved_deep_research_agent.yaml",
+        help="Path to the evolved agent genome.",
+    )
+    evolved_parser.add_argument(
+        "--schema",
+        default="configs/genome_schema.yaml",
+        help="Path to the genome schema contract.",
+    )
+    evolved_parser.add_argument(
+        "--trace-dir",
+        default="results/traces",
+        help="Directory where the run trace JSON will be written.",
+    )
+    evolved_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate the evolved runner without calling the OpenAI API.",
     )
 
     score_parser = subparsers.add_parser(
@@ -155,10 +191,16 @@ def build_parser() -> argparse.ArgumentParser:
     batch_parser.add_argument(
         "--agent",
         default="baseline_web",
-        choices=["baseline_no_web", "baseline_web", "baseline"],
+        choices=[
+            "baseline_no_web",
+            "baseline_web",
+            "baseline",
+            "evolved_deep_research_v1",
+            "evolved",
+        ],
         help=(
-            "Agent variant to evaluate. 'baseline' is kept as an alias for "
-            "baseline_web."
+            "Agent variant to evaluate. 'baseline' aliases baseline_web; "
+            "'evolved' aliases evolved_deep_research_v1."
         ),
     )
     batch_parser.add_argument(
@@ -178,6 +220,10 @@ def build_parser() -> argparse.ArgumentParser:
     batch_parser.add_argument(
         "--config",
         help="Optional path to an agent config. Defaults depend on --agent.",
+    )
+    batch_parser.add_argument(
+        "--schema",
+        help="Optional path to the evolved-agent genome schema.",
     )
     batch_parser.add_argument(
         "--output-root",
@@ -223,6 +269,7 @@ def print_status() -> None:
         "src/stem_agent/core",
         "src/stem_agent/tools",
         "src/stem_agent/workflows",
+        "src/stem_agent/workflows/evolved.py",
     ]
     print("Stem Agent scaffold")
     print(f"Project root: {PROJECT_ROOT}")
@@ -268,6 +315,22 @@ def run_baseline_command(args: argparse.Namespace) -> None:
     result = run_baseline(
         question=question,
         config_path=resolve_cli_path(args.config),
+        trace_dir=resolve_cli_path(args.trace_dir),
+        settings=settings,
+        dry_run=args.dry_run,
+    )
+
+    print(result.answer)
+    print(f"\nTrace written to: {result.trace_path}")
+
+
+def run_evolved_command(args: argparse.Namespace) -> None:
+    question = args.question or load_question_by_id(args.question_id)
+    settings = load_settings(PROJECT_ROOT)
+    result = run_evolved(
+        question=question,
+        genome_path=resolve_cli_path(args.genome),
+        schema_path=resolve_cli_path(args.schema),
         trace_dir=resolve_cli_path(args.trace_dir),
         settings=settings,
         dry_run=args.dry_run,
@@ -374,6 +437,11 @@ def run_eval_batch_command(args: argparse.Namespace) -> None:
         if args.config
         else PROJECT_ROOT / default_config_path(args.agent)
     )
+    schema_path = (
+        resolve_cli_path(args.schema)
+        if args.schema
+        else PROJECT_ROOT / default_schema_path()
+    )
     summary = run_evaluation_batch(
         BatchInput(
             agent=args.agent,
@@ -382,6 +450,7 @@ def run_eval_batch_command(args: argparse.Namespace) -> None:
             questions_path=resolve_cli_path(args.questions),
             rubric_path=resolve_cli_path(args.rubric),
             config_path=config_path,
+            schema_path=schema_path,
             settings=settings,
             judge_model=judge_model,
             dry_run=args.dry_run,
@@ -423,6 +492,13 @@ def main(argv: list[str] | None = None) -> None:
         try:
             run_baseline_command(args)
         except RuntimeError as exc:
+            parser.exit(1, f"error: {exc}\n")
+        return
+
+    if args.command == "run-evolved":
+        try:
+            run_evolved_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
             parser.exit(1, f"error: {exc}\n")
         return
 

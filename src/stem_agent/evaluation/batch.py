@@ -16,17 +16,23 @@ from stem_agent.evaluation.scoring import (
     write_evaluation,
 )
 from stem_agent.workflows.baseline import run_baseline
+from stem_agent.workflows.evolved import run_evolved
 
-SUPPORTED_BASELINE_AGENTS = {
+SUPPORTED_AGENTS = {
     "baseline": "baseline_web",
     "baseline_web": "baseline_web",
     "baseline_no_web": "baseline_no_web",
+    "evolved": "evolved_deep_research_v1",
+    "evolved_deep_research_v1": "evolved_deep_research_v1",
 }
 
 DEFAULT_CONFIG_PATHS = {
     "baseline_web": Path("configs/base_agent.yaml"),
     "baseline_no_web": Path("configs/baseline_no_web.yaml"),
+    "evolved_deep_research_v1": Path("configs/evolved_deep_research_agent.yaml"),
 }
+
+DEFAULT_SCHEMA_PATH = Path("configs/genome_schema.yaml")
 
 
 @dataclass(frozen=True)
@@ -37,6 +43,7 @@ class BatchInput:
     questions_path: Path
     rubric_path: Path
     config_path: Path
+    schema_path: Path | None
     settings: Settings
     judge_model: str
     dry_run: bool
@@ -45,15 +52,23 @@ class BatchInput:
 
 def normalize_agent(agent: str) -> str:
     try:
-        return SUPPORTED_BASELINE_AGENTS[agent]
+        return SUPPORTED_AGENTS[agent]
     except KeyError as exc:
-        known_agents = ", ".join(sorted(SUPPORTED_BASELINE_AGENTS))
+        known_agents = ", ".join(sorted(SUPPORTED_AGENTS))
         raise ValueError(f"Unknown agent {agent!r}. Known agents: {known_agents}") from exc
 
 
 def default_config_path(agent: str) -> Path:
     normalized_agent = normalize_agent(agent)
     return DEFAULT_CONFIG_PATHS[normalized_agent]
+
+
+def default_schema_path() -> Path:
+    return DEFAULT_SCHEMA_PATH
+
+
+def is_evolved_agent(agent: str) -> bool:
+    return normalize_agent(agent).startswith("evolved_")
 
 
 def validate_config_agent(agent: str, config_path: Path) -> None:
@@ -170,13 +185,23 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
 
     for question in questions:
         question_id = str(question["id"])
-        result = run_baseline(
-            question=str(question["question"]),
-            config_path=batch_input.config_path,
-            trace_dir=traces_dir,
-            settings=batch_input.settings,
-            dry_run=batch_input.dry_run,
-        )
+        if is_evolved_agent(agent):
+            result = run_evolved(
+                question=str(question["question"]),
+                genome_path=batch_input.config_path,
+                schema_path=batch_input.schema_path or DEFAULT_SCHEMA_PATH,
+                trace_dir=traces_dir,
+                settings=batch_input.settings,
+                dry_run=batch_input.dry_run,
+            )
+        else:
+            result = run_baseline(
+                question=str(question["question"]),
+                config_path=batch_input.config_path,
+                trace_dir=traces_dir,
+                settings=batch_input.settings,
+                dry_run=batch_input.dry_run,
+            )
         trace_path = stable_trace_path(result.trace_path, traces_dir, question_id)
         trace = load_json(trace_path)
         agent_usages.append(trace.get("usage", {}))
@@ -233,6 +258,9 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
         "agent": agent,
         "requested_agent": batch_input.agent,
         "config_path": str(batch_input.config_path),
+        "schema_path": (
+            str(batch_input.schema_path) if batch_input.schema_path else None
+        ),
         "dry_run": batch_input.dry_run,
         "started_at": started_at,
         "finished_at": utc_now_iso(),

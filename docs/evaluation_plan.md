@@ -90,6 +90,22 @@ The validator does not prove the agent is good. It proves the candidate is
 complete enough to execute and compare without silently changing the experiment
 boundary.
 
+The first executable evolved runner is exposed through:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001 --dry-run
+```
+
+For evaluation batches:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved --dry-run
+```
+
+The v1 runner intentionally executes the full workflow in one model call, but
+the saved trace must still contain the stage artifacts required by the genome.
+This keeps cost controlled while making the architecture observable.
+
 ## Metrics
 
 The rubric is stored in `evals/rubric.yaml`.

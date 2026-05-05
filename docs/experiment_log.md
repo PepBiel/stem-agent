@@ -313,3 +313,45 @@ Decision:
 Accept the genome contract. The next implementation step is the evolved-agent
 runner that executes this validated workflow and writes the required trace
 events.
+
+## 2026-05-05: Evolved Runner V1 Smoke Test
+
+Hypothesis:
+
+The first evolved runner should execute the validated genome without widening
+the tool boundary, write trace artifacts for every required workflow stage, and
+integrate with batch evaluation in dry-run mode before any live API spend.
+
+Commands:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001 --dry-run
+python -m stem_agent run-eval-batch --agent evolved --dry-run --limit 1
+```
+
+Expected result:
+
+- the runner validates `configs/evolved_deep_research_agent.yaml` before
+  execution
+- the trace records `run_type: evolved` and `agent_type:
+  evolved_deep_research_v1`
+- the trace contains required events and artifacts for decomposition, search
+  planning, source triage, evidence extraction, coverage audit, contradiction
+  audit, citation audit, and final answer
+- dry-run batch evaluation produces heuristic, judge, and summary artifacts
+  under `results/runs/evolved_deep_research_v1/<run_id>/`
+
+Observed result:
+
+- `run-evolved --dry-run` wrote an evolved trace with the required workflow,
+  validation metadata, events, artifacts, answer, and usage fields
+- `run-eval-batch --agent evolved --dry-run --limit 1` completed and produced
+  the expected batch summary
+- live batch without `--confirm-live` failed before making API calls
+- smoke artifacts were removed after verification
+
+Decision:
+
+Accept the v1 runner as the first executable evolved agent. The next step is a
+small live smoke run on one question, then a full evolved batch only if the live
+trace shape is correct.
