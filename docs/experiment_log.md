@@ -632,3 +632,111 @@ Full live batch command, if budget allows:
 ```bash
 python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
 ```
+
+## 2026-05-05: Evolved V4 Full Live Batch Results
+
+Run:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
+```
+
+Artifacts:
+
+```text
+results/runs/evolved_deep_research_v4/evolved_v4_full_live/
+```
+
+Hypothesis:
+
+Starting from `evolved_v2` and adding explicit source-quality discipline should
+preserve or improve quality while reducing v2's repeated weak-citation and
+loosely supported-claim failures. The comparison target is `evolved_v2`, because
+v2 was the previous best-quality full-batch candidate.
+
+Aggregate results:
+
+| Agent | Heuristic | Judge | Final | Combined tokens | Runtime |
+|---|---:|---:|---:|---:|---:|
+| baseline_no_web | 0.3277 | 0.4167 | 0.3856 | 34514 | 42s |
+| baseline_web | 0.8417 | 0.5833 | 0.6738 | 158887 | 126s |
+| evolved_v1 | 0.8133 | 0.5781 | 0.6604 | 306817 | 434s |
+| evolved_v2 | 0.8935 | 0.7240 | 0.7833 | 380138 | 533s |
+| evolved_v3 | 0.8164 | 0.6146 | 0.6852 | 193890 | 167s |
+| evolved_v4 | 0.8862 | 0.7552 | 0.8010 | 450061 | 685s |
+
+Aggregate deltas:
+
+| Comparison | Judge delta | Final delta | Token multiplier |
+|---|---:|---:|---:|
+| evolved_v4 vs baseline_web | +0.1719 | +0.1272 | 2.83x |
+| evolved_v4 vs evolved_v2 | +0.0312 | +0.0177 | 1.18x |
+
+Per-question final-score deltas:
+
+| Question | baseline_web | evolved_v2 | evolved_v4 | v4 vs v2 | v4 vs web |
+|---|---:|---:|---:|---:|---:|
+| DR-001 | 0.6741 | 0.7912 | 0.8773 | +0.0861 | +0.2032 |
+| DR-002 | 0.6291 | 0.7710 | 0.5741 | -0.1969 | -0.0550 |
+| DR-003 | 0.6967 | 0.7542 | 0.8047 | +0.0505 | +0.1080 |
+| DR-004 | 0.7564 | 0.7158 | 0.8630 | +0.1472 | +0.1066 |
+| DR-005 | 0.7832 | 0.8258 | 0.8766 | +0.0508 | +0.0934 |
+| DR-006 | 0.5941 | 0.8000 | 0.8083 | +0.0083 | +0.2142 |
+| DR-007 | 0.7903 | 0.8226 | 0.8113 | -0.0113 | +0.0210 |
+| DR-008 | 0.4662 | 0.7857 | 0.7929 | +0.0072 | +0.3267 |
+
+What improved:
+
+- `evolved_v4` is now the best-quality aggregate candidate: highest judge score
+  and highest final score so far.
+- It beats `baseline_web` on 7 of 8 questions and beats `evolved_v2` on 6 of 8
+  questions.
+- The largest gains over `v2` are DR-004 (+0.1472), DR-001 (+0.0861), DR-005
+  (+0.0508), and DR-003 (+0.0505).
+- Source-quality discipline appears to help the heuristic source-quality signal:
+  average source quality increased from about 0.4627 in `v2` to about 0.5746
+  in `v4`.
+- `v4` eliminated most automatic unsupported-claim failures except DR-002.
+
+What failed or remained weak:
+
+- `v4` violates its own cost guardrail. The acceptance criterion allowed about
+  1.10x `v2` tokens, but `v4` used 1.18x. Quality improved, but not cheaply.
+- DR-002 regressed badly. Final score dropped from 0.7710 in `v2` to 0.5741 in
+  `v4`, and also fell below `baseline_web`.
+- The DR-002 heuristic failure is partly a citation-contract issue: the answer
+  used model-internal citation markers such as `turn4view0` instead of literal
+  `https://...` URLs, so the automatic scorer counted 12 unsupported claim
+  lines.
+- The DR-002 judge also found a real evidence problem: the answer made several
+  reasonable architecture recommendations, but many were only weakly supported
+  or inferential.
+- Judge summaries still mention weak/secondary/broad sources in several
+  questions. v4 improved the source policy, but it did not fully solve direct
+  claim-to-source grounding.
+
+Decision:
+
+`evolved_v4` is the best-quality candidate so far, but it is not a clean final
+acceptance under the project's own cost and citation-contract criteria.
+
+Current interpretation:
+
+- If prioritizing pure answer quality, `v4` is the current best agent.
+- If enforcing the predefined acceptance criteria strictly, `v4` is a
+  high-quality candidate that needs one more revision.
+- `v2` remains the strongest previous accepted baseline for the evolved family,
+  because it is cheaper and did not have the same DR-002 citation-contract
+  failure.
+
+Next step:
+
+Create a small `v5`/`v4.1` fix focused only on the remaining failure mode:
+
+- require literal raw URLs in every answer claim instead of provider citation
+  markers;
+- reject source aggregators from the final trace citations, not only from the
+  source triage table;
+- strengthen the prompt rule that recommendations must be labeled as
+  inference unless directly supported;
+- smoke test on DR-002 first before spending another full 8-question batch.
