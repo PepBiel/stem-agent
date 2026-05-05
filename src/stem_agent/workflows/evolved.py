@@ -53,6 +53,12 @@ EVENT_ARTIFACTS = {
     "final_answer_returned": "answer",
 }
 
+RAW_URL_PATTERN = re.compile(r"https?://[^\s\])\",]+")
+PROVIDER_CITATION_MARKER_PATTERN = re.compile(
+    r"(?:turn\d+(?:view|search)\d+|[\ue000-\uf8ff][^\n]{0,80}cite[^\n]{0,80}[\ue000-\uf8ff])",
+    re.IGNORECASE,
+)
+
 
 def build_evolved_prompt(question: str, genome: dict[str, Any]) -> str:
     return build_evolved_prompt_with_context(
@@ -73,6 +79,7 @@ def build_evolved_prompt_with_context(
     limits = mapping(genome.get("limits"))
     workflow = string_list(genome.get("workflow"))
     source_policy_block = build_source_quality_policy_block(genome)
+    citation_contract_block = build_citation_contract_policy_block(genome)
     requirements_block = ""
     if required_aspects or source_expectations:
         aspects_text = json.dumps(required_aspects, indent=2)
@@ -89,7 +96,8 @@ Coverage rules:
 - In `coverage_audit`, mark each required aspect as covered or missing.
 - In the Answer section, include a compact "Required aspect coverage" subsection
   with one bullet for every required aspect.
-- Every bullet in "Required aspect coverage" must include an inline URL.
+- Every bullet in "Required aspect coverage" must include a raw inline
+  `https://...` URL.
 - If an aspect lacks evidence, do not hide it. Put it in
   `coverage_audit.missing_aspects` and mention it in Limitations.
 """
@@ -160,16 +168,45 @@ Operational limits:
 
 {requirements_block}
 {source_policy_block}
+{citation_contract_block}
 
 Return valid JSON only. The `answer` field must be Markdown and must include
 exactly these sections: Answer, Sources, Limitations. Important answer claims
-must include inline URLs.
+must include raw inline URLs.
 
 JSON contract:
 {json_contract}
 
 Question:
 {question}
+"""
+
+
+def build_citation_contract_policy_block(genome: dict[str, Any]) -> str:
+    if genome_version(genome) < 5 and "citation_contract_policy" not in genome:
+        return ""
+
+    policy = mapping(genome.get("citation_contract_policy"))
+    raw_url_required = policy.get("raw_url_required", True)
+    citation_style = policy.get("citation_style", "raw_inline_url")
+    forbidden_markers = string_list(policy.get("forbidden_markers"))
+
+    return f"""
+Citation contract discipline:
+- Citation style: {citation_style}.
+- Raw URL citations required: {raw_url_required}.
+- Every important claim in Answer and Required aspect coverage must include at
+  least one literal raw `https://...` URL in the same bullet or sentence.
+- Do not use provider/internal citation markers, footnotes, numeric references,
+  or source-only citations instead of raw URLs.
+- Forbidden citation marker examples:
+{json.dumps(forbidden_markers, indent=2)}
+- If a claim cannot be attached to a raw URL, move it to Limitations or mark it
+  explicitly as an engineering inference with the source facts that motivate it.
+- The Sources section is not enough on its own. Key claim lines must carry their
+  own raw inline URLs.
+- Rejected sources must not appear in the final answer, evidence table, or final
+  trace citations.
 """
 
 
@@ -359,20 +396,28 @@ def build_events(
 
 def artifact_citations(artifacts: dict[str, Any]) -> list[dict[str, Any]]:
     citations: list[dict[str, Any]] = []
-    for url in artifact_urls(artifacts):
+    for url in artifact_urls_for_final_citations(artifacts):
         citations.append({"type": "url_citation", "url": url, "title": ""})
     return citations
 
 
-def artifact_urls(artifacts: dict[str, Any]) -> list[str]:
+def artifact_urls_for_final_citations(artifacts: dict[str, Any]) -> list[str]:
     urls: list[str] = []
-    collect_urls(artifacts, urls)
+    collect_urls(artifacts.get("answer"), urls)
+    collect_urls(artifacts.get("evidence_table"), urls)
+
+    source_triage = mapping(artifacts.get("source_triage"))
+    collect_urls(source_triage.get("accepted_sources"), urls)
+
+    citation_audit = mapping(artifacts.get("citation_audit"))
+    collect_urls(citation_audit.get("supported_claims"), urls)
+    collect_urls(citation_audit.get("weak_citations"), urls)
     return sorted(set(urls))
 
 
 def collect_urls(value: Any, urls: list[str]) -> None:
     if isinstance(value, str):
-        urls.extend(re.findall(r"https?://[^\s\])\",]+", value))
+        urls.extend(RAW_URL_PATTERN.findall(value))
         return
     if isinstance(value, list):
         for item in value:
@@ -394,6 +439,27 @@ def merge_citations(*citation_groups: list[dict[str, Any]]) -> list[dict[str, An
             seen.add(url)
             merged.append(citation)
     return merged
+
+
+def citation_contract_warnings(answer: str, citations: list[dict[str, Any]]) -> list[str]:
+    warnings: list[str] = []
+    if PROVIDER_CITATION_MARKER_PATTERN.search(answer):
+        warnings.append("answer_contains_provider_citation_markers")
+    if citations and not RAW_URL_PATTERN.search(answer):
+        warnings.append("answer_has_trace_citations_but_no_raw_answer_urls")
+    return warnings
+
+
+def status_with_citation_contract(
+    *,
+    parsed: dict[str, Any] | None,
+    warnings: list[str],
+) -> str:
+    if warnings and not parsed:
+        return "complete_with_parse_and_citation_contract_warning"
+    if warnings:
+        return "complete_with_citation_contract_warning"
+    return "complete" if parsed else "complete_with_parse_warning"
 
 
 def genome_version(genome: dict[str, Any]) -> int:
@@ -459,6 +525,7 @@ def run_evolved(
         "tools_allowed": string_list(mapping(genome.get("tools")).get("allowed")),
         "limits": genome.get("limits", {}),
         "source_quality_policy": genome.get("source_quality_policy", {}),
+        "citation_contract_policy": genome.get("citation_contract_policy", {}),
         "evaluation_requirements": {
             "required_aspects": required_aspects,
             "source_expectations": source_expectations,
@@ -543,6 +610,7 @@ def run_evolved(
     answer = str(artifacts["answer"])
     response_citations = extract_citations(response_payload)
     citations = merge_citations(response_citations, artifact_citations(artifacts))
+    citation_warnings = citation_contract_warnings(answer, citations)
 
     trace.update(trace_payload(question, required_events, artifacts, answer))
     trace.update(
@@ -553,7 +621,11 @@ def run_evolved(
             "usage": extract_usage(response_payload),
             "response_id": response_payload.get("id"),
             "raw_output_text": raw_text,
-            "status": "complete" if parsed else "complete_with_parse_warning",
+            "citation_contract_warnings": citation_warnings,
+            "status": status_with_citation_contract(
+                parsed=parsed,
+                warnings=citation_warnings,
+            ),
         }
     )
     trace_path = write_trace(trace_dir, "evolved-live", trace)

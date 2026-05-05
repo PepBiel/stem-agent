@@ -740,3 +740,67 @@ Create a small `v5`/`v4.1` fix focused only on the remaining failure mode:
 - strengthen the prompt rule that recommendations must be labeled as
   inference unless directly supported;
 - smoke test on DR-002 first before spending another full 8-question batch.
+
+## 2026-05-05: Evolved V5 Citation Contract Fix
+
+Hypothesis:
+
+The v4 regression on DR-002 is not a reason to redesign the whole agent. The
+aggregate v4 result is strong, and the failure is narrow: citation formatting
+and rejected-source leakage. A targeted v5 should preserve v4's source-quality
+discipline while making the citation contract explicit and machine-checkable.
+
+Root cause:
+
+- v4 told the model to use inline URLs, but it did not explicitly ban
+  provider/internal citation markers such as `turn4view0`.
+- The heuristic scorer only recognizes raw `http://`, `https://`, or Markdown
+  links in claim lines. Provider markers therefore made otherwise sourced lines
+  look unsupported.
+- The evolved runner collected URLs recursively from every artifact. That meant
+  URLs from `candidate_sources` and `source_triage.rejected_sources` could still
+  appear in `trace.citations`, even when the agent had rejected them.
+- The judge also found a real support problem on DR-002: several architecture
+  recommendations were plausible but phrased more strongly than the evidence
+  allowed.
+
+Changes:
+
+- add `configs/evolved_deep_research_agent_v5.yaml`
+- make the default `evolved` alias point to `evolved_deep_research_v5`
+- make `validate-genome` and `run-evolved` default to the v5 genome
+- add a `citation_contract_policy` genome section requiring raw inline
+  `https://...` URLs on key claim lines
+- explicitly forbid provider/internal citation markers, numeric-only citations,
+  and footnote-only citations as substitutes for raw URLs
+- update the evolved runtime prompt so the Sources section alone does not count;
+  important claim lines must carry their own raw URL
+- change final trace citation extraction so it only reads URLs from:
+  - final answer
+  - evidence table
+  - accepted sources
+  - supported or weak citation-audit entries
+- stop recursively collecting URLs from rejected-source artifacts
+- add `citation_contract_warnings` to live traces when the final answer still
+  contains provider citation markers or has trace citations but no raw answer
+  URLs
+
+Decision:
+
+Accept v5 as the next candidate to validate, but only as a targeted fix. It
+should be judged first on DR-001 and DR-002, because DR-002 is the observed
+failure and `--limit 2` covers both questions in the fixed set. If DR-002
+improves without damaging DR-001, then run the full 8-question v5 batch.
+
+Validation commands:
+
+```bash
+python -m stem_agent validate-genome --genome configs/evolved_deep_research_agent_v5.yaml
+python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_dry_run --dry-run --limit 1
+```
+
+Recommended live smoke command:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_dr001_dr002_live --limit 2 --confirm-live
+```

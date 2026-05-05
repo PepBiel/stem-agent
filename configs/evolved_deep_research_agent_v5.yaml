@@ -1,0 +1,315 @@
+genome:
+  id: evolved_deep_research_v5
+  version: 5
+  parent: configs/evolved_deep_research_agent_v4.yaml
+  schema: configs/genome_schema.yaml
+  evolution_stage: raw_url_citation_contract_candidate
+  hypothesis: >
+    The v4 full batch produced the best aggregate quality, but DR-002 regressed
+    because the answer used provider/internal citation markers instead of raw
+    URLs and the trace citation extraction included rejected-source artifacts.
+    v5 keeps v4's workflow and budget, then adds a strict raw-URL citation
+    contract and excludes rejected sources from final trace citations.
+  tuning_notes: >
+    This is a targeted fix, not a broader reasoning change. The goal is to
+    preserve v4's source-quality gains while correcting the citation-contract
+    failure observed on DR-002.
+  derived_from_failure_modes:
+    - provider_citation_markers_in_answer
+    - rejected_sources_leaking_into_trace_citations
+    - claim_lines_without_raw_urls
+    - unsupported_or_inferential_architecture_recommendations
+
+agent:
+  id: evolved_deep_research_agent
+  type: evolved_deep_research_v5
+  domain: technical_deep_research_llm_agents
+  description: >
+    Citation-contract candidate. It keeps v4's source-quality discipline and
+    budget, but requires literal raw URLs on claim lines and prevents rejected
+    sources from appearing as final trace citations.
+
+model:
+  provider: openai
+  env_var: OPENAI_MODEL
+  recommended_default: gpt-5.4-mini
+  reasoning_effort: medium
+
+workflow:
+  - receive_question
+  - decompose_question
+  - create_search_plan
+  - collect_candidate_sources
+  - source_triage
+  - extract_evidence
+  - coverage_check
+  - contradiction_check
+  - synthesize_answer
+  - citation_audit
+  - report_limitations
+
+prompt_roles:
+  planner:
+    objective: >
+      Convert the user question into required subquestions, decision criteria,
+      and evidence needs before searching.
+    must_output:
+      - subquestions
+      - required_aspects
+      - expected_source_types
+  searcher:
+    objective: >
+      Generate focused search queries that target primary papers, official
+      docs, benchmark pages, implementation repositories, and framework docs
+      instead of secondary summaries.
+    must_output:
+      - queries
+      - rationale_per_query
+  source_triager:
+    objective: >
+      Rank candidate sources by authority, direct relevance, and whether they
+      directly support an answer claim. Reject weak, broad, aggregator, forum,
+      or SEO-style sources when an authoritative replacement exists.
+    must_output:
+      - accepted_sources
+      - rejected_sources
+      - rejection_reasons
+  evidence_extractor:
+    objective: >
+      Convert accepted sources into a compact evidence table. Each evidence
+      item must distinguish directly supported facts from engineering
+      inferences drawn from the source.
+    must_output:
+      - claim
+      - source_url
+      - source_type
+      - supported_aspect
+      - support_directness
+      - source_authority
+      - confidence
+  coverage_auditor:
+    objective: >
+      Check whether each required aspect is supported by at least one
+      authoritative evidence item before synthesis.
+    must_output:
+      - covered_aspects
+      - missing_aspects
+      - followup_needed
+  contradiction_auditor:
+    objective: >
+      Identify source disagreement, uncertainty, or claims that should be
+      softened rather than stated as facts.
+    must_output:
+      - conflicting_claims
+      - resolution
+      - uncertainty_notes
+  citation_auditor:
+    objective: >
+      Verify that important answer claims have direct source support, that
+      every key claim line uses a literal raw URL, and that rejected sources do
+      not appear in the final answer or final citation set.
+    must_output:
+      - supported_claims
+      - unsupported_claims
+      - weak_citations
+  synthesizer:
+    objective: >
+      Produce a concise engineering answer grounded in the evidence table.
+      Separate directly sourced facts from engineering recommendations and put
+      a literal raw URL on every key claim line.
+    must_output:
+      - answer
+      - sources
+      - limitations
+
+tools:
+  allowed:
+    - web_search
+  forbidden:
+    - arbitrary_code_execution
+    - source_modification
+    - unbounded_web_browsing
+    - filesystem_write
+
+limits:
+  max_search_queries: 4
+  max_sources: 6
+  max_model_calls: 5
+  max_runtime_seconds: 300
+  max_evolution_rounds: 3
+
+source_quality_policy:
+  authority_order:
+    - peer-reviewed papers or official proceedings
+    - arXiv or preprint papers when proceedings are unavailable
+    - official provider or framework documentation
+    - benchmark pages, datasets, repositories, or implementation docs
+    - engineering case studies from primary teams
+    - secondary surveys only when they directly support the claim
+  discouraged_sources:
+    - reddit.com
+    - www.reddit.com
+    - wikipedia.org
+    - papers.cool
+    - papers.lunadong.com
+    - generic SEO blog posts
+    - uncited newsletter summaries
+    - source aggregators that do not add primary evidence
+  minimum_authoritative_sources: 4
+  require_direct_support_for:
+    - named failure modes
+    - architecture comparisons
+    - evaluation metrics
+    - cost, latency, recovery, or reproducibility claims
+    - benchmark or empirical performance claims
+    - recommendations about when an engineering pattern is preferable
+  inference_policy: >
+    Engineering inferences are allowed, but they must be labeled as inferences
+    or recommendations and must cite the source facts they are inferred from.
+  weak_source_policy: >
+    Weak sources should be rejected during source triage when an authoritative
+    replacement exists. If a weak source is unavoidable, cite it only for the
+    narrow claim it directly supports and flag it in the citation audit.
+
+citation_contract_policy:
+  citation_style: raw_inline_url
+  raw_url_required: true
+  forbidden_markers:
+    - turn4view0
+    - turn0search0
+    - provider citation marker
+    - numeric-only citation
+    - footnote-only citation
+  required_answer_rule: >
+    Every important claim bullet or sentence in the Answer section must include
+    at least one literal raw https:// URL in the same line. A Sources section
+    alone does not satisfy claim-level citation support.
+  rejected_source_rule: >
+    URLs from rejected sources must not be copied into the final answer,
+    evidence table, citation audit supported claims, or trace citations.
+
+memory:
+  policy: run_scoped_evidence_table
+  rationale: >
+    The agent may keep structured evidence during one run, but it must not use
+    long-term memory across evaluation questions. This keeps the fixed
+    evaluation set comparable across baselines and evolved candidates.
+  allowed_items:
+    - decomposition
+    - search_plan
+    - source_triage_table
+    - evidence_table
+    - coverage_audit
+    - contradiction_audit
+    - citation_audit
+
+safeguards:
+  require_primary_or_authoritative_sources: true
+  require_rejected_source_reasons: true
+  require_claim_level_citations: true
+  require_raw_url_claim_citations: true
+  require_direct_source_support: true
+  require_inference_labeling: true
+  require_limitations_section: true
+  forbid_uncited_key_claims: true
+  forbid_provider_citation_markers: true
+  forbid_rejected_source_urls_in_final_citations: true
+  forbid_weak_sources_when_authoritative_replacement_exists: true
+  forbid_hidden_extra_tool_calls: true
+  on_budget_exceeded: stop_and_report_limitations
+
+trace:
+  required_events:
+    - question_received
+    - decomposition_created
+    - search_plan_created
+    - candidate_sources_collected
+    - sources_triaged
+    - evidence_extracted
+    - coverage_checked
+    - contradictions_checked
+    - answer_synthesized
+    - citations_audited
+    - final_answer_returned
+  required_artifacts:
+    - decomposition
+    - search_plan
+    - candidate_sources
+    - source_triage
+    - evidence_table
+    - coverage_audit
+    - contradiction_audit
+    - citation_audit
+    - final_answer
+    - usage
+
+output_contract:
+  required_sections:
+    - answer
+    - sources
+    - limitations
+  citation_style: raw_inline_url
+  unsupported_claim_policy: reject_or_flag
+  required_answer_properties:
+    - concise_engineering_summary
+    - explicit_tradeoffs
+    - uncertainty_when_evidence_is_mixed
+    - no_source_free_key_claims
+    - direct_source_support_for_key_claims
+    - raw_url_on_each_key_claim_line
+    - no_provider_citation_markers
+    - rejected_sources_removed_from_final_citations
+    - engineering_inferences_labeled
+    - weak_citations_flagged_or_removed
+
+evaluation:
+  question_set: evals/questions.json
+  rubric: evals/rubric.yaml
+  compare_against:
+    - baseline_web
+    - evolved_deep_research_v2
+    - evolved_deep_research_v4
+  metrics:
+    - final_score
+    - judge_score
+    - coverage_score
+    - citation_support_score
+    - source_quality_score
+    - unsupported_claim_count
+    - contradiction_handling_score
+    - combined_total_tokens
+
+acceptance_criteria:
+  primary_metric: judge_score
+  metrics:
+    - final_score
+    - judge_score
+    - coverage_score
+    - source_quality_score
+    - unsupported_claim_count
+    - combined_total_tokens
+  accept_if:
+    final_score_delta_vs_evolved_v4: 0.0
+    judge_score_delta_vs_evolved_v4: 0.0
+    dr002_final_score_delta_vs_evolved_v4_min: 0.1
+    unsupported_claim_count_delta_max: 0
+    combined_total_tokens_multiplier_vs_evolved_v4_max: 1.05
+  reject_if:
+    - final_score_below_evolved_v4
+    - judge_score_below_evolved_v4
+    - raw_url_citation_contract_failed
+    - provider_citation_markers_present
+    - rejected_source_url_in_final_citations
+    - source_quality_regression
+    - coverage_audit_missing
+    - citation_audit_missing
+
+rollback:
+  policy: keep_previous_best_genome
+  previous_best: configs/evolved_deep_research_agent_v4.yaml
+  trigger:
+    - validation_failed
+    - smoke_test_failed
+    - evaluation_regression
+    - citation_contract_regression
+    - source_quality_regression
