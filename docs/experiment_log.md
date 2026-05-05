@@ -933,3 +933,50 @@ Before freezing the final submission, add a small robustness improvement to the
 runner: tolerant JSON recovery for model outputs with harmless trailing text or
 extra braces. This targets the DR-003 parse warning without changing the agent
 genome or spending another full live batch.
+
+## 2026-05-05: Evolved Runner Tolerant JSON Recovery
+
+Hypothesis:
+
+The v5 full batch should not be rerun just to fix a trace parser edge case. The
+DR-003 answer was semantically strong, but the runner failed to parse the
+structured JSON because the model returned an almost-valid object with harmless
+trailing text/extra closing syntax. A local parser improvement should recover
+the artifacts from the existing raw output and prevent the same failure in
+future runs.
+
+Change:
+
+- update `parse_json_object` to try strict `json.loads` first, then fall back to
+  `json.JSONDecoder().raw_decode`
+- keep the contract strict enough to require a JSON object, but tolerate extra
+  trailing characters after a valid object
+- use the recovered `source_triage.rejected_sources` to filter rejected URLs out
+  of final `trace.citations`
+- add a citation-contract warning when the final answer still mentions rejected
+  source URLs, because that is a prompt/answer violation even if the trace
+  citations are filtered
+
+Validation:
+
+```text
+python -m compileall src
+python -m stem_agent validate-genome
+```
+
+Targeted local check on the existing v5 DR-003 trace:
+
+```text
+parsed_is_dict True
+has_parse_warning False
+artifact_keys True
+rejected_in_final_urls []
+warnings ['answer_contains_rejected_source_urls']
+future_status complete_with_citation_contract_warning
+```
+
+Decision:
+
+Accept this as a runner robustness fix. It does not change the v5 genome or the
+already recorded live scores; it only makes future traces more faithful to the
+model's structured output. No new live batch is needed.

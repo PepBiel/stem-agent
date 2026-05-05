@@ -321,14 +321,28 @@ def parse_json_object(text: str) -> dict[str, Any] | None:
         return None
 
     for candidate in json_candidates(stripped):
-        try:
-            payload = json.loads(candidate)
-        except json.JSONDecodeError:
-            continue
+        payload = decode_json_object(candidate)
         if isinstance(payload, dict):
             return payload
 
     return None
+
+
+def decode_json_object(candidate: str) -> Any:
+    stripped = candidate.strip()
+    if not stripped:
+        return None
+
+    try:
+        return json.loads(stripped)
+    except json.JSONDecodeError:
+        pass
+
+    try:
+        payload, _ = json.JSONDecoder().raw_decode(stripped)
+    except json.JSONDecodeError:
+        return None
+    return payload
 
 
 def json_candidates(text: str) -> list[str]:
@@ -403,15 +417,38 @@ def artifact_citations(artifacts: dict[str, Any]) -> list[dict[str, Any]]:
 
 def artifact_urls_for_final_citations(artifacts: dict[str, Any]) -> list[str]:
     urls: list[str] = []
+    source_triage = mapping(artifacts.get("source_triage"))
+    accepted_source_urls = set(urls_in(source_triage.get("accepted_sources")))
+    rejected_source_urls = set(urls_in(source_triage.get("rejected_sources")))
+    accepted_keys = {url_key(accepted) for accepted in accepted_source_urls}
+    rejected_only_urls = {
+        url
+        for url in rejected_source_urls
+        if url_key(url) not in accepted_keys
+    }
+
     collect_urls(artifacts.get("answer"), urls)
     collect_urls(artifacts.get("evidence_table"), urls)
-
-    source_triage = mapping(artifacts.get("source_triage"))
     collect_urls(source_triage.get("accepted_sources"), urls)
 
     citation_audit = mapping(artifacts.get("citation_audit"))
     collect_urls(citation_audit.get("supported_claims"), urls)
     collect_urls(citation_audit.get("weak_citations"), urls)
+    rejected_keys = {url_key(url) for url in rejected_only_urls}
+    return sorted({url for url in urls if url_key(url) not in rejected_keys})
+
+
+def artifact_rejected_urls(artifacts: dict[str, Any]) -> list[str]:
+    source_triage = mapping(artifacts.get("source_triage"))
+    accepted_source_urls = set(urls_in(source_triage.get("accepted_sources")))
+    rejected_source_urls = set(urls_in(source_triage.get("rejected_sources")))
+    accepted_keys = {url_key(url) for url in accepted_source_urls}
+    return sorted(url for url in rejected_source_urls if url_key(url) not in accepted_keys)
+
+
+def urls_in(value: Any) -> list[str]:
+    urls: list[str] = []
+    collect_urls(value, urls)
     return sorted(set(urls))
 
 
@@ -441,12 +478,35 @@ def merge_citations(*citation_groups: list[dict[str, Any]]) -> list[dict[str, An
     return merged
 
 
-def citation_contract_warnings(answer: str, citations: list[dict[str, Any]]) -> list[str]:
+def filter_rejected_citations(
+    citations: list[dict[str, Any]],
+    rejected_urls: list[str],
+) -> list[dict[str, Any]]:
+    rejected_keys = {url_key(url) for url in rejected_urls}
+    return [
+        citation
+        for citation in citations
+        if url_key(str(citation.get("url", ""))) not in rejected_keys
+    ]
+
+
+def url_key(url: str) -> str:
+    return url.strip().rstrip("/").lower()
+
+
+def citation_contract_warnings(
+    *,
+    answer: str,
+    citations: list[dict[str, Any]],
+    rejected_urls: list[str],
+) -> list[str]:
     warnings: list[str] = []
     if PROVIDER_CITATION_MARKER_PATTERN.search(answer):
         warnings.append("answer_contains_provider_citation_markers")
     if citations and not RAW_URL_PATTERN.search(answer):
         warnings.append("answer_has_trace_citations_but_no_raw_answer_urls")
+    if any(url in answer for url in rejected_urls):
+        warnings.append("answer_contains_rejected_source_urls")
     return warnings
 
 
@@ -609,8 +669,16 @@ def run_evolved(
     artifacts = normalize_artifacts(parsed, raw_text)
     answer = str(artifacts["answer"])
     response_citations = extract_citations(response_payload)
-    citations = merge_citations(response_citations, artifact_citations(artifacts))
-    citation_warnings = citation_contract_warnings(answer, citations)
+    rejected_urls = artifact_rejected_urls(artifacts)
+    citations = filter_rejected_citations(
+        merge_citations(response_citations, artifact_citations(artifacts)),
+        rejected_urls,
+    )
+    citation_warnings = citation_contract_warnings(
+        answer=answer,
+        citations=citations,
+        rejected_urls=rejected_urls,
+    )
 
     trace.update(trace_payload(question, required_events, artifacts, answer))
     trace.update(
