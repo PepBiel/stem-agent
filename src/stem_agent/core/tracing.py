@@ -12,7 +12,7 @@ def utc_now_iso() -> str:
 
 
 def safe_slug(value: str, max_length: int = 48) -> str:
-    slug = re.sub(r"[^a-zA-Z0-9]+", "-", value.lower()).strip("-")
+    slug = re.sub(r"[^a-zA-Z0-9_]+", "-", value.lower()).strip("-")
     if not slug:
         return "trace"
     return slug[:max_length].strip("-")

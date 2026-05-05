@@ -125,10 +125,23 @@ python -m stem_agent validate-genome
 controlled: the evolved agent can change workflow and prompts, but it must stay
 inside fixed tool, budget, trace, and evaluation boundaries.
 
+The evolved genome variants are kept as explicit configs so the project can
+compare the specialization path without rewriting history:
+
+```text
+configs/evolved_deep_research_agent_v1.yaml  inferred coverage, original budget
+configs/evolved_deep_research_agent_v2.yaml  fixed coverage injection, original budget
+configs/evolved_deep_research_agent_v3.yaml  fixed coverage injection, tuned budget
+configs/evolved_deep_research_agent.yaml     current default candidate
+```
+
 Run the evolved agent without spending API credits:
 
 ```bash
 python -m stem_agent run-evolved --question-id DR-001 --dry-run
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v1.yaml --dry-run
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v2.yaml --dry-run
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v3.yaml --dry-run
 ```
 
 The evolved runner validates the genome before execution and writes trace
@@ -188,6 +201,9 @@ Run a full evaluation batch:
 python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
 python -m stem_agent run-eval-batch --agent baseline_web --dry-run
 python -m stem_agent run-eval-batch --agent evolved --dry-run
+python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_dry_run --dry-run
+python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_dry_run --dry-run
+python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_dry_run --dry-run
 ```
 
 Live batches require explicit confirmation because they make model calls for
@@ -197,11 +213,16 @@ each answer and each judge evaluation:
 python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
 python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
 python -m stem_agent run-eval-batch --agent evolved --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_full_live --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_full_live --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_full_live --confirm-live
 ```
 
 `baseline_no_web` makes one answer call per question plus one judge call per
 question. `baseline_web` makes one answer call with `web_search` per question
-plus one judge call per question. The heuristic scorer is local in both cases.
+plus one judge call per question. Each evolved live batch also makes one
+evolved answer call with `web_search` per question plus one judge call per
+question. The heuristic scorer is local in all cases.
 
 Batch artifacts are written under:
 

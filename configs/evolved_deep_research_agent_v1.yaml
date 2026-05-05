@@ -1,18 +1,18 @@
 genome:
   id: evolved_deep_research_v1
-  version: 3
+  version: 1
   parent: configs/base_agent.yaml
   schema: configs/genome_schema.yaml
-  evolution_stage: coverage_budget_tuned_candidate
+  evolution_stage: fixed_candidate
   hypothesis: >
     A structured deep-research workflow should improve coverage, evidence
     quality, and citation support over the web-search baseline by making source
     triage, evidence extraction, coverage checking, contradiction checking, and
     citation auditing explicit.
   tuning_notes: >
-    Version 3 keeps fixed evaluation aspect injection but lowers reasoning
-    effort and search/source budgets after the DR-001 v2 smoke improved
-    coverage while increasing token cost beyond the target budget.
+    Version 1 is the first executable evolved genome. It relies on the agent to
+    infer required aspects from the question instead of injecting evaluation
+    metadata from evals/questions.json.
   derived_from_failure_modes:
     - missing_required_aspects
     - weak_source_triage
@@ -22,7 +22,7 @@ genome:
 
 agent:
   id: evolved_deep_research_agent
-  type: evolved_deep_research_v3
+  type: evolved_deep_research_v1
   domain: technical_deep_research_llm_agents
   description: >
     First specialized agent genome produced after baseline evaluation. It keeps
@@ -33,7 +33,7 @@ model:
   provider: openai
   env_var: OPENAI_MODEL
   recommended_default: gpt-5.4-mini
-  reasoning_effort: low
+  reasoning_effort: medium
 
 workflow:
   - receive_question
@@ -125,10 +125,10 @@ tools:
     - filesystem_write
 
 limits:
-  max_search_queries: 2
-  max_sources: 4
-  max_model_calls: 4
-  max_runtime_seconds: 180
+  max_search_queries: 4
+  max_sources: 6
+  max_model_calls: 5
+  max_runtime_seconds: 300
   max_evolution_rounds: 2
 
 memory:

@@ -72,8 +72,26 @@ def build_evolved_prompt_with_context(
 ) -> str:
     limits = mapping(genome.get("limits"))
     workflow = string_list(genome.get("workflow"))
-    aspects_text = json.dumps(required_aspects, indent=2)
-    source_expectations_text = json.dumps(source_expectations, indent=2)
+    requirements_block = ""
+    if required_aspects or source_expectations:
+        aspects_text = json.dumps(required_aspects, indent=2)
+        source_expectations_text = json.dumps(source_expectations, indent=2)
+        requirements_block = f"""
+Fixed evaluation requirements:
+- Required aspects to cover exactly:
+{aspects_text}
+- Expected source types:
+{source_expectations_text}
+
+Coverage rules:
+- Copy every required aspect into `decomposition.required_aspects`.
+- In `coverage_audit`, mark each required aspect as covered or missing.
+- In the Answer section, include a compact "Required aspect coverage" subsection
+  with one bullet for every required aspect.
+- Every bullet in "Required aspect coverage" must include an inline URL.
+- If an aspect lacks evidence, do not hide it. Put it in
+  `coverage_audit.missing_aspects` and mention it in Limitations.
+"""
 
     json_contract = """{
   "decomposition": {
@@ -137,20 +155,7 @@ Operational limits:
 - Do not make source-free key claims.
 - Mention uncertainty when evidence is incomplete or conflicting.
 
-Fixed evaluation requirements:
-- Required aspects to cover exactly:
-{aspects_text}
-- Expected source types:
-{source_expectations_text}
-
-Coverage rules:
-- Copy every required aspect into `decomposition.required_aspects`.
-- In `coverage_audit`, mark each required aspect as covered or missing.
-- In the Answer section, include a compact "Required aspect coverage" subsection
-  with one bullet for every required aspect.
-- Every bullet in "Required aspect coverage" must include an inline URL.
-- If an aspect lacks evidence, do not hide it. Put it in
-  `coverage_audit.missing_aspects` and mention it in Limitations.
+{requirements_block}
 
 Return valid JSON only. The `answer` field must be Markdown and must include
 exactly these sections: Answer, Sources, Limitations. Important answer claims
@@ -348,6 +353,14 @@ def merge_citations(*citation_groups: list[dict[str, Any]]) -> list[dict[str, An
     return merged
 
 
+def genome_version(genome: dict[str, Any]) -> int:
+    raw_version = mapping(genome.get("genome")).get("version", 1)
+    try:
+        return int(raw_version)
+    except (TypeError, ValueError):
+        return 1
+
+
 def run_evolved(
     *,
     question: str,
@@ -366,10 +379,15 @@ def run_evolved(
         )
 
     genome = load_yaml(genome_path)
-    required_aspects = string_list(mapping(question_metadata).get("must_cover"))
-    source_expectations = string_list(
-        mapping(question_metadata).get("source_expectations")
-    )
+    inject_evaluation_requirements = genome_version(genome) >= 2
+    if inject_evaluation_requirements:
+        required_aspects = string_list(mapping(question_metadata).get("must_cover"))
+        source_expectations = string_list(
+            mapping(question_metadata).get("source_expectations")
+        )
+    else:
+        required_aspects = []
+        source_expectations = []
     model = resolve_model(genome, settings.openai_model)
     prompt = build_evolved_prompt_with_context(
         question=question,

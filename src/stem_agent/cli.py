@@ -196,11 +196,16 @@ def build_parser() -> argparse.ArgumentParser:
             "baseline_web",
             "baseline",
             "evolved_deep_research_v1",
+            "evolved_deep_research_v2",
+            "evolved_deep_research_v3",
+            "evolved_v1",
+            "evolved_v2",
+            "evolved_v3",
             "evolved",
         ],
         help=(
             "Agent variant to evaluate. 'baseline' aliases baseline_web; "
-            "'evolved' aliases evolved_deep_research_v1."
+            "'evolved' aliases the current evolved candidate."
         ),
     )
     batch_parser.add_argument(
@@ -259,6 +264,9 @@ def print_status() -> None:
         "configs/base_agent.yaml",
         "configs/baseline_no_web.yaml",
         "configs/evolved_deep_research_agent.yaml",
+        "configs/evolved_deep_research_agent_v1.yaml",
+        "configs/evolved_deep_research_agent_v2.yaml",
+        "configs/evolved_deep_research_agent_v3.yaml",
         "configs/genome_schema.yaml",
         "docs",
         "docs/evaluation_plan.md",

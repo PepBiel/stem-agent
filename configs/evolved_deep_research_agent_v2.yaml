@@ -1,18 +1,19 @@
 genome:
   id: evolved_deep_research_v1
-  version: 3
-  parent: configs/base_agent.yaml
+  version: 2
+  parent: configs/evolved_deep_research_agent_v1.yaml
   schema: configs/genome_schema.yaml
-  evolution_stage: coverage_budget_tuned_candidate
+  evolution_stage: coverage_injected_candidate
   hypothesis: >
     A structured deep-research workflow should improve coverage, evidence
     quality, and citation support over the web-search baseline by making source
     triage, evidence extraction, coverage checking, contradiction checking, and
     citation auditing explicit.
   tuning_notes: >
-    Version 3 keeps fixed evaluation aspect injection but lowers reasoning
-    effort and search/source budgets after the DR-001 v2 smoke improved
-    coverage while increasing token cost beyond the target budget.
+    Version 2 keeps the v1 workflow and budget, but enables fixed evaluation
+    aspect injection from evals/questions.json. It is useful as a reproducible
+    failed candidate: DR-001 coverage improved, but token cost exceeded the
+    target budget before judge evaluation.
   derived_from_failure_modes:
     - missing_required_aspects
     - weak_source_triage
@@ -22,18 +23,18 @@ genome:
 
 agent:
   id: evolved_deep_research_agent
-  type: evolved_deep_research_v3
+  type: evolved_deep_research_v2
   domain: technical_deep_research_llm_agents
   description: >
-    First specialized agent genome produced after baseline evaluation. It keeps
-    the same domain and tool boundary as the web-search baseline, but replaces
-    simple search-and-summarize behavior with an auditable research workflow.
+    Coverage-injected candidate. It keeps the same workflow and tool boundary
+    as v1, but the runner injects fixed question metadata for coverage auditing
+    when genome.version is 2 or higher.
 
 model:
   provider: openai
   env_var: OPENAI_MODEL
   recommended_default: gpt-5.4-mini
-  reasoning_effort: low
+  reasoning_effort: medium
 
 workflow:
   - receive_question
@@ -125,10 +126,10 @@ tools:
     - filesystem_write
 
 limits:
-  max_search_queries: 2
-  max_sources: 4
-  max_model_calls: 4
-  max_runtime_seconds: 180
+  max_search_queries: 4
+  max_sources: 6
+  max_model_calls: 5
+  max_runtime_seconds: 300
   max_evolution_rounds: 2
 
 memory:
@@ -233,7 +234,7 @@ acceptance_criteria:
 
 rollback:
   policy: keep_previous_best_genome
-  previous_best: configs/base_agent.yaml
+  previous_best: configs/evolved_deep_research_agent_v1.yaml
   trigger:
     - validation_failed
     - smoke_test_failed

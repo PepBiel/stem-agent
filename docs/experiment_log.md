@@ -502,3 +502,53 @@ token multiplier versus `baseline_web` is about 1.56x, which is within the
 target budget. Do not run the full 8-question live batch yet; first run a
 2-question live batch to check whether the gain generalizes beyond memory
 questions.
+
+## 2026-05-05: Reproducible Evolved Genome Variants
+
+Hypothesis:
+
+The project should keep v1, v2, and v3 as runnable configurations so the final
+write-up can show a real evolution path instead of only the latest candidate.
+This also makes it possible to run a full 8-question live batch for any version
+if the API budget allows it.
+
+Changes:
+
+- add `configs/evolved_deep_research_agent_v1.yaml`
+- add `configs/evolved_deep_research_agent_v2.yaml`
+- add `configs/evolved_deep_research_agent_v3.yaml`
+- keep `configs/evolved_deep_research_agent.yaml` as the current default
+- gate fixed evaluation requirement injection in the runner so it only applies
+  to genomes with `genome.version >= 2`
+
+Variant meaning:
+
+| Variant | Internal behavior | Budget |
+|---|---|---|
+| v1 | Agent infers required aspects from the question | 4 search queries, 6 sources, medium reasoning |
+| v2 | Runner injects fixed `must_cover` and `source_expectations` | 4 search queries, 6 sources, medium reasoning |
+| v3 | Same fixed coverage injection as v2 | 2 search queries, 4 sources, low reasoning |
+
+Validation commands:
+
+```bash
+python -m stem_agent validate-genome --genome configs/evolved_deep_research_agent_v1.yaml
+python -m stem_agent validate-genome --genome configs/evolved_deep_research_agent_v2.yaml
+python -m stem_agent validate-genome --genome configs/evolved_deep_research_agent_v3.yaml
+```
+
+Full live batch commands, if budget allows:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_full_live --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_full_live --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_full_live --confirm-live
+```
+
+Decision:
+
+Accept the three-version setup as the reproducibility layer for evolved-agent
+comparison. The batch runner exposes `evolved_v1`, `evolved_v2`, and
+`evolved_v3` aliases. Each variant has its own `agent.type`, so full live
+results are stored under separate `results/runs/evolved_deep_research_v*/`
+folders.

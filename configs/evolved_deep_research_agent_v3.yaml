@@ -1,7 +1,7 @@
 genome:
   id: evolved_deep_research_v1
   version: 3
-  parent: configs/base_agent.yaml
+  parent: configs/evolved_deep_research_agent_v2.yaml
   schema: configs/genome_schema.yaml
   evolution_stage: coverage_budget_tuned_candidate
   hypothesis: >
@@ -25,9 +25,9 @@ agent:
   type: evolved_deep_research_v3
   domain: technical_deep_research_llm_agents
   description: >
-    First specialized agent genome produced after baseline evaluation. It keeps
-    the same domain and tool boundary as the web-search baseline, but replaces
-    simple search-and-summarize behavior with an auditable research workflow.
+    Budget-tuned candidate. It keeps v2's fixed coverage injection, but lowers
+    reasoning effort and search/source budgets so the evolved workflow can be
+    evaluated across more questions without exceeding the target cost envelope.
 
 model:
   provider: openai
@@ -233,7 +233,7 @@ acceptance_criteria:
 
 rollback:
   policy: keep_previous_best_genome
-  previous_best: configs/base_agent.yaml
+  previous_best: configs/evolved_deep_research_agent_v2.yaml
   trigger:
     - validation_failed
     - smoke_test_failed

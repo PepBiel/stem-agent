@@ -22,14 +22,21 @@ SUPPORTED_AGENTS = {
     "baseline": "baseline_web",
     "baseline_web": "baseline_web",
     "baseline_no_web": "baseline_no_web",
-    "evolved": "evolved_deep_research_v1",
+    "evolved": "evolved_deep_research_v3",
+    "evolved_v1": "evolved_deep_research_v1",
+    "evolved_v2": "evolved_deep_research_v2",
+    "evolved_v3": "evolved_deep_research_v3",
     "evolved_deep_research_v1": "evolved_deep_research_v1",
+    "evolved_deep_research_v2": "evolved_deep_research_v2",
+    "evolved_deep_research_v3": "evolved_deep_research_v3",
 }
 
 DEFAULT_CONFIG_PATHS = {
     "baseline_web": Path("configs/base_agent.yaml"),
     "baseline_no_web": Path("configs/baseline_no_web.yaml"),
-    "evolved_deep_research_v1": Path("configs/evolved_deep_research_agent.yaml"),
+    "evolved_deep_research_v1": Path("configs/evolved_deep_research_agent_v1.yaml"),
+    "evolved_deep_research_v2": Path("configs/evolved_deep_research_agent_v2.yaml"),
+    "evolved_deep_research_v3": Path("configs/evolved_deep_research_agent_v3.yaml"),
 }
 
 DEFAULT_SCHEMA_PATH = Path("configs/genome_schema.yaml")
