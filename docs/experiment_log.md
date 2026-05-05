@@ -804,3 +804,132 @@ Recommended live smoke command:
 ```bash
 python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_dr001_dr002_live --limit 2 --confirm-live
 ```
+
+## 2026-05-05: Evolved V5 Smoke And Full Live Results
+
+Runs:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_dr001_dr002_live --limit 2 --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_full_live --confirm-live
+```
+
+Artifacts:
+
+```text
+results/runs/evolved_deep_research_v5/evolved_v5_dr001_dr002_live/
+results/runs/evolved_deep_research_v5/evolved_v5_full_live/
+```
+
+Hypothesis:
+
+The v5 citation-contract fix should remove the DR-002 raw-URL failure from v4
+without sacrificing v4's source-quality gains. It should first improve DR-002,
+then preserve or improve the full 8-question aggregate.
+
+Two-question smoke result:
+
+| Run | Questions | Heuristic | Judge | Final | Combined tokens |
+|---|---:|---:|---:|---:|---:|
+| evolved_v5_dr001_dr002_live | 2 | 0.9750 | 0.7708 | 0.8422 | 112020 |
+
+Smoke details:
+
+| Question | Heuristic | Judge | Final | Notes |
+|---|---:|---:|---:|---|
+| DR-001 | 1.0000 | 0.7083 | 0.8104 | Strong coverage; judge still wanted more source-specific evidence for broad synthesis claims. |
+| DR-002 | 0.9500 | 0.8333 | 0.8741 | The observed v4 failure was fixed in the smoke run; raw URL citation support was intact. |
+
+Full live aggregate results:
+
+| Agent | Heuristic | Judge | Final | Combined tokens |
+|---|---:|---:|---:|---:|
+| baseline_no_web | 0.3277 | 0.4167 | 0.3856 | 34514 |
+| baseline_web | 0.8417 | 0.5833 | 0.6738 | 158887 |
+| evolved_v2 | 0.8935 | 0.7240 | 0.7833 | 380138 |
+| evolved_v4 | 0.8862 | 0.7552 | 0.8010 | 450061 |
+| evolved_v5 | 0.9492 | 0.8073 | 0.8569 | 354487 |
+
+Aggregate deltas:
+
+| Comparison | Judge delta | Final delta | Token multiplier |
+|---|---:|---:|---:|
+| evolved_v5 vs baseline_web | +0.2240 | +0.1831 | 2.23x |
+| evolved_v5 vs evolved_v2 | +0.0833 | +0.0736 | 0.93x |
+| evolved_v5 vs evolved_v4 | +0.0521 | +0.0559 | 0.79x |
+
+Per-question final-score deltas:
+
+| Question | baseline_web | evolved_v2 | evolved_v4 | evolved_v5 | v5 vs v4 | v5 vs v2 |
+|---|---:|---:|---:|---:|---:|---:|
+| DR-001 | 0.6741 | 0.7912 | 0.8773 | 0.8029 | -0.0744 | +0.0117 |
+| DR-002 | 0.6291 | 0.7710 | 0.5741 | 0.8785 | +0.3044 | +0.1075 |
+| DR-003 | 0.6967 | 0.7542 | 0.8047 | 0.8939 | +0.0892 | +0.1397 |
+| DR-004 | 0.7564 | 0.7158 | 0.8630 | 0.8808 | +0.0178 | +0.1650 |
+| DR-005 | 0.7832 | 0.8258 | 0.8766 | 0.9187 | +0.0421 | +0.0929 |
+| DR-006 | 0.5941 | 0.8000 | 0.8083 | 0.8288 | +0.0205 | +0.0288 |
+| DR-007 | 0.7903 | 0.8226 | 0.8113 | 0.8817 | +0.0704 | +0.0591 |
+| DR-008 | 0.4662 | 0.7857 | 0.7929 | 0.7702 | -0.0227 | -0.0155 |
+
+Citation-contract diagnostics:
+
+| Metric | evolved_v4 | evolved_v5 | Interpretation |
+|---|---:|---:|---|
+| Avg citation support | 0.8750 | 0.9800 | v5 mostly fixes the raw-URL support issue. |
+| Total unsupported claim lines | 12 | 2 | v4's DR-002 failure disappears; only DR-004 and DR-007 have one unsupported line each. |
+| Avg source quality | 0.5746 | 0.7146 | v5 improves the automatic source-quality signal. |
+| Citation contract warnings | n/a | 0/8 traces | No v5 trace contained provider citation markers such as `turn4view0`. |
+| DR-002 citation support | 0.0000 | 1.0000 | The targeted failure mode is fixed. |
+
+What improved:
+
+- `evolved_v5` is now the strongest aggregate candidate: best heuristic, judge,
+  and final averages.
+- It beats `baseline_web` on all 8 questions.
+- It beats `evolved_v4` on 6 of 8 questions and fixes the large DR-002
+  regression.
+- It beats `evolved_v2` on 7 of 8 questions while also using fewer total
+  tokens than v2.
+- It uses about 21% fewer tokens than v4, so the citation-contract fix improved
+  both quality and cost in this run.
+- The v5 acceptance criteria are met at aggregate level: judge and final scores
+  improved over v4, DR-002 improved by more than 0.1, and total tokens stayed
+  well below the 1.05x-v4 guardrail.
+
+Remaining issues:
+
+- DR-001 regressed relative to v4 by 0.0744 final score, although it remains
+  above v2 and baseline_web.
+- DR-008 regressed slightly relative to v4 and v2, though it still strongly
+  beats baseline_web.
+- DR-003 produced `complete_with_parse_warning`: the model output was almost
+  JSON but not valid JSON. The answer was still useful enough for a high judge
+  score, but structured artifacts were not recovered cleanly for that trace.
+- Because DR-003 fell back to raw text, rejected discovery sources appeared in
+  the raw answer text. This is not the same failure as v4's provider citation
+  markers, but it is a trace-robustness issue.
+- Judge feedback still asks for tighter separation between directly supported
+  facts and engineering inferences, especially for recommendations and
+  trade-off claims.
+
+Decision:
+
+Accept `evolved_v5` as the current best genome and the strongest candidate for
+the write-up. The evidence now shows a credible evolution path:
+
+```text
+model-only baseline
+-> web-search baseline
+-> v1 structured workflow
+-> v2 fixed coverage injection
+-> v3 cost tuning that reduced quality
+-> v4 source-quality discipline
+-> v5 citation-contract fix that also reduced cost
+```
+
+Next step:
+
+Before freezing the final submission, add a small robustness improvement to the
+runner: tolerant JSON recovery for model outputs with harmless trailing text or
+extra braces. This targets the DR-003 parse warning without changing the agent
+genome or spending another full live batch.

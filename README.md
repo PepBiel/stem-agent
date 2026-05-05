@@ -137,12 +137,17 @@ configs/evolved_deep_research_agent_v5.yaml  v4 plus raw URL citation contract
 configs/evolved_deep_research_agent.yaml     earlier default candidate kept for history
 ```
 
-Version 5 is a targeted fix after the v4 full batch. v4 produced the best
-aggregate quality, but DR-002 exposed a citation-contract failure: the answer
-used provider/internal citation markers instead of raw URLs, and rejected-source
-artifacts could leak into final trace citations. v5 keeps v4's budget and
-source-quality policy, then requires literal raw URLs on claim lines and filters
-final trace citations to answer/evidence/accepted-source artifacts.
+Version 5 is the current best full-batch candidate. It started as a targeted
+fix after the v4 run: v4 produced the best aggregate quality so far, but DR-002
+exposed a citation-contract failure where the answer used provider/internal
+citation markers instead of raw URLs. v5 keeps v4's source-quality policy,
+requires literal raw URLs on claim lines, and filters final trace citations to
+answer/evidence/accepted-source artifacts. In the full live batch, v5 improved
+both quality and cost relative to v4.
+
+```text
+evolved_v5 full live: heuristic 0.9492, judge 0.8073, final 0.8569, tokens 354487
+```
 
 Run the evolved agent without spending API credits:
 
@@ -208,9 +213,9 @@ well-cited.
 
 Run a full evaluation batch:
 
-`evolved` currently aliases `evolved_v5`, the citation-contract candidate that
-is meant to be smoke-tested against the v4 DR-002 failure before another full
-live batch.
+`evolved` currently aliases `evolved_v5`, the best full-batch candidate so far.
+The raw results are recorded under
+`results/runs/evolved_deep_research_v5/evolved_v5_full_live/`.
 
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
