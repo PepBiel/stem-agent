@@ -1,0 +1,343 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T07:07:16+00:00",
+  "finished_at": "2026-05-05T07:07:26+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\traces\\20260505T070439Z-evolved-live.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.95,
+  "judge_score": 0.625,
+  "final_score": 0.7388,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\traces\\20260505T070439Z-evolved-live.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 0.8,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.95,
+    "failure_tags": [],
+    "runtime_seconds": 64.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "memories",
+            "retrieval"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": false,
+          "matched_terms": [],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "term"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "- **Access failures**: the needed information is not available in the active context, or it is hard to use when buried in the middle of a long prompt. This is a core limitation of standard LLM context handling and shows up as positional bias in long-context retrieval. See `https://arxiv.org/abs/2310.08560` and `https://arxiv.org/abs/2307.03172`. ([arxiv.org](https://arxiv.org/abs/2310.08560))",
+        "- **Retrieval / matching failures**: the system retrieves the wrong memory, or a superficially similar memory that is actually misleading. Empirically, memory-management choices can produce error propagation and misaligned experience replay. See `https://arxiv.org/abs/2505.16067`. ([arxiv.org](https://arxiv.org/abs/2505.16067))",
+        "- **Update / consolidation failures**: the agent keeps obsolete memories, fails to reconcile new information with old memory, or handles contradictions poorly. Recent survey and benchmark work call out continual consolidation, contradiction handling, and reuse of invalid memories as open problems. See `https://arxiv.org/abs/2603.07670` and `https://arxiv.org/abs/2604.20006`. ([arxiv.org](https://arxiv.org/abs/2603.07670))",
+        "- **Corruption / governance failures**: memory can drift semantically during iterative summarization, and sensitive context can leak into long-term storage. See `https://arxiv.org/abs/2603.11768`. ([arxiv.org](https://arxiv.org/abs/2603.11768))",
+        "A compact way to say it is: **LLM agent memory fails when it cannot access the right information, retrieves the wrong information, fails to update or retire old information, or corrupts information while storing it**. That synthesis is grounded in the sources above. ([arxiv.org](https://arxiv.org/abs/2310.08560))"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2307.03172",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2307.03172`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.08560",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.08560`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.08560`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2505.16067",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2505.16067`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.07670",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.07670`",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.07670`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.11768",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.11768`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.20006",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.20006`.",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 14,
+      "unique_citation_count": 14
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 3,
+      "evidence_quality": 4,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 3,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions active context, long prompts, and semantic drift, but does not directly explain context pollution as contamination of current working context by irrelevant or conflicting info."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Clearly states wrong/superficially similar memories and obsolete memories being kept or reused."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 1,
+        "verdict": "missing",
+        "reason": "Does not explicitly identify blindly trusting prior agent outputs or chained self-reinforcement as a failure mode."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "Mentions active context versus long-term storage, but does not discuss the actual trade-off space, such as recency versus persistence, capacity versus retention, or latency versus fidelity."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 2,
+        "verdict": "partial",
+        "reason": "References benchmark/survey work, but does not explain concrete evaluation methods, metrics, or experimental setups for assessing memory quality."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Access failures: the needed information is not available in the active context, or it is hard to use when buried in the middle of a long prompt.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.08560",
+          "https://arxiv.org/abs/2307.03172"
+        ],
+        "reason": "MemGPT and Lost in the Middle plausibly support context-access and positional-bias limitations."
+      },
+      {
+        "claim": "Retrieval / matching failures: the system retrieves the wrong memory, or a superficially similar memory that is actually misleading.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "An empirical study of memory management is a plausible source for retrieval/matching errors and misaligned experience replay."
+      },
+      {
+        "claim": "Update / consolidation failures: the agent keeps obsolete memories, fails to reconcile new information with old memory, or handles contradictions poorly.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.07670",
+          "https://arxiv.org/abs/2604.20006"
+        ],
+        "reason": "A survey and benchmark on autonomous agent memory plausibly support consolidation and invalid-memory reuse issues."
+      },
+      {
+        "claim": "Corruption / governance failures: memory can drift semantically during iterative summarization, and sensitive context can leak into long-term storage.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.11768"
+        ],
+        "reason": "A framework/paper on governing evolving memory plausibly supports drift and leakage risks."
+      },
+      {
+        "claim": "A compact way to say it is: LLM agent memory fails when it cannot access the right information, retrieves the wrong information, fails to update or retire old information, or corrupts information while storing it.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.08560"
+        ],
+        "reason": "This is a synthesis of the prior cited claims and is broadly consistent with the cited sources."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2310.08560",
+        "quality": "strong",
+        "reason": "Relevant agent-memory paper; directly about memory architecture and failure modes."
+      },
+      {
+        "url": "https://arxiv.org/abs/2307.03172",
+        "quality": "strong",
+        "reason": "Core long-context empirical paper; relevant to access/positional bias issues."
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "quality": "strong",
+        "reason": "Empirical study on memory management impacts, relevant to retrieval and error propagation."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.07670",
+        "quality": "strong",
+        "reason": "Survey on agent memory mechanisms and evaluation; relevant to taxonomy and trade-offs."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.11768",
+        "quality": "strong",
+        "reason": "Relevant to memory governance, drift, and safety issues."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.20006",
+        "quality": "strong",
+        "reason": "Benchmarking long-term memory quality is directly relevant to evaluation methods."
+      }
+    ],
+    "failure_tags": [
+      "missing_required_aspect",
+      "incomplete_tradeoff_discussion",
+      "thin_evaluation_methodology"
+    ],
+    "summary": "Solid on general memory failure categories and well-cited, but it misses an explicit over-trusting-prior-outputs failure mode and only weakly addresses the required trade-offs and evaluation methods.",
+    "recommended_fix": "Add a dedicated section naming and explaining each required aspect explicitly, especially blind trust in prior agent outputs, short-term vs long-term memory trade-offs, and concrete memory-evaluation methods/metrics.",
+    "average_score": 3.5,
+    "normalized_score": 0.625
+  },
+  "judge_usage": {
+    "input_tokens": 4547,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1415,
+    "output_tokens_details": {
+      "reasoning_tokens": 86
+    },
+    "total_tokens": 5962
+  },
+  "response_id": "resp_06acf59dc1dc94af0069f9972cdfdc819383740af39edd7c1c"
+}

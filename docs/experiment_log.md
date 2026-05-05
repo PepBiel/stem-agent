@@ -355,3 +355,69 @@ Decision:
 Accept the v1 runner as the first executable evolved agent. The next step is a
 small live smoke run on one question, then a full evolved batch only if the live
 trace shape is correct.
+
+## 2026-05-05: Evolved Runner V1 Live Smoke On DR-001
+
+Hypothesis:
+
+A single live evolved-agent run should prove whether the model can follow the
+validated genome contract in practice. The run should improve semantic quality
+over the web-search baseline on the same question without silently breaking the
+trace contract.
+
+Command:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001
+python -m stem_agent judge-trace \
+  --trace results/traces/20260505T070439Z-evolved-live.json \
+  --question-id DR-001 \
+  --output results/evaluations/20260505-evolved-dr001-smoke-judge.json
+```
+
+Observed artifacts:
+
+```text
+results/traces/20260505T070439Z-evolved-live.json
+results/evaluations/20260505-evolved-dr001-smoke-judge.json
+```
+
+Trace inspection:
+
+- status: `complete`
+- required events: 11/11 present
+- all required event artifacts present
+- web search calls: 7
+- citations: 14
+- decomposition subquestions: 4
+- search queries: 4
+- accepted sources: 6
+- evidence items: 6
+- unsupported claims in citation audit: 0
+- weak citations in citation audit: 0
+
+Results against the previous `baseline_web` DR-001 run:
+
+| Metric | baseline_web DR-001 | evolved_v1 DR-001 | Delta |
+|---|---:|---:|---:|
+| Heuristic score | 0.9200 | 0.9500 | +0.0300 |
+| Judge score | 0.5417 | 0.6250 | +0.0833 |
+| Final score | 0.6741 | 0.7388 | +0.0647 |
+| Combined tokens | 18597 | 40627 | +22030 |
+
+Qualitative observations:
+
+- The evolved runner followed the JSON/artifact contract well enough for a
+  live trace.
+- The model-assisted judge still found missing explicit coverage for
+  over-trusting prior agent outputs, short-term vs long-term memory trade-offs,
+  and concrete memory-evaluation methods.
+- The token multiplier versus baseline_web on DR-001 is about 2.18x, which is
+  above the genome's target budget of 1.8x.
+
+Decision:
+
+Do not run the full evolved batch yet. The live smoke is technically valid and
+shows quality improvement, but the next evolution should tighten the prompt or
+workflow so it explicitly covers required aspects and reduces cost before
+spending a full 8-question batch.

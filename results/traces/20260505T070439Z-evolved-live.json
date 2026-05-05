@@ -1,0 +1,613 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 1,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T07:03:35+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 2
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T07:04:39+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nThe main failure modes of memory in LLM agents are best understood as a pipeline problem, not just \"forgetting\":\n\n- **Access failures**: the needed information is not available in the active context, or it is hard to use when buried in the middle of a long prompt. This is a core limitation of standard LLM context handling and shows up as positional bias in long-context retrieval. See `https://arxiv.org/abs/2310.08560` and `https://arxiv.org/abs/2307.03172`. ([arxiv.org](https://arxiv.org/abs/2310.08560))\n- **Retrieval / matching failures**: the system retrieves the wrong memory, or a superficially similar memory that is actually misleading. Empirically, memory-management choices can produce error propagation and misaligned experience replay. See `https://arxiv.org/abs/2505.16067`. ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- **Update / consolidation failures**: the agent keeps obsolete memories, fails to reconcile new information with old memory, or handles contradictions poorly. Recent survey and benchmark work call out continual consolidation, contradiction handling, and reuse of invalid memories as open problems. See `https://arxiv.org/abs/2603.07670` and `https://arxiv.org/abs/2604.20006`. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- **Corruption / governance failures**: memory can drift semantically during iterative summarization, and sensitive context can leak into long-term storage. See `https://arxiv.org/abs/2603.11768`. ([arxiv.org](https://arxiv.org/abs/2603.11768))\n\nA compact way to say it is: **LLM agent memory fails when it cannot access the right information, retrieves the wrong information, fails to update or retire old information, or corrupts information while storing it**. That synthesis is grounded in the sources above. ([arxiv.org](https://arxiv.org/abs/2310.08560))\n\n## Sources\n- MemGPT: Towards LLMs as Operating Systems — `https://arxiv.org/abs/2310.08560`. ([arxiv.org](https://arxiv.org/abs/2310.08560))\n- Lost in the Middle: How Language Models Use Long Contexts — `https://arxiv.org/abs/2307.03172`. ([arxiv.org](https://arxiv.org/abs/2307.03172))\n- How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior — `https://arxiv.org/abs/2505.16067`. ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers — `https://arxiv.org/abs/2603.07670`. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework — `https://arxiv.org/abs/2603.11768`. ([arxiv.org](https://arxiv.org/abs/2603.11768))\n- From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents — `https://arxiv.org/abs/2604.20006`. ([arxiv.org](https://arxiv.org/abs/2604.20006))\n\n## Limitations\nThis is a synthesis across a small set of recent primary papers, not a standardized taxonomy. The literature does **not** yet use one universal naming scheme for memory failures, and the relative importance of each failure mode depends on the agent design, memory architecture, and benchmark. I also did not find a source that gives a single cross-domain prevalence ranking for these failure modes. ([arxiv.org](https://arxiv.org/abs/2603.07670))",
+  "decomposition": {
+    "subquestions": [
+      "What are the distinct failure modes of memory in LLM agents across the write/manage/read pipeline?",
+      "Which failure modes are about access/retrieval versus update/consolidation versus corruption/governance?",
+      "What primary evidence exists from papers, benchmarks, and surveys?",
+      "What uncertainty remains because the field lacks a single standard taxonomy?"
+    ],
+    "required_aspects": [
+      "Context-window and positional-access limitations",
+      "Retrieval mismatch or misselection of memories",
+      "Stale/invalid memory reuse and failure to reconcile updates",
+      "Error propagation from stored experiences",
+      "Semantic drift / corruption during summarization or consolidation",
+      "Contradiction handling and privacy leakage / knowledge leakage",
+      "Trade-offs and unresolved uncertainty"
+    ],
+    "expected_source_types": [
+      "Primary research papers",
+      "Benchmarks / evaluation papers",
+      "Surveys or taxonomies",
+      "Foundational agent-memory systems papers"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:arxiv.org LLM agent memory failure modes retrieval drift privacy benchmark",
+      "site:arxiv.org long-term memory agents invalid memories evolving memory benchmark",
+      "site:arxiv.org memory management impacts LLM agents error propagation misaligned replay",
+      "site:arxiv.org lost in the middle language models long contexts positional bias"
+    ],
+    "rationale_per_query": [
+      "Find survey or taxonomy papers that name memory-specific failure modes in agent systems.",
+      "Find benchmark papers that directly measure recall, forgetting, and update failures in persistent agent memory.",
+      "Find empirical studies of memory management that expose concrete degradation mechanisms such as error propagation and stale replay.",
+      "Find primary evidence for access failure in long contexts, including positional bias and inability to use information buried in the middle."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "url": "https://arxiv.org/abs/2310.08560",
+      "source_type": "primary paper"
+    },
+    {
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172",
+      "source_type": "primary paper"
+    },
+    {
+      "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "primary empirical paper"
+    },
+    {
+      "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+      "url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey"
+    },
+    {
+      "title": "Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework",
+      "url": "https://arxiv.org/abs/2603.11768",
+      "source_type": "primary framework paper"
+    },
+    {
+      "title": "From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents",
+      "url": "https://arxiv.org/abs/2604.20006",
+      "source_type": "benchmark paper"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "MemGPT: Towards LLMs as Operating Systems",
+        "url": "https://arxiv.org/abs/2310.08560",
+        "source_type": "primary paper"
+      },
+      {
+        "title": "Lost in the Middle: How Language Models Use Long Contexts",
+        "url": "https://arxiv.org/abs/2307.03172",
+        "source_type": "primary paper"
+      },
+      {
+        "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+        "url": "https://arxiv.org/abs/2505.16067",
+        "source_type": "primary empirical paper"
+      },
+      {
+        "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+        "url": "https://arxiv.org/abs/2603.07670",
+        "source_type": "survey"
+      },
+      {
+        "title": "Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework",
+        "url": "https://arxiv.org/abs/2603.11768",
+        "source_type": "primary framework paper"
+      },
+      {
+        "title": "From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents",
+        "url": "https://arxiv.org/abs/2604.20006",
+        "source_type": "benchmark paper"
+      }
+    ],
+    "rejected_sources": [],
+    "rejection_reasons": []
+  },
+  "evidence_table": [
+    {
+      "claim": "LLM agents fail when relevant information falls outside the active context window; MemGPT frames this as a core limitation of standard LLMs and motivates hierarchical memory tiers to extend usable context.",
+      "source_url": "https://arxiv.org/abs/2310.08560",
+      "source_type": "primary paper",
+      "supported_aspect": "context-window limitation / access failure",
+      "confidence": "high"
+    },
+    {
+      "claim": "Long-context models show positional bias: performance is highest when relevant information is at the beginning or end of the prompt and degrades when it is in the middle.",
+      "source_url": "https://arxiv.org/abs/2307.03172",
+      "source_type": "primary paper",
+      "supported_aspect": "positional access failure",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memory management can cause error propagation and misaligned experience replay: retrieved memories that are similar to the current input can push the agent toward repeating past mistakes or using irrelevant past experiences.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "primary empirical paper",
+      "supported_aspect": "retrieval mismatch / compounding errors",
+      "confidence": "high"
+    },
+    {
+      "claim": "Recent surveys identify write-path filtering, contradiction handling, continual consolidation, learned forgetting, and privacy governance as key open engineering problems in agent memory.",
+      "source_url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey",
+      "supported_aspect": "update / consolidation / governance failures",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memory systems can suffer semantic drift during iterative summarization and can leak sensitive context into long-term storage; the SSGM paper explicitly highlights knowledge leakage, semantic drift, and privacy vulnerabilities.",
+      "source_url": "https://arxiv.org/abs/2603.11768",
+      "source_type": "primary framework paper",
+      "supported_aspect": "corruption / semantic drift / privacy leakage",
+      "confidence": "high"
+    },
+    {
+      "claim": "Benchmarking across long-term personalized-agent tasks shows frequent reuse of invalid memories and failure to reconcile evolving memories.",
+      "source_url": "https://arxiv.org/abs/2604.20006",
+      "source_type": "benchmark paper",
+      "supported_aspect": "stale memory / update failure",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "Context-window and positional-access limitations",
+      "Retrieval mismatch and misselection",
+      "Error propagation from stored experiences",
+      "Stale/invalid memory reuse",
+      "Failure to reconcile evolving memories",
+      "Semantic drift during consolidation",
+      "Contradiction handling",
+      "Privacy leakage / knowledge leakage"
+    ],
+    "missing_aspects": [
+      "A universally accepted taxonomy with standardized names",
+      "Quantitative prevalence of each failure mode across all agent classes"
+    ],
+    "followup_needed": [
+      "If you want a domain-specific breakdown, add benchmarks for coding agents, embodied agents, or multi-agent systems.",
+      "If you want prevalence estimates, search for comparative benchmark tables across multiple memory agents."
+    ]
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "The sources are complementary rather than contradictory. They describe different layers of the memory pipeline: access/positioning, retrieval/matching, update/consolidation, and governance/corruption. The answer synthesizes them into one layered taxonomy.",
+    "uncertainty_notes": [
+      "The field does not yet have one canonical definition of 'memory failure mode' in LLM agents.",
+      "Some papers emphasize retrieval efficiency, while newer work emphasizes corruption, drift, and privacy risks; the apparent disagreement is mostly about emphasis, not substance."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Context-window limits and positional bias are real failure modes.",
+      "Memory retrieval can amplify stale or irrelevant experiences.",
+      "Invalid memories and evolving facts are often not reconciled correctly.",
+      "Semantic drift and privacy leakage are recognized risks.",
+      "Contradiction handling and forgetting are open engineering challenges."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T07:04:39+00:00",
+  "citations": [
+    {
+      "end_index": 9699,
+      "start_index": 9652,
+      "title": "[2310.08560] MemGPT: Towards LLMs as Operating Systems",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.08560"
+    },
+    {
+      "end_index": 10030,
+      "start_index": 9983,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 10457,
+      "start_index": 10410,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 10703,
+      "start_index": 10656,
+      "title": "[2603.11768] Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.11768"
+    },
+    {
+      "end_index": 11313,
+      "start_index": 11266,
+      "title": "[2307.03172] Lost in the Middle: How Language Models Use Long Contexts",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2307.03172"
+    },
+    {
+      "end_index": 12047,
+      "start_index": 12000,
+      "title": "[2604.20006] From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.20006"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2307.03172`.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.08560`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.08560`.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067`.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670`.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.11768`.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.20006`.",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0c79a890c7af6f1a0069f99652854481949d7c7f497fb3066f",
+      "action": {
+        "query": "LLM agent memory failure modes paper memory hallucination forgetting retrieval drift agentic memory",
+        "type": "search",
+        "queries": [
+          "LLM agent memory failure modes paper memory hallucination forgetting retrieval drift agentic memory",
+          "LLM agents memory survey failure modes long-term memory paper",
+          "MemGPT paper memory failure modes retrieval context window arxiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.08560"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.11768"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20006"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.09491"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.00200"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.15071"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.11707"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f996551ff08194a4bcc5063852b393",
+      "action": {
+        "query": "site:arxiv.org LLM memory agent survey contradiction handling forgetting retrieval drift privacy memory corruption",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org LLM memory agent survey contradiction handling forgetting retrieval drift privacy memory corruption",
+          "site:arxiv.org long-term memory agents benchmark forgetting retrieval invalid memories inconsistency",
+          "site:arxiv.org memory agents reflection summarization drift hallucination long-term memory"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.20006"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.11768"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.15071"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2305.14795"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.12883"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.01869"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/1610.08602"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f9965b90e0819481c9b3a6a2698519",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2310.08560"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f9965d2f08819491c7d5f32262c0ed",
+      "action": {
+        "query": "arxiv lost in the middle language models long context retrieval paper",
+        "type": "search",
+        "queries": [
+          "arxiv lost in the middle language models long context retrieval paper",
+          "arxiv long context retrieval failure middle of context window paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2307.03172"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2307.03172"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2307.03172"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.10079"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2403.04797"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2406.16008"
+          },
+          {
+            "type": "url",
+            "url": "https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00638/119630/Lost-in-the-Middle-How-Language-Models-Use-Long"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2307-03172"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2311.09198"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/06/27/lost-in-the-middle-language-models-long-contexts"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/378284067_Lost_in_the_Middle_How_Language_Models_Use_Long_Contexts"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.09494"
+          },
+          {
+            "type": "url",
+            "url": "https://weaviate.io/papers/paper-2"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2307.03172"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f9965ed35c8194858a231064a33f17",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f9965fb040819493a792d23c75730f",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2307.03172"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0c79a890c7af6f1a0069f99660e970819488035186bbe85e8b",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2603.11768"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 26454,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 8211,
+    "output_tokens_details": {
+      "reasoning_tokens": 5263
+    },
+    "total_tokens": 34665
+  },
+  "response_id": "resp_0c79a890c7af6f1a0069f99650e25481949726e0959f51c25d",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What are the distinct failure modes of memory in LLM agents across the write/manage/read pipeline?\",\n      \"Which failure modes are about access/retrieval versus update/consolidation versus corruption/governance?\",\n      \"What primary evidence exists from papers, benchmarks, and surveys?\",\n      \"What uncertainty remains because the field lacks a single standard taxonomy?\"\n    ],\n    \"required_aspects\": [\n      \"Context-window and positional-access limitations\",\n      \"Retrieval mismatch or misselection of memories\",\n      \"Stale/invalid memory reuse and failure to reconcile updates\",\n      \"Error propagation from stored experiences\",\n      \"Semantic drift / corruption during summarization or consolidation\",\n      \"Contradiction handling and privacy leakage / knowledge leakage\",\n      \"Trade-offs and unresolved uncertainty\"\n    ],\n    \"expected_source_types\": [\n      \"Primary research papers\",\n      \"Benchmarks / evaluation papers\",\n      \"Surveys or taxonomies\",\n      \"Foundational agent-memory systems papers\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"site:arxiv.org LLM agent memory failure modes retrieval drift privacy benchmark\",\n      \"site:arxiv.org long-term memory agents invalid memories evolving memory benchmark\",\n      \"site:arxiv.org memory management impacts LLM agents error propagation misaligned replay\",\n      \"site:arxiv.org lost in the middle language models long contexts positional bias\"\n    ],\n    \"rationale_per_query\": [\n      \"Find survey or taxonomy papers that name memory-specific failure modes in agent systems.\",\n      \"Find benchmark papers that directly measure recall, forgetting, and update failures in persistent agent memory.\",\n      \"Find empirical studies of memory management that expose concrete degradation mechanisms such as error propagation and stale replay.\",\n      \"Find primary evidence for access failure in long contexts, including positional bias and inability to use information buried in the middle.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"MemGPT: Towards LLMs as Operating Systems\",\n      \"url\": \"https://arxiv.org/abs/2310.08560\",\n      \"source_type\": \"primary paper\"\n    },\n    {\n      \"title\": \"Lost in the Middle: How Language Models Use Long Contexts\",\n      \"url\": \"https://arxiv.org/abs/2307.03172\",\n      \"source_type\": \"primary paper\"\n    },\n    {\n      \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n      \"url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"primary empirical paper\"\n    },\n    {\n      \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n      \"url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey\"\n    },\n    {\n      \"title\": \"Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework\",\n      \"url\": \"https://arxiv.org/abs/2603.11768\",\n      \"source_type\": \"primary framework paper\"\n    },\n    {\n      \"title\": \"From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents\",\n      \"url\": \"https://arxiv.org/abs/2604.20006\",\n      \"source_type\": \"benchmark paper\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"MemGPT: Towards LLMs as Operating Systems\",\n        \"url\": \"https://arxiv.org/abs/2310.08560\",\n        \"source_type\": \"primary paper\"\n      },\n      {\n        \"title\": \"Lost in the Middle: How Language Models Use Long Contexts\",\n        \"url\": \"https://arxiv.org/abs/2307.03172\",\n        \"source_type\": \"primary paper\"\n      },\n      {\n        \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n        \"url\": \"https://arxiv.org/abs/2505.16067\",\n        \"source_type\": \"primary empirical paper\"\n      },\n      {\n        \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n        \"url\": \"https://arxiv.org/abs/2603.07670\",\n        \"source_type\": \"survey\"\n      },\n      {\n        \"title\": \"Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework\",\n        \"url\": \"https://arxiv.org/abs/2603.11768\",\n        \"source_type\": \"primary framework paper\"\n      },\n      {\n        \"title\": \"From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents\",\n        \"url\": \"https://arxiv.org/abs/2604.20006\",\n        \"source_type\": \"benchmark paper\"\n      }\n    ],\n    \"rejected_sources\": [],\n    \"rejection_reasons\": []\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"LLM agents fail when relevant information falls outside the active context window; MemGPT frames this as a core limitation of standard LLMs and motivates hierarchical memory tiers to extend usable context.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.08560\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"context-window limitation / access failure\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Long-context models show positional bias: performance is highest when relevant information is at the beginning or end of the prompt and degrades when it is in the middle.\",\n      \"source_url\": \"https://arxiv.org/abs/2307.03172\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"positional access failure\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Memory management can cause error propagation and misaligned experience replay: retrieved memories that are similar to the current input can push the agent toward repeating past mistakes or using irrelevant past experiences.\",\n      \"source_url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"primary empirical paper\",\n      \"supported_aspect\": \"retrieval mismatch / compounding errors\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Recent surveys identify write-path filtering, contradiction handling, continual consolidation, learned forgetting, and privacy governance as key open engineering problems in agent memory.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"update / consolidation / governance failures\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Memory systems can suffer semantic drift during iterative summarization and can leak sensitive context into long-term storage; the SSGM paper explicitly highlights knowledge leakage, semantic drift, and privacy vulnerabilities.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.11768\",\n      \"source_type\": \"primary framework paper\",\n      \"supported_aspect\": \"corruption / semantic drift / privacy leakage\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Benchmarking across long-term personalized-agent tasks shows frequent reuse of invalid memories and failure to reconcile evolving memories.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.20006\",\n      \"source_type\": \"benchmark paper\",\n      \"supported_aspect\": \"stale memory / update failure\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"Context-window and positional-access limitations\",\n      \"Retrieval mismatch and misselection\",\n      \"Error propagation from stored experiences\",\n      \"Stale/invalid memory reuse\",\n      \"Failure to reconcile evolving memories\",\n      \"Semantic drift during consolidation\",\n      \"Contradiction handling\",\n      \"Privacy leakage / knowledge leakage\"\n    ],\n    \"missing_aspects\": [\n      \"A universally accepted taxonomy with standardized names\",\n      \"Quantitative prevalence of each failure mode across all agent classes\"\n    ],\n    \"followup_needed\": [\n      \"If you want a domain-specific breakdown, add benchmarks for coding agents, embodied agents, or multi-agent systems.\",\n      \"If you want prevalence estimates, search for comparative benchmark tables across multiple memory agents.\"\n    ]\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"The sources are complementary rather than contradictory. They describe different layers of the memory pipeline: access/positioning, retrieval/matching, update/consolidation, and governance/corruption. The answer synthesizes them into one layered taxonomy.\",\n    \"uncertainty_notes\": [\n      \"The field does not yet have one canonical definition of 'memory failure mode' in LLM agents.\",\n      \"Some papers emphasize retrieval efficiency, while newer work emphasizes corruption, drift, and privacy risks; the apparent disagreement is mostly about emphasis, not substance.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Context-window limits and positional bias are real failure modes.\",\n      \"Memory retrieval can amplify stale or irrelevant experiences.\",\n      \"Invalid memories and evolving facts are often not reconciled correctly.\",\n      \"Semantic drift and privacy leakage are recognized risks.\",\n      \"Contradiction handling and forgetting are open engineering challenges.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nThe main failure modes of memory in LLM agents are best understood as a pipeline problem, not just \\\"forgetting\\\":\\n\\n- **Access failures**: the needed information is not available in the active context, or it is hard to use when buried in the middle of a long prompt. This is a core limitation of standard LLM context handling and shows up as positional bias in long-context retrieval. See `https://arxiv.org/abs/2310.08560` and `https://arxiv.org/abs/2307.03172`. ([arxiv.org](https://arxiv.org/abs/2310.08560))\\n- **Retrieval / matching failures**: the system retrieves the wrong memory, or a superficially similar memory that is actually misleading. Empirically, memory-management choices can produce error propagation and misaligned experience replay. See `https://arxiv.org/abs/2505.16067`. ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- **Update / consolidation failures**: the agent keeps obsolete memories, fails to reconcile new information with old memory, or handles contradictions poorly. Recent survey and benchmark work call out continual consolidation, contradiction handling, and reuse of invalid memories as open problems. See `https://arxiv.org/abs/2603.07670` and `https://arxiv.org/abs/2604.20006`. ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n- **Corruption / governance failures**: memory can drift semantically during iterative summarization, and sensitive context can leak into long-term storage. See `https://arxiv.org/abs/2603.11768`. ([arxiv.org](https://arxiv.org/abs/2603.11768))\\n\\nA compact way to say it is: **LLM agent memory fails when it cannot access the right information, retrieves the wrong information, fails to update or retire old information, or corrupts information while storing it**. That synthesis is grounded in the sources above. ([arxiv.org](https://arxiv.org/abs/2310.08560))\\n\\n## Sources\\n- MemGPT: Towards LLMs as Operating Systems — `https://arxiv.org/abs/2310.08560`. ([arxiv.org](https://arxiv.org/abs/2310.08560))\\n- Lost in the Middle: How Language Models Use Long Contexts — `https://arxiv.org/abs/2307.03172`. ([arxiv.org](https://arxiv.org/abs/2307.03172))\\n- How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior — `https://arxiv.org/abs/2505.16067`. ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers — `https://arxiv.org/abs/2603.07670`. ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n- Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework — `https://arxiv.org/abs/2603.11768`. ([arxiv.org](https://arxiv.org/abs/2603.11768))\\n- From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents — `https://arxiv.org/abs/2604.20006`. ([arxiv.org](https://arxiv.org/abs/2604.20006))\\n\\n## Limitations\\nThis is a synthesis across a small set of recent primary papers, not a standardized taxonomy. The literature does **not** yet use one universal naming scheme for memory failures, and the relative importance of each failure mode depends on the agent design, memory architecture, and benchmark. I also did not find a source that gives a single cross-domain prevalence ranking for these failure modes. ([arxiv.org](https://arxiv.org/abs/2603.07670))\"\n}",
+  "status": "complete"
+}
