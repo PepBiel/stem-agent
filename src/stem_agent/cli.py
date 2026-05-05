@@ -47,7 +47,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     genome_parser.add_argument(
         "--genome",
-        default="configs/evolved_deep_research_agent.yaml",
+        default="configs/evolved_deep_research_agent_v4.yaml",
         help="Path to the candidate agent genome.",
     )
     genome_parser.add_argument(
@@ -100,7 +100,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     evolved_parser.add_argument(
         "--genome",
-        default="configs/evolved_deep_research_agent.yaml",
+        default="configs/evolved_deep_research_agent_v4.yaml",
         help="Path to the evolved agent genome.",
     )
     evolved_parser.add_argument(
@@ -198,9 +198,11 @@ def build_parser() -> argparse.ArgumentParser:
             "evolved_deep_research_v1",
             "evolved_deep_research_v2",
             "evolved_deep_research_v3",
+            "evolved_deep_research_v4",
             "evolved_v1",
             "evolved_v2",
             "evolved_v3",
+            "evolved_v4",
             "evolved",
         ],
         help=(
@@ -267,6 +269,7 @@ def print_status() -> None:
         "configs/evolved_deep_research_agent_v1.yaml",
         "configs/evolved_deep_research_agent_v2.yaml",
         "configs/evolved_deep_research_agent_v3.yaml",
+        "configs/evolved_deep_research_agent_v4.yaml",
         "configs/genome_schema.yaml",
         "docs",
         "docs/evaluation_plan.md",

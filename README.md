@@ -120,7 +120,7 @@ python -m stem_agent eval-info
 python -m stem_agent validate-genome
 ```
 
-`validate-genome` checks `configs/evolved_deep_research_agent.yaml` against
+`validate-genome` checks `configs/evolved_deep_research_agent_v4.yaml` against
 `configs/genome_schema.yaml`. This is the contract that keeps specialization
 controlled: the evolved agent can change workflow and prompts, but it must stay
 inside fixed tool, budget, trace, and evaluation boundaries.
@@ -132,8 +132,15 @@ compare the specialization path without rewriting history:
 configs/evolved_deep_research_agent_v1.yaml  inferred coverage, original budget
 configs/evolved_deep_research_agent_v2.yaml  fixed coverage injection, original budget
 configs/evolved_deep_research_agent_v3.yaml  fixed coverage injection, tuned budget
-configs/evolved_deep_research_agent.yaml     current default candidate
+configs/evolved_deep_research_agent_v4.yaml  v2 budget plus source quality discipline
+configs/evolved_deep_research_agent.yaml     earlier default candidate kept for history
 ```
+
+Version 4 is based on the full-batch v2 results: v2 produced the best quality
+score, but the judge repeatedly flagged weak sources, broad citations, and
+claims that were only indirectly supported. v4 therefore keeps v2's budget and
+coverage injection, then adds explicit rules for authority ranking, weak-source
+rejection, direct claim support, and inference labeling.
 
 Run the evolved agent without spending API credits:
 
@@ -142,6 +149,7 @@ python -m stem_agent run-evolved --question-id DR-001 --dry-run
 python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v1.yaml --dry-run
 python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v2.yaml --dry-run
 python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v3.yaml --dry-run
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v4.yaml --dry-run
 ```
 
 The evolved runner validates the genome before execution and writes trace
@@ -197,6 +205,9 @@ well-cited.
 
 Run a full evaluation batch:
 
+`evolved` currently aliases `evolved_v4`, the source-quality candidate that is
+meant to be compared against the previous best full-batch genome, `evolved_v2`.
+
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
 python -m stem_agent run-eval-batch --agent baseline_web --dry-run
@@ -204,6 +215,7 @@ python -m stem_agent run-eval-batch --agent evolved --dry-run
 python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_dry_run --dry-run
 python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_dry_run --dry-run
 python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_dry_run --dry-run
+python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_dry_run --dry-run
 ```
 
 Live batches require explicit confirmation because they make model calls for
@@ -216,6 +228,7 @@ python -m stem_agent run-eval-batch --agent evolved --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_full_live --confirm-live
+python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
 ```
 
 `baseline_no_web` makes one answer call per question plus one judge call per

@@ -72,6 +72,7 @@ def build_evolved_prompt_with_context(
 ) -> str:
     limits = mapping(genome.get("limits"))
     workflow = string_list(genome.get("workflow"))
+    source_policy_block = build_source_quality_policy_block(genome)
     requirements_block = ""
     if required_aspects or source_expectations:
         aspects_text = json.dumps(required_aspects, indent=2)
@@ -115,6 +116,8 @@ Coverage rules:
       "source_url": "",
       "source_type": "",
       "supported_aspect": "",
+      "support_directness": "direct|indirect|inference",
+      "source_authority": "primary|official|benchmark|repository|secondary|weak",
       "confidence": "low|medium|high"
     }
   ],
@@ -156,6 +159,7 @@ Operational limits:
 - Mention uncertainty when evidence is incomplete or conflicting.
 
 {requirements_block}
+{source_policy_block}
 
 Return valid JSON only. The `answer` field must be Markdown and must include
 exactly these sections: Answer, Sources, Limitations. Important answer claims
@@ -166,6 +170,45 @@ JSON contract:
 
 Question:
 {question}
+"""
+
+
+def build_source_quality_policy_block(genome: dict[str, Any]) -> str:
+    if genome_version(genome) < 4:
+        return ""
+
+    policy = mapping(genome.get("source_quality_policy"))
+    authority_order = string_list(policy.get("authority_order"))
+    discouraged_sources = string_list(policy.get("discouraged_sources"))
+    require_direct_support_for = string_list(policy.get("require_direct_support_for"))
+    minimum_authoritative_sources = policy.get("minimum_authoritative_sources", 0)
+
+    return f"""
+Source quality discipline:
+- Treat source quality as a first-class objective. v2 already improved coverage;
+  this run must reduce weak, indirect, or decorative citations.
+- Authority order:
+{json.dumps(authority_order, indent=2)}
+- Discouraged sources:
+{json.dumps(discouraged_sources, indent=2)}
+- Do not cite discouraged sources unless the question explicitly requires them
+  or no authoritative source exists. If one is used, label it as weak in
+  `citation_audit.weak_citations` and explain why it was unavoidable.
+- Use aggregators, forums, or generic blogs only as discovery leads; replace
+  them with papers, official docs, benchmarks, repositories, or framework docs
+  before synthesis.
+- Aim for at least {minimum_authoritative_sources} accepted authoritative
+  sources when the search budget allows it.
+- Claims that require direct source support:
+{json.dumps(require_direct_support_for, indent=2)}
+- For every evidence item, fill `support_directness` and `source_authority`.
+  Use `confidence: high` only when the cited source directly supports the
+  claim, not when the claim is an engineering inference.
+- In the final Answer, separate direct source-backed facts from engineering
+  inferences. Phrase inferred recommendations as recommendations, not facts.
+- In `citation_audit.weak_citations`, include broad citations, irrelevant
+  sources, weak domains, and claims where the cited source only loosely supports
+  the statement.
 """
 
 
@@ -415,6 +458,7 @@ def run_evolved(
         "workflow": genome.get("workflow", []),
         "tools_allowed": string_list(mapping(genome.get("tools")).get("allowed")),
         "limits": genome.get("limits", {}),
+        "source_quality_policy": genome.get("source_quality_policy", {}),
         "evaluation_requirements": {
             "required_aspects": required_aspects,
             "source_expectations": source_expectations,

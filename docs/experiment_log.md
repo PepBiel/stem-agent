@@ -552,3 +552,83 @@ comparison. The batch runner exposes `evolved_v1`, `evolved_v2`, and
 `evolved_v3` aliases. Each variant has its own `agent.type`, so full live
 results are stored under separate `results/runs/evolved_deep_research_v*/`
 folders.
+
+## 2026-05-05: Evolved Genome V4 Source Quality Discipline
+
+Hypothesis:
+
+The full 8-question results show that `evolved_v2` is the best quality
+candidate so far, not `v3`. It achieved:
+
+| Variant | Heuristic | Judge | Final | Combined tokens |
+|---|---:|---:|---:|---:|
+| baseline_web | 0.8417 | 0.5833 | 0.6738 | 158887 |
+| evolved_v2 | 0.8935 | 0.7240 | 0.7833 | 380138 |
+| evolved_v3 | 0.8164 | 0.6146 | 0.6852 | 193890 |
+
+This means the next evolution should not primarily optimize cost. The right
+move is to start from `v2`, keep its coverage-injected workflow and budget, and
+target the error pattern that remains after `v2`: source quality and citation
+discipline.
+
+Evidence from `evolved_v2` judge summaries:
+
+- DR-001: one summary claim was not directly supported.
+- DR-002: specific tool-use and failure-mode claims were weakly grounded or
+  partly inferential.
+- DR-003: evidence quality was reduced by weaker or peripheral sources.
+- DR-004: the judge explicitly recommended removing Wikipedia/Reddit and
+  tightening source support.
+- DR-005: the answer included unnecessary low-quality sources.
+- DR-006: the judge recommended replacing weak blog/Reddit-style references.
+- DR-007: the answer relied on weak or non-authoritative sources and slightly
+  overstated what documentation proved.
+- DR-008: several citations were broad or only loosely connected to the
+  implementation-level claims.
+
+Changes:
+
+- add `configs/evolved_deep_research_agent_v4.yaml`
+- add `evolved_v4` and `evolved_deep_research_v4` batch aliases
+- make the default `evolved` batch alias point to `evolved_deep_research_v4`
+- make `validate-genome` and `run-evolved` default to the v4 genome
+- keep v4's budget close to v2:
+  - 4 search queries
+  - 6 accepted sources
+  - medium reasoning
+  - 5 model calls maximum
+- add a `source_quality_policy` genome section with:
+  - authority order for source triage
+  - discouraged sources such as Reddit, Wikipedia, paper aggregators, and
+    generic SEO-style posts
+  - a minimum target of 4 authoritative accepted sources when budget allows it
+  - direct-support requirements for failure modes, architecture comparisons,
+    evaluation metrics, cost/latency/recovery claims, and engineering
+    recommendations
+- update the evolved runtime prompt for `genome.version >= 4` so the model must:
+  - reject weak sources when authoritative replacements exist
+  - use weak sources only as discovery leads unless unavoidable
+  - label engineering inferences separately from directly sourced facts
+  - fill `support_directness` and `source_authority` in the evidence table
+  - flag broad, weak, or indirect citations in `citation_audit.weak_citations`
+
+Decision:
+
+Accept v4 as the next candidate to test, but not yet as the final best genome.
+The comparison target for v4 is `evolved_v2`, not `v3`, because v2 currently
+has the strongest accuracy signal. v4 should be accepted only if it preserves
+or improves v2's judge/final score while improving source quality or reducing
+weak citation failures without increasing token usage by more than about 10%.
+
+Validation and smoke commands:
+
+```bash
+python -m stem_agent validate-genome --genome configs/evolved_deep_research_agent_v4.yaml
+python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_dry_run --dry-run
+```
+
+Full live batch command, if budget allows:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
+```
