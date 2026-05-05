@@ -421,3 +421,84 @@ Do not run the full evolved batch yet. The live smoke is technically valid and
 shows quality improvement, but the next evolution should tighten the prompt or
 workflow so it explicitly covers required aspects and reduces cost before
 spending a full 8-question batch.
+
+## 2026-05-05: Evolved Genome V3 Coverage And Budget Tuning
+
+Hypothesis:
+
+The DR-001 smoke showed that evolved v1 improved quality but missed explicit
+required aspects and exceeded the target token budget. Injecting the fixed
+`must_cover` aspects into the evolved prompt and lowering the search/source
+budget should improve judge score while keeping combined tokens under the
+genome target of 1.8x `baseline_web`.
+
+Changes:
+
+- pass `evals/questions.json` metadata into `run-evolved` and evolved batch
+  runs when a question ID is known
+- record `evaluation_requirements.required_aspects` and
+  `source_expectations` in evolved traces
+- require each fixed aspect to appear in `decomposition.required_aspects`,
+  `coverage_audit`, and the final answer's Required aspect coverage subsection
+- tune `configs/evolved_deep_research_agent.yaml` to genome version 3
+- lower `reasoning_effort` from `medium` to `low`
+- lower `max_search_queries` from 4 to 2
+- lower `max_sources` from 6 to 4
+
+Commands:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001
+python -m stem_agent score-trace \
+  --trace results/traces/20260505T074337Z-evolved-live.json \
+  --question-id DR-001
+python -m stem_agent judge-trace \
+  --trace results/traces/20260505T074337Z-evolved-live.json \
+  --question-id DR-001 \
+  --output results/evaluations/20260505-evolved-v3-dr001-smoke-judge.json
+```
+
+Intermediate result:
+
+Genome version 2 improved explicit coverage but was rejected before judge
+evaluation because the agent alone used 47339 tokens, worse than evolved v1.
+Its trace is stored at:
+
+```text
+results/traces/20260505T073135Z-evolved-live.json
+```
+
+Version 3 result on DR-001:
+
+```text
+trace: results/traces/20260505T074337Z-evolved-live.json
+judge: results/evaluations/20260505-evolved-v3-dr001-smoke-judge.json
+```
+
+| Metric | baseline_web DR-001 | evolved_v1 DR-001 | evolved_v3 DR-001 |
+|---|---:|---:|---:|
+| Heuristic score | 0.9200 | 0.9500 | 1.0000 |
+| Judge score | 0.5417 | 0.6250 | 0.7083 |
+| Final score | 0.6741 | 0.7388 | 0.8104 |
+| Agent tokens | 13557 | 34665 | 24835 |
+| Judge tokens | 5040 | 5962 | 4204 |
+| Combined tokens | 18597 | 40627 | 29039 |
+
+Trace inspection:
+
+- genome version: 3
+- web search calls: 4
+- citations: 4
+- evidence items: 6
+- missing required aspects: 0
+- unsupported claims in citation audit: 0
+- weak citations in citation audit: 2
+
+Decision:
+
+Accept genome v3 as the current candidate for a broader evaluation smoke. It
+beats the web baseline on DR-001, improves over evolved v1, and its combined
+token multiplier versus `baseline_web` is about 1.56x, which is within the
+target budget. Do not run the full 8-question live batch yet; first run a
+2-question live batch to check whether the gain generalizes beyond memory
+questions.

@@ -55,9 +55,25 @@ EVENT_ARTIFACTS = {
 
 
 def build_evolved_prompt(question: str, genome: dict[str, Any]) -> str:
+    return build_evolved_prompt_with_context(
+        question=question,
+        genome=genome,
+        required_aspects=[],
+        source_expectations=[],
+    )
+
+
+def build_evolved_prompt_with_context(
+    *,
+    question: str,
+    genome: dict[str, Any],
+    required_aspects: list[str],
+    source_expectations: list[str],
+) -> str:
     limits = mapping(genome.get("limits"))
     workflow = string_list(genome.get("workflow"))
-    roles = prompt_role_summary(genome)
+    aspects_text = json.dumps(required_aspects, indent=2)
+    source_expectations_text = json.dumps(source_expectations, indent=2)
 
     json_contract = """{
   "decomposition": {
@@ -104,22 +120,37 @@ def build_evolved_prompt(question: str, genome: dict[str, Any]) -> str:
 
     return f"""You are executing the evolved_deep_research_v1 genome.
 
-This is a controlled evaluation run. Follow the workflow explicitly, but return
-only one JSON object matching the required contract.
+This is a controlled evaluation run. Return only one JSON object matching the
+contract. Be concise: the goal is coverage with evidence, not a long survey.
 
 Workflow:
 {json.dumps(workflow, indent=2)}
 
-Role objectives:
-{roles}
-
 Operational limits:
 - Use at most {limits.get("max_search_queries", 4)} focused search queries.
 - Use at most {limits.get("max_sources", 6)} accepted sources.
+- Stop searching once the required aspects are covered by credible sources.
+- Do not perform broad exploratory searches.
+- Keep the final answer under 900 words.
 - Prefer primary papers, official docs, benchmarks, and repositories.
 - Reject weak or irrelevant sources with a reason.
 - Do not make source-free key claims.
 - Mention uncertainty when evidence is incomplete or conflicting.
+
+Fixed evaluation requirements:
+- Required aspects to cover exactly:
+{aspects_text}
+- Expected source types:
+{source_expectations_text}
+
+Coverage rules:
+- Copy every required aspect into `decomposition.required_aspects`.
+- In `coverage_audit`, mark each required aspect as covered or missing.
+- In the Answer section, include a compact "Required aspect coverage" subsection
+  with one bullet for every required aspect.
+- Every bullet in "Required aspect coverage" must include an inline URL.
+- If an aspect lacks evidence, do not hide it. Put it in
+  `coverage_audit.missing_aspects` and mention it in Limitations.
 
 Return valid JSON only. The `answer` field must be Markdown and must include
 exactly these sections: Answer, Sources, Limitations. Important answer claims
@@ -144,15 +175,21 @@ def prompt_role_summary(genome: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def build_dry_run_artifacts(question: str) -> dict[str, Any]:
+def build_dry_run_artifacts(
+    question: str,
+    required_aspects: list[str],
+    source_expectations: list[str],
+) -> dict[str, Any]:
+    aspects = required_aspects or ["dry-run coverage placeholder"]
+    expected_sources = source_expectations or ["papers", "official docs"]
     return {
         "decomposition": {
             "subquestions": [
                 "What does the question require?",
                 "Which aspects must be sourced?",
             ],
-            "required_aspects": ["dry-run coverage placeholder"],
-            "expected_source_types": ["papers", "official docs"],
+            "required_aspects": aspects,
+            "expected_source_types": expected_sources,
         },
         "search_plan": {
             "queries": ["dry run query"],
@@ -167,7 +204,7 @@ def build_dry_run_artifacts(question: str) -> dict[str, Any]:
         "evidence_table": [],
         "coverage_audit": {
             "covered_aspects": [],
-            "missing_aspects": ["live evidence not collected in dry-run"],
+            "missing_aspects": aspects,
             "followup_needed": ["Run without --dry-run for real research."],
         },
         "contradiction_audit": {
@@ -319,6 +356,7 @@ def run_evolved(
     trace_dir: Path,
     settings: Settings,
     dry_run: bool,
+    question_metadata: dict[str, Any] | None = None,
 ) -> EvolvedRunResult:
     validation = validate_genome_files(genome_path=genome_path, schema_path=schema_path)
     if not validation.valid:
@@ -328,8 +366,17 @@ def run_evolved(
         )
 
     genome = load_yaml(genome_path)
+    required_aspects = string_list(mapping(question_metadata).get("must_cover"))
+    source_expectations = string_list(
+        mapping(question_metadata).get("source_expectations")
+    )
     model = resolve_model(genome, settings.openai_model)
-    prompt = build_evolved_prompt(question, genome)
+    prompt = build_evolved_prompt_with_context(
+        question=question,
+        genome=genome,
+        required_aspects=required_aspects,
+        source_expectations=source_expectations,
+    )
     agent_config = mapping(genome.get("agent"))
     genome_meta = mapping(genome.get("genome"))
     trace_config = mapping(genome.get("trace"))
@@ -350,6 +397,10 @@ def run_evolved(
         "workflow": genome.get("workflow", []),
         "tools_allowed": string_list(mapping(genome.get("tools")).get("allowed")),
         "limits": genome.get("limits", {}),
+        "evaluation_requirements": {
+            "required_aspects": required_aspects,
+            "source_expectations": source_expectations,
+        },
         "validation": {
             "valid": validation.valid,
             "warnings": validation.warnings,
@@ -357,7 +408,11 @@ def run_evolved(
     }
 
     if dry_run:
-        artifacts = build_dry_run_artifacts(question)
+        artifacts = build_dry_run_artifacts(
+            question,
+            required_aspects=required_aspects,
+            source_expectations=source_expectations,
+        )
         answer = str(artifacts["answer"])
         trace.update(trace_payload(question, required_events, artifacts, answer))
         trace.update(

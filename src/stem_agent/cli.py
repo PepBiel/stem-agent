@@ -296,17 +296,21 @@ def print_eval_info() -> None:
         print(f"- {item['id']}: {item['question']}")
 
 
-def load_question_by_id(question_id: str) -> str:
+def load_question_item_by_id(question_id: str) -> dict[str, object]:
     questions_path = PROJECT_ROOT / "evals" / "questions.json"
     with questions_path.open(encoding="utf-8") as file:
         payload = json.load(file)
 
     for item in payload["questions"]:
         if item["id"] == question_id:
-            return item["question"]
+            return item
 
     known_ids = ", ".join(item["id"] for item in payload["questions"])
     raise ValueError(f"Unknown question ID {question_id!r}. Known IDs: {known_ids}")
+
+
+def load_question_by_id(question_id: str) -> str:
+    return str(load_question_item_by_id(question_id)["question"])
 
 
 def run_baseline_command(args: argparse.Namespace) -> None:
@@ -325,7 +329,10 @@ def run_baseline_command(args: argparse.Namespace) -> None:
 
 
 def run_evolved_command(args: argparse.Namespace) -> None:
-    question = args.question or load_question_by_id(args.question_id)
+    question_item = (
+        load_question_item_by_id(args.question_id) if args.question_id else None
+    )
+    question = args.question or str(question_item["question"])
     settings = load_settings(PROJECT_ROOT)
     result = run_evolved(
         question=question,
@@ -334,6 +341,7 @@ def run_evolved_command(args: argparse.Namespace) -> None:
         trace_dir=resolve_cli_path(args.trace_dir),
         settings=settings,
         dry_run=args.dry_run,
+        question_metadata=question_item,
     )
 
     print(result.answer)

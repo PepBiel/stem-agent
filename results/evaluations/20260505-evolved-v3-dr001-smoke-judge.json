@@ -1,0 +1,291 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T07:44:33+00:00",
+  "finished_at": "2026-05-05T07:44:43+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\traces\\20260505T074337Z-evolved-live.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 1.0,
+  "judge_score": 0.7083,
+  "final_score": 0.8104,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\traces\\20260505T074337Z-evolved-live.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 1.0,
+    "failure_tags": [],
+    "runtime_seconds": 20.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "The main failure modes of memory in LLM agents are: (1) **polluting the working context with too much or the wrong history**, (2) **retrieving stale, irrelevant, or lossy memories instead of the needed ones**, (3) **propagating mistakes by treating prior agent outputs as trustworthy facts**, and (4) **making brittle short-term/long-term memory trade-offs**, where aggressive compression or summarization can discard useful details while keeping retrieval cheap. A diagnostic study found retrieval errors were often the dominant bottleneck, and that raw chunk storage could outperform lossy write-time abstractions in some settings. ([arxiv.org](https://arxiv.org/abs/2603.02473))",
+        "- **context pollution** — addressed as context bloat / contaminated working prompts from accumulated history: https://arxiv.org/abs/2404.13501",
+        "- **retrieval of stale or irrelevant memories** — directly supported by retrieval-stage failures and retrieval-method sensitivity: https://arxiv.org/abs/2603.02473",
+        "- **over-trusting previous agent outputs** — supported by practical memory systems that store agent-generated facts and reuse them as memory, which can amplify earlier mistakes: https://github.com/mem0ai/mem0",
+        "- **trade-offs between short-term and long-term memory** — supported by survey discussion of write-path filtering, contradiction handling, and learned forgetting: https://arxiv.org/abs/2404.13501",
+        "- **evaluation methods for memory quality** — supported by MemoryAgentBench’s multi-turn benchmark and four competency rubric: https://github.com/HUST-AI-HYZ/MemoryAgentBench"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2404.13501",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2603.02473",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://github.com/HUST-AI-HYZ/MemoryAgentBench",
+          "domain": "github.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://github.com/mem0ai/mem0",
+          "domain": "github.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 4,
+      "unique_citation_count": 4
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 3,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 4
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly addresses polluted working context from too much or wrong history."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly names stale, irrelevant, and lossy retrieval as a main failure mode."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Addresses propagation of mistakes from prior agent outputs, though the explanation is somewhat inferential rather than deeply analyzed."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly discusses compression/summarization trade-offs between detail retention and retrieval cost."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions a benchmark and rubric, but gives little detail on concrete evaluation methodology or metrics."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "A diagnostic study found retrieval errors were often the dominant bottleneck, and raw chunk storage could outperform lossy write-time abstractions in some settings.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.02473"
+        ],
+        "reason": "The cited diagnostic paper title strongly matches the claim and likely supports retrieval-vs-utilization bottleneck discussion."
+      },
+      {
+        "claim": "Context pollution is addressed as context bloat / contaminated working prompts from accumulated history.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2404.13501"
+        ],
+        "reason": "Plausible for a memory survey, but the claim is a paraphrase that may not be explicitly framed as 'context pollution'."
+      },
+      {
+        "claim": "Retrieval-stage failures and retrieval-method sensitivity explain stale or irrelevant memories.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2603.02473"
+        ],
+        "reason": "Matches the diagnostic focus on retrieval bottlenecks and retrieval errors."
+      },
+      {
+        "claim": "Storing agent-generated facts in memory can amplify earlier mistakes.",
+        "support": "weak",
+        "cited_urls": [
+          "https://github.com/mem0ai/mem0"
+        ],
+        "reason": "A framework repo may document memory behavior, but this specific causal claim is not directly substantiated by the citation metadata."
+      },
+      {
+        "claim": "Survey discussion of write-path filtering, contradiction handling, and learned forgetting supports short-term/long-term memory trade-offs.",
+        "support": "weak",
+        "cited_urls": [
+          "https://arxiv.org/abs/2404.13501"
+        ],
+        "reason": "Likely relevant, but the specific trade-off framing is not guaranteed from the citation metadata alone."
+      },
+      {
+        "claim": "MemoryAgentBench's multi-turn benchmark and four competency rubric support evaluation methods for memory quality.",
+        "support": "supported",
+        "cited_urls": [
+          "https://github.com/HUST-AI-HYZ/MemoryAgentBench"
+        ],
+        "reason": "A benchmark repo is an appropriate source type for evaluation methodology."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2404.13501",
+        "quality": "strong",
+        "reason": "Relevant survey-type source for memory failure modes and trade-offs."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.02473",
+        "quality": "strong",
+        "reason": "Relevant empirical/diagnostic report on memory retrieval bottlenecks."
+      },
+      {
+        "url": "https://github.com/HUST-AI-HYZ/MemoryAgentBench",
+        "quality": "acceptable",
+        "reason": "Useful benchmark source for evaluation, though GitHub repo quality depends on project maturity and documentation."
+      },
+      {
+        "url": "https://github.com/mem0ai/mem0",
+        "quality": "acceptable",
+        "reason": "Relevant implementation notes/framework documentation, but weaker for direct evidentiary support of broad causal claims."
+      }
+    ],
+    "failure_tags": [
+      "lightly_supported_inference",
+      "benchmark_method_shallow",
+      "framework_doc_as_evidence"
+    ],
+    "summary": "The answer covers all required aspects and is directionally correct, but some claims—especially about over-trusting prior outputs and specific trade-offs—are only weakly supported by the cited sources.",
+    "recommended_fix": "Replace inferential claims with explicit quotations or findings from the survey/benchmark, and add concrete evaluation criteria or metrics for memory quality.",
+    "average_score": 3.8333,
+    "normalized_score": 0.7083
+  },
+  "judge_usage": {
+    "input_tokens": 2887,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1317,
+    "output_tokens_details": {
+      "reasoning_tokens": 133
+    },
+    "total_tokens": 4204
+  },
+  "response_id": "resp_0697ca5c9809d4590069f99fe9def8819780eb8902ca6ea610"
+}

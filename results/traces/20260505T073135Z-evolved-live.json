@@ -1,0 +1,775 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v1",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v1",
+  "genome_version": 2,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T07:29:59+00:00",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 3,
+    "max_sources": 5,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 240,
+    "max_evolution_rounds": 2
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "source_expectations": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T07:31:35+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nThe main failure modes are less about forgetting in a human sense and more about bad write filtering, bad retrieval, and bad memory management.\n\n### Required aspect coverage\n- context pollution — storing filler or casual chatter can pollute retrieval so the agent pulls noise instead of the salient fact (`https://docs.mem0.ai/cookbooks/essentials/building-ai-companion`). ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\n- retrieval of stale or irrelevant memories — outdated or semantically similar but wrong experiences can be replayed and steer the current task the wrong way (`https://arxiv.org/abs/2505.16067`). ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- over-trusting previous agent outputs — when a retrieved memory is very similar to the current input, the agent often emits a very similar output, so earlier mistakes can be copied forward (`https://arxiv.org/abs/2505.16067`). ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- trade-offs between short-term and long-term memory — finite context windows force agents to decide what stays in context, what gets summarized, and what is stored for later; the survey frames this as a write-manage-read problem and highlights contradiction handling, learned forgetting, and latency budgets (`https://arxiv.org/abs/2603.07670`). ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- evaluation methods for memory quality — use multi-session tasks such as question answering, event summarization, and dialogue generation over long conversations, and report token and latency cost alongside accuracy because small benchmarks can be gamed by brute-force retrieval (`https://aclanthology.org/2024.acl-long.747.pdf`; `https://docs.mem0.ai/core-concepts/memory-evaluation`). ([arxiv.org](https://arxiv.org/abs/2402.17753))\n\nIn short, the dominant failures are noisy writes, stale or irrelevant recall, error amplification from prior outputs, and systems that look good on narrow benchmarks but do not manage long-horizon memory under realistic budgets. ([arxiv.org](https://arxiv.org/abs/2505.16067))\n\n## Sources\n- `https://arxiv.org/abs/2603.07670` — survey on autonomous LLM-agent memory; gives the write-manage-read framing and open challenges. ([arxiv.org](https://arxiv.org/abs/2603.07670))\n- `https://arxiv.org/abs/2505.16067` — empirical study of experience following, error propagation, and misaligned replay. ([arxiv.org](https://arxiv.org/abs/2505.16067))\n- `https://docs.mem0.ai/cookbooks/essentials/building-ai-companion` — official implementation note showing how filler and noise pollute retrieval. ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\n- `https://docs.mem0.ai/core-concepts/memory-evaluation` — official evaluation docs covering accuracy, token cost, latency, and benchmark caveats. ([docs.mem0.ai](https://docs.mem0.ai/core-concepts/memory-evaluation))\n- `https://aclanthology.org/2024.acl-long.747.pdf` — LoCoMo benchmark paper; evaluates long-term memory with QA, summarization, and multimodal dialogue. ([arxiv.org](https://arxiv.org/abs/2402.17753))\n\n## Limitations\n- The literature does not use one universally standardized taxonomy, so labels like context pollution are convenient umbrella terms rather than a single formal category. ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\n- Benchmark scores can overstate memory quality if retrieval depth, judge choice, or context budget changes, so compare systems under equal constraints. ([docs.mem0.ai](https://docs.mem0.ai/core-concepts/memory-evaluation))\n- This answer focuses on agentic conversational memory, not general database or vector-store engineering in isolation. ([arxiv.org](https://arxiv.org/abs/2603.07670))",
+  "decomposition": {
+    "subquestions": [
+      "What failure modes appear when LLM agents store, retrieve, and reuse memories across turns or sessions?",
+      "Which failures are caused by noisy writes versus bad retrieval versus over-reliance on prior memories?",
+      "How do short-term context limits and long-term persistence create design trade-offs?",
+      "How should memory quality be evaluated so benchmarks do not overstate real-world performance?"
+    ],
+    "required_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "expected_source_types": [
+      "agent memory paper or survey",
+      "framework documentation or implementation notes",
+      "evaluation benchmark or empirical report"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "LLM agent memory survey context pollution stale irrelevant memories evaluation benchmark memory quality",
+      "MemGPT paper memory trade-offs short-term long-term context window",
+      "agent memory benchmark evaluation memory quality"
+    ],
+    "rationale_per_query": [
+      "Find a survey that names the broad memory failure taxonomy and evaluation concerns.",
+      "Find a primary paper or framework describing short-term versus long-term memory management trade-offs.",
+      "Find benchmark papers or official evaluation docs that define how memory quality is measured."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+      "url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey",
+      "status": "accepted"
+    },
+    {
+      "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "empirical paper",
+      "status": "accepted"
+    },
+    {
+      "title": "Build a Companion with Mem0",
+      "url": "https://docs.mem0.ai/cookbooks/essentials/building-ai-companion",
+      "source_type": "framework docs",
+      "status": "accepted"
+    },
+    {
+      "title": "Memory Evaluation - Mem0",
+      "url": "https://docs.mem0.ai/core-concepts/memory-evaluation",
+      "source_type": "framework docs",
+      "status": "accepted"
+    },
+    {
+      "title": "Evaluating Very Long-Term Conversational Memory of LLM Agents",
+      "url": "https://aclanthology.org/2024.acl-long.747.pdf",
+      "source_type": "benchmark paper",
+      "status": "accepted"
+    },
+    {
+      "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "source_type": "survey",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+        "url": "https://arxiv.org/abs/2603.07670",
+        "why_accepted": "Primary survey; gives the overall memory loop, mechanism families, and evaluation framing."
+      },
+      {
+        "title": "How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+        "url": "https://arxiv.org/abs/2505.16067",
+        "why_accepted": "Primary empirical study; directly supports stale/irrelevant memory effects and error propagation."
+      },
+      {
+        "title": "Build a Companion with Mem0",
+        "url": "https://docs.mem0.ai/cookbooks/essentials/building-ai-companion",
+        "why_accepted": "Official implementation note; explicitly describes retrieval pollution from storing filler/noise."
+      },
+      {
+        "title": "Memory Evaluation - Mem0",
+        "url": "https://docs.mem0.ai/core-concepts/memory-evaluation",
+        "why_accepted": "Official evaluation docs; covers accuracy, token cost, latency, and benchmark caveats."
+      },
+      {
+        "title": "Evaluating Very Long-Term Conversational Memory of LLM Agents",
+        "url": "https://aclanthology.org/2024.acl-long.747.pdf",
+        "why_accepted": "Primary benchmark paper; defines multi-session QA, event summarization, and dialogue generation evaluation."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "LLM Agent Memory: A Survey from a Unified Representation--Management Perspective",
+        "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+        "reason": "Useful but redundant with the newer arXiv survey; the arXiv version is more directly citable for this run."
+      }
+    ],
+    "rejection_reasons": [
+      "Rejected duplicate survey to stay within the five-source cap and keep only the most direct primary sources."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Storing everything, including greetings and filler, can pollute retrieval so the agent surfaces noise instead of the salient memory.",
+      "source_url": "https://docs.mem0.ai/cookbooks/essentials/building-ai-companion",
+      "source_type": "framework docs",
+      "supported_aspect": "context pollution",
+      "confidence": "high"
+    },
+    {
+      "claim": "Outdated or irrelevant experiences can negatively influence current tasks and degrade future performance.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "empirical paper",
+      "supported_aspect": "retrieval of stale or irrelevant memories",
+      "confidence": "high"
+    },
+    {
+      "claim": "High similarity between a task input and a retrieved memory often leads to highly similar outputs, which can propagate earlier mistakes.",
+      "source_url": "https://arxiv.org/abs/2505.16067",
+      "source_type": "empirical paper",
+      "supported_aspect": "over-trusting previous agent outputs",
+      "confidence": "high"
+    },
+    {
+      "claim": "Finite context windows force memory systems to decide what stays in context, what is summarized, and what is stored for later; the survey frames this as a write-manage-read loop and highlights contradiction handling, learned forgetting, and latency budgets.",
+      "source_url": "https://arxiv.org/abs/2603.07670",
+      "source_type": "survey",
+      "supported_aspect": "trade-offs between short-term and long-term memory",
+      "confidence": "high"
+    },
+    {
+      "claim": "Very long-term memory should be evaluated with multi-session tasks such as question answering, event summarization, and multimodal dialogue generation.",
+      "source_url": "https://aclanthology.org/2024.acl-long.747.pdf",
+      "source_type": "benchmark paper",
+      "supported_aspect": "evaluation methods for memory quality",
+      "confidence": "high"
+    },
+    {
+      "claim": "Memory evaluation should report accuracy together with token cost and latency, because small benchmarks can be brute-forced and high scores may not imply production-ready memory.",
+      "source_url": "https://docs.mem0.ai/core-concepts/memory-evaluation",
+      "source_type": "framework docs",
+      "supported_aspect": "evaluation methods for memory quality",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "context pollution",
+      "retrieval of stale or irrelevant memories",
+      "over-trusting previous agent outputs",
+      "trade-offs between short-term and long-term memory",
+      "evaluation methods for memory quality"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No direct disagreement on the main failure modes. The main caution is methodological: benchmark gains can reflect retrieval budget, larger context windows, or stronger judges rather than robust memory quality, so results should be interpreted under fixed constraints.",
+    "uncertainty_notes": [
+      "The literature does not use one universally standardized label for context pollution; papers often describe it as noise, stale context, or irrelevant retrieval.",
+      "The over-trusting-previous-output failure mode is an inference from the empirical experience-following result rather than a term used verbatim by the paper."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Memory systems can pollute context with filler/noise.",
+      "Agents can retrieve stale or irrelevant experiences that hurt current tasks.",
+      "High-similarity retrieval can amplify prior mistakes through experience following.",
+      "Short-term and long-term memory must be balanced under finite context windows.",
+      "Memory quality should be evaluated with multi-session tasks and production-like cost/latency constraints."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": [
+      "The phrase over-trusting previous agent outputs is a synthesis of the empirical findings on experience following and error propagation, not a formal taxonomy term from a single source."
+    ]
+  },
+  "finished_at": "2026-05-05T07:31:35+00:00",
+  "citations": [
+    {
+      "end_index": 9528,
+      "start_index": 9431,
+      "title": "Build a Companion with Mem0 - Mem0",
+      "type": "url_citation",
+      "url": "https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term"
+    },
+    {
+      "end_index": 9773,
+      "start_index": 9726,
+      "title": "[2505.16067] How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067"
+    },
+    {
+      "end_index": 10446,
+      "start_index": 10399,
+      "title": "[2603.07670] Memory for Autonomous LLM Agents:Mechanisms, Evaluation, and Emerging Frontiers",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670"
+    },
+    {
+      "end_index": 10883,
+      "start_index": 10836,
+      "title": "[2402.17753] Evaluating Very Long-Term Conversational Memory of LLM Agents",
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2402.17753"
+    },
+    {
+      "end_index": 11997,
+      "start_index": 11927,
+      "title": "Memory Evaluation - Mem0",
+      "type": "url_citation",
+      "url": "https://docs.mem0.ai/core-concepts/memory-evaluation"
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2024.acl-long.747.pdf",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2024.acl-long.747.pdf`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://aclanthology.org/2024.acl-long.747.pdf`;",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2505.16067`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.07670`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.mem0.ai/cookbooks/essentials/building-ai-companion",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.mem0.ai/cookbooks/essentials/building-ai-companion`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.mem0.ai/core-concepts/memory-evaluation`",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openreview.net/forum?id=KPs1EgGKcT",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_03c7aa5267c177170069f99c8254308195a0a8e7db573044c3",
+      "action": {
+        "query": "LLM agent memory survey context pollution stale irrelevant memories evaluation benchmark memory quality",
+        "type": "search",
+        "queries": [
+          "LLM agent memory survey context pollution stale irrelevant memories evaluation benchmark memory quality",
+          "MemGPT paper memory trade-offs short-term long-term memory evaluation benchmark",
+          "agent memory benchmark evaluation memory quality retrieval stale irrelevant memories"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://zylos.ai/en/research/2026-04-05-ai-agent-memory-architectures-persistent-knowledge"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19320"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.07670"
+          },
+          {
+            "type": "url",
+            "url": "https://benchmarks.hindsight.vectorize.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://metamemory.tech/blog/ai-agent-memory-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://pith.run/blog/every-benchmark-tests-the-same-thing"
+          },
+          {
+            "type": "url",
+            "url": "https://omegamax.co/guides/ai-agent-memory-benchmarks"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=KPs1EgGKcT"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/core-concepts/memory-evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.03515"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.14158"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://hindsight.vectorize.io/guides/2026/04/21/comparison-agent-memory-benchmark-hindsight-vs-alternatives"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/agent_memory"
+          },
+          {
+            "type": "url",
+            "url": "https://supermemory.ai/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1shhb7j/no_ai_memory_benchmark_tests_what_actually_breaks/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s1l0oz/when_did_memory_start_making_your_agent_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rc86bw/why_beginner_ai_agents_fail_after_the_demo_memory/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1scr0o9/anyone_else_dealing_with_stale_context_in_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkfev5/your_agents_memory_isnt_growing_its_rotting_heres/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s3wv3s/your_agents_memory_is_lying_to_it_and_thats_why/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rh5xvl/at_what_point_does_agent_memory_start_hurting/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/1t46tyy/project_i_gave_an_llm_memory_of_its_own_mistakes/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c8443f88195b78cb55825bfb09e",
+      "action": {
+        "query": "MemGPT paper arxiv memory management short-term long-term context window",
+        "type": "search",
+        "queries": [
+          "MemGPT paper arxiv memory management short-term long-term context window",
+          "LoCoMo benchmark arxiv long-term conversational memory evaluation",
+          "experience-following behavior memory management LLM agents arxiv outdated irrelevant experiences"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.08560"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.10715"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2402.17753"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2310.08560"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.10715"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2402.17753"
+          },
+          {
+            "type": "url",
+            "url": "https://aisharenet.com/en/memgpt/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/locomo-benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/locomo-benchmark-scores"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/locomo-dataset"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.04257"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/locomo"
+          },
+          {
+            "type": "url",
+            "url": "https://datasciocean.com/en/paper-intro/memgpt/"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2402.17753v1"
+          },
+          {
+            "type": "url",
+            "url": "https://aclweb.org/anthology/2024.acl-long.747.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1s54cvg/d_we_audited_locomo_64_of_the_answer_key_is_wrong/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=DT7JyQC3MR"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1s1jb94/we_audited_locomo_64_of_the_answer_key_is_wrong/"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.747.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=AQpZxBxBLR"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIMemory/comments/1s1jlnd/serious_flaws_in_two_popular_ai_memory_benchmarks/"
+          },
+          {
+            "type": "url",
+            "url": "https://shishirpatil.github.io/publications/memgpt-2023.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/17cojeh"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c8a58648195b19304d578e386c4",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2505.16067"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c8bbfc081958820eb0ac000c09a",
+      "action": {
+        "query": "site:arxiv.org agent memory survey context pollution stale memory retrieval irrelevant memories",
+        "type": "search",
+        "queries": [
+          "site:arxiv.org agent memory survey context pollution stale memory retrieval irrelevant memories",
+          "site:docs.mem0.ai memory evaluation stale irrelevant memories context pollution",
+          "site:arxiv.org LLM agent memory survey short-term long-term trade-off"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.01885"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.16067"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.07798"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21428"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/core-concepts/memory-evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/platform/features/feedback-mechanism"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/cookbooks/essentials/controlling-memory-ingestion"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/platform/features/contextual-add"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/features/contextual-add"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/core-concepts/memory-operations/search"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/platform/features/timestamp"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/open-source/features/multimodal-support"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/core-concepts/memory-types"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/platform/features/criteria-retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.mem0.ai/open-source/features/graph-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.01231"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2009.06732"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.05566"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2402.01869"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2311.09721"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2209.08035"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c90a11081958584cd8019ccf1d5",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2603.07670"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c921c688195a28bb0ae220e6fc0",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.mem0.ai/core-concepts/memory-evaluation"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_03c7aa5267c177170069f99c94e718819581acf926259a7a8f",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2601.01885"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 33918,
+    "input_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "output_tokens": 13421,
+    "output_tokens_details": {
+      "reasoning_tokens": 10518
+    },
+    "total_tokens": 47339
+  },
+  "response_id": "resp_03c7aa5267c177170069f99c80787081958467bb26d027991b",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What failure modes appear when LLM agents store, retrieve, and reuse memories across turns or sessions?\",\n      \"Which failures are caused by noisy writes versus bad retrieval versus over-reliance on prior memories?\",\n      \"How do short-term context limits and long-term persistence create design trade-offs?\",\n      \"How should memory quality be evaluated so benchmarks do not overstate real-world performance?\"\n    ],\n    \"required_aspects\": [\n      \"context pollution\",\n      \"retrieval of stale or irrelevant memories\",\n      \"over-trusting previous agent outputs\",\n      \"trade-offs between short-term and long-term memory\",\n      \"evaluation methods for memory quality\"\n    ],\n    \"expected_source_types\": [\n      \"agent memory paper or survey\",\n      \"framework documentation or implementation notes\",\n      \"evaluation benchmark or empirical report\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"LLM agent memory survey context pollution stale irrelevant memories evaluation benchmark memory quality\",\n      \"MemGPT paper memory trade-offs short-term long-term context window\",\n      \"agent memory benchmark evaluation memory quality\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey that names the broad memory failure taxonomy and evaluation concerns.\",\n      \"Find a primary paper or framework describing short-term versus long-term memory management trade-offs.\",\n      \"Find benchmark papers or official evaluation docs that define how memory quality is measured.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n      \"url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n      \"url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"empirical paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Build a Companion with Mem0\",\n      \"url\": \"https://docs.mem0.ai/cookbooks/essentials/building-ai-companion\",\n      \"source_type\": \"framework docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Memory Evaluation - Mem0\",\n      \"url\": \"https://docs.mem0.ai/core-concepts/memory-evaluation\",\n      \"source_type\": \"framework docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Evaluating Very Long-Term Conversational Memory of LLM Agents\",\n      \"url\": \"https://aclanthology.org/2024.acl-long.747.pdf\",\n      \"source_type\": \"benchmark paper\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"LLM Agent Memory: A Survey from a Unified Representation--Management Perspective\",\n      \"url\": \"https://openreview.net/forum?id=KPs1EgGKcT\",\n      \"source_type\": \"survey\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers\",\n        \"url\": \"https://arxiv.org/abs/2603.07670\",\n        \"why_accepted\": \"Primary survey; gives the overall memory loop, mechanism families, and evaluation framing.\"\n      },\n      {\n        \"title\": \"How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior\",\n        \"url\": \"https://arxiv.org/abs/2505.16067\",\n        \"why_accepted\": \"Primary empirical study; directly supports stale/irrelevant memory effects and error propagation.\"\n      },\n      {\n        \"title\": \"Build a Companion with Mem0\",\n        \"url\": \"https://docs.mem0.ai/cookbooks/essentials/building-ai-companion\",\n        \"why_accepted\": \"Official implementation note; explicitly describes retrieval pollution from storing filler/noise.\"\n      },\n      {\n        \"title\": \"Memory Evaluation - Mem0\",\n        \"url\": \"https://docs.mem0.ai/core-concepts/memory-evaluation\",\n        \"why_accepted\": \"Official evaluation docs; covers accuracy, token cost, latency, and benchmark caveats.\"\n      },\n      {\n        \"title\": \"Evaluating Very Long-Term Conversational Memory of LLM Agents\",\n        \"url\": \"https://aclanthology.org/2024.acl-long.747.pdf\",\n        \"why_accepted\": \"Primary benchmark paper; defines multi-session QA, event summarization, and dialogue generation evaluation.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"LLM Agent Memory: A Survey from a Unified Representation--Management Perspective\",\n        \"url\": \"https://openreview.net/forum?id=KPs1EgGKcT\",\n        \"reason\": \"Useful but redundant with the newer arXiv survey; the arXiv version is more directly citable for this run.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Rejected duplicate survey to stay within the five-source cap and keep only the most direct primary sources.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Storing everything, including greetings and filler, can pollute retrieval so the agent surfaces noise instead of the salient memory.\",\n      \"source_url\": \"https://docs.mem0.ai/cookbooks/essentials/building-ai-companion\",\n      \"source_type\": \"framework docs\",\n      \"supported_aspect\": \"context pollution\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Outdated or irrelevant experiences can negatively influence current tasks and degrade future performance.\",\n      \"source_url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"empirical paper\",\n      \"supported_aspect\": \"retrieval of stale or irrelevant memories\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"High similarity between a task input and a retrieved memory often leads to highly similar outputs, which can propagate earlier mistakes.\",\n      \"source_url\": \"https://arxiv.org/abs/2505.16067\",\n      \"source_type\": \"empirical paper\",\n      \"supported_aspect\": \"over-trusting previous agent outputs\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Finite context windows force memory systems to decide what stays in context, what is summarized, and what is stored for later; the survey frames this as a write-manage-read loop and highlights contradiction handling, learned forgetting, and latency budgets.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.07670\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"trade-offs between short-term and long-term memory\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Very long-term memory should be evaluated with multi-session tasks such as question answering, event summarization, and multimodal dialogue generation.\",\n      \"source_url\": \"https://aclanthology.org/2024.acl-long.747.pdf\",\n      \"source_type\": \"benchmark paper\",\n      \"supported_aspect\": \"evaluation methods for memory quality\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Memory evaluation should report accuracy together with token cost and latency, because small benchmarks can be brute-forced and high scores may not imply production-ready memory.\",\n      \"source_url\": \"https://docs.mem0.ai/core-concepts/memory-evaluation\",\n      \"source_type\": \"framework docs\",\n      \"supported_aspect\": \"evaluation methods for memory quality\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"context pollution\",\n      \"retrieval of stale or irrelevant memories\",\n      \"over-trusting previous agent outputs\",\n      \"trade-offs between short-term and long-term memory\",\n      \"evaluation methods for memory quality\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No direct disagreement on the main failure modes. The main caution is methodological: benchmark gains can reflect retrieval budget, larger context windows, or stronger judges rather than robust memory quality, so results should be interpreted under fixed constraints.\",\n    \"uncertainty_notes\": [\n      \"The literature does not use one universally standardized label for context pollution; papers often describe it as noise, stale context, or irrelevant retrieval.\",\n      \"The over-trusting-previous-output failure mode is an inference from the empirical experience-following result rather than a term used verbatim by the paper.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Memory systems can pollute context with filler/noise.\",\n      \"Agents can retrieve stale or irrelevant experiences that hurt current tasks.\",\n      \"High-similarity retrieval can amplify prior mistakes through experience following.\",\n      \"Short-term and long-term memory must be balanced under finite context windows.\",\n      \"Memory quality should be evaluated with multi-session tasks and production-like cost/latency constraints.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": [\n      \"The phrase over-trusting previous agent outputs is a synthesis of the empirical findings on experience following and error propagation, not a formal taxonomy term from a single source.\"\n    ]\n  },\n  \"answer\": \"## Answer\\nThe main failure modes are less about forgetting in a human sense and more about bad write filtering, bad retrieval, and bad memory management.\\n\\n### Required aspect coverage\\n- context pollution — storing filler or casual chatter can pollute retrieval so the agent pulls noise instead of the salient fact (`https://docs.mem0.ai/cookbooks/essentials/building-ai-companion`). ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\\n- retrieval of stale or irrelevant memories — outdated or semantically similar but wrong experiences can be replayed and steer the current task the wrong way (`https://arxiv.org/abs/2505.16067`). ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- over-trusting previous agent outputs — when a retrieved memory is very similar to the current input, the agent often emits a very similar output, so earlier mistakes can be copied forward (`https://arxiv.org/abs/2505.16067`). ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- trade-offs between short-term and long-term memory — finite context windows force agents to decide what stays in context, what gets summarized, and what is stored for later; the survey frames this as a write-manage-read problem and highlights contradiction handling, learned forgetting, and latency budgets (`https://arxiv.org/abs/2603.07670`). ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n- evaluation methods for memory quality — use multi-session tasks such as question answering, event summarization, and dialogue generation over long conversations, and report token and latency cost alongside accuracy because small benchmarks can be gamed by brute-force retrieval (`https://aclanthology.org/2024.acl-long.747.pdf`; `https://docs.mem0.ai/core-concepts/memory-evaluation`). ([arxiv.org](https://arxiv.org/abs/2402.17753))\\n\\nIn short, the dominant failures are noisy writes, stale or irrelevant recall, error amplification from prior outputs, and systems that look good on narrow benchmarks but do not manage long-horizon memory under realistic budgets. ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n\\n## Sources\\n- `https://arxiv.org/abs/2603.07670` — survey on autonomous LLM-agent memory; gives the write-manage-read framing and open challenges. ([arxiv.org](https://arxiv.org/abs/2603.07670))\\n- `https://arxiv.org/abs/2505.16067` — empirical study of experience following, error propagation, and misaligned replay. ([arxiv.org](https://arxiv.org/abs/2505.16067))\\n- `https://docs.mem0.ai/cookbooks/essentials/building-ai-companion` — official implementation note showing how filler and noise pollute retrieval. ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\\n- `https://docs.mem0.ai/core-concepts/memory-evaluation` — official evaluation docs covering accuracy, token cost, latency, and benchmark caveats. ([docs.mem0.ai](https://docs.mem0.ai/core-concepts/memory-evaluation))\\n- `https://aclanthology.org/2024.acl-long.747.pdf` — LoCoMo benchmark paper; evaluates long-term memory with QA, summarization, and multimodal dialogue. ([arxiv.org](https://arxiv.org/abs/2402.17753))\\n\\n## Limitations\\n- The literature does not use one universally standardized taxonomy, so labels like context pollution are convenient umbrella terms rather than a single formal category. ([docs.mem0.ai](https://docs.mem0.ai/cookbooks/essentials/memory-expiration-short-and-long-term))\\n- Benchmark scores can overstate memory quality if retrieval depth, judge choice, or context budget changes, so compare systems under equal constraints. ([docs.mem0.ai](https://docs.mem0.ai/core-concepts/memory-evaluation))\\n- This answer focuses on agentic conversational memory, not general database or vector-store engineering in isolation. ([arxiv.org](https://arxiv.org/abs/2603.07670))\"\n}",
+  "status": "complete"
+}

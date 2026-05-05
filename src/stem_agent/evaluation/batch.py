@@ -193,6 +193,7 @@ def run_evaluation_batch(batch_input: BatchInput) -> dict[str, Any]:
                 trace_dir=traces_dir,
                 settings=batch_input.settings,
                 dry_run=batch_input.dry_run,
+                question_metadata=question,
             )
         else:
             result = run_baseline(
