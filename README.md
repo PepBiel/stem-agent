@@ -21,6 +21,8 @@ and evaluation expectations.
 - Result summary: [`results/comparison.md`](results/comparison.md)
 - Full experiment log: [`docs/experiment_log.md`](docs/experiment_log.md)
 - Final genome: [`configs/evolved_deep_research_agent_v5.yaml`](configs/evolved_deep_research_agent_v5.yaml)
+- Evolution proposal from final artifacts:
+  [`results/evolution_proposals/evolved_v5_full_live/proposal.md`](results/evolution_proposals/evolved_v5_full_live/proposal.md)
 - Evaluation set: [`evals/questions.json`](evals/questions.json)
 - Evaluation rubric: [`evals/rubric.yaml`](evals/rubric.yaml)
 
@@ -54,6 +56,20 @@ question
 The tool boundary stays narrow: the evolved agent still only uses web search.
 This makes the comparison about workflow specialization, not about adding more
 tools.
+
+The repository also includes an explicit evolution-proposal command:
+
+```text
+saved run artifacts
+-> failure diagnosis
+-> candidate genome proposal
+-> schema validation
+-> human acceptance gate
+```
+
+This keeps the stem-agent loop visible without allowing arbitrary
+self-modifying code. The command proposes a next genome from evaluation traces;
+it does not silently apply it.
 
 ## Main Result
 
@@ -213,6 +229,26 @@ python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_full_
 python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_full_live --confirm-live
 ```
+
+## Evolution Proposal
+
+Generate a controlled next-genome proposal from saved evaluation artifacts:
+
+```bash
+python -m stem_agent evolve --from-run results/runs/evolved_deep_research_v5/evolved_v5_full_live --base-genome configs/evolved_deep_research_agent_v5.yaml
+```
+
+This writes:
+
+```text
+results/evolution_proposals/evolved_v5_full_live/
+  proposal.md            diagnosis, proposed changes, validation result
+  candidate_genome.yaml  schema-valid candidate genome proposal
+```
+
+The proposal is intentionally human-in-the-loop. A candidate should be reviewed,
+validated, smoke-tested, and compared against its parent before being promoted
+into `configs/`.
 
 Batch artifacts are written under:
 

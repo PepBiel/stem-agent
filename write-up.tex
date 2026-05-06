@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 
-\usepackage[a4paper,margin=0.72in]{geometry}
+\usepackage[a4paper,margin=0.55in]{geometry}
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{array}
@@ -99,6 +99,8 @@ The stem-agent process includes several safeguards:
 \end{itemize}
 
 The first implementation executes the evolved workflow in one model call while still requiring structured artifacts for each stage. This was a pragmatic compromise: it made the evolved architecture runnable and inspectable before adding a more expensive multi-call orchestrator.
+
+After the final v5 evaluation, I also added an explicit evolution-proposal command: \texttt{python -m stem\_agent evolve}. It reads saved traces, heuristic scores, judge outputs, and aggregate usage; diagnoses recurring failure modes; writes a schema-valid candidate genome proposal; and records a Markdown proposal explaining why the change was suggested. The proposal is deliberately human-in-the-loop: it is not applied automatically, and it still has to pass review, smoke testing, and fixed-set evaluation before becoming an accepted genome.
 
 \section{Evaluation}
 
@@ -211,7 +213,7 @@ Second, I would turn the evolved runner into a real multi-step workflow: planner
 
 Third, I would strengthen citation verification. The model-assisted judge currently evaluates from the saved answer, citation metadata, and benchmark expectations; it does not refetch every source. A stronger citation auditor would perform claim-level source checking by retrieving cited passages.
 
-Finally, I would explore a small architecture search over genome variants rather than the manually constrained versions here. The project already has the right representation: genomes, validation, traces, evaluation, acceptance criteria, and rollback. The next step would be to let the stem agent propose candidates automatically from evaluator feedback.
+Finally, I would explore a small architecture search over genome variants rather than the manually constrained versions here. The project already has the right representation: genomes, validation, traces, evaluation, acceptance criteria, rollback, and now a first deterministic \texttt{evolve} command that proposes a next candidate from saved evaluator feedback. The next step would be to expand that proposal mechanism into multiple candidates and validate the best one on a held-out set.
 
 \section{Conclusion}
 

@@ -1096,3 +1096,55 @@ Next step:
 Freeze v5 as the final candidate unless a final reproducibility audit finds a
 blocking issue. Future work should focus on submission polish and reproducible
 instructions, not another live quality-tuning loop.
+
+## 2026-05-06: Explicit Evolution Proposal Loop
+
+Command:
+
+```bash
+python -m stem_agent evolve --from-run results/runs/evolved_deep_research_v5/evolved_v5_full_live --base-genome configs/evolved_deep_research_agent_v5.yaml
+```
+
+Artifacts:
+
+```text
+results/evolution_proposals/evolved_v5_full_live/proposal.md
+results/evolution_proposals/evolved_v5_full_live/candidate_genome.yaml
+```
+
+Reason:
+
+The project already preserved manual genome versions v1-v5, evaluation runs,
+and failure analyses. However, a reasonable reviewer could still interpret the
+process as a manually iterated deep-research agent rather than a stem agent with
+an explicit specialization mechanism. This step makes the evolution loop
+concrete in the codebase.
+
+Behavior:
+
+- Reads the saved run summary, per-question traces, heuristic outputs, and judge
+  outputs.
+- Diagnoses recurring failure themes from evaluator feedback and trace-level
+  metrics.
+- Builds a proposed next genome by modifying only the auditable YAML genome, not
+  arbitrary source code.
+- Validates the candidate against `configs/genome_schema.yaml`.
+- Writes a Markdown proposal explaining the aggregate signals, per-question
+  failures, proposed genome changes, safeguards, and next gate.
+
+Generated candidate:
+
+- Candidate id: `evolved_deep_research_v6`
+- Validation: valid, with no errors or warnings
+- Main proposed direction: keep the v5 workflow and tool boundary, but tighten
+  source-specific evidence, inference labeling, authoritative-source floor,
+  cost/latency claim support, and failure-mode examples.
+
+Decision:
+
+Do not promote v6 as the submitted final genome. The accepted final candidate
+remains v5 because it is the last fully evaluated genome. Treat the v6 artifact
+as the next controlled evolution proposal: it demonstrates that the stem-agent
+loop can read prior results and propose a validated next genome, while still
+requiring human review, smoke testing, and full fixed-set evaluation before
+acceptance.

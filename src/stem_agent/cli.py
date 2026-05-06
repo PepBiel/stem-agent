@@ -20,6 +20,7 @@ from stem_agent.evaluation.scoring import (
     write_evaluation,
 )
 from stem_agent.evaluation.judge import JudgeInput, judge_trace
+from stem_agent.evolution import EvolutionProposalInput, propose_evolution
 from stem_agent.workflows.baseline import run_baseline
 from stem_agent.workflows.evolved import run_evolved
 
@@ -259,6 +260,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Required for non-dry-run batches because they spend API calls.",
     )
 
+    evolve_parser = subparsers.add_parser(
+        "evolve",
+        help="Propose the next genome from saved evaluation artifacts.",
+    )
+    evolve_parser.add_argument(
+        "--from-run",
+        required=True,
+        help="Run directory containing summary.json, traces/, heuristic/, and judge/.",
+    )
+    evolve_parser.add_argument(
+        "--base-genome",
+        default="configs/evolved_deep_research_agent_v5.yaml",
+        help="Genome to use as the parent for the proposed candidate.",
+    )
+    evolve_parser.add_argument(
+        "--schema",
+        default="configs/genome_schema.yaml",
+        help="Path to the genome schema contract.",
+    )
+    evolve_parser.add_argument(
+        "--output-dir",
+        help=(
+            "Directory for proposal.md and candidate_genome.yaml. Defaults to "
+            "results/evolution_proposals/<run-id>."
+        ),
+    )
+    evolve_parser.add_argument(
+        "--candidate-id",
+        help="Optional genome.id for the proposed candidate.",
+    )
+    evolve_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Analyze artifacts and print the proposal target without writing files.",
+    )
+
     return parser
 
 
@@ -377,6 +414,38 @@ def validate_genome_command(args: argparse.Namespace) -> None:
     print(format_validation_result(result))
     if not result.valid:
         raise RuntimeError("Genome validation failed.")
+
+
+def default_evolution_output_dir(run_dir: Path) -> Path:
+    return PROJECT_ROOT / "results" / "evolution_proposals" / run_dir.name
+
+
+def evolve_command(args: argparse.Namespace) -> None:
+    run_dir = resolve_cli_path(args.from_run)
+    output_dir = (
+        resolve_cli_path(args.output_dir)
+        if args.output_dir
+        else default_evolution_output_dir(run_dir)
+    )
+    result = propose_evolution(
+        EvolutionProposalInput(
+            run_dir=run_dir,
+            base_genome_path=resolve_cli_path(args.base_genome),
+            schema_path=resolve_cli_path(args.schema),
+            output_dir=output_dir,
+            candidate_id=args.candidate_id,
+            dry_run=args.dry_run,
+        )
+    )
+
+    print("Evolution proposal complete")
+    print(f"Run ID: {result['run_id']}")
+    print(f"Base genome: {result['base_genome']}")
+    print(f"Candidate ID: {result['candidate_id']}")
+    print(f"Output dir: {result['output_dir']}")
+    print(f"Proposal: {result['proposal_path']}")
+    print(f"Candidate genome: {result['candidate_path']}")
+    print(f"Validation: {result['validation']}")
 
 
 def score_trace_command(args: argparse.Namespace) -> None:
@@ -541,6 +610,13 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "run-eval-batch":
         try:
             run_eval_batch_command(args)
+        except (OSError, RuntimeError, ValueError) as exc:
+            parser.exit(1, f"error: {exc}\n")
+        return
+
+    if args.command == "evolve":
+        try:
+            evolve_command(args)
         except (OSError, RuntimeError, ValueError) as exc:
             parser.exit(1, f"error: {exc}\n")
         return

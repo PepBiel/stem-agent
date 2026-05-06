@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from stem_agent.core.config import load_yaml
+from stem_agent.core.paths import PROJECT_ROOT
 
 
 @dataclass(frozen=True)
@@ -197,15 +198,14 @@ def validate_parent_and_schema_paths(
     warnings: list[str],
 ) -> None:
     genome_meta = mapping(genome.get("genome"))
-    root = genome_path.parent.parent
 
     parent = genome_meta.get("parent")
-    if isinstance(parent, str) and not (root / parent).exists():
+    if isinstance(parent, str) and not (PROJECT_ROOT / parent).exists():
         warnings.append(f"genome.parent does not exist on disk: {parent}")
 
     declared_schema = genome_meta.get("schema")
     if isinstance(declared_schema, str):
-        declared_schema_path = root / declared_schema
+        declared_schema_path = PROJECT_ROOT / declared_schema
         if declared_schema_path.resolve() != schema_path.resolve():
             warnings.append(
                 "genome.schema does not match the schema file being used: "

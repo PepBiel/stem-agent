@@ -3,6 +3,8 @@
 This file is the compact result index for the submitted stem-agent project.
 Full discussion is in [`../docs/experiment_log.md`](../docs/experiment_log.md)
 and the 4-page write-up is [`../write-up.pdf`](../write-up.pdf).
+The explicit next-genome proposal generated from the final v5 artifacts is in
+[`evolution_proposals/evolved_v5_full_live/proposal.md`](evolution_proposals/evolved_v5_full_live/proposal.md).
 
 ## Evaluation Setup
 
@@ -66,6 +68,7 @@ the JSON fix improves trace reliability rather than semantic answer quality.
 | v4 | Added source-quality discipline | Better quality, but exposed citation-contract failure |
 | v5 | Added raw URL citation contract and citation filtering | Fixed DR-002 and became final candidate |
 | JSON parser fix | Tolerant recovery for almost-valid model JSON | Removed DR-003 parse-warning class |
+| `evolve` proposal | Reads saved run artifacts and proposes a schema-valid v6 candidate | Makes the stem-agent specialization loop explicit without auto-applying changes |
 
 ## Representative Failure Fixes
 
@@ -93,6 +96,9 @@ warnings.
 ## Final Decision
 
 Freeze `configs/evolved_deep_research_agent_v5.yaml` as the final evolved
-genome. The project is ready to submit once the README, write-up, comparison
-summary, and security scan are clean.
-
+genome. Keep
+[`results/evolution_proposals/evolved_v5_full_live/proposal.md`](evolution_proposals/evolved_v5_full_live/proposal.md)
+as evidence of the next controlled evolution round: it diagnoses remaining v5
+weaknesses and proposes `evolved_deep_research_v6`, but does not promote it
+without smoke and fixed-set evaluation. The project is ready to submit once the
+README, write-up, comparison summary, and security scan are clean.

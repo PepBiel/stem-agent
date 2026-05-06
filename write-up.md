@@ -101,6 +101,20 @@ still requiring structured artifacts for each stage. This was a pragmatic
 compromise: it made the evolved architecture runnable and inspectable before
 adding a more expensive multi-call orchestrator.
 
+After the final v5 evaluation, I also added an explicit evolution-proposal
+command:
+
+```text
+python -m stem_agent evolve --from-run <saved-run> --base-genome <genome>
+```
+
+This command reads saved traces, heuristic scores, judge outputs, and aggregate
+usage; diagnoses recurring failure modes; writes a schema-valid candidate
+genome proposal; and records a Markdown proposal explaining why the change was
+suggested. It is deliberately human-in-the-loop: the proposal is not applied
+automatically, and it still has to pass review, smoke testing, and fixed-set
+evaluation before it can become an accepted genome.
+
 ## 3. Evaluation
 
 ### Dataset And Metrics
@@ -296,8 +310,10 @@ would perform claim-level source checking by retrieving cited passages.
 Finally, I would explore a small architecture search over genome variants rather
 than the manually constrained versions here. The project already has the right
 representation: genomes, validation, traces, evaluation, acceptance criteria,
-and rollback. The next step would be to let the stem agent propose candidates
-automatically from evaluator feedback.
+rollback, and now a first deterministic `evolve` command that proposes a next
+candidate from saved evaluator feedback. The next step would be to expand that
+proposal mechanism into a small architecture search over multiple candidates
+and validate the best one on a held-out set.
 
 ## 7. Conclusion
 
@@ -337,4 +353,3 @@ specific, observable, and easier to debug.
   2025.
 - Zheng et al. *DeepResearcher: Scaling Deep Research via Reinforcement Learning
   in Real-world Environments*. EMNLP, 2025.
-
