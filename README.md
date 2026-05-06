@@ -15,8 +15,9 @@ and evaluation expectations.
 
 ## Submission Artifacts
 
-- Final write-up: [`write-up.pdf`](write-up.pdf)
-- Source write-up: [`write-up.tex`](write-up.tex)
+- Final Markdown write-up: [`write-up.md`](write-up.md)
+- PDF write-up: [`write-up.pdf`](write-up.pdf)
+- LaTeX source write-up: [`write-up.tex`](write-up.tex)
 - Result summary: [`results/comparison.md`](results/comparison.md)
 - Full experiment log: [`docs/experiment_log.md`](docs/experiment_log.md)
 - Final genome: [`configs/evolved_deep_research_agent_v5.yaml`](configs/evolved_deep_research_agent_v5.yaml)
