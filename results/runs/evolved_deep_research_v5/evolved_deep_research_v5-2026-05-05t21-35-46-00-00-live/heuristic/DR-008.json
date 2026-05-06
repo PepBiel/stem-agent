@@ -1,0 +1,140 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-008.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-008",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.3333,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 71.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "flexibility",
+        "covered": true,
+        "matched_terms": [
+          "flexibility"
+        ],
+        "expected_terms": [
+          "flexibility"
+        ]
+      },
+      {
+        "aspect": "controllability",
+        "covered": true,
+        "matched_terms": [
+          "controllability"
+        ],
+        "expected_terms": [
+          "controllability"
+        ]
+      },
+      {
+        "aspect": "observability",
+        "covered": true,
+        "matched_terms": [
+          "observability"
+        ],
+        "expected_terms": [
+          "observability"
+        ]
+      },
+      {
+        "aspect": "cost",
+        "covered": true,
+        "matched_terms": [
+          "cost"
+        ],
+        "expected_terms": [
+          "cost"
+        ]
+      },
+      {
+        "aspect": "reproducibility",
+        "covered": true,
+        "matched_terms": [
+          "reproducibility"
+        ],
+        "expected_terms": [
+          "reproducibility"
+        ]
+      },
+      {
+        "aspect": "failure recovery",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "recovery"
+        ],
+        "expected_terms": [
+          "failure",
+          "recovery"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Autonomous agents are the better fit when the task is open-ended, the number of steps cannot be predicted, and dynamic tool use matters; the trade-off is higher cost, more variance, and more need for guardrails and trust. Workflow-based agents are the better fit when you can predefine steps and want predictability, monitoring, replay, retries, and human approval. That conclusion is a synthesis of the sources below, not a universal benchmark result. https://www.anthropic.com/engineering/building-effective-agents https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "- **flexibility** — Agents are more flexible because they can adapt their plan and tool use to intermediate results; workflows are limited by predefined code paths. https://developers.cloudflare.com/agents/concepts/what-are-agents/ https://www.anthropic.com/engineering/building-effective-agents",
+      "- **controllability** — Workflows are more controllable because they support pause/resume/restart, approvals, and explicit step boundaries; agents require more trust and guardrails. https://developers.cloudflare.com/agents/concepts/workflows/ https://www.anthropic.com/engineering/building-effective-agents",
+      "- **observability** — Workflows and agent runtimes with tracing are easier to inspect because you can record step-by-step progress, tool calls, and decision points. https://docs.langchain.com/oss/python/langchain/observability https://developers.cloudflare.com/agents/concepts/workflows/",
+      "- **cost** — Autonomous agents usually cost more because they can run many turns; workflows can route simple work to smaller, cheaper models. https://www.anthropic.com/engineering/building-effective-agents",
+      "- **reproducibility** — Workflow engines with checkpointing and replay are more reproducible because completed steps are persisted and runs can be replayed. https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "- **failure recovery** — Workflows recover better from interruptions because they retry failed steps and resume from the last successful checkpoint/state. https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://claude.com/customers/grafana",
+        "domain": "claude.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/",
+        "domain": "developers.cloudflare.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+        "domain": "developers.cloudflare.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/observability",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "domain": "anthropic.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

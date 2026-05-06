@@ -1,0 +1,155 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-001.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.8333,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.975,
+  "failure_tags": [],
+  "runtime_seconds": 60.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "context pollution",
+        "covered": true,
+        "matched_terms": [
+          "context",
+          "pollution"
+        ],
+        "expected_terms": [
+          "context",
+          "pollution"
+        ]
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "covered": true,
+        "matched_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ],
+        "expected_terms": [
+          "irrelevant",
+          "memories",
+          "retrieval",
+          "stale"
+        ]
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "covered": true,
+        "matched_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ],
+        "expected_terms": [
+          "outputs",
+          "over",
+          "previous",
+          "trusting"
+        ]
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "covered": true,
+        "matched_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ],
+        "expected_terms": [
+          "long",
+          "memory",
+          "offs",
+          "short",
+          "term",
+          "trade"
+        ]
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "covered": true,
+        "matched_terms": [
+          "evaluation",
+          "memory"
+        ],
+        "expected_terms": [
+          "evaluation",
+          "memory"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "- **Context pollution**: the agent over-uses its own prior outputs, so earlier errors, hallucinations, or style artifacts get carried forward instead of filtered out. https://arxiv.org/abs/2602.24287",
+      "- **Stale / irrelevant retrieval**: memory returns experiences that are outdated, irrelevant, or only superficially similar, which can mislead the current task and compound errors. https://arxiv.org/abs/2505.16067",
+      "- **Over-trusting previous agent outputs**: a specific version of the above, where assistant-side history is treated too much like ground truth rather than as optional guidance. https://arxiv.org/abs/2602.24287",
+      "- **Retention vs. update trade-off**: keeping enough short-term context helps continuity, but long-term memory also needs pruning, overwriting, and selective forgetting when facts change or memory gets overloaded. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf https://arxiv.org/abs/2601.18642",
+      "- **Poor memory-quality evaluation**: good systems are now judged with incremental multi-turn tests that separately score retrieval, test-time learning, long-range understanding, and conflict resolution. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+      "- context pollution — covered: assistant-side history can contaminate later turns and propagate errors/hallucinations. https://arxiv.org/abs/2602.24287",
+      "- retrieval of stale or irrelevant memories — covered: stale or misaligned experiences can mislead current tasks. https://arxiv.org/abs/2505.16067 https://openai.github.io/openai-agents-python/sandbox/memory/",
+      "- over-trusting previous agent outputs — covered: over-conditioning on prior assistant responses is a documented failure mode. https://arxiv.org/abs/2602.24287",
+      "- trade-offs between short-term and long-term memory — covered: preserve useful history, but overwrite outdated facts and selectively forget when needed. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf https://arxiv.org/abs/2601.18642",
+      "- evaluation methods for memory quality — covered: MemAE-style incremental multi-turn benchmarks and four competency axes. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2404.13501",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.18642",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.24287",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "domain": "openai.github.io",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+        "domain": "openreview.net",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

@@ -1,0 +1,1045 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:42:33+00:00",
+  "question": "What are common failure modes in multi-agent systems?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "source_expectations": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:43:47+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCommon failure modes in multi-agent systems cluster around coordination, role assignment, verification, and evaluation. Recent survey and benchmark evidence shows that adding more agents does not automatically improve performance: coordination costs rise, errors can propagate across message chains, and groups can reach agreement without reaching the right answer. https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045 https://arxiv.org/abs/2603.04474\n\n### Required aspect coverage\n- coordination overhead — Surveys and Silo-Bench both report that communication/coordination cost grows with scale and can erase parallelization gains: https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045\n- role confusion — Role-specification failure is a major failure mode; role overstepping means an agent behaves like another role: https://arxiv.org/abs/2604.02770\n- error propagation — Minor inaccuracies can propagate through message dependencies and become system-level false consensus: https://arxiv.org/abs/2603.04474\n- consensus without correctness — Agents may coordinate and exchange information yet still fail to synthesize a correct answer; Silo-Bench explicitly names consensus failure: https://arxiv.org/abs/2603.01045\n- evaluation difficulty — Reliable evaluation needs annotated traces, human agreement checks, LLM-as-a-Judge pipelines, and split strategies for multi-turn workflows: https://arxiv.org/abs/2503.13657 https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\n\n## Sources\n- Survey: https://link.springer.com/article/10.1007/s44336-024-00009-2\n- Failure taxonomy / annotated traces: https://arxiv.org/abs/2503.13657\n- Distributed coordination benchmark: https://arxiv.org/abs/2603.01045\n- Role consistency / role overstepping: https://arxiv.org/abs/2604.02770\n- Error cascades / false consensus: https://arxiv.org/abs/2603.04474\n- Official evaluation docs: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\n\n## Limitations\nThese findings are strongest for recent LLM-based multi-agent systems and benchmarks, not all classical multi-agent systems. The labels differ across sources, so the five required aspects are a synthesis across papers and docs rather than one shared taxonomy. Evaluation difficulty is supported by annotation and workflow-evaluation requirements, but the exact best metric still varies by task.",
+  "decomposition": {
+    "subquestions": [
+      "What failure modes recur across recent multi-agent system surveys and benchmarks?",
+      "Which failures are directly evidenced by empirical studies versus inferred from orchestration/evaluation docs?",
+      "How do coordination, role assignment, error propagation, consensus, and evaluation issues interact?"
+    ],
+    "required_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "expected_source_types": [
+      "multi-agent system paper or survey",
+      "agent framework documentation",
+      "empirical failure analysis"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+      "LLM multi-agent systems survey failure modes coordination overhead evaluation difficulty",
+      "multi-agent role confusion failure mode paper role assignment confusion",
+      "multi-agent error cascades consensus failure benchmark evaluation multi-turn annotation"
+    ],
+    "rationale_per_query": [
+      "Find a survey or paper that names broad failure modes and challenges.",
+      "Find explicit survey language on coordination overhead and evaluation challenges.",
+      "Find direct evidence for role confusion / role specification failure.",
+      "Find empirical evidence for cascading errors, false consensus, and evaluation complexity."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "A survey on LLM-based multi-agent systems: workflow, infrastructure, and challenges",
+      "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+      "status": "accepted",
+      "reason": "Peer-reviewed survey with direct discussion of coordination overhead and challenges."
+    },
+    {
+      "title": "Why Do Multi-Agent LLM Systems Fail?",
+      "url": "https://arxiv.org/abs/2503.13657",
+      "status": "accepted",
+      "reason": "Primary empirical failure taxonomy with annotated traces."
+    },
+    {
+      "title": "Silo-Bench: A Scalable Environment for Evaluating Distributed Coordination in Multi-Agent LLM Systems",
+      "url": "https://arxiv.org/abs/2603.01045",
+      "status": "accepted",
+      "reason": "Primary benchmark showing communication-reasoning gap, consensus failure, and coordination overhead."
+    },
+    {
+      "title": "Improving Role Consistency in Multi-Agent Collaboration via Quantitative Role Clarity",
+      "url": "https://arxiv.org/abs/2604.02770",
+      "status": "accepted",
+      "reason": "Primary paper directly naming role specification failures and role overstepping."
+    },
+    {
+      "title": "From Spark to Fire: Modeling and Mitigating Error Cascades in LLM-Based Multi-Agent Collaboration",
+      "url": "https://arxiv.org/abs/2603.04474",
+      "status": "accepted",
+      "reason": "Primary empirical analysis of error cascades and false consensus."
+    },
+    {
+      "title": "Evaluation | Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "status": "accepted",
+      "reason": "Official agent-framework documentation showing evaluation complexity for multi-turn and tool-use workflows."
+    },
+    {
+      "title": "Silo-Bench plain-language summary",
+      "url": "https://gist.science/paper/2603.01045",
+      "status": "rejected",
+      "reason": "Secondary summary; replaced by the primary arXiv abstract."
+    },
+    {
+      "title": "Papers.cool summary of role consistency paper",
+      "url": "https://papers.cool/arxiv/2604.02770",
+      "status": "rejected",
+      "reason": "Aggregator/summary rather than primary evidence."
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+        "type": "survey",
+        "why": "Directly states coordination and communication overhead can become significant."
+      },
+      {
+        "url": "https://arxiv.org/abs/2503.13657",
+        "type": "empirical failure analysis",
+        "why": "Provides annotated traces, taxonomy, and failure categories."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.01045",
+        "type": "benchmark",
+        "why": "Measures distributed coordination and reports communication-reasoning gap."
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.02770",
+        "type": "empirical failure analysis",
+        "why": "Directly frames role specification failure as a major failure mode."
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.04474",
+        "type": "empirical failure analysis",
+        "why": "Directly studies cascading error propagation and false consensus."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+        "type": "agent framework documentation",
+        "why": "Official docs on evaluation splits, expected tool calls, and workflow evaluation."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://gist.science/paper/2603.01045",
+        "reason": "Secondary explanatory summary; not primary evidence."
+      },
+      {
+        "url": "https://papers.cool/arxiv/2604.02770",
+        "reason": "Aggregator summary; primary arXiv source preferred."
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary summaries and aggregators were used only for discovery, not final evidence.",
+      "Primary papers and official docs were available for all required aspects."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Coordination and communication overhead can become significant in large-scale multi-agent systems, affecting overall performance.",
+      "source_url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+      "source_type": "survey",
+      "supported_aspect": "coordination overhead",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "SILO-BENCH finds that coordination overhead compounds with scale and can eliminate parallelization gains.",
+      "source_url": "https://arxiv.org/abs/2603.01045",
+      "source_type": "benchmark",
+      "supported_aspect": "coordination overhead",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Disobeying role specification, including agents behaving like another role, is a major failure mode in LLM-driven multi-agent systems.",
+      "source_url": "https://arxiv.org/abs/2604.02770",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "role confusion",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Minor inaccuracies can solidify into system-level false consensus because errors propagate through message dependencies.",
+      "source_url": "https://arxiv.org/abs/2603.04474",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "error propagation",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agents may exchange information and form coordination topologies yet still fail to synthesize distributed state into correct answers.",
+      "source_url": "https://arxiv.org/abs/2603.01045",
+      "source_type": "benchmark",
+      "supported_aspect": "consensus without correctness",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "SILO-BENCH identifies consensus failure as a distinct vulnerability class and shows that communication alone does not ensure correct agreement.",
+      "source_url": "https://arxiv.org/abs/2603.01045",
+      "source_type": "benchmark",
+      "supported_aspect": "consensus without correctness",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Multi-agent failure analysis required 1,600+ annotated traces, expert human annotators, high inter-annotator agreement, and an LLM-as-a-Judge pipeline.",
+      "source_url": "https://arxiv.org/abs/2503.13657",
+      "source_type": "empirical failure analysis",
+      "supported_aspect": "evaluation difficulty",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Official evaluation docs require explicit split strategies for multi-turn conversations and separate checks for expected tool calls, showing that multi-agent evaluation is scenario-sensitive rather than one-size-fits-all.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "evaluation difficulty",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "coordination overhead",
+      "role confusion",
+      "error propagation",
+      "consensus without correctness",
+      "evaluation difficulty"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No major contradictions. Sources differ mainly in emphasis: survey-level coordination overhead, benchmark-level communication-reasoning gap, and taxonomy-level role and verification failures.",
+    "uncertainty_notes": [
+      "The prevalence of each failure mode varies by task, architecture, and benchmark.",
+      "The named aspects are a synthesis across recent LLM-based multi-agent literature rather than one canonical taxonomy."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "coordination overhead is a common failure mode",
+      "role confusion / role overstepping occurs",
+      "errors can cascade and amplify",
+      "consensus can form without correctness",
+      "evaluation of multi-agent systems is difficult and setup-dependent"
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:43:47+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2503.13657",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.01045",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2603.04474",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.02770",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_01d64e01bd24ea920069fa644e09c88193bd423d1de77e9268",
+      "action": {
+        "query": "multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+        "type": "search",
+        "queries": [
+          "multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey",
+          "LLM multi-agent systems survey failure modes coordination overhead evaluation difficulty",
+          "agent framework documentation multi-agent orchestration role confusion evaluation",
+          "empirical failure analysis multi-agent LLM agents coordination errors"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.21806"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.github.io/openai-agents-js/guides/multi-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.16280"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.27539"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0005109814004038"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.24284"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2079-9292/14/24/4883"
+          },
+          {
+            "type": "url",
+            "url": "https://www.mdpi.com/2226-4310/9/9/488"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.cmu.edu/afs/cs/usr/pstone/public/papers/97MAS-survey/revised-survey.html"
+          },
+          {
+            "type": "url",
+            "url": "https://research.ibm.com/publications/detection-and-resolution-of-normative-conflicts-in-multi-agent-systems-a-literature-survey-jaamas-track"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.13657"
+          },
+          {
+            "type": "url",
+            "url": "https://hyper.ai/en/papers/2601.07136"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIAgentsInAction/comments/1pmwv0a/why_multiagent_systems_often_make_things_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/learnmachinelearning/comments/1ssgzj5/why_most_multiagent_frameworks_fail_at_scale/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenSourceeAI/comments/1ste8q3/why_most_multiagent_frameworks_fail_at_scale/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1s2cewk/is_agentic_workflows_a_coordination_problem_or_an/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_Fast-Search3679/comments/1srha45/why_most_multiagent_frameworks_fail_at_scale/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialSentience/comments/1sic4pg/speculative_multi_agent_disconnect_error_and_fix/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1s3m3kz/discussion_why_multiagent_workflows_fail_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1sqrcoj/70_of_my_langchain_bugs_came_from_agents_not_the/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa6451ff4081938a03d6f1a25bc478",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2503.13657"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa64532044819394da27a1a86e5318",
+      "action": {
+        "query": "Silo-Bench arXiv 2603.01045",
+        "type": "search",
+        "queries": [
+          "Silo-Bench arXiv 2603.01045"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/401424150_SILO-BENCH_A_Scalable_Environment_for_Evaluating_Distributed_Coordination_in_Multi-Agent_LLM_Systems"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/it/paper/2603.01045"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentarxiv.org/papers/cmma8a0aw00012kwty44d0jul"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/overview/2603.01045v2"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/ru/overview/2603.01045v2"
+          },
+          {
+            "type": "url",
+            "url": "https://bytez.com/docs/arxiv/2603.01045/paper"
+          },
+          {
+            "type": "url",
+            "url": "https://scirate.com/?date=2026-03-03&page=24&range=1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/fr/overview/2603.01045v2"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.19173"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1908.05790"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2308.04430"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMPhysics/comments/1sg32g7/not_a_physicist_is_this_arxiv_paper_genuine/"
+          },
+          {
+            "type": "url",
+            "url": "https://par.nsf.gov/servlets/purl/10539594"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/BlackberryAI/comments/1s0krjb/inference/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/StrixHalo/comments/1sw3etv/1bitsystems_no_typos_in_this_one/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.04046"
+          },
+          {
+            "type": "url",
+            "url": "https://aclweb.org/anthology/2024.naacl-short.2.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://kenziyuliu.github.io/files/private-silos-poster-prelim.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/c8cdab0e890c59255c27977072fdb0f0-Paper-Datasets_and_Benchmarks_Track.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/15ozsmo"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa6455be6881939d548c75a80216f3",
+      "action": {
+        "query": "multi-agent role confusion failure mode paper role assignment confusion",
+        "type": "search",
+        "queries": [
+          "multi-agent role confusion failure mode paper role assignment confusion",
+          "LLM multi-agent inter-agent misalignment role confusion paper",
+          "agent framework role confusion handoffs documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.02770"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.07848"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.github.io/openai-agents-js/guides/handoffs/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.19843"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.05339"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2509.23188"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/389947144_Why_Do_Multi-Agent_LLM_Systems_Fail"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.22422"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2506.04018"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.02770"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2405.03862"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00249"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2506.02739v1"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.08567"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2511.08710"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=MqBzKkb8eK"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/05b0c085a50cb2c08974704ba2cbb344ee5ff059.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2025/Slides/121528_lmjNn1F.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/rajistics/comments/1pmv2lo/why_multiagent_systems_often_make_things_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIAgentsInAction/comments/1pmwv0a/why_multiagent_systems_often_make_things_worse/"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=FfsxgSZW0c"
+          },
+          {
+            "type": "url",
+            "url": "https://nanoagentteam.github.io/assets/autonomous-multi-agent-survey.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/cybersecurity/comments/1rty805/the_confused_deputy_problem_in_multiagent_ai/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r86fmq/the_real_reason_your_multiagent_system_fails_isnt/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1sk8j0x/built_and_measured_a_fix_for_the_wrong_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://app.readthedocs.org/projects/agent-framework/downloads/pdf/latest/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rjsdt1/the_hardest_part_of_multiagent_setups_isnt_the/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialSentience/comments/1sic4pg/speculative_multi_agent_disconnect_error_and_fix/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa645d0f848193912eb9b24c018200",
+      "action": {
+        "query": "arXiv 2604.02770 role consistency multi-agent collaboration quantitative role clarity",
+        "type": "search",
+        "queries": [
+          "arXiv 2604.02770 role consistency multi-agent collaboration quantitative role clarity"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.02770"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.02770"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2604.02770"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv-troller.com/?q=paper%3A+2602.21941"
+          },
+          {
+            "type": "url",
+            "url": "https://richlyai.com/blog/boost-multi-agent-role-consistency-with-quantitative-clarity-ai-news/"
+          },
+          {
+            "type": "url",
+            "url": "https://scirate.com/?date=2026-04-07&page=44&range=3"
+          },
+          {
+            "type": "url",
+            "url": "https://paperreading.club/page?id=391794"
+          },
+          {
+            "type": "url",
+            "url": "https://bytez.com/docs/arxiv/2604.02770/paper"
+          },
+          {
+            "type": "url",
+            "url": "https://ai-navigate-news.com/en/articles/f523d841-fe3c-480a-957b-25de84273102"
+          },
+          {
+            "type": "url",
+            "url": "https://scirate.com/search?q=au%3AZhou_Y+in%3Acs"
+          },
+          {
+            "type": "url",
+            "url": "https://www.deepdyve.com/lp/arxiv/improving-role-consistency-in-multi-agent-collaboration-via-D05m8djTkO"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2304.00755"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/author/Wenpei%20Han"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2604.01020"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2207.05683"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2311.08152"
+          },
+          {
+            "type": "url",
+            "url": "https://educationaldatamining.org/EDM2025/proceedings/2025.EDM.poster-demo-papers.288/2025.EDM.poster-demo-papers.288.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.acl-long.1105.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ImRightAndYoureWrong/comments/1oh79y5"
+          },
+          {
+            "type": "url",
+            "url": "https://mob00.github.io/qr25/paper/0004.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa646101c4819380b0f0dbf94b6def",
+      "action": {
+        "pattern": "evaluation",
+        "type": "find_in_page",
+        "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa64678d8c819391a03f01d3ad0a15",
+      "action": {
+        "query": "multi-agent systems cascading errors failure mode paper",
+        "type": "search",
+        "queries": [
+          "multi-agent systems cascading errors failure mode paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/403606158_Incremental_Risk_Assessment_for_Cascading_Failures_in_Large-Scale_Multi-Agent_Systems"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/398026349_Distributionally_Robust_Cascading_Risk_in_Multi-Agent_Rendezvous_Extended_Analysis_of_Parameter-Induced_Ambiguity"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.06024"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/286737002_Multi-Agent_System_algorithm_for_preventing_cascading_failures_in_smart_grid_systems"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.13325"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.14688"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ornl.gov/publication/analysis-and-mitigation-cascading-failures-using-stochastic-interaction-graph-eigen"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/260509465_A_Random_Chemistry_Algorithm_for_Identifying_Collections_of_Multiple_Contingencies_That_Initiate_Cascading_Failure"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/papers/2507.23489"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s40565-019-0500-2"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.06024"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/1810.10862"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0029801817307679"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.07775"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.04474"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.08104"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cmu.edu/ceic/assets/docs/publications/working-papers/ceic-05-07.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://iswc2023.semanticweb.org/wp-content/uploads/2023/11/142660322.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://research.ece.cmu.edu/cascadingfailures/Cascading%20Failures%20for%20S-26.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rkomls/multiagent_pipelines_break_in_weird_ways_this_one/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rx8ot0/the_reason_my_multiagent_pipeline_kept_failing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r86fmq/the_real_reason_your_multiagent_system_fails_isnt/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ClaudeAI/comments/1rxogyq/the_default_failure_mode_in_multiagent_systems_is/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa646b58dc8193ad82de61432a39f5",
+      "action": {
+        "pattern": "evaluate",
+        "type": "find_in_page",
+        "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_01d64e01bd24ea920069fa646dadf08193a9cc12ba5af41a4b",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2603.04474"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 43961,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 8868,
+    "output_tokens_details": {
+      "reasoning_tokens": 5975
+    },
+    "total_tokens": 52829
+  },
+  "response_id": "resp_01d64e01bd24ea920069fa644c377c8193be908117874fb98a",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What failure modes recur across recent multi-agent system surveys and benchmarks?\",\n      \"Which failures are directly evidenced by empirical studies versus inferred from orchestration/evaluation docs?\",\n      \"How do coordination, role assignment, error propagation, consensus, and evaluation issues interact?\"\n    ],\n    \"required_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"expected_source_types\": [\n      \"multi-agent system paper or survey\",\n      \"agent framework documentation\",\n      \"empirical failure analysis\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"multi-agent systems failure modes coordination overhead role confusion error propagation consensus without correctness evaluation difficulty paper survey\",\n      \"LLM multi-agent systems survey failure modes coordination overhead evaluation difficulty\",\n      \"multi-agent role confusion failure mode paper role assignment confusion\",\n      \"multi-agent error cascades consensus failure benchmark evaluation multi-turn annotation\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey or paper that names broad failure modes and challenges.\",\n      \"Find explicit survey language on coordination overhead and evaluation challenges.\",\n      \"Find direct evidence for role confusion / role specification failure.\",\n      \"Find empirical evidence for cascading errors, false consensus, and evaluation complexity.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"A survey on LLM-based multi-agent systems: workflow, infrastructure, and challenges\",\n      \"url\": \"https://link.springer.com/article/10.1007/s44336-024-00009-2\",\n      \"status\": \"accepted\",\n      \"reason\": \"Peer-reviewed survey with direct discussion of coordination overhead and challenges.\"\n    },\n    {\n      \"title\": \"Why Do Multi-Agent LLM Systems Fail?\",\n      \"url\": \"https://arxiv.org/abs/2503.13657\",\n      \"status\": \"accepted\",\n      \"reason\": \"Primary empirical failure taxonomy with annotated traces.\"\n    },\n    {\n      \"title\": \"Silo-Bench: A Scalable Environment for Evaluating Distributed Coordination in Multi-Agent LLM Systems\",\n      \"url\": \"https://arxiv.org/abs/2603.01045\",\n      \"status\": \"accepted\",\n      \"reason\": \"Primary benchmark showing communication-reasoning gap, consensus failure, and coordination overhead.\"\n    },\n    {\n      \"title\": \"Improving Role Consistency in Multi-Agent Collaboration via Quantitative Role Clarity\",\n      \"url\": \"https://arxiv.org/abs/2604.02770\",\n      \"status\": \"accepted\",\n      \"reason\": \"Primary paper directly naming role specification failures and role overstepping.\"\n    },\n    {\n      \"title\": \"From Spark to Fire: Modeling and Mitigating Error Cascades in LLM-Based Multi-Agent Collaboration\",\n      \"url\": \"https://arxiv.org/abs/2603.04474\",\n      \"status\": \"accepted\",\n      \"reason\": \"Primary empirical analysis of error cascades and false consensus.\"\n    },\n    {\n      \"title\": \"Evaluation | Microsoft Learn\",\n      \"url\": \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n      \"status\": \"accepted\",\n      \"reason\": \"Official agent-framework documentation showing evaluation complexity for multi-turn and tool-use workflows.\"\n    },\n    {\n      \"title\": \"Silo-Bench plain-language summary\",\n      \"url\": \"https://gist.science/paper/2603.01045\",\n      \"status\": \"rejected\",\n      \"reason\": \"Secondary summary; replaced by the primary arXiv abstract.\"\n    },\n    {\n      \"title\": \"Papers.cool summary of role consistency paper\",\n      \"url\": \"https://papers.cool/arxiv/2604.02770\",\n      \"status\": \"rejected\",\n      \"reason\": \"Aggregator/summary rather than primary evidence.\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://link.springer.com/article/10.1007/s44336-024-00009-2\",\n        \"type\": \"survey\",\n        \"why\": \"Directly states coordination and communication overhead can become significant.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2503.13657\",\n        \"type\": \"empirical failure analysis\",\n        \"why\": \"Provides annotated traces, taxonomy, and failure categories.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2603.01045\",\n        \"type\": \"benchmark\",\n        \"why\": \"Measures distributed coordination and reports communication-reasoning gap.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2604.02770\",\n        \"type\": \"empirical failure analysis\",\n        \"why\": \"Directly frames role specification failure as a major failure mode.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2603.04474\",\n        \"type\": \"empirical failure analysis\",\n        \"why\": \"Directly studies cascading error propagation and false consensus.\"\n      },\n      {\n        \"url\": \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n        \"type\": \"agent framework documentation\",\n        \"why\": \"Official docs on evaluation splits, expected tool calls, and workflow evaluation.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://gist.science/paper/2603.01045\",\n        \"reason\": \"Secondary explanatory summary; not primary evidence.\"\n      },\n      {\n        \"url\": \"https://papers.cool/arxiv/2604.02770\",\n        \"reason\": \"Aggregator summary; primary arXiv source preferred.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Secondary summaries and aggregators were used only for discovery, not final evidence.\",\n      \"Primary papers and official docs were available for all required aspects.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Coordination and communication overhead can become significant in large-scale multi-agent systems, affecting overall performance.\",\n      \"source_url\": \"https://link.springer.com/article/10.1007/s44336-024-00009-2\",\n      \"source_type\": \"survey\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"SILO-BENCH finds that coordination overhead compounds with scale and can eliminate parallelization gains.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.01045\",\n      \"source_type\": \"benchmark\",\n      \"supported_aspect\": \"coordination overhead\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Disobeying role specification, including agents behaving like another role, is a major failure mode in LLM-driven multi-agent systems.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.02770\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"role confusion\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Minor inaccuracies can solidify into system-level false consensus because errors propagate through message dependencies.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.04474\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"error propagation\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agents may exchange information and form coordination topologies yet still fail to synthesize distributed state into correct answers.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.01045\",\n      \"source_type\": \"benchmark\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"SILO-BENCH identifies consensus failure as a distinct vulnerability class and shows that communication alone does not ensure correct agreement.\",\n      \"source_url\": \"https://arxiv.org/abs/2603.01045\",\n      \"source_type\": \"benchmark\",\n      \"supported_aspect\": \"consensus without correctness\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Multi-agent failure analysis required 1,600+ annotated traces, expert human annotators, high inter-annotator agreement, and an LLM-as-a-Judge pipeline.\",\n      \"source_url\": \"https://arxiv.org/abs/2503.13657\",\n      \"source_type\": \"empirical failure analysis\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Official evaluation docs require explicit split strategies for multi-turn conversations and separate checks for expected tool calls, showing that multi-agent evaluation is scenario-sensitive rather than one-size-fits-all.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"evaluation difficulty\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"coordination overhead\",\n      \"role confusion\",\n      \"error propagation\",\n      \"consensus without correctness\",\n      \"evaluation difficulty\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No major contradictions. Sources differ mainly in emphasis: survey-level coordination overhead, benchmark-level communication-reasoning gap, and taxonomy-level role and verification failures.\",\n    \"uncertainty_notes\": [\n      \"The prevalence of each failure mode varies by task, architecture, and benchmark.\",\n      \"The named aspects are a synthesis across recent LLM-based multi-agent literature rather than one canonical taxonomy.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"coordination overhead is a common failure mode\",\n      \"role confusion / role overstepping occurs\",\n      \"errors can cascade and amplify\",\n      \"consensus can form without correctness\",\n      \"evaluation of multi-agent systems is difficult and setup-dependent\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nCommon failure modes in multi-agent systems cluster around coordination, role assignment, verification, and evaluation. Recent survey and benchmark evidence shows that adding more agents does not automatically improve performance: coordination costs rise, errors can propagate across message chains, and groups can reach agreement without reaching the right answer. https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045 https://arxiv.org/abs/2603.04474\\n\\n### Required aspect coverage\\n- coordination overhead — Surveys and Silo-Bench both report that communication/coordination cost grows with scale and can erase parallelization gains: https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045\\n- role confusion — Role-specification failure is a major failure mode; role overstepping means an agent behaves like another role: https://arxiv.org/abs/2604.02770\\n- error propagation — Minor inaccuracies can propagate through message dependencies and become system-level false consensus: https://arxiv.org/abs/2603.04474\\n- consensus without correctness — Agents may coordinate and exchange information yet still fail to synthesize a correct answer; Silo-Bench explicitly names consensus failure: https://arxiv.org/abs/2603.01045\\n- evaluation difficulty — Reliable evaluation needs annotated traces, human agreement checks, LLM-as-a-Judge pipelines, and split strategies for multi-turn workflows: https://arxiv.org/abs/2503.13657 https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n\\n## Sources\\n- Survey: https://link.springer.com/article/10.1007/s44336-024-00009-2\\n- Failure taxonomy / annotated traces: https://arxiv.org/abs/2503.13657\\n- Distributed coordination benchmark: https://arxiv.org/abs/2603.01045\\n- Role consistency / role overstepping: https://arxiv.org/abs/2604.02770\\n- Error cascades / false consensus: https://arxiv.org/abs/2603.04474\\n- Official evaluation docs: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n\\n## Limitations\\nThese findings are strongest for recent LLM-based multi-agent systems and benchmarks, not all classical multi-agent systems. The labels differ across sources, so the five required aspects are a synthesis across papers and docs rather than one shared taxonomy. Evaluation difficulty is supported by annotation and workflow-evaluation requirements, but the exact best metric still varies by task.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-007.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-007",
+  "question": "How should citations be audited in deep research agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.3333,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.9,
+  "failure_tags": [
+    "weak_source"
+  ],
+  "runtime_seconds": 55.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "claim-level evidence",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ],
+        "expected_terms": [
+          "claim",
+          "evidence",
+          "level"
+        ]
+      },
+      {
+        "aspect": "source relevance",
+        "covered": true,
+        "matched_terms": [
+          "relevance",
+          "source"
+        ],
+        "expected_terms": [
+          "relevance",
+          "source"
+        ]
+      },
+      {
+        "aspect": "citation granularity",
+        "covered": true,
+        "matched_terms": [
+          "citation",
+          "granularity"
+        ],
+        "expected_terms": [
+          "citation",
+          "granularity"
+        ]
+      },
+      {
+        "aspect": "unsupported claim detection",
+        "covered": true,
+        "matched_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ],
+        "expected_terms": [
+          "claim",
+          "detection",
+          "unsupported"
+        ]
+      },
+      {
+        "aspect": "handling conflicting sources",
+        "covered": true,
+        "matched_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ],
+        "expected_terms": [
+          "conflicting",
+          "handling",
+          "sources"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Audit citations in deep research agents at the **claim level**: every factual sentence or clause should be checked against one or more **directly supporting sources**, with inline citations and source metadata retained for traceability. Prefer primary, current sources and do not use broad topical matches as substitutes for evidence. https://developers.openai.com/api/docs/guides/deep-research https://help.openai.com/en/articles/10500283",
+      "- **Verify each claim directly** against the cited source(s); reject loose or invented citations. https://developers.openai.com/api/docs/guides/citation-formatting",
+      "- **Keep citations granular**: attach them to the supported sentence or clause, and cite all sources that materially support the proposition. https://developers.openai.com/api/docs/guides/citation-formatting",
+      "- **Flag unsupported claims explicitly** and separate well-supported findings from directional observations or unknowns. https://openai.com/academy/research/",
+      "- **Handle disagreement transparently** by citing at least one high-quality source per major viewpoint and noting uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting",
+      "- **Use benchmark metrics** like citation accuracy and effective citations to score the audit process itself. https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html https://arxiv.org/abs/2506.01829",
+      "- **claim-level evidence** — Covered: audit each factual claim against direct evidence and keep source metadata for traceability. https://developers.openai.com/api/docs/guides/deep-research",
+      "- **source relevance** — Covered: prefer sources that directly support the text and prioritize reliable primary sources. https://help.openai.com/en/articles/10500283",
+      "- **citation granularity** — Covered: cite at sentence/clause level and use multiple citations when multiple sources materially support a point. https://developers.openai.com/api/docs/guides/citation-formatting",
+      "- **unsupported claim detection** — Covered: require a source-quality check and a 'what's missing' section for gaps or unknowns. https://openai.com/academy/research/",
+      "- **handling conflicting sources** — Covered: cite each major viewpoint when reliable sources disagree and surface uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2506.01829",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/guides/deep-research",
+        "domain": "developers.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html",
+        "domain": "docs.nvidia.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://help.openai.com/en/articles/10500283",
+        "domain": "help.openai.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://openai.com/academy/research/",
+        "domain": "openai.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

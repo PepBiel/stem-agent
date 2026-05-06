@@ -1,0 +1,320 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T21:38:22+00:00",
+  "finished_at": "2026-05-05T21:38:31+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-002.json",
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 1.0,
+  "judge_score": 0.8333,
+  "final_score": 0.8916,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-002.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-002",
+    "question": "How do ReAct-style agents differ from planner-executor agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 1.0,
+    "failure_tags": [],
+    "runtime_seconds": 87.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "interleaved reasoning and acting",
+          "covered": true,
+          "matched_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ],
+          "expected_terms": [
+            "acting",
+            "interleaved",
+            "reasoning"
+          ]
+        },
+        {
+          "aspect": "explicit planning stage",
+          "covered": true,
+          "matched_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ],
+          "expected_terms": [
+            "explicit",
+            "planning",
+            "stage"
+          ]
+        },
+        {
+          "aspect": "tool-use implications",
+          "covered": true,
+          "matched_terms": [
+            "implications",
+            "tool"
+          ],
+          "expected_terms": [
+            "implications",
+            "tool"
+          ]
+        },
+        {
+          "aspect": "failure modes",
+          "covered": true,
+          "matched_terms": [
+            "failure",
+            "modes"
+          ],
+          "expected_terms": [
+            "failure",
+            "modes"
+          ]
+        },
+        {
+          "aspect": "when each architecture is preferable",
+          "covered": true,
+          "matched_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ],
+          "expected_terms": [
+            "architecture",
+            "each",
+            "preferable"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "ReAct-style agents interleave reasoning and acting: they emit a short reasoning step, call a tool, read the observation, and then decide the next step. Planner-executor agents separate those phases: they first create an explicit plan or decomposition, then execute the steps, often revising the plan when new information arrives. https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview",
+        "Tool-use implication: ReAct is tightly coupled to immediate observations, so tool choice is made step-by-step inside the loop. Planner-executor is more structured, so tool calls are sequenced against a plan, which is better for delegation, checkpoints, and longer workflows. That second sentence is an engineering inference from the docs and should be treated as guidance, not a universal fact. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+        "Failure modes differ too. ReAct can be prompt-sensitive; a later analysis found that performance was minimally influenced by interleaving itself and more by exemplar-query similarity. Planner-executor can fail if the initial plan is bad or a subtask is infeasible; ADaPT argues that both iterative executors and plan-and-execute systems can break when a subtask cannot be executed. https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772",
+        "Recommendation: use ReAct when you want a tight tool-feedback loop for a short or uncertain task; use planner-executor when the task is long-horizon, multi-step, or benefits from explicit decomposition and stateful coordination. This is a synthesis from the sources, not a hard benchmark rule. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+        "- interleaved reasoning and acting — ReAct alternates reasoning and tool calls: https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents",
+        "- explicit planning stage — planner-executor/deep-agent style systems start with planning and decomposition: https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+        "- tool-use implications — ReAct makes tool use reactive; planner-executor makes it plan-sequenced and easier to delegate/control: https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview",
+        "- failure modes — ReAct prompting is brittle/sensitive, and plan-and-execute can fail when subtasks are not executable: https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772",
+        "- when each architecture is preferable — ReAct fits tighter feedback-loop tasks; planner-executor fits long-horizon, multi-step work: https://docs.langchain.com/oss/python/deepagents/overview https://docs.langchain.com/oss/python/langchain/agents"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2210.03629",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2311.05772",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2405.13966",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/deepagents/overview",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/deepagents/overview.",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/langchain/agents",
+          "domain": "docs.langchain.com",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly explains ReAct as alternating reasoning, tool calls, and observations."
+      },
+      {
+        "aspect": "explicit planning stage",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly contrasts planner-executor as planning/decomposition first, then execution."
+      },
+      {
+        "aspect": "tool-use implications",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Addresses reactive vs plan-sequenced tool use and delegation/control implications, though some of this is framed as inference rather than directly supported fact."
+      },
+      {
+        "aspect": "failure modes",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "Mentions prompt sensitivity for ReAct and brittle plans/infeasible subtasks for planner-executor, but the comparison is somewhat high-level."
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Gives a reasonable task-based recommendation: short/uncertain tasks for ReAct, long-horizon/multi-step tasks for planner-executor."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "ReAct-style agents interleave reasoning and acting: they emit a short reasoning step, call a tool, read the observation, and then decide the next step.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629",
+          "https://docs.langchain.com/oss/python/langchain/agents"
+        ],
+        "reason": "This is the core ReAct framing and is plausibly supported by the ReAct paper and agent docs."
+      },
+      {
+        "claim": "Planner-executor agents separate those phases: they first create an explicit plan or decomposition, then execute the steps.",
+        "support": "supported",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/deepagents/overview",
+          "https://arxiv.org/abs/2311.05772"
+        ],
+        "reason": "Plan-and-execute style systems are directly relevant to this claim."
+      },
+      {
+        "claim": "ReAct is tightly coupled to immediate observations, so tool choice is made step-by-step inside the loop.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2210.03629",
+          "https://docs.langchain.com/oss/python/langchain/agents"
+        ],
+        "reason": "This follows from the interleaved ReAct loop and is a fair inference from the cited sources."
+      },
+      {
+        "claim": "Planner-executor is more structured, so tool calls are sequenced against a plan, which is better for delegation, checkpoints, and longer workflows.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/agents",
+          "https://docs.langchain.com/oss/python/deepagents/overview",
+          "https://arxiv.org/abs/2311.05772"
+        ],
+        "reason": "The structured sequencing is plausible, but the benefits listed are partly engineering interpretation rather than directly established by the cited sources."
+      },
+      {
+        "claim": "ReAct can be prompt-sensitive; a later analysis found that performance was minimally influenced by interleaving itself and more by exemplar-query similarity.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2405.13966"
+        ],
+        "reason": "This is a specific empirical claim that the cited paper is plausibly intended to support."
+      },
+      {
+        "claim": "Planner-executor can fail if the initial plan is bad or a subtask is infeasible.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2311.05772"
+        ],
+        "reason": "This is aligned with known plan-and-execute failure modes and is plausibly supported by the cited work."
+      },
+      {
+        "claim": "Use ReAct when you want a tight tool-feedback loop for a short or uncertain task; use planner-executor when the task is long-horizon, multi-step, or benefits from explicit decomposition and stateful coordination.",
+        "support": "weak",
+        "cited_urls": [
+          "https://docs.langchain.com/oss/python/langchain/agents",
+          "https://docs.langchain.com/oss/python/deepagents/overview",
+          "https://arxiv.org/abs/2311.05772"
+        ],
+        "reason": "Good practical advice, but it is presented as a synthesis rather than a directly evidenced rule, so support is only partial."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "quality": "strong",
+        "reason": "Primary ReAct paper; highly relevant."
+      },
+      {
+        "url": "https://arxiv.org/abs/2311.05772",
+        "quality": "strong",
+        "reason": "Relevant technical paper for plan-and-execute / agent architecture trade-offs."
+      },
+      {
+        "url": "https://arxiv.org/abs/2405.13966",
+        "quality": "strong",
+        "reason": "Relevant empirical follow-up on ReAct limitations."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/overview",
+        "quality": "strong",
+        "reason": "Official framework documentation, relevant to planner-executor style systems."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/overview.",
+        "quality": "weak",
+        "reason": "Same source but with a trailing punctuation artifact; likely a citation formatting issue."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/agents",
+        "quality": "strong",
+        "reason": "Official agent framework documentation, relevant to the comparison."
+      }
+    ],
+    "failure_tags": [
+      "some_inference_not_directly_cited",
+      "citation_formatting_noise"
+    ],
+    "summary": "A solid, well-structured comparison that covers all required aspects with mostly relevant sources. The main weakness is that some tool-use and preference claims are presented as synthesis/inference rather than directly evidenced facts.",
+    "recommended_fix": "Tighten the distinction between directly supported claims and inferred guidance, especially for the tool-use advantages and 'when to use which' recommendation.",
+    "average_score": 4.3333,
+    "normalized_score": 0.8333
+  },
+  "judge_usage": {
+    "input_tokens": 4087,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1640,
+    "output_tokens_details": {
+      "reasoning_tokens": 91
+    },
+    "total_tokens": 5727
+  },
+  "response_id": "resp_09ad81cec15531f60069fa63513284819386b8c51e04414109"
+}

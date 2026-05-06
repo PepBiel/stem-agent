@@ -1,0 +1,680 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:40:12+00:00",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "source_expectations": [
+      "agentic RAG survey",
+      "RAG baseline reference",
+      "implementation or framework documentation"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:40:57+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "# Answer\nAgentic RAG is RAG with an agent/controller layer. Instead of a single retrieve-once-then-generate pass, the system can plan, choose tools, retrieve again, and verify or refine its output before answering. Standard RAG is the simpler baseline: retrieve relevant external context, then generate from that context. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401\n\n## Required aspect coverage\n- standard retrieve-then-generate workflow — Standard RAG combines a language model with retrieved non-parametric memory for generation: https://arxiv.org/abs/2005.11401\n- planning or iterative retrieval — Agentic RAG uses planning and iterative retrieval/refinement rather than a single static pass: https://arxiv.org/abs/2501.09136\n- tool use — Agentic RAG explicitly uses tool use, and framework docs show agents calling tools in long-running loops: https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/overview\n- reflection or verification — Evaluator-optimizer workflows add a separate evaluation step and loop back when feedback says the answer needs improvement: https://docs.langchain.com/oss/python/langgraph/workflows-agents\n- added complexity and failure modes — The extra autonomy adds orchestration complexity and open issues around evaluation, coordination, memory management, efficiency, and governance: https://arxiv.org/abs/2501.09136\n\nDirect source-backed summary: the survey describes Agentic RAG as embedding autonomous AI agents into the RAG pipeline, with reflection, planning, tool use, and multi-agent collaboration; the baseline RAG paper describes retrieve-then-generate with a retriever over non-parametric memory. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401\n\nEngineering inference: agentic RAG is most useful when a query needs multi-step reasoning, source selection, or self-checking; standard RAG is usually enough when one retrieval pass is likely sufficient. That recommendation follows from the cited loop/verification patterns and the added complexity noted in the survey, not from a direct benchmark in the selected sources. https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/workflows-agents\n\n## Sources\n- https://arxiv.org/abs/2501.09136 — Agentic RAG survey.\n- https://arxiv.org/abs/2005.11401 — Canonical RAG baseline paper.\n- https://docs.langchain.com/oss/python/langgraph/overview — Official agent orchestration/docs for tools and stateful workflows.\n- https://docs.langchain.com/oss/python/langgraph/workflows-agents — Official docs for evaluator-optimizer and iterative verification.\n\n## Limitations\nThis answer is conceptual and source-backed, but it does not include benchmark numbers or cost/latency comparisons because the selected sources do not provide a direct apples-to-apples evaluation of standard RAG versus agentic RAG. Terminology also varies across frameworks, so 'agentic RAG' here means the surveyed pattern of agent-mediated, iterative retrieval and verification. https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/overview",
+  "decomposition": {
+    "subquestions": [
+      "What is the standard RAG baseline workflow?",
+      "What makes RAG 'agentic'?",
+      "How do planning, iterative retrieval, tool use, and reflection/verification change the pipeline?",
+      "What added complexity or failure modes come with agentic RAG?"
+    ],
+    "required_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "expected_source_types": [
+      "agentic RAG survey",
+      "RAG baseline reference",
+      "implementation or framework documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "agentic RAG survey arXiv planning iterative retrieval tool use reflection verification",
+      "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks arXiv baseline RAG",
+      "LangGraph docs tool-calling loops evaluator-optimizer human-in-the-loop",
+      "agentic RAG framework documentation retrieval tool use"
+    ],
+    "rationale_per_query": [
+      "Find a survey that defines agentic RAG and names the key design patterns and open challenges.",
+      "Find the canonical baseline RAG paper to anchor the standard retrieve-then-generate workflow.",
+      "Find official framework docs that describe tool use, iterative loops, and verification/reflection patterns.",
+      "Find implementation docs to corroborate agentic RAG as an orchestration pattern, not just a concept."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "type": "agentic RAG survey"
+    },
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "type": "RAG baseline reference"
+    },
+    {
+      "title": "LangGraph overview",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "type": "implementation or framework documentation"
+    },
+    {
+      "title": "Workflows and agents - LangGraph",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "type": "implementation or framework documentation"
+    },
+    {
+      "title": "Agentic RAG - Hugging Face docs",
+      "url": "https://huggingface.co/docs/smolagents/main/examples/rag",
+      "type": "implementation or framework documentation"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "reason": "Direct survey on Agentic RAG; primary source for definitions, design patterns, and challenges."
+      },
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "reason": "Canonical baseline RAG paper; primary source for the standard retrieve-then-generate workflow."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+        "reason": "Official framework documentation; directly supports agent orchestration, tools, human-in-the-loop, and debugging."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+        "reason": "Official framework documentation; directly supports evaluator-optimizer loops and iterative verification."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "url": "https://huggingface.co/papers/2501.09136",
+        "reason": "Secondary paper page; useful as discovery but less authoritative than the arXiv paper."
+      },
+      {
+        "url": "https://papers.cool/arxiv/2005.11401",
+        "reason": "Aggregator/discovery page; not primary evidence."
+      },
+      {
+        "url": "https://www.ibm.com/think/topics/agentic-rag",
+        "reason": "Secondary explainer; not needed because primary survey and official docs were sufficient."
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary summaries were replaced by primary papers or official docs.",
+      "Aggregator pages were used only for discovery and not for synthesis."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Standard RAG combines a parametric language model with non-parametric memory accessed by retrieval; this is the retrieve-then-generate baseline.",
+      "source_url": "https://arxiv.org/abs/2005.11401",
+      "source_type": "RAG baseline reference",
+      "supported_aspect": "standard retrieve-then-generate workflow",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic RAG embeds autonomous AI agents into the RAG pipeline so retrieval can be dynamically managed rather than executed as a single static pass.",
+      "source_url": "https://arxiv.org/abs/2501.09136",
+      "source_type": "agentic RAG survey",
+      "supported_aspect": "planning or iterative retrieval",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic RAG uses planning, tool use, reflection, and multi-agent collaboration to iteratively refine context and adapt workflows.",
+      "source_url": "https://arxiv.org/abs/2501.09136",
+      "source_type": "agentic RAG survey",
+      "supported_aspect": "tool use",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Evaluator-optimizer workflows let one model generate and another evaluate; if feedback says the output needs work, the system loops and regenerates.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "source_type": "implementation or framework documentation",
+      "supported_aspect": "reflection or verification",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Agentic systems add orchestration complexity and open challenges around evaluation, coordination, memory management, efficiency, and governance.",
+      "source_url": "https://arxiv.org/abs/2501.09136",
+      "source_type": "agentic RAG survey",
+      "supported_aspect": "added complexity and failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Official agent-framework docs describe long-running stateful agents, tools, human-in-the-loop controls, and debugging/evaluation support, which operationalize agentic RAG-style loops.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "source_type": "implementation or framework documentation",
+      "supported_aspect": "tool use",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "standard retrieve-then-generate workflow",
+      "planning or iterative retrieval",
+      "tool use",
+      "reflection or verification",
+      "added complexity and failure modes"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradictions were found among the selected primary survey, baseline paper, and official framework documentation.",
+    "uncertainty_notes": [
+      "The term 'agentic RAG' is not yet fully standardized across frameworks and papers; the answer uses the survey's definition as the anchor.",
+      "The response is conceptual rather than benchmark-driven; it does not claim universal performance superiority."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Standard RAG uses retrieval over non-parametric memory plus generation.",
+      "Agentic RAG embeds autonomous agents to manage retrieval dynamically.",
+      "Agentic RAG emphasizes planning, tool use, reflection, and multi-agent collaboration.",
+      "Verification can be implemented with evaluator-optimizer loops and human-in-the-loop feedback.",
+      "Agentic RAG increases orchestration complexity and introduces coordination, memory, efficiency, and governance challenges."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:40:57+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0219c9ec42c4de960069fa63c20668819090f91638a9319abd",
+      "action": {
+        "query": "agentic RAG survey arXiv planning iterative retrieval tool use reflection verification",
+        "type": "search",
+        "queries": [
+          "agentic RAG survey arXiv planning iterative retrieval tool use reflection verification",
+          "Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks arXiv",
+          "LangGraph docs tools agents retrieval iteration reflection",
+          "agentic RAG framework documentation retrieval tool use"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2005.11401"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2504.03616"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.10996"
+          },
+          {
+            "type": "url",
+            "url": "https://supercog-ai.github.io/agentic/0.3.8/tools/tool-library/rag-tool/"
+          },
+          {
+            "type": "url",
+            "url": "https://cir.nii.ac.jp/crid/1370588381079535244"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/docs/smolagents/main/examples/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2312.10997"
+          },
+          {
+            "type": "url",
+            "url": "https://www.hazeljs.com/docs/guides/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2312.10997"
+          },
+          {
+            "type": "url",
+            "url": "https://askrally.com/paper/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.agentscope.io/building-blocks/rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.rag.progress.cloud/docs/guides/using/understanding/intro/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ibm.com/think/topics/agentic-rag"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+          },
+          {
+            "type": "url",
+            "url": "https://pt.wikipedia.org/wiki/Gera%C3%A7%C3%A3o_aumentada_por_recupera%C3%A7%C3%A3o"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Contextual_AI"
+          },
+          {
+            "type": "url",
+            "url": "https://es.wikipedia.org/wiki/Generaci%C3%B3n_aumentada_por_recuperaci%C3%B3n"
+          },
+          {
+            "type": "url",
+            "url": "https://de.wikipedia.org/wiki/Dense_Passage_Retrieval"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Douwe_Kiela"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=GymjF88oGQ"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/learnmachinelearning/comments/1s6w4pj/looking_for_feedback_on_my_agentic_rag_system/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1s6w64r/looking_for_feedback_on_my_agentic_rag_system/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1t1cyog/why_langgraph_cycles_are_hard_to_debug_with/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1s6w3hb/looking_for_feedback_on_my_productionoriented/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0219c9ec42c4de960069fa63c453bc819087d2ece5f0be754e",
+      "action": {
+        "query": "\"Agentic Retrieval-Augmented Generation\" survey arXiv",
+        "type": "search",
+        "queries": [
+          "\"Agentic Retrieval-Augmented Generation\" survey arXiv",
+          "\"agentic RAG\" survey arXiv",
+          "site:arxiv.org agentic RAG survey"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2501.09136"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.07711"
+          },
+          {
+            "type": "url",
+            "url": "https://facultyprofile.csuohio.edu/en/publications/agentic-retrieval-augmented-generation-a-survey-on-agentic-rag-3/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.07379"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.09477"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.03442"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2501-09136"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2501-09136.html"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2602.03442"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.09477"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/393684580_Towards_Agentic_RAG_with_Deep_Reasoning_A_Survey_of_RAG-Reasoning_Systems_in_LLMs"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-ijcnlp.122.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=12A5Mi9BCC"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/290805/preprint_pdf/6d08c357f33004bc8156f367a7b818a5.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scitepress.org/Papers/2026/144921/144921.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://journals.iub.edu.pk/index.php/JCIS/article/download/4369/2389/16430"
+          },
+          {
+            "type": "url",
+            "url": "https://files.eric.ed.gov/fulltext/EJ1489068.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Agentic_Artificial_Intelligence"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/AI_agent"
+          },
+          {
+            "type": "url",
+            "url": "https://es.wikipedia.org/wiki/Generaci%C3%B3n_aumentada_por_recuperaci%C3%B3n"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1ogeb3e/agentic_rag_is_mostly_hype_heres_what_im_seeing/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1sifm01/agentic_rag_is_a_different_beast_entirely/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1szpoyn/basic_rag_vs_agentic_rag/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_progress-agentic-rag/comments/1rjl5ow/why_agentic_rag_matters_based_on_real/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1shs5ha/what_kind_of_rag_for_a_research_assistant/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/learnmachinelearning/comments/1cjpqxa"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Rag/comments/1itzubc/agentic_rag_deep_research_with_my_own_data/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0219c9ec42c4de960069fa63c776d88190b9f9370a6395d0b7",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0219c9ec42c4de960069fa63cc59808190bd7da2d0c61e4183",
+      "action": {
+        "pattern": "tool-calling loops",
+        "type": "find_in_page",
+        "url": "https://docs.langchain.com/oss/python/langgraph"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 23120,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 5880,
+    "output_tokens_details": {
+      "reasoning_tokens": 3275
+    },
+    "total_tokens": 29000
+  },
+  "response_id": "resp_0219c9ec42c4de960069fa63c00d9881909e427383d1251549",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What is the standard RAG baseline workflow?\",\n      \"What makes RAG 'agentic'?\",\n      \"How do planning, iterative retrieval, tool use, and reflection/verification change the pipeline?\",\n      \"What added complexity or failure modes come with agentic RAG?\"\n    ],\n    \"required_aspects\": [\n      \"standard retrieve-then-generate workflow\",\n      \"planning or iterative retrieval\",\n      \"tool use\",\n      \"reflection or verification\",\n      \"added complexity and failure modes\"\n    ],\n    \"expected_source_types\": [\n      \"agentic RAG survey\",\n      \"RAG baseline reference\",\n      \"implementation or framework documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"agentic RAG survey arXiv planning iterative retrieval tool use reflection verification\",\n      \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks arXiv baseline RAG\",\n      \"LangGraph docs tool-calling loops evaluator-optimizer human-in-the-loop\",\n      \"agentic RAG framework documentation retrieval tool use\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a survey that defines agentic RAG and names the key design patterns and open challenges.\",\n      \"Find the canonical baseline RAG paper to anchor the standard retrieve-then-generate workflow.\",\n      \"Find official framework docs that describe tool use, iterative loops, and verification/reflection patterns.\",\n      \"Find implementation docs to corroborate agentic RAG as an orchestration pattern, not just a concept.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG\",\n      \"url\": \"https://arxiv.org/abs/2501.09136\",\n      \"type\": \"agentic RAG survey\"\n    },\n    {\n      \"title\": \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\",\n      \"url\": \"https://arxiv.org/abs/2005.11401\",\n      \"type\": \"RAG baseline reference\"\n    },\n    {\n      \"title\": \"LangGraph overview\",\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/overview\",\n      \"type\": \"implementation or framework documentation\"\n    },\n    {\n      \"title\": \"Workflows and agents - LangGraph\",\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"type\": \"implementation or framework documentation\"\n    },\n    {\n      \"title\": \"Agentic RAG - Hugging Face docs\",\n      \"url\": \"https://huggingface.co/docs/smolagents/main/examples/rag\",\n      \"type\": \"implementation or framework documentation\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://arxiv.org/abs/2501.09136\",\n        \"reason\": \"Direct survey on Agentic RAG; primary source for definitions, design patterns, and challenges.\"\n      },\n      {\n        \"url\": \"https://arxiv.org/abs/2005.11401\",\n        \"reason\": \"Canonical baseline RAG paper; primary source for the standard retrieve-then-generate workflow.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langgraph/overview\",\n        \"reason\": \"Official framework documentation; directly supports agent orchestration, tools, human-in-the-loop, and debugging.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n        \"reason\": \"Official framework documentation; directly supports evaluator-optimizer loops and iterative verification.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"url\": \"https://huggingface.co/papers/2501.09136\",\n        \"reason\": \"Secondary paper page; useful as discovery but less authoritative than the arXiv paper.\"\n      },\n      {\n        \"url\": \"https://papers.cool/arxiv/2005.11401\",\n        \"reason\": \"Aggregator/discovery page; not primary evidence.\"\n      },\n      {\n        \"url\": \"https://www.ibm.com/think/topics/agentic-rag\",\n        \"reason\": \"Secondary explainer; not needed because primary survey and official docs were sufficient.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Secondary summaries were replaced by primary papers or official docs.\",\n      \"Aggregator pages were used only for discovery and not for synthesis.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Standard RAG combines a parametric language model with non-parametric memory accessed by retrieval; this is the retrieve-then-generate baseline.\",\n      \"source_url\": \"https://arxiv.org/abs/2005.11401\",\n      \"source_type\": \"RAG baseline reference\",\n      \"supported_aspect\": \"standard retrieve-then-generate workflow\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic RAG embeds autonomous AI agents into the RAG pipeline so retrieval can be dynamically managed rather than executed as a single static pass.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.09136\",\n      \"source_type\": \"agentic RAG survey\",\n      \"supported_aspect\": \"planning or iterative retrieval\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic RAG uses planning, tool use, reflection, and multi-agent collaboration to iteratively refine context and adapt workflows.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.09136\",\n      \"source_type\": \"agentic RAG survey\",\n      \"supported_aspect\": \"tool use\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Evaluator-optimizer workflows let one model generate and another evaluate; if feedback says the output needs work, the system loops and regenerates.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/workflows-agents\",\n      \"source_type\": \"implementation or framework documentation\",\n      \"supported_aspect\": \"reflection or verification\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Agentic systems add orchestration complexity and open challenges around evaluation, coordination, memory management, efficiency, and governance.\",\n      \"source_url\": \"https://arxiv.org/abs/2501.09136\",\n      \"source_type\": \"agentic RAG survey\",\n      \"supported_aspect\": \"added complexity and failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Official agent-framework docs describe long-running stateful agents, tools, human-in-the-loop controls, and debugging/evaluation support, which operationalize agentic RAG-style loops.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/overview\",\n      \"source_type\": \"implementation or framework documentation\",\n      \"supported_aspect\": \"tool use\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"standard retrieve-then-generate workflow\",\n      \"planning or iterative retrieval\",\n      \"tool use\",\n      \"reflection or verification\",\n      \"added complexity and failure modes\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradictions were found among the selected primary survey, baseline paper, and official framework documentation.\",\n    \"uncertainty_notes\": [\n      \"The term 'agentic RAG' is not yet fully standardized across frameworks and papers; the answer uses the survey's definition as the anchor.\",\n      \"The response is conceptual rather than benchmark-driven; it does not claim universal performance superiority.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Standard RAG uses retrieval over non-parametric memory plus generation.\",\n      \"Agentic RAG embeds autonomous agents to manage retrieval dynamically.\",\n      \"Agentic RAG emphasizes planning, tool use, reflection, and multi-agent collaboration.\",\n      \"Verification can be implemented with evaluator-optimizer loops and human-in-the-loop feedback.\",\n      \"Agentic RAG increases orchestration complexity and introduces coordination, memory, efficiency, and governance challenges.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"# Answer\\nAgentic RAG is RAG with an agent/controller layer. Instead of a single retrieve-once-then-generate pass, the system can plan, choose tools, retrieve again, and verify or refine its output before answering. Standard RAG is the simpler baseline: retrieve relevant external context, then generate from that context. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401\\n\\n## Required aspect coverage\\n- standard retrieve-then-generate workflow — Standard RAG combines a language model with retrieved non-parametric memory for generation: https://arxiv.org/abs/2005.11401\\n- planning or iterative retrieval — Agentic RAG uses planning and iterative retrieval/refinement rather than a single static pass: https://arxiv.org/abs/2501.09136\\n- tool use — Agentic RAG explicitly uses tool use, and framework docs show agents calling tools in long-running loops: https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/overview\\n- reflection or verification — Evaluator-optimizer workflows add a separate evaluation step and loop back when feedback says the answer needs improvement: https://docs.langchain.com/oss/python/langgraph/workflows-agents\\n- added complexity and failure modes — The extra autonomy adds orchestration complexity and open issues around evaluation, coordination, memory management, efficiency, and governance: https://arxiv.org/abs/2501.09136\\n\\nDirect source-backed summary: the survey describes Agentic RAG as embedding autonomous AI agents into the RAG pipeline, with reflection, planning, tool use, and multi-agent collaboration; the baseline RAG paper describes retrieve-then-generate with a retriever over non-parametric memory. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401\\n\\nEngineering inference: agentic RAG is most useful when a query needs multi-step reasoning, source selection, or self-checking; standard RAG is usually enough when one retrieval pass is likely sufficient. That recommendation follows from the cited loop/verification patterns and the added complexity noted in the survey, not from a direct benchmark in the selected sources. https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/workflows-agents\\n\\n## Sources\\n- https://arxiv.org/abs/2501.09136 — Agentic RAG survey.\\n- https://arxiv.org/abs/2005.11401 — Canonical RAG baseline paper.\\n- https://docs.langchain.com/oss/python/langgraph/overview — Official agent orchestration/docs for tools and stateful workflows.\\n- https://docs.langchain.com/oss/python/langgraph/workflows-agents — Official docs for evaluator-optimizer and iterative verification.\\n\\n## Limitations\\nThis answer is conceptual and source-backed, but it does not include benchmark numbers or cost/latency comparisons because the selected sources do not provide a direct apples-to-apples evaluation of standard RAG versus agentic RAG. Terminology also varies across frameworks, so 'agentic RAG' here means the surveyed pattern of agent-mediated, iterative retrieval and verification. https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/overview\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

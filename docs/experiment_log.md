@@ -980,3 +980,119 @@ Decision:
 Accept this as a runner robustness fix. It does not change the v5 genome or the
 already recorded live scores; it only makes future traces more faithful to the
 model's structured output. No new live batch is needed.
+
+## 2026-05-05: Evolved V5 JSON-Fix Full Live Confirmation
+
+Command:
+
+```bash
+python -m stem_agent run-eval-batch --agent evolved --confirm-live
+```
+
+Artifacts:
+
+```text
+results/runs/evolved_deep_research_v5/evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live/
+```
+
+Hypothesis:
+
+The tolerant JSON recovery change should remove the DR-003 parse-warning class
+from future runs without changing the genome. Because this is the same v5
+genome, any quality-score movement should be treated mostly as normal live-run
+variance unless the trace diagnostics show a systematic behavior change.
+
+Setup:
+
+- Agent request: `--agent evolved`
+- Resolved agent: `evolved_deep_research_v5`
+- Config: `configs/evolved_deep_research_agent_v5.yaml`
+- Questions: DR-001 through DR-008
+- Answer model: `gpt-5.4-mini`
+- Judge model: `gpt-5.4-mini`
+- Run type: live, with web search and model-assisted judge
+
+Aggregate comparison against the previous v5 full run:
+
+| Metric | v5 previous full live | v5 JSON-fix confirmation | Delta |
+|---|---:|---:|---:|
+| Heuristic avg | 0.9492 | 0.9563 | +0.0071 |
+| Judge avg | 0.8073 | 0.8073 | +0.0000 |
+| Final avg | 0.8569 | 0.8594 | +0.0025 |
+| Combined tokens | 354487 | 444435 | +89948 |
+
+Per-question comparison against the previous v5 full run:
+
+| Question | Previous final | JSON-fix final | Delta | Previous judge | JSON-fix judge | Judge delta |
+|---|---:|---:|---:|---:|---:|---:|
+| DR-001 | 0.8029 | 0.8559 | +0.0530 | 0.7083 | 0.7917 | +0.0834 |
+| DR-002 | 0.8785 | 0.8916 | +0.0131 | 0.8333 | 0.8333 | +0.0000 |
+| DR-003 | 0.8939 | 0.7841 | -0.1098 | 0.8750 | 0.7083 | -0.1667 |
+| DR-004 | 0.8808 | 0.8916 | +0.0108 | 0.8750 | 0.8333 | -0.0417 |
+| DR-005 | 0.9187 | 0.9187 | +0.0000 | 0.8750 | 0.8750 | +0.0000 |
+| DR-006 | 0.8288 | 0.8200 | -0.0088 | 0.7500 | 0.7500 | +0.0000 |
+| DR-007 | 0.8817 | 0.8296 | -0.0521 | 0.8750 | 0.7917 | -0.0833 |
+| DR-008 | 0.7702 | 0.8838 | +0.1136 | 0.6667 | 0.8750 | +0.2083 |
+
+Trace diagnostics:
+
+| Diagnostic | Result |
+|---|---:|
+| Complete traces | 8/8 |
+| Parse warnings | 0/8 |
+| Citation-contract warnings | 0/8 |
+| Traces with unsupported claim lines | 0/8 |
+| Traces with rejected sources copied into final citations | 0/8 |
+| Heuristic weak-source failure tags | 3/8 |
+
+Comparison to earlier baselines:
+
+| Comparison | Judge delta | Final delta | Token multiplier |
+|---|---:|---:|---:|
+| JSON-fix v5 vs baseline_web | +0.2240 | +0.1856 | 2.80x |
+| JSON-fix v5 vs evolved_v4 | +0.0521 | +0.0584 | 0.99x |
+| JSON-fix v5 vs previous v5 | +0.0000 | +0.0025 | 1.25x |
+
+Qualitative observations:
+
+- The parser/citation robustness issue is fixed in the new live run: DR-003 now
+  finishes as `complete`, not `complete_with_parse_warning`.
+- The fix did not create a new citation-contract failure. All final trace
+  citations come from accepted sources, and no rejected-source URLs are present
+  in final trace citations.
+- The judge average is unchanged at 0.8073. This is the key interpretation:
+  the post-fix run validates execution robustness, not a meaningful semantic
+  quality improvement.
+- The final average increases only slightly, from 0.8569 to 0.8594. The gain is
+  smaller than the per-question variance, so it should not be oversold.
+- Tokens increase from 354487 to 444435. This appears to be run-to-run search
+  and reasoning variance rather than a direct cost of the JSON parser fix,
+  because the parser change itself is local and does not add model calls.
+- DR-003 and DR-007 regress in judge score, while DR-001 and DR-008 improve.
+  This reinforces that a single live batch should be interpreted with caution.
+
+Remaining issues:
+
+- The recurring judge feedback is still about evidence discipline: broad
+  synthesis claims, recommendations, cost claims, and trade-off claims should be
+  tied more tightly to source-specific findings.
+- Weak-source tags remain on DR-003, DR-007, and DR-008. The source-quality
+  policy is effective at rejecting obvious weak sources, but the judge still
+  wants deeper benchmark-specific grounding in some answers.
+- The current runner still performs the evolved workflow inside one model call.
+  A multi-call workflow could validate and repair source triage, evidence
+  extraction, and citation audit before final synthesis.
+
+Decision:
+
+Accept the JSON-fix confirmation run as a robustness validation for v5. It
+supports the same main conclusion as the previous v5 run: v5 remains the best
+quality genome, and the JSON parser fix removes the observed trace-format
+failure. Do not treat the small +0.0025 final-score movement as a new agent
+improvement, because the judge average is unchanged and token usage increased.
+
+Next step:
+
+Freeze v5 as the final candidate unless a final reproducibility audit finds a
+blocking issue. Future work should focus on submission polish and reproducible
+instructions, not another live quality-tuning loop.

@@ -1,0 +1,815 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:45:01+00:00",
+  "question": "What are the trade-offs between autonomous agents and workflow-based agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "source_expectations": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:46:12+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAutonomous agents are the better fit when the task is open-ended, the number of steps cannot be predicted, and dynamic tool use matters; the trade-off is higher cost, more variance, and more need for guardrails and trust. Workflow-based agents are the better fit when you can predefine steps and want predictability, monitoring, replay, retries, and human approval. That conclusion is a synthesis of the sources below, not a universal benchmark result. https://www.anthropic.com/engineering/building-effective-agents https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution\n\n### Required aspect coverage\n- **flexibility** — Agents are more flexible because they can adapt their plan and tool use to intermediate results; workflows are limited by predefined code paths. https://developers.cloudflare.com/agents/concepts/what-are-agents/ https://www.anthropic.com/engineering/building-effective-agents\n- **controllability** — Workflows are more controllable because they support pause/resume/restart, approvals, and explicit step boundaries; agents require more trust and guardrails. https://developers.cloudflare.com/agents/concepts/workflows/ https://www.anthropic.com/engineering/building-effective-agents\n- **observability** — Workflows and agent runtimes with tracing are easier to inspect because you can record step-by-step progress, tool calls, and decision points. https://docs.langchain.com/oss/python/langchain/observability https://developers.cloudflare.com/agents/concepts/workflows/\n- **cost** — Autonomous agents usually cost more because they can run many turns; workflows can route simple work to smaller, cheaper models. https://www.anthropic.com/engineering/building-effective-agents\n- **reproducibility** — Workflow engines with checkpointing and replay are more reproducible because completed steps are persisted and runs can be replayed. https://docs.langchain.com/oss/python/langgraph/durable-execution\n- **failure recovery** — Workflows recover better from interruptions because they retry failed steps and resume from the last successful checkpoint/state. https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution\n\n## Sources\n- Anthropic, *Building Effective AI Agents*: https://www.anthropic.com/engineering/building-effective-agents\n- Cloudflare Agents docs, *Workflows*: https://developers.cloudflare.com/agents/concepts/workflows/\n- Cloudflare Agents docs, *What are agents?*: https://developers.cloudflare.com/agents/concepts/what-are-agents/\n- LangChain docs, *Observability*: https://docs.langchain.com/oss/python/langchain/observability\n- LangGraph docs, *Durable execution*: https://docs.langchain.com/oss/python/langgraph/durable-execution\n- Claude case study, *Grafana transforms observability workflows with Claude-powered multi-agent assistant*: https://claude.com/customers/grafana\n\n## Limitations\nThis is a documentation-backed synthesis, not a controlled benchmark across identical tasks. The strongest evidence for reproducibility and recovery comes from workflow runtimes; the strongest evidence for flexibility and autonomy comes from agent guidance and docs. The case study is descriptive, so it supports real-world applicability but not a direct apples-to-apples comparison.",
+  "decomposition": {
+    "subquestions": [
+      "What capabilities are improved by autonomous agents?",
+      "What capabilities are improved by workflow-based agents?",
+      "How do the trade-offs map to flexibility, controllability, observability, cost, reproducibility, and failure recovery?"
+    ],
+    "required_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "expected_source_types": [
+      "agent framework documentation",
+      "workflow or orchestration guide",
+      "engineering case study"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "official documentation agents vs workflows autonomous agents workflow-based agents trade-offs observability controllability reproducibility recovery",
+      "site:docs.langchain.com durable execution replay observability agents workflows official",
+      "site:developers.cloudflare.com agents workflows deterministic retries recovery official",
+      "site:anthropic.com building effective agents workflows agents official"
+    ],
+    "rationale_per_query": [
+      "Find an official framework comparison that states when agents vs workflows are preferred.",
+      "Find workflow/runtime docs for reproducibility, replay, and failure recovery.",
+      "Find official agent docs with a side-by-side comparison and durability semantics.",
+      "Find an official engineering write-up that discusses cost, flexibility, and control trade-offs."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "type": "official engineering guidance",
+      "status": "accepted"
+    },
+    {
+      "url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+      "type": "official workflow/orchestration docs",
+      "status": "accepted"
+    },
+    {
+      "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/",
+      "type": "official agent framework docs",
+      "status": "accepted"
+    },
+    {
+      "url": "https://docs.langchain.com/oss/python/langchain/observability",
+      "type": "official framework observability docs",
+      "status": "accepted"
+    },
+    {
+      "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "type": "official workflow durability docs",
+      "status": "accepted"
+    },
+    {
+      "url": "https://claude.com/customers/grafana",
+      "type": "engineering case study",
+      "status": "accepted"
+    },
+    {
+      "title": "logic.inc agent-vs-workflow guide",
+      "type": "secondary blog",
+      "status": "rejected"
+    },
+    {
+      "title": "inference.sh workflows-vs-agents blog",
+      "type": "secondary blog",
+      "status": "rejected"
+    },
+    {
+      "title": "Reddit threads about agents vs workflows",
+      "type": "forum/discussion",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "source_type": "official engineering guidance",
+        "reason": "Directly compares workflows and agents; explicitly discusses flexibility, cost, control, and when to use each."
+      },
+      {
+        "url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+        "source_type": "official workflow/orchestration docs",
+        "reason": "Provides a side-by-side agents vs workflows table plus durability, retries, pause/resume, and control features."
+      },
+      {
+        "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/",
+        "source_type": "official agent framework docs",
+        "reason": "States agents are nondeterministic and distinguishes them from deterministic workflows."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/observability",
+        "source_type": "official framework documentation",
+        "reason": "Explains step-level tracing, debugging, evaluation, and production monitoring."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+        "source_type": "official workflow/orchestration guide",
+        "reason": "Explains deterministic replay, resumability, checkpointing, and recovery after failures."
+      },
+      {
+        "url": "https://claude.com/customers/grafana",
+        "source_type": "engineering case study",
+        "reason": "Primary-team case study showing a real multi-agent observability workflow in production."
+      }
+    ],
+    "rejected_sources": [
+      "Secondary blog guides: redundant and less authoritative than official docs.",
+      "Forum/discussion posts: anecdotal, not suitable for load-bearing claims."
+    ],
+    "rejection_reasons": [
+      "Used only discovery-style results during search; they were replaced by official documentation and primary case study sources.",
+      "Did not add direct evidence beyond the accepted sources."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Autonomous agents are more flexible because they can dynamically choose steps and tools based on intermediate results, while workflows use predefined code paths and deterministic execution.",
+      "source_url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/",
+      "source_type": "official agent framework docs",
+      "supported_aspect": "flexibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflows are more controllable because they support pause/resume/restart, approval flows, status queries, and step-level completion semantics.",
+      "source_url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+      "source_type": "official workflow/orchestration docs",
+      "supported_aspect": "controllability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Tracing every tool call, model interaction, and decision point improves observability for agent systems; workflow tracking and progress callbacks add another layer of operational visibility.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/observability",
+      "source_type": "official framework documentation",
+      "supported_aspect": "observability",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Autonomous agents tend to cost more because they may run for many turns; workflows can reduce cost by routing easy tasks to smaller, cheaper models.",
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_type": "official engineering guidance",
+      "supported_aspect": "cost",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflow-based systems are more reproducible because durable execution supports deterministic replay, checkpointing, and time-travel debugging, and side effects can be isolated into tasks.",
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "source_type": "official workflow/orchestration guide",
+      "supported_aspect": "reproducibility",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Workflows have stronger failure recovery because they can retry failed steps automatically and resume from the last successful checkpoint or state after infrastructure or runtime failures.",
+      "source_url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+      "source_type": "official workflow/orchestration docs",
+      "supported_aspect": "failure recovery",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "flexibility",
+      "controllability",
+      "observability",
+      "cost",
+      "reproducibility",
+      "failure recovery"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "Sources are consistent: workflows are framed as more deterministic, observable, and recoverable; agents are framed as more flexible but costlier and harder to control.",
+    "uncertainty_notes": [
+      "The trade-offs are synthesized from framework docs and a case study, not from a single head-to-head benchmark across identical tasks.",
+      "Observability evidence is strongest for tooling/tracing support, not a universal property of all agents in all stacks."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Flexibility trade-off",
+      "Controllability trade-off",
+      "Observability trade-off",
+      "Cost trade-off",
+      "Reproducibility trade-off",
+      "Failure recovery trade-off"
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:46:12+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://claude.com/customers/grafana",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.cloudflare.com/agents/concepts/workflows/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/observability",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64e589808196bc41fc9f2fce1918",
+      "action": {
+        "query": "official documentation agents vs workflows autonomous agents workflow-based agents trade-offs observability controllability reproducibility recovery",
+        "type": "search",
+        "queries": [
+          "official documentation agents vs workflows autonomous agents workflow-based agents trade-offs observability controllability reproducibility recovery",
+          "site:docs.temporal.io workflow durable execution failure recovery reproducibility observability official",
+          "site:docs.langchain.com LangGraph workflow agent controllability observability official",
+          "site:openai.com agents workflows official documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/workflows/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://logic.inc/resources/agent-vs-workflow-guide"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.uipath.com/agents/automation-cloud/latest/user-guide/agent-vs-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/core-concepts/workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/fr-FR/academy/workspace-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.diagrid.io/blog/the-agentic-spectrum-why-its-not-agents-vs-workflows"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/graph-api"
+          },
+          {
+            "type": "url",
+            "url": "https://inference.sh/blog/concepts/workflows-vs-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/codex"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/index/introducing-chatgpt-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2512.17259"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1syk8dy/agents_vs_workflows/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.12307"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1q7avil/what_actually_broke_when_we_put_ai_agents_into/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1sqo674/has_anyone_actually_built_ai_agents_that_truly/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1rp3fjd/wait_are_workflows_actually_better_than/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1sqi8r3/what_actually_breaks_when_you_move_from/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AISystemsEngineering/comments/1s2cewk/is_agentic_workflows_a_coordination_problem_or_an/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1qr3d5a/moving_from_workflow_automation_to_autonomous/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AgentsOfAI/comments/1sxz9qi/build_agents_not_workflows_is_the_worst_advice_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.ncrofford.com/papers/runtime-governance.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64ebffe88196a1e948422430485d",
+      "action": {
+        "query": "site:docs.temporal.io durable execution workflows replay determinism observability failure recovery official docs",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io durable execution workflows replay determinism observability failure recovery official docs",
+          "site:docs.langchain.com observability evaluation reproducibility workflow agents official",
+          "site:openai.com \"agents are different from workflows\" official docs"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/langchain/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/evals"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/langchain/evals"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/observability-concepts"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/observability-studio"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph-platform/self-hosted"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langsmith/architectural-overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/index"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph-platform/observability-studio"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/temporal-tos-2021-01-19.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-6-7-22.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal_Terms_of_Service_8-30-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64ef44388196bb17de9739780825",
+      "action": {
+        "type": "open_page",
+        "url": "https://developers.cloudflare.com/agents/concepts/workflows/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64f1e6bc8196b898f4944ecd8683",
+      "action": {
+        "query": "site:anthropic.com \"Building effective agents\" workflows agents official",
+        "type": "search",
+        "queries": [
+          "site:anthropic.com \"Building effective agents\" workflows agents official",
+          "site:anthropic.com agentic workflows official documentation observability control"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/building-effective-agents?via=aitoolhunt"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/solutions/agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/customers/grafana"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/solutions/agents?via=AISolvesThat"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/learn/build-with-claude?hl=en-IN"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/learn/build-with-claude?use_case=ea"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/google-next"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/learn/build-with-claude?cb=zapier"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/events/london-builder-summit-2025"
+          },
+          {
+            "type": "url",
+            "url": "https://www.anthropic.com/learn/build-with-claude?via=free"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/ANTH-2551_Anthropic_AWS_FinServ_Agents_ebook_092325.pdf?hsLang=en"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/Building%20Effective%20AI%20Agents-%20Architecture%20Patterns%20and%20Implementation%20Frameworks.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64f5b5ac8196b2c334b668b651ea",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents?via=aitoolhunt"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64f852d8819697d0a8e409c13108",
+      "action": {
+        "query": "site:docs.temporal.io replay determinism reproducibility workflow official",
+        "type": "search",
+        "queries": [
+          "site:docs.temporal.io replay determinism reproducibility workflow official",
+          "site:docs.langchain.com deterministic trace replay reproducibility agent workflow official",
+          "site:developers.cloudflare.com agents workflows reproducibility deterministic official"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/workflows/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/api-reference/run-workflows/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/api-reference/agent-tools/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/persistence"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/changelog/post/2026-02-26-markdown-responses-for-1xxx-errors/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/long-running-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/observability"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/api-reference/store-and-sync-state/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/concepts/calling-llms/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/agents/getting-started/testing-your-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://developers.cloudflare.com/reference-architecture/static/cloudflare-evolving-to-a-sase-architecture.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.temporal.io/pdf/Temporal-Terms-of-Service-9-1-22.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64fb73e481969e9c547517ac0fe4",
+      "action": {
+        "type": "open_page",
+        "url": "https://developers.cloudflare.com/agents/concepts/what-are-agents/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa64fe55008196a3c1a06a14e7060c",
+      "action": {
+        "type": "open_page",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents?via=aitoolhunt"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa65011a44819684ed6d05f008df65",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0d94a2f1d35c11010069fa6502a96c819686454166a1f05169",
+      "action": {
+        "type": "open_page",
+        "url": "https://developers.cloudflare.com/agents/concepts/workflows/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 47485,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 7830,
+    "output_tokens_details": {
+      "reasoning_tokens": 5132
+    },
+    "total_tokens": 55315
+  },
+  "response_id": "resp_0d94a2f1d35c11010069fa64e0b9d48196a44530f0504cb609",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What capabilities are improved by autonomous agents?\",\n      \"What capabilities are improved by workflow-based agents?\",\n      \"How do the trade-offs map to flexibility, controllability, observability, cost, reproducibility, and failure recovery?\"\n    ],\n    \"required_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"expected_source_types\": [\n      \"agent framework documentation\",\n      \"workflow or orchestration guide\",\n      \"engineering case study\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"official documentation agents vs workflows autonomous agents workflow-based agents trade-offs observability controllability reproducibility recovery\",\n      \"site:docs.langchain.com durable execution replay observability agents workflows official\",\n      \"site:developers.cloudflare.com agents workflows deterministic retries recovery official\",\n      \"site:anthropic.com building effective agents workflows agents official\"\n    ],\n    \"rationale_per_query\": [\n      \"Find an official framework comparison that states when agents vs workflows are preferred.\",\n      \"Find workflow/runtime docs for reproducibility, replay, and failure recovery.\",\n      \"Find official agent docs with a side-by-side comparison and durability semantics.\",\n      \"Find an official engineering write-up that discusses cost, flexibility, and control trade-offs.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"type\": \"official engineering guidance\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://developers.cloudflare.com/agents/concepts/workflows/\",\n      \"type\": \"official workflow/orchestration docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://developers.cloudflare.com/agents/concepts/what-are-agents/\",\n      \"type\": \"official agent framework docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/observability\",\n      \"type\": \"official framework observability docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://docs.langchain.com/oss/python/langgraph/durable-execution\",\n      \"type\": \"official workflow durability docs\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"url\": \"https://claude.com/customers/grafana\",\n      \"type\": \"engineering case study\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"logic.inc agent-vs-workflow guide\",\n      \"type\": \"secondary blog\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"title\": \"inference.sh workflows-vs-agents blog\",\n      \"type\": \"secondary blog\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"title\": \"Reddit threads about agents vs workflows\",\n      \"type\": \"forum/discussion\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n        \"source_type\": \"official engineering guidance\",\n        \"reason\": \"Directly compares workflows and agents; explicitly discusses flexibility, cost, control, and when to use each.\"\n      },\n      {\n        \"url\": \"https://developers.cloudflare.com/agents/concepts/workflows/\",\n        \"source_type\": \"official workflow/orchestration docs\",\n        \"reason\": \"Provides a side-by-side agents vs workflows table plus durability, retries, pause/resume, and control features.\"\n      },\n      {\n        \"url\": \"https://developers.cloudflare.com/agents/concepts/what-are-agents/\",\n        \"source_type\": \"official agent framework docs\",\n        \"reason\": \"States agents are nondeterministic and distinguishes them from deterministic workflows.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langchain/observability\",\n        \"source_type\": \"official framework documentation\",\n        \"reason\": \"Explains step-level tracing, debugging, evaluation, and production monitoring.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langgraph/durable-execution\",\n        \"source_type\": \"official workflow/orchestration guide\",\n        \"reason\": \"Explains deterministic replay, resumability, checkpointing, and recovery after failures.\"\n      },\n      {\n        \"url\": \"https://claude.com/customers/grafana\",\n        \"source_type\": \"engineering case study\",\n        \"reason\": \"Primary-team case study showing a real multi-agent observability workflow in production.\"\n      }\n    ],\n    \"rejected_sources\": [\n      \"Secondary blog guides: redundant and less authoritative than official docs.\",\n      \"Forum/discussion posts: anecdotal, not suitable for load-bearing claims.\"\n    ],\n    \"rejection_reasons\": [\n      \"Used only discovery-style results during search; they were replaced by official documentation and primary case study sources.\",\n      \"Did not add direct evidence beyond the accepted sources.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Autonomous agents are more flexible because they can dynamically choose steps and tools based on intermediate results, while workflows use predefined code paths and deterministic execution.\",\n      \"source_url\": \"https://developers.cloudflare.com/agents/concepts/what-are-agents/\",\n      \"source_type\": \"official agent framework docs\",\n      \"supported_aspect\": \"flexibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflows are more controllable because they support pause/resume/restart, approval flows, status queries, and step-level completion semantics.\",\n      \"source_url\": \"https://developers.cloudflare.com/agents/concepts/workflows/\",\n      \"source_type\": \"official workflow/orchestration docs\",\n      \"supported_aspect\": \"controllability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Tracing every tool call, model interaction, and decision point improves observability for agent systems; workflow tracking and progress callbacks add another layer of operational visibility.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/observability\",\n      \"source_type\": \"official framework documentation\",\n      \"supported_aspect\": \"observability\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Autonomous agents tend to cost more because they may run for many turns; workflows can reduce cost by routing easy tasks to smaller, cheaper models.\",\n      \"source_url\": \"https://www.anthropic.com/engineering/building-effective-agents\",\n      \"source_type\": \"official engineering guidance\",\n      \"supported_aspect\": \"cost\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflow-based systems are more reproducible because durable execution supports deterministic replay, checkpointing, and time-travel debugging, and side effects can be isolated into tasks.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langgraph/durable-execution\",\n      \"source_type\": \"official workflow/orchestration guide\",\n      \"supported_aspect\": \"reproducibility\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Workflows have stronger failure recovery because they can retry failed steps automatically and resume from the last successful checkpoint or state after infrastructure or runtime failures.\",\n      \"source_url\": \"https://developers.cloudflare.com/agents/concepts/workflows/\",\n      \"source_type\": \"official workflow/orchestration docs\",\n      \"supported_aspect\": \"failure recovery\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"flexibility\",\n      \"controllability\",\n      \"observability\",\n      \"cost\",\n      \"reproducibility\",\n      \"failure recovery\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"Sources are consistent: workflows are framed as more deterministic, observable, and recoverable; agents are framed as more flexible but costlier and harder to control.\",\n    \"uncertainty_notes\": [\n      \"The trade-offs are synthesized from framework docs and a case study, not from a single head-to-head benchmark across identical tasks.\",\n      \"Observability evidence is strongest for tooling/tracing support, not a universal property of all agents in all stacks.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Flexibility trade-off\",\n      \"Controllability trade-off\",\n      \"Observability trade-off\",\n      \"Cost trade-off\",\n      \"Reproducibility trade-off\",\n      \"Failure recovery trade-off\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nAutonomous agents are the better fit when the task is open-ended, the number of steps cannot be predicted, and dynamic tool use matters; the trade-off is higher cost, more variance, and more need for guardrails and trust. Workflow-based agents are the better fit when you can predefine steps and want predictability, monitoring, replay, retries, and human approval. That conclusion is a synthesis of the sources below, not a universal benchmark result. https://www.anthropic.com/engineering/building-effective-agents https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution\\n\\n### Required aspect coverage\\n- **flexibility** — Agents are more flexible because they can adapt their plan and tool use to intermediate results; workflows are limited by predefined code paths. https://developers.cloudflare.com/agents/concepts/what-are-agents/ https://www.anthropic.com/engineering/building-effective-agents\\n- **controllability** — Workflows are more controllable because they support pause/resume/restart, approvals, and explicit step boundaries; agents require more trust and guardrails. https://developers.cloudflare.com/agents/concepts/workflows/ https://www.anthropic.com/engineering/building-effective-agents\\n- **observability** — Workflows and agent runtimes with tracing are easier to inspect because you can record step-by-step progress, tool calls, and decision points. https://docs.langchain.com/oss/python/langchain/observability https://developers.cloudflare.com/agents/concepts/workflows/\\n- **cost** — Autonomous agents usually cost more because they can run many turns; workflows can route simple work to smaller, cheaper models. https://www.anthropic.com/engineering/building-effective-agents\\n- **reproducibility** — Workflow engines with checkpointing and replay are more reproducible because completed steps are persisted and runs can be replayed. https://docs.langchain.com/oss/python/langgraph/durable-execution\\n- **failure recovery** — Workflows recover better from interruptions because they retry failed steps and resume from the last successful checkpoint/state. https://developers.cloudflare.com/agents/concepts/workflows/ https://docs.langchain.com/oss/python/langgraph/durable-execution\\n\\n## Sources\\n- Anthropic, *Building Effective AI Agents*: https://www.anthropic.com/engineering/building-effective-agents\\n- Cloudflare Agents docs, *Workflows*: https://developers.cloudflare.com/agents/concepts/workflows/\\n- Cloudflare Agents docs, *What are agents?*: https://developers.cloudflare.com/agents/concepts/what-are-agents/\\n- LangChain docs, *Observability*: https://docs.langchain.com/oss/python/langchain/observability\\n- LangGraph docs, *Durable execution*: https://docs.langchain.com/oss/python/langgraph/durable-execution\\n- Claude case study, *Grafana transforms observability workflows with Claude-powered multi-agent assistant*: https://claude.com/customers/grafana\\n\\n## Limitations\\nThis is a documentation-backed synthesis, not a controlled benchmark across identical tasks. The strongest evidence for reproducibility and recovery comes from workflow runtimes; the strongest evidence for flexibility and autonomy comes from agent guidance and docs. The case study is descriptive, so it supports real-world applicability but not a direct apples-to-apples comparison.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

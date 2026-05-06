@@ -1,13 +1,11 @@
 \documentclass[10pt]{article}
 
 \usepackage[a4paper,margin=0.72in]{geometry}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{hyperref}
-\usepackage{enumitem}
 \usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{microtype}
 
 \hypersetup{
     colorlinks=true,
@@ -16,10 +14,20 @@
     citecolor=black
 }
 
-\setlist[itemize]{leftmargin=1.2em, itemsep=0.15em, topsep=0.25em}
-\setlist[enumerate]{leftmargin=1.4em, itemsep=0.15em, topsep=0.25em}
-\titleformat{\section}{\large\bfseries}{\thesection}{0.5em}{}
-\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\setlength{\leftmargini}{1.2em}
+\setlength{\leftmarginii}{1.2em}
+\AddToHook{env/itemize/begin}{\setlength{\itemsep}{0.15em}\setlength{\topsep}{0.25em}}
+\AddToHook{env/enumerate/begin}{\setlength{\itemsep}{0.15em}\setlength{\topsep}{0.25em}}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-1.8ex \@plus -0.5ex \@minus -.2ex}%
+  {0.9ex \@plus .2ex}%
+  {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-1.4ex \@plus -0.4ex \@minus -.2ex}%
+  {0.7ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother
 
 \title{\vspace{-1.2em}\textbf{A Stem Agent that Evolves into a Deep Research Agent}}
 \author{Josep Biel}
@@ -111,7 +119,9 @@ The final score is:
 \text{final} = 0.35 \cdot \text{heuristic} + 0.65 \cdot \text{judge}.
 \]
 
-The judge is not treated as ground truth. I report heuristic and judge scores separately because the first heuristic scorer overestimated polished but shallow answers. On one DR-001 baseline trace, the heuristic score was 0.9222 while the judge score was only 0.5417. This failure changed the evaluation design: the heuristic layer remains useful for diagnostics, but the model-assisted judge became the main semantic signal.
+The judge is not treated as ground truth. It is a consistent semantic rubric, not an oracle. I report heuristic and judge scores separately because the first heuristic scorer overestimated polished but shallow answers. On one DR-001 baseline trace, the heuristic score was 0.9222 while the judge score was only 0.5417. This failure changed the evaluation design: the heuristic layer remains useful for diagnostics, but the model-assisted judge became only one part of the evidence.
+
+For this reason, I do not claim that the agent evolved merely because a judge score increased. I claim evolution only when several signals agree: the same fixed questions are used, the same rubric is applied, deterministic trace metrics improve, concrete failure modes disappear, and the saved artifacts show a more specialized workflow. The judge score is useful for semantic pressure, but the strongest evidence is trace-level behavior such as source triage, evidence extraction, contradiction handling, citation audits, and removal of unsupported claim lines.
 
 \subsection{Evolution path}
 
@@ -151,13 +161,13 @@ Evolved v5 & \textbf{0.9492} & \textbf{0.8073} & \textbf{0.8569} & 354,487 \\
 \label{tab:main-results}
 \end{table}
 
-The model-only baseline performed poorly because it had no citations and no fresh evidence. Adding web search produced a large gain: final score improved from 0.3856 to 0.6738. This confirmed that retrieval is essential for deep research, but it also created a stronger baseline for the evolved agent.
+The model-only baseline performed poorly because it had no citations and no fresh evidence. Adding web search produced a large gain: final score improved from 0.3856 to 0.6738. This confirmed that retrieval is essential for deep research, but it also created a stronger baseline for the evolved agent. From that point onward, the question was not whether search helps; it was whether a stem agent can become a more specific research workflow than a simple retrieve-and-summarize baseline.
 
-The best-quality genome was \textbf{v5}. Compared with the web-search baseline, v5 improved the judge score from 0.5833 to 0.8073 and the final score from 0.6738 to 0.8569. This is a final-score gain of +0.1831. Compared with v4, v5 improved final score by +0.0559 and judge score by +0.0521, while reducing combined tokens from 450,061 to 354,487.
+The best-quality genome was \textbf{v5}. Compared with the web-search baseline, v5 improved the judge score from 0.5833 to 0.8073 and the final score from 0.6738 to 0.8569. This is a final-score gain of +0.1831. The score is not the whole argument: v5 also produced the required structured artifacts, preserved accepted/rejected source decisions, improved citation-support diagnostics, and removed the major unsupported-claim failure seen in v4. Compared with v4, v5 improved final score by +0.0559 and judge score by +0.0521, while reducing combined tokens from 450,061 to 354,487.
 
 The most important v5 result was DR-002. v4 had regressed there because the model used provider-style citation markers rather than literal URLs, so the heuristic scorer counted 12 unsupported claim lines. v5 raised DR-002 final score from 0.5741 to 0.8785, restored citation support from 0.0000 to 1.0000, and removed the provider-marker warning pattern.
 
-v5 was still not perfect. It regressed against v4 on DR-001 and DR-008, though it stayed above the web baseline on both. DR-003 also produced a parse warning in the recorded live trace: the model returned almost-valid JSON, but the runner fell back to raw text instead of recovering structured artifacts. I treated this as a trace robustness issue rather than an answer-quality failure and later hardened the parser to recover valid leading JSON objects with harmless trailing text.
+v5 was still not perfect. It regressed against v4 on DR-001 and DR-008, though it stayed above the web baseline on both. DR-003 also produced a parse warning in the recorded live trace: the model returned almost-valid JSON, but the runner fell back to raw text instead of recovering structured artifacts. I treated this as a trace robustness issue rather than an answer-quality failure and later hardened the parser to recover valid leading JSON objects with harmless trailing text. A post-fix full rerun completed all 8 traces with no parse warnings and no citation-contract warnings; its judge average stayed at 0.8073 and final score moved only from 0.8569 to 0.8594, so I treat it as robustness validation rather than a new genome improvement.
 
 v3 remains useful as a negative result. It used about 1.22x the web baseline's combined tokens and still slightly improved final score (0.6852 vs 0.6738), but its quality was unstable. It improved DR-004, DR-006, and DR-008, but regressed badly on DR-007, where the judge noted thin evidence and a low-quality Reddit citation. This suggests that aggressive budget reduction can remove too much evidence diversity for citation-sensitive research tasks.
 
@@ -205,9 +215,9 @@ Finally, I would explore a small architecture search over genome variants rather
 
 \section{Conclusion}
 
-The project demonstrates a constrained version of a stem agent. The agent does not become universal, and it does not rewrite arbitrary code. Instead, it specializes by evolving an auditable genome for technical deep research. The best-quality evolved genome, v5, improved the final score over the web-search baseline from 0.6738 to 0.8569, while preserving traces for decomposition, source triage, evidence extraction, coverage checking, contradiction handling, and citation auditing.
+The project demonstrates a constrained version of a stem agent. The agent does not become universal, and it does not rewrite arbitrary code. Instead, it specializes by evolving an auditable genome for technical deep research. The best-quality evolved genome, v5, improved the final score over the web-search baseline from 0.6738 to 0.8569, but the stronger result is behavioral: the final agent leaves inspectable traces for decomposition, source triage, evidence extraction, coverage checking, contradiction handling, and citation auditing, while the baseline only searches and summarizes.
 
-The main lesson is that specialization is valuable, but only when paired with evaluation and constraints. The first evolved genome did not beat the baseline; the coverage-injected one improved quality but became expensive; the budget-tuned one saved tokens but lost reliability; the source-quality one improved quality but exposed a citation-contract failure; the citation-contract one fixed that failure and reduced cost, but revealed a trace parsing robustness issue. That path is the most important part of the result: the system exposes not just a final agent, but the engineering process by which the agent became specific.
+The main lesson is that specialization is valuable, but only when paired with evaluation and constraints. The first evolved genome did not beat the baseline; the coverage-injected one improved quality but became expensive; the budget-tuned one saved tokens but lost reliability; the source-quality one improved quality but exposed a citation-contract failure; the citation-contract one fixed that failure and reduced cost, but revealed a trace parsing robustness issue. That path is the most important part of the result: the system exposes not just a final score, but the engineering process by which the agent became specific, observable, and easier to debug.
 
 \begin{thebibliography}{8}
 \small

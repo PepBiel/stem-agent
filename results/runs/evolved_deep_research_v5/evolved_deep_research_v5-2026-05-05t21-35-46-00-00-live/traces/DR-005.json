@@ -1,0 +1,1340 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:41:07+00:00",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "source_expectations": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:42:23+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nSelf-improving agents without fine-tuning usually use **test-time loops** that change text, prompts, memory, or workflows rather than model weights: verbal feedback/reflection (Reflexion), self-feedback/self-refinement (Self-Refine), prompt optimization (OPRO), and workflow optimization/search (AFlow). https://arxiv.org/abs/2303.11366 https://arxiv.org/abs/2303.17651 https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\n\n### Required aspect coverage\n- **verbal feedback** — Reflexion explicitly uses linguistic feedback, reflective text, and episodic memory instead of weight updates: https://arxiv.org/abs/2303.11366\n- **reflection** — Self-Refine has the same LLM produce feedback about its own output and then refine itself iteratively: https://arxiv.org/abs/2303.17651\n- **self-refinement** — Self-Refine is a standalone self-refinement loop at test time, not a fine-tuning method: https://arxiv.org/abs/2303.17651\n- **prompt or workflow optimization** — OPRO optimizes prompts via evaluate-and-iterate loops, and AFlow optimizes workflows via search plus execution feedback: https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\n- **limits of self-improvement without external feedback** — intrinsic self-correction can fail or degrade reasoning, and self-refinement can amplify self-bias unless external feedback is accurate: https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2402.11436\n\n## Sources\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366\n- Self-Refine: Iterative Refinement with Self-Feedback — https://arxiv.org/abs/2303.17651\n- Large Language Models as Optimizers — https://arxiv.org/abs/2309.03409\n- AFlow: Automating Agentic Workflow Generation — https://arxiv.org/abs/2410.10762\n- Large Language Models Cannot Self-Correct Reasoning Yet — https://arxiv.org/abs/2310.01798\n- Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement — https://arxiv.org/abs/2402.11436\n\n## Limitations\n- This is a compact research snapshot, not an exhaustive survey. I prioritized primary papers that directly support the requested aspects: https://arxiv.org/abs/2303.11366 https://arxiv.org/abs/2303.17651 https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\n- The strongest negative evidence says self-improvement without external feedback is often brittle, especially for reasoning, so recommendations should be treated as task-dependent rather than universal: https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2402.11436\n- The prompt/workflow optimization papers report benchmark gains, but those gains do not guarantee the same effect on every agent, model size, or deployment setting: https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762",
+  "decomposition": {
+    "subquestions": [
+      "What self-improvement methods work at test time without updating model weights?",
+      "Which techniques rely on verbal feedback, reflection, or self-critique?",
+      "Which techniques optimize prompts or agent workflows instead of fine-tuning?",
+      "What are the main limits of self-improvement when no external feedback exists?"
+    ],
+    "required_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "expected_source_types": [
+      "Reflexion paper",
+      "Self-Refine paper",
+      "agent design or optimization paper"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "Reflexion verbal reinforcement learning arXiv",
+      "Self-Refine iterative refinement with self-feedback arXiv",
+      "Large Language Models as Optimizers OPRO arXiv",
+      "AFlow automating agentic workflow generation arXiv"
+    ],
+    "rationale_per_query": [
+      "Find the core paper for verbal feedback/reflection without weight updates.",
+      "Find the core paper for iterative self-refinement with self-feedback.",
+      "Find a primary prompt-optimization paper that avoids fine-tuning.",
+      "Find a primary workflow-optimization paper for agent design without fine-tuning."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "status": "accepted"
+    },
+    {
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "status": "accepted"
+    },
+    {
+      "title": "Large Language Models as Optimizers",
+      "url": "https://arxiv.org/abs/2309.03409",
+      "status": "accepted"
+    },
+    {
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "url": "https://arxiv.org/abs/2410.10762",
+      "status": "accepted"
+    },
+    {
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "status": "accepted"
+    },
+    {
+      "title": "Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement",
+      "url": "https://arxiv.org/abs/2402.11436",
+      "status": "accepted"
+    },
+    {
+      "title": "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution",
+      "url": "https://arxiv.org/abs/2309.16797",
+      "status": "rejected"
+    },
+    {
+      "title": "papers.cool discovery page for Self-Refine",
+      "url": "https://papers.cool/arxiv/2303.17651",
+      "status": "rejected"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "reason": "Primary paper; directly covers verbal feedback, reflection, memory, and no-weight-update improvement."
+      },
+      {
+        "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+        "url": "https://arxiv.org/abs/2303.17651",
+        "reason": "Primary paper; directly covers iterative self-feedback and self-refinement without extra training."
+      },
+      {
+        "title": "Large Language Models as Optimizers",
+        "url": "https://arxiv.org/abs/2309.03409",
+        "reason": "Primary paper; directly covers prompt optimization as an inference-time optimization loop."
+      },
+      {
+        "title": "AFlow: Automating Agentic Workflow Generation",
+        "url": "https://arxiv.org/abs/2410.10762",
+        "reason": "Primary paper; directly covers workflow optimization via search and execution feedback."
+      },
+      {
+        "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+        "url": "https://arxiv.org/abs/2310.01798",
+        "reason": "Primary paper; directly covers limitations of intrinsic self-correction without external feedback."
+      },
+      {
+        "title": "Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement",
+        "url": "https://arxiv.org/abs/2402.11436",
+        "reason": "Primary paper; directly covers self-bias and the need for accurate external feedback."
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution",
+        "url": "https://arxiv.org/abs/2309.16797",
+        "reason": "Relevant primary source, but redundant under source budget; prompt optimization is already covered by OPRO and AFlow."
+      },
+      {
+        "title": "papers.cool discovery page for Self-Refine",
+        "url": "https://papers.cool/arxiv/2303.17651",
+        "reason": "Discovery/aggregator page; not needed because the arXiv primary source is available."
+      }
+    ],
+    "rejection_reasons": [
+      "Redundant with stronger primary sources or unnecessary discovery lead.",
+      "Did not add primary evidence beyond accepted papers."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Reflexion proposes verbal reinforcement learning: agents verbally reflect on task feedback and store reflective text in episodic memory instead of updating weights.",
+      "source_url": "https://arxiv.org/abs/2303.11366",
+      "source_type": "Reflexion paper",
+      "supported_aspect": "verbal feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Refine improves outputs by having the same LLM generate feedback and refine itself iteratively, with no supervised data, additional training, or RL.",
+      "source_url": "https://arxiv.org/abs/2303.17651",
+      "source_type": "Self-Refine paper",
+      "supported_aspect": "reflection",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-Refine is a concrete self-refinement loop that can improve outputs at test time using feedback and refinement only.",
+      "source_url": "https://arxiv.org/abs/2303.17651",
+      "source_type": "Self-Refine paper",
+      "supported_aspect": "self-refinement",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "OPRO frames prompt improvement as optimization in natural language: the LLM generates candidate solutions, they are evaluated, and the best prompts are fed into the next step.",
+      "source_url": "https://arxiv.org/abs/2309.03409",
+      "source_type": "agent optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "AFlow automates agentic workflow generation by searching over code-represented workflows with Monte Carlo Tree Search and execution feedback.",
+      "source_url": "https://arxiv.org/abs/2410.10762",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "prompt or workflow optimization",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Intrinsic self-correction without external feedback is brittle: on reasoning tasks, LLMs struggle to self-correct and may even degrade after self-correction.",
+      "source_url": "https://arxiv.org/abs/2310.01798",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Self-refinement can amplify self-bias; accurate external feedback reduces that bias and leads to actual downstream gains.",
+      "source_url": "https://arxiv.org/abs/2402.11436",
+      "source_type": "agent design or optimization paper",
+      "supported_aspect": "limits of self-improvement without external feedback",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "verbal feedback",
+      "reflection",
+      "self-refinement",
+      "prompt or workflow optimization",
+      "limits of self-improvement without external feedback"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [
+      {
+        "claim_pair": [
+          "Self-Refine/Reflexion show that test-time self-feedback can improve outputs.",
+          "Huang et al. show intrinsic self-correction can fail or degrade reasoning without external feedback."
+        ],
+        "status": "apparent tension"
+      }
+    ],
+    "resolution": "The evidence is consistent once the feedback source is distinguished: self-improvement can work when the loop has useful evaluative signals, but purely intrinsic self-correction is brittle and task-dependent.",
+    "uncertainty_notes": [
+      "Effectiveness varies by task, model size, and feedback quality.",
+      "Benchmark gains from prompt/workflow optimization do not imply general self-improvement in all agent settings."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Reflexion uses verbal feedback and memory instead of weight updates.",
+      "Self-Refine uses iterative self-feedback without extra training.",
+      "OPRO and AFlow are inference-time optimization techniques for prompts/workflows.",
+      "Intrinsic self-correction without external feedback is limited.",
+      "External feedback can reduce self-bias in self-refinement."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:42:23+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2309.03409",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2402.11436",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2410.10762",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0f7383e82252a9150069fa63f8f57c819486cd2e613950635e",
+      "action": {
+        "query": "Reflexion verbal reinforcement self-reflection paper arXiv",
+        "type": "search",
+        "queries": [
+          "Reflexion verbal reinforcement self-reflection paper arXiv",
+          "Self-Refine paper iterative self-refinement arXiv",
+          "prompt optimization agent paper without fine-tuning arXiv self-improving agents"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.16153"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00790"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.05605"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2511.10621"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.18577"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.07506"
+          },
+          {
+            "type": "url",
+            "url": "https://deep-paper.org/en/paper/2303.11366/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2504.08837"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2303.11366"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2505.24726"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2403.14238"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2303-17651"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=S37hOerQLB&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://nips.cc/media/neurips-2023/Slides/71632.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://3dvar.com/Shinn2023Reflexion.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/309709/preprint_pdf/d87671b0e1950a508eb50b56fb3098af.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2401.01335"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Feedback_neural_network"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1p904gu/p_learning_without_finetuning_opensource/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/PromptEngineering/comments/1rqok6y/why_is_the_industry_still_defaulting_to_static/"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Recursive_self-improvement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1nw3y3c/selfimproving_ai_agents_arent_happening_anytime/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1s1kl0e/how_we_built_an_agent_that_learns_from_its_own/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa63fb3e74819486a9ac6325969c4e",
+      "action": {
+        "query": "Optimization by PROmpting OPRO paper arXiv prompt optimization",
+        "type": "search",
+        "queries": [
+          "Optimization by PROmpting OPRO paper arXiv prompt optimization",
+          "PromptBreeder paper arXiv prompt evolution",
+          "agent workflow optimization paper prompt optimization agent arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2309.16797"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2309.16797"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.18612"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.06061"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.22037"
+          },
+          {
+            "type": "url",
+            "url": "https://deep-paper.org/en/paper/2309.16797/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2409.07429"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2410.10762"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2603.02630"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/towards-hierarchical-multi-agent-workflows-zero-shot"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.22386"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2309-16797"
+          },
+          {
+            "type": "url",
+            "url": "https://www.enhans.ai/newsroom/prompt-optimization-via-retrieved-reasoning-assets-and-multi-agent-analysis"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2512.24615"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=HKkiX32Zw1"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=9ZxnPZGmPU"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AgentsOfAI/comments/1r3pj35/ai_agent_research_papers2006_directory_from_arxiv/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r3p8zk/curated_list_of_ai_agent_papers_2026_filtering/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/Anthropic/comments/1s8y0zf/i_read_17_papers_on_agentic_ai_workflows_most/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/177fw1f"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/178z6a7"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/aiagents/comments/1rbqtt4/a_collection_of_ai_agent_research_papers_released/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/16zz70s"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ChatGPTPromptGenius/comments/1lvegrc"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa63fdf96c81948b79fdfdabed1f30",
+      "action": {
+        "query": "revisiting OPRO limitations of small-scale LLMs as optimizers paper arXiv abstract",
+        "type": "search",
+        "queries": [
+          "revisiting OPRO limitations of small-scale LLMs as optimizers paper arXiv abstract",
+          "self-improvement without external feedback limitation self-refine reflexion paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2405.10276"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/384212804_Revisiting_OPRO_The_Limitations_of_Small-Scale_LLMs_as_Optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/revisiting-opro-limitations-small-scale-llms-as"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/380635239_Revisiting_OPRO_The_Limitations_of_Small-Scale_LLMs_as_Optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2405-10276"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://researchr.org/publication/ZhangYA24-1"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.03094"
+          },
+          {
+            "type": "url",
+            "url": "https://www.themoonlight.io/en/review/revisiting-opro-the-limitations-of-small-scale-llms-as-optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://www.themoonlight.io/zh/review/revisiting-opro-the-limitations-of-small-scale-llms-as-optimizers"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://link.springer.com/article/10.1007/s11229-023-04195-2"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202402201351814149"
+          },
+          {
+            "type": "url",
+            "url": "https://chatpaper.com/zh-CN/chatpaper/paper/21178"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2309.03409"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1g6qpeq/r_llms_still_cant_plan_can_lrms_a_preliminary/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1s5jpgz/r_controlled_experiment_giving_an_llm_agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1cfb2l5"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1c97o2q"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1itrbny"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1eqylt9"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/productivity/comments/f6xy60"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/12a4s6d/selfrefine_iterative_refinement_with_selffeedback/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa64011f688194acb4e0b23a3cbd79",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2303.11366"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa64036cc8819487cb4375add9d472",
+      "action": {
+        "query": "AFlow automating agentic workflow generation arXiv",
+        "type": "search",
+        "queries": [
+          "AFlow automating agentic workflow generation arXiv",
+          "agent workflow optimization paper arXiv Monte Carlo Tree Search workflow"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.10762"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2410.10762"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.15709"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.02995"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.12740"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2410-10762"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2603.12740"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2511.20693"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2312.15908"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/aflow-automating-agentic-workflow-generation--arxiv-2410.10762/"
+          },
+          {
+            "type": "url",
+            "url": "https://gist.science/paper/2603.12740"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2410.20285"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/aflow-automating-agentic-workflow-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.22037"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2412.17061"
+          },
+          {
+            "type": "url",
+            "url": "https://www.emergentmind.com/topics/aflow-automating-agentic-workflow-generation"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/a6f12f5f6a6f1b4b31c1833594faa7af2c73169f.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=z5uVAKwmjf"
+          },
+          {
+            "type": "url",
+            "url": "https://jiawen-lee.github.io/JiawenLi/assets/files/VLHCC_2025_paper_156.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://calinon.ch/papers/Xue-arXiv2025.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://grafft.github.io/assets/pdf/mats2024.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://overfitted.cloud/pdf/2604.15709"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Monte_Carlo_tree_search"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/github/comments/1g4cde9"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1r3p8zk/curated_list_of_ai_agent_papers_2026_filtering/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AgentsOfAI/comments/1r3pj35/ai_agent_research_papers2006_directory_from_arxiv/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/machinelearningnews/comments/1cok6mv"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/nocode/comments/1supocf/the_agentic_workflow_that_actually_keeps_running/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/hrzooh"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1s5jpgz/r_controlled_experiment_giving_an_llm_agent/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa640792408194b32f6409b07295be",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2410.10762"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa640a97dc8194ae60befc93140c53",
+      "action": {
+        "query": "\"without external feedback\" self-improvement paper arXiv language agents",
+        "type": "search",
+        "queries": [
+          "\"without external feedback\" self-improvement paper arXiv language agents",
+          "\"external feedback\" self-refinement paper arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/400415429_Test-time_Recursive_Thinking_Self-Improvement_without_External_Feedback"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.01264"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.03094"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2501.01264"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2410.04055"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2502.19613"
+          },
+          {
+            "type": "url",
+            "url": "https://fugumt.com/fugumt/paper_check/2602.03094v1_enmode"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2210.11610"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.21931"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/en/public/202602210028734784"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2504.01400"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.00828"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=yNN1xYMgxG&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/7f9518873091e05f6427bff4f30402b439c49cb3.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-naacl.218.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/naacl/2025.naacl-long.502.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.cmu.edu/~leili/pubs/xu2024pride.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://storage.googleapis.com/arxiv-dataset/arxiv/arxiv/pdf/2308/2308.03188v2.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1b237zh"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/artificial/comments/170m0hn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1c8fru6"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialInteligence/comments/170m0lj"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/170m0o7"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa64121ea881949f370d19c7e04e4f",
+      "action": {
+        "query": "arXiv 2310.01798 cannot self-correct reasoning yet",
+        "type": "search",
+        "queries": [
+          "arXiv 2310.01798 cannot self-correct reasoning yet",
+          "Large Language Models Cannot Self-Correct Reasoning Yet arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2310.01798"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2508.10265"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.14092"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.18781"
+          },
+          {
+            "type": "url",
+            "url": "https://deepmind.google/research/publications/large-language-models-cannot-self-correct-reasoning-yet/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/paper/2305.11738/fetch"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2311.07954"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/conf/iclr/0009CMZYSZ24"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2406.15673"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/llms-cannot-find-reasoning-errors-but-can"
+          },
+          {
+            "type": "url",
+            "url": "https://dblp.org/rec/journals/corr/abs-2405-04382"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.02778v1"
+          },
+          {
+            "type": "url",
+            "url": "https://aibreakdown.org/arxiv-preprint-large-language-models-cannot-self-correct-reasoning-yet/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2402.12563"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2505.21444"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2311.08516"
+          },
+          {
+            "type": "url",
+            "url": "https://www.livescience.com/technology/artificial-intelligence/ai-could-soon-think-in-ways-we-dont-even-understand-evading-efforts-to-keep-it-aligned-top-ai-scientists-warn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.livescience.com/technology/artificial-intelligence/ai-models-cant-tell-time-or-read-a-calendar-study-reveals"
+          },
+          {
+            "type": "url",
+            "url": "https://www.livescience.com/technology/artificial-intelligence/ai-hallucinates-more-frequently-as-it-gets-more-advanced-is-there-any-way-to-stop-it-from-happening-and-should-we-even-try"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=IkmD3fKBPQ"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Large_language_model"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1744jlw"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/zgr7nr"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/17zu3xo"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Reasoning_model"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa6416cca481949c4c76716d802dcc",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2310.01798"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa641764248194a00193f580e8d798",
+      "action": {
+        "query": "Pride and Prejudice LLM Amplifies Self-Bias in Self-Refinement arXiv",
+        "type": "search",
+        "queries": [
+          "Pride and Prejudice LLM Amplifies Self-Bias in Self-Refinement arXiv"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/pride-prejudice-llm-amplifies-self-bias-self"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.826/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/384215104_Pride_and_Prejudice_LLM_Amplifies_Self-Bias_in_Self-Refinement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.themoonlight.io/review/pride-and-prejudice-llm-amplifies-self-bias-in-self-refinement"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchtrend.ai/papers/2402.11436"
+          },
+          {
+            "type": "url",
+            "url": "https://liner.com/review/pride-and-prejudice-llm-amplifies-selfbias-in-selfrefinement"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2024.acl-long.826.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://fugumt.com/fugumt/paper_check/2402.11436v2_enmode"
+          },
+          {
+            "type": "url",
+            "url": "https://jglobal.jst.go.jp/en/public/202402213386321631"
+          },
+          {
+            "type": "url",
+            "url": "https://fugumt.com/fugumt/paper_check/2402.11436v2"
+          },
+          {
+            "type": "url",
+            "url": "https://paperswithcode.com/paper/perils-of-self-feedback-self-bias-amplifies"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2303.17651"
+          },
+          {
+            "type": "url",
+            "url": "https://www.cs.cmu.edu/~leili/pubs/xu2024pride.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.26600"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.03647"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIEval/comments/1sz7erh/selfpreference_bias_in_llm_judges_is_probably/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/ycipui"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1ohh6uc"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/170m0o7"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialInteligence/comments/170m0lj"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/artificial/comments/170m0hn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1c97o2q"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/1c97orc"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f7383e82252a9150069fa641f56c8819495fd5cdb9009a804",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2402.11436"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 46668,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 7885,
+    "output_tokens_details": {
+      "reasoning_tokens": 4802
+    },
+    "total_tokens": 54553
+  },
+  "response_id": "resp_0f7383e82252a9150069fa63f6499881948ea41c29105e47b9",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What self-improvement methods work at test time without updating model weights?\",\n      \"Which techniques rely on verbal feedback, reflection, or self-critique?\",\n      \"Which techniques optimize prompts or agent workflows instead of fine-tuning?\",\n      \"What are the main limits of self-improvement when no external feedback exists?\"\n    ],\n    \"required_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"expected_source_types\": [\n      \"Reflexion paper\",\n      \"Self-Refine paper\",\n      \"agent design or optimization paper\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"Reflexion verbal reinforcement learning arXiv\",\n      \"Self-Refine iterative refinement with self-feedback arXiv\",\n      \"Large Language Models as Optimizers OPRO arXiv\",\n      \"AFlow automating agentic workflow generation arXiv\"\n    ],\n    \"rationale_per_query\": [\n      \"Find the core paper for verbal feedback/reflection without weight updates.\",\n      \"Find the core paper for iterative self-refinement with self-feedback.\",\n      \"Find a primary prompt-optimization paper that avoids fine-tuning.\",\n      \"Find a primary workflow-optimization paper for agent design without fine-tuning.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n      \"url\": \"https://arxiv.org/abs/2303.11366\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n      \"url\": \"https://arxiv.org/abs/2303.17651\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Large Language Models as Optimizers\",\n      \"url\": \"https://arxiv.org/abs/2309.03409\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"AFlow: Automating Agentic Workflow Generation\",\n      \"url\": \"https://arxiv.org/abs/2410.10762\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Large Language Models Cannot Self-Correct Reasoning Yet\",\n      \"url\": \"https://arxiv.org/abs/2310.01798\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement\",\n      \"url\": \"https://arxiv.org/abs/2402.11436\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"title\": \"Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution\",\n      \"url\": \"https://arxiv.org/abs/2309.16797\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"title\": \"papers.cool discovery page for Self-Refine\",\n      \"url\": \"https://papers.cool/arxiv/2303.17651\",\n      \"status\": \"rejected\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"Reflexion: Language Agents with Verbal Reinforcement Learning\",\n        \"url\": \"https://arxiv.org/abs/2303.11366\",\n        \"reason\": \"Primary paper; directly covers verbal feedback, reflection, memory, and no-weight-update improvement.\"\n      },\n      {\n        \"title\": \"Self-Refine: Iterative Refinement with Self-Feedback\",\n        \"url\": \"https://arxiv.org/abs/2303.17651\",\n        \"reason\": \"Primary paper; directly covers iterative self-feedback and self-refinement without extra training.\"\n      },\n      {\n        \"title\": \"Large Language Models as Optimizers\",\n        \"url\": \"https://arxiv.org/abs/2309.03409\",\n        \"reason\": \"Primary paper; directly covers prompt optimization as an inference-time optimization loop.\"\n      },\n      {\n        \"title\": \"AFlow: Automating Agentic Workflow Generation\",\n        \"url\": \"https://arxiv.org/abs/2410.10762\",\n        \"reason\": \"Primary paper; directly covers workflow optimization via search and execution feedback.\"\n      },\n      {\n        \"title\": \"Large Language Models Cannot Self-Correct Reasoning Yet\",\n        \"url\": \"https://arxiv.org/abs/2310.01798\",\n        \"reason\": \"Primary paper; directly covers limitations of intrinsic self-correction without external feedback.\"\n      },\n      {\n        \"title\": \"Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement\",\n        \"url\": \"https://arxiv.org/abs/2402.11436\",\n        \"reason\": \"Primary paper; directly covers self-bias and the need for accurate external feedback.\"\n      }\n    ],\n    \"rejected_sources\": [\n      {\n        \"title\": \"Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution\",\n        \"url\": \"https://arxiv.org/abs/2309.16797\",\n        \"reason\": \"Relevant primary source, but redundant under source budget; prompt optimization is already covered by OPRO and AFlow.\"\n      },\n      {\n        \"title\": \"papers.cool discovery page for Self-Refine\",\n        \"url\": \"https://papers.cool/arxiv/2303.17651\",\n        \"reason\": \"Discovery/aggregator page; not needed because the arXiv primary source is available.\"\n      }\n    ],\n    \"rejection_reasons\": [\n      \"Redundant with stronger primary sources or unnecessary discovery lead.\",\n      \"Did not add primary evidence beyond accepted papers.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Reflexion proposes verbal reinforcement learning: agents verbally reflect on task feedback and store reflective text in episodic memory instead of updating weights.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.11366\",\n      \"source_type\": \"Reflexion paper\",\n      \"supported_aspect\": \"verbal feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Refine improves outputs by having the same LLM generate feedback and refine itself iteratively, with no supervised data, additional training, or RL.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.17651\",\n      \"source_type\": \"Self-Refine paper\",\n      \"supported_aspect\": \"reflection\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-Refine is a concrete self-refinement loop that can improve outputs at test time using feedback and refinement only.\",\n      \"source_url\": \"https://arxiv.org/abs/2303.17651\",\n      \"source_type\": \"Self-Refine paper\",\n      \"supported_aspect\": \"self-refinement\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"OPRO frames prompt improvement as optimization in natural language: the LLM generates candidate solutions, they are evaluated, and the best prompts are fed into the next step.\",\n      \"source_url\": \"https://arxiv.org/abs/2309.03409\",\n      \"source_type\": \"agent optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"AFlow automates agentic workflow generation by searching over code-represented workflows with Monte Carlo Tree Search and execution feedback.\",\n      \"source_url\": \"https://arxiv.org/abs/2410.10762\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"prompt or workflow optimization\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Intrinsic self-correction without external feedback is brittle: on reasoning tasks, LLMs struggle to self-correct and may even degrade after self-correction.\",\n      \"source_url\": \"https://arxiv.org/abs/2310.01798\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Self-refinement can amplify self-bias; accurate external feedback reduces that bias and leads to actual downstream gains.\",\n      \"source_url\": \"https://arxiv.org/abs/2402.11436\",\n      \"source_type\": \"agent design or optimization paper\",\n      \"supported_aspect\": \"limits of self-improvement without external feedback\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"verbal feedback\",\n      \"reflection\",\n      \"self-refinement\",\n      \"prompt or workflow optimization\",\n      \"limits of self-improvement without external feedback\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [\n      {\n        \"claim_pair\": [\n          \"Self-Refine/Reflexion show that test-time self-feedback can improve outputs.\",\n          \"Huang et al. show intrinsic self-correction can fail or degrade reasoning without external feedback.\"\n        ],\n        \"status\": \"apparent tension\"\n      }\n    ],\n    \"resolution\": \"The evidence is consistent once the feedback source is distinguished: self-improvement can work when the loop has useful evaluative signals, but purely intrinsic self-correction is brittle and task-dependent.\",\n    \"uncertainty_notes\": [\n      \"Effectiveness varies by task, model size, and feedback quality.\",\n      \"Benchmark gains from prompt/workflow optimization do not imply general self-improvement in all agent settings.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Reflexion uses verbal feedback and memory instead of weight updates.\",\n      \"Self-Refine uses iterative self-feedback without extra training.\",\n      \"OPRO and AFlow are inference-time optimization techniques for prompts/workflows.\",\n      \"Intrinsic self-correction without external feedback is limited.\",\n      \"External feedback can reduce self-bias in self-refinement.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nSelf-improving agents without fine-tuning usually use **test-time loops** that change text, prompts, memory, or workflows rather than model weights: verbal feedback/reflection (Reflexion), self-feedback/self-refinement (Self-Refine), prompt optimization (OPRO), and workflow optimization/search (AFlow). https://arxiv.org/abs/2303.11366 https://arxiv.org/abs/2303.17651 https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\\n\\n### Required aspect coverage\\n- **verbal feedback** — Reflexion explicitly uses linguistic feedback, reflective text, and episodic memory instead of weight updates: https://arxiv.org/abs/2303.11366\\n- **reflection** — Self-Refine has the same LLM produce feedback about its own output and then refine itself iteratively: https://arxiv.org/abs/2303.17651\\n- **self-refinement** — Self-Refine is a standalone self-refinement loop at test time, not a fine-tuning method: https://arxiv.org/abs/2303.17651\\n- **prompt or workflow optimization** — OPRO optimizes prompts via evaluate-and-iterate loops, and AFlow optimizes workflows via search plus execution feedback: https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\\n- **limits of self-improvement without external feedback** — intrinsic self-correction can fail or degrade reasoning, and self-refinement can amplify self-bias unless external feedback is accurate: https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2402.11436\\n\\n## Sources\\n- Reflexion: Language Agents with Verbal Reinforcement Learning — https://arxiv.org/abs/2303.11366\\n- Self-Refine: Iterative Refinement with Self-Feedback — https://arxiv.org/abs/2303.17651\\n- Large Language Models as Optimizers — https://arxiv.org/abs/2309.03409\\n- AFlow: Automating Agentic Workflow Generation — https://arxiv.org/abs/2410.10762\\n- Large Language Models Cannot Self-Correct Reasoning Yet — https://arxiv.org/abs/2310.01798\\n- Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement — https://arxiv.org/abs/2402.11436\\n\\n## Limitations\\n- This is a compact research snapshot, not an exhaustive survey. I prioritized primary papers that directly support the requested aspects: https://arxiv.org/abs/2303.11366 https://arxiv.org/abs/2303.17651 https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\\n- The strongest negative evidence says self-improvement without external feedback is often brittle, especially for reasoning, so recommendations should be treated as task-dependent rather than universal: https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2402.11436\\n- The prompt/workflow optimization papers report benchmark gains, but those gains do not guarantee the same effect on every agent, model size, or deployment setting: https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

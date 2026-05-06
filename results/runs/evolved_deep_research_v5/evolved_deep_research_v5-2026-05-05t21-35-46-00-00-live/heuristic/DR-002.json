@@ -1,0 +1,144 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-002.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-002",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 1.0,
+  "failure_tags": [],
+  "runtime_seconds": 87.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "interleaved reasoning and acting",
+        "covered": true,
+        "matched_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ],
+        "expected_terms": [
+          "acting",
+          "interleaved",
+          "reasoning"
+        ]
+      },
+      {
+        "aspect": "explicit planning stage",
+        "covered": true,
+        "matched_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ],
+        "expected_terms": [
+          "explicit",
+          "planning",
+          "stage"
+        ]
+      },
+      {
+        "aspect": "tool-use implications",
+        "covered": true,
+        "matched_terms": [
+          "implications",
+          "tool"
+        ],
+        "expected_terms": [
+          "implications",
+          "tool"
+        ]
+      },
+      {
+        "aspect": "failure modes",
+        "covered": true,
+        "matched_terms": [
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "failure",
+          "modes"
+        ]
+      },
+      {
+        "aspect": "when each architecture is preferable",
+        "covered": true,
+        "matched_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ],
+        "expected_terms": [
+          "architecture",
+          "each",
+          "preferable"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "ReAct-style agents interleave reasoning and acting: they emit a short reasoning step, call a tool, read the observation, and then decide the next step. Planner-executor agents separate those phases: they first create an explicit plan or decomposition, then execute the steps, often revising the plan when new information arrives. https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview",
+      "Tool-use implication: ReAct is tightly coupled to immediate observations, so tool choice is made step-by-step inside the loop. Planner-executor is more structured, so tool calls are sequenced against a plan, which is better for delegation, checkpoints, and longer workflows. That second sentence is an engineering inference from the docs and should be treated as guidance, not a universal fact. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+      "Failure modes differ too. ReAct can be prompt-sensitive; a later analysis found that performance was minimally influenced by interleaving itself and more by exemplar-query similarity. Planner-executor can fail if the initial plan is bad or a subtask is infeasible; ADaPT argues that both iterative executors and plan-and-execute systems can break when a subtask cannot be executed. https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772",
+      "Recommendation: use ReAct when you want a tight tool-feedback loop for a short or uncertain task; use planner-executor when the task is long-horizon, multi-step, or benefits from explicit decomposition and stateful coordination. This is a synthesis from the sources, not a hard benchmark rule. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+      "- interleaved reasoning and acting — ReAct alternates reasoning and tool calls: https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents",
+      "- explicit planning stage — planner-executor/deep-agent style systems start with planning and decomposition: https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772",
+      "- tool-use implications — ReAct makes tool use reactive; planner-executor makes it plan-sequenced and easier to delegate/control: https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview",
+      "- failure modes — ReAct prompting is brittle/sensitive, and plan-and-execute can fail when subtasks are not executable: https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772",
+      "- when each architecture is preferable — ReAct fits tighter feedback-loop tasks; planner-executor fits long-horizon, multi-step work: https://docs.langchain.com/oss/python/deepagents/overview https://docs.langchain.com/oss/python/langchain/agents"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2210.03629",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2311.05772",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2405.13966",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/overview",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/deepagents/overview.",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langchain/agents",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

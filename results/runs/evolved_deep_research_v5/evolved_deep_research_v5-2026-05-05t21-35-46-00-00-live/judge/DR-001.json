@@ -1,0 +1,306 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T21:36:47+00:00",
+  "finished_at": "2026-05-05T21:36:54+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-001.json",
+  "question_id": "DR-001",
+  "question": "What are the main failure modes of memory in LLM agents?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 0.975,
+  "judge_score": 0.7917,
+  "final_score": 0.8559,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-001.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-001",
+    "question": "What are the main failure modes of memory in LLM agents?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 0.8333,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 0.975,
+    "failure_tags": [],
+    "runtime_seconds": 60.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "context pollution",
+          "covered": true,
+          "matched_terms": [
+            "context",
+            "pollution"
+          ],
+          "expected_terms": [
+            "context",
+            "pollution"
+          ]
+        },
+        {
+          "aspect": "retrieval of stale or irrelevant memories",
+          "covered": true,
+          "matched_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ],
+          "expected_terms": [
+            "irrelevant",
+            "memories",
+            "retrieval",
+            "stale"
+          ]
+        },
+        {
+          "aspect": "over-trusting previous agent outputs",
+          "covered": true,
+          "matched_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ],
+          "expected_terms": [
+            "outputs",
+            "over",
+            "previous",
+            "trusting"
+          ]
+        },
+        {
+          "aspect": "trade-offs between short-term and long-term memory",
+          "covered": true,
+          "matched_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ],
+          "expected_terms": [
+            "long",
+            "memory",
+            "offs",
+            "short",
+            "term",
+            "trade"
+          ]
+        },
+        {
+          "aspect": "evaluation methods for memory quality",
+          "covered": true,
+          "matched_terms": [
+            "evaluation",
+            "memory"
+          ],
+          "expected_terms": [
+            "evaluation",
+            "memory"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "- **Context pollution**: the agent over-uses its own prior outputs, so earlier errors, hallucinations, or style artifacts get carried forward instead of filtered out. https://arxiv.org/abs/2602.24287",
+        "- **Stale / irrelevant retrieval**: memory returns experiences that are outdated, irrelevant, or only superficially similar, which can mislead the current task and compound errors. https://arxiv.org/abs/2505.16067",
+        "- **Over-trusting previous agent outputs**: a specific version of the above, where assistant-side history is treated too much like ground truth rather than as optional guidance. https://arxiv.org/abs/2602.24287",
+        "- **Retention vs. update trade-off**: keeping enough short-term context helps continuity, but long-term memory also needs pruning, overwriting, and selective forgetting when facts change or memory gets overloaded. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf https://arxiv.org/abs/2601.18642",
+        "- **Poor memory-quality evaluation**: good systems are now judged with incremental multi-turn tests that separately score retrieval, test-time learning, long-range understanding, and conflict resolution. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+        "- context pollution — covered: assistant-side history can contaminate later turns and propagate errors/hallucinations. https://arxiv.org/abs/2602.24287",
+        "- retrieval of stale or irrelevant memories — covered: stale or misaligned experiences can mislead current tasks. https://arxiv.org/abs/2505.16067 https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "- over-trusting previous agent outputs — covered: over-conditioning on prior assistant responses is a documented failure mode. https://arxiv.org/abs/2602.24287",
+        "- trade-offs between short-term and long-term memory — covered: preserve useful history, but overwrite outdated facts and selectively forget when needed. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf https://arxiv.org/abs/2601.18642",
+        "- evaluation methods for memory quality — covered: MemAE-style incremental multi-turn benchmarks and four competency axes. https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2404.13501",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2505.16067",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2601.18642",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2602.24287",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+          "domain": "openai.github.io",
+          "authoritative": false,
+          "weak": false
+        },
+        {
+          "url": "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+          "domain": "openreview.net",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 4,
+      "uncertainty_handling": 3,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "context pollution",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identified and explained as prior outputs contaminating later turns with errors/hallucinations."
+      },
+      {
+        "aspect": "retrieval of stale or irrelevant memories",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly addressed stale, irrelevant, or superficially similar retrieval misleading the task."
+      },
+      {
+        "aspect": "over-trusting previous agent outputs",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Clearly separated as a failure mode where assistant-side history is treated as ground truth."
+      },
+      {
+        "aspect": "trade-offs between short-term and long-term memory",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Discussed continuity vs pruning/forgetting/overwriting for long-term memory."
+      },
+      {
+        "aspect": "evaluation methods for memory quality",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Mentioned incremental multi-turn benchmarks and multiple evaluation axes."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Context pollution: the agent over-uses its own prior outputs, so earlier errors, hallucinations, or style artifacts get carried forward instead of filtered out.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2602.24287"
+        ],
+        "reason": "Plausibly supported by a paper specifically labeled as about context pollution."
+      },
+      {
+        "claim": "Stale / irrelevant retrieval: memory returns experiences that are outdated, irrelevant, or only superficially similar, which can mislead the current task and compound errors.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2505.16067"
+        ],
+        "reason": "Plausibly supported by an empirical study on memory retrieval failure modes."
+      },
+      {
+        "claim": "Over-trusting previous agent outputs: assistant-side history is treated too much like ground truth rather than as optional guidance.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2602.24287"
+        ],
+        "reason": "Reasonably aligned with the cited context-pollution paper’s likely focus."
+      },
+      {
+        "claim": "Retention vs. update trade-off: keeping enough short-term context helps continuity, but long-term memory also needs pruning, overwriting, and selective forgetting when facts change or memory gets overloaded.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+          "https://arxiv.org/abs/2601.18642"
+        ],
+        "reason": "The trade-off itself is plausible, but the answer compresses multiple mechanisms into a broad claim without showing that the cited sources specifically support all parts."
+      },
+      {
+        "claim": "Poor memory-quality evaluation: good systems are now judged with incremental multi-turn tests that separately score retrieval, test-time learning, long-range understanding, and conflict resolution.",
+        "support": "weak",
+        "cited_urls": [
+          "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf"
+        ],
+        "reason": "Likely supported by the benchmark paper, but the answer gives a somewhat specific rubric without enough provenance in the response."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2404.13501",
+        "quality": "strong",
+        "reason": "Relevant survey source for LLM agent memory."
+      },
+      {
+        "url": "https://arxiv.org/abs/2505.16067",
+        "quality": "strong",
+        "reason": "Direct empirical report on memory-related failure modes."
+      },
+      {
+        "url": "https://arxiv.org/abs/2601.18642",
+        "quality": "strong",
+        "reason": "Relevant research on selective forgetting and memory management trade-offs."
+      },
+      {
+        "url": "https://arxiv.org/abs/2602.24287",
+        "quality": "strong",
+        "reason": "Directly relevant to context pollution and related memory contamination issues."
+      },
+      {
+        "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+        "quality": "acceptable",
+        "reason": "Useful implementation documentation, but not a primary source for failure-mode taxonomy."
+      },
+      {
+        "url": "https://openreview.net/pdf/b2b137aed07a6b562044eadcff7892eccefd453d.pdf",
+        "quality": "strong",
+        "reason": "Benchmark paper is highly relevant to evaluation methods."
+      }
+    ],
+    "failure_tags": [],
+    "summary": "Solid, complete answer with all required aspects covered and generally relevant sources; main weakness is slightly overconfident/underspecified citation-to-claim linkage on the trade-off and evaluation bullets.",
+    "recommended_fix": "Tighten the evidence by tying each failure mode to a specific source claim or finding, especially for the trade-off and evaluation-methods sections.",
+    "average_score": 4.1667,
+    "normalized_score": 0.7917
+  },
+  "judge_usage": {
+    "input_tokens": 3752,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1351,
+    "output_tokens_details": {
+      "reasoning_tokens": 85
+    },
+    "total_tokens": 5103
+  },
+  "response_id": "resp_0d92fd9d819899910069fa62f228c4819099982377b90a51ee"
+}

@@ -1,0 +1,306 @@
+{
+  "schema_version": "2026-05-04",
+  "evaluation_type": "model_assisted_trace_judge",
+  "started_at": "2026-05-05T21:42:23+00:00",
+  "finished_at": "2026-05-05T21:42:33+00:00",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-005.json",
+  "question_id": "DR-005",
+  "question": "What techniques exist for self-improving agents without fine-tuning?",
+  "agent_id": "evolved_deep_research_agent",
+  "answer_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "dry_run": false,
+  "heuristic_score": 1.0,
+  "judge_score": 0.875,
+  "final_score": 0.9187,
+  "heuristic_evaluation": {
+    "schema_version": "2026-05-04",
+    "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-005.json",
+    "run_type": "evolved",
+    "agent_id": "evolved_deep_research_agent",
+    "model": "gpt-5.4-mini",
+    "dry_run": false,
+    "question_id": "DR-005",
+    "question": "What techniques exist for self-improving agents without fine-tuning?",
+    "metrics": {
+      "coverage_score": 1.0,
+      "citation_support_score": 1.0,
+      "source_quality_score": 1.0,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_score": 1.0,
+      "contradiction_handling_score": 1.0,
+      "redundancy_score": 1.0
+    },
+    "overall_score": 1.0,
+    "failure_tags": [],
+    "runtime_seconds": 76.0,
+    "details": {
+      "coverage": [
+        {
+          "aspect": "verbal feedback",
+          "covered": true,
+          "matched_terms": [
+            "feedback",
+            "verbal"
+          ],
+          "expected_terms": [
+            "feedback",
+            "verbal"
+          ]
+        },
+        {
+          "aspect": "reflection",
+          "covered": true,
+          "matched_terms": [
+            "reflection"
+          ],
+          "expected_terms": [
+            "reflection"
+          ]
+        },
+        {
+          "aspect": "self-refinement",
+          "covered": true,
+          "matched_terms": [
+            "refinement",
+            "self"
+          ],
+          "expected_terms": [
+            "refinement",
+            "self"
+          ]
+        },
+        {
+          "aspect": "prompt or workflow optimization",
+          "covered": true,
+          "matched_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ],
+          "expected_terms": [
+            "optimization",
+            "prompt",
+            "workflow"
+          ]
+        },
+        {
+          "aspect": "limits of self-improvement without external feedback",
+          "covered": true,
+          "matched_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ],
+          "expected_terms": [
+            "external",
+            "feedback",
+            "improvement",
+            "limits",
+            "self",
+            "without"
+          ]
+        }
+      ],
+      "claim_lines": [
+        "Self-improving agents without fine-tuning usually use **test-time loops** that change text, prompts, memory, or workflows rather than model weights: verbal feedback/reflection (Reflexion), self-feedback/self-refinement (Self-Refine), prompt optimization (OPRO), and workflow optimization/search (AFlow). https://arxiv.org/abs/2303.11366 https://arxiv.org/abs/2303.17651 https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762",
+        "- **verbal feedback** — Reflexion explicitly uses linguistic feedback, reflective text, and episodic memory instead of weight updates: https://arxiv.org/abs/2303.11366",
+        "- **reflection** — Self-Refine has the same LLM produce feedback about its own output and then refine itself iteratively: https://arxiv.org/abs/2303.17651",
+        "- **self-refinement** — Self-Refine is a standalone self-refinement loop at test time, not a fine-tuning method: https://arxiv.org/abs/2303.17651",
+        "- **prompt or workflow optimization** — OPRO optimizes prompts via evaluate-and-iterate loops, and AFlow optimizes workflows via search plus execution feedback: https://arxiv.org/abs/2309.03409 https://arxiv.org/abs/2410.10762",
+        "- **limits of self-improvement without external feedback** — intrinsic self-correction can fail or degrade reasoning, and self-refinement can amplify self-bias unless external feedback is accurate: https://arxiv.org/abs/2310.01798 https://arxiv.org/abs/2402.11436"
+      ],
+      "unsupported_claim_lines": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2303.11366",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2303.17651",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2309.03409",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2310.01798",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2402.11436",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        },
+        {
+          "url": "https://arxiv.org/abs/2410.10762",
+          "domain": "arxiv.org",
+          "authoritative": true,
+          "weak": false
+        }
+      ],
+      "citation_count": 6,
+      "unique_citation_count": 6
+    }
+  },
+  "judge_evaluation": {
+    "schema_version": "2026-05-04",
+    "scores": {
+      "factual_accuracy": 4,
+      "coverage": 5,
+      "evidence_quality": 5,
+      "uncertainty_handling": 4,
+      "engineer_usefulness": 4,
+      "conciseness_and_structure": 5
+    },
+    "coverage_audit": [
+      {
+        "aspect": "verbal feedback",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Explicitly identifies Reflexion’s linguistic/verbal feedback loop and ties it to no-weight-update self-improvement."
+      },
+      {
+        "aspect": "reflection",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Describes Self-Refine as iterative self-feedback and refinement, which squarely addresses reflection."
+      },
+      {
+        "aspect": "self-refinement",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Directly names Self-Refine as a test-time self-refinement loop without fine-tuning."
+      },
+      {
+        "aspect": "prompt or workflow optimization",
+        "score": 5,
+        "verdict": "covered",
+        "reason": "Covers both prompt optimization (OPRO) and workflow optimization/search (AFlow), satisfying the aspect well."
+      },
+      {
+        "aspect": "limits of self-improvement without external feedback",
+        "score": 4,
+        "verdict": "covered",
+        "reason": "States that self-correction can fail/degrade reasoning and that self-bias can be amplified without accurate external feedback, which is a relevant limitation."
+      }
+    ],
+    "citation_audit": [
+      {
+        "claim": "Self-improving agents without fine-tuning usually use test-time loops that change text, prompts, memory, or workflows rather than model weights: verbal feedback/reflection (Reflexion), self-feedback/self-refinement (Self-Refine), prompt optimization (OPRO), and workflow optimization/search (AFlow).",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366",
+          "https://arxiv.org/abs/2303.17651",
+          "https://arxiv.org/abs/2309.03409",
+          "https://arxiv.org/abs/2410.10762"
+        ],
+        "reason": "The cited papers plausibly support the named techniques and the general test-time-loop framing."
+      },
+      {
+        "claim": "Reflexion explicitly uses linguistic feedback, reflective text, and episodic memory instead of weight updates.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.11366"
+        ],
+        "reason": "This is the core framing of Reflexion and is plausibly supported by the paper."
+      },
+      {
+        "claim": "Self-Refine has the same LLM produce feedback about its own output and then refine itself iteratively.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.17651"
+        ],
+        "reason": "This matches the paper’s self-feedback/refinement loop."
+      },
+      {
+        "claim": "Self-Refine is a standalone self-refinement loop at test time, not a fine-tuning method.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2303.17651"
+        ],
+        "reason": "Plausibly supported by the paper’s method description."
+      },
+      {
+        "claim": "OPRO optimizes prompts via evaluate-and-iterate loops, and AFlow optimizes workflows via search plus execution feedback.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2309.03409",
+          "https://arxiv.org/abs/2410.10762"
+        ],
+        "reason": "These are appropriate source choices for prompt and workflow optimization techniques."
+      },
+      {
+        "claim": "Intrinsic self-correction can fail or degrade reasoning, and self-refinement can amplify self-bias unless external feedback is accurate.",
+        "support": "supported",
+        "cited_urls": [
+          "https://arxiv.org/abs/2310.01798",
+          "https://arxiv.org/abs/2402.11436"
+        ],
+        "reason": "These citations are relevant negative evidence about self-correction limits and self-bias."
+      }
+    ],
+    "source_audit": [
+      {
+        "url": "https://arxiv.org/abs/2303.11366",
+        "quality": "strong",
+        "reason": "Primary paper for Reflexion; directly relevant to verbal feedback and reflection-based self-improvement."
+      },
+      {
+        "url": "https://arxiv.org/abs/2303.17651",
+        "quality": "strong",
+        "reason": "Primary Self-Refine paper; directly relevant to self-refinement and self-feedback."
+      },
+      {
+        "url": "https://arxiv.org/abs/2309.03409",
+        "quality": "strong",
+        "reason": "Primary optimization paper for prompt-level self-improvement."
+      },
+      {
+        "url": "https://arxiv.org/abs/2310.01798",
+        "quality": "strong",
+        "reason": "Relevant negative evidence on limits of self-correction without stronger feedback."
+      },
+      {
+        "url": "https://arxiv.org/abs/2402.11436",
+        "quality": "strong",
+        "reason": "Relevant evidence on self-bias risks in self-refinement."
+      },
+      {
+        "url": "https://arxiv.org/abs/2410.10762",
+        "quality": "strong",
+        "reason": "Relevant agent design/optimization paper for workflow search and optimization."
+      }
+    ],
+    "failure_tags": [],
+    "summary": "A strong, well-cited answer that covers the required techniques and includes meaningful limits, with only minor room for more nuance on the distinction between reflection and self-refinement.",
+    "recommended_fix": "Add one sentence clarifying that these methods improve behavior only at test time or through prompt/workflow changes, and briefly note that gains are task- and feedback-quality-dependent.",
+    "average_score": 4.5,
+    "normalized_score": 0.875
+  },
+  "judge_usage": {
+    "input_tokens": 3290,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1534,
+    "output_tokens_details": {
+      "reasoning_tokens": 147
+    },
+    "total_tokens": 4824
+  },
+  "response_id": "resp_0521e3bbc8127b070069fa644300348196bc2023979e95cf9c"
+}

@@ -1,0 +1,1195 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:36:55+00:00",
+  "question": "How do ReAct-style agents differ from planner-executor agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "source_expectations": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:38:22+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nReAct-style agents interleave reasoning and acting: they emit a short reasoning step, call a tool, read the observation, and then decide the next step. Planner-executor agents separate those phases: they first create an explicit plan or decomposition, then execute the steps, often revising the plan when new information arrives. https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview\n\nTool-use implication: ReAct is tightly coupled to immediate observations, so tool choice is made step-by-step inside the loop. Planner-executor is more structured, so tool calls are sequenced against a plan, which is better for delegation, checkpoints, and longer workflows. That second sentence is an engineering inference from the docs and should be treated as guidance, not a universal fact. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\n\nFailure modes differ too. ReAct can be prompt-sensitive; a later analysis found that performance was minimally influenced by interleaving itself and more by exemplar-query similarity. Planner-executor can fail if the initial plan is bad or a subtask is infeasible; ADaPT argues that both iterative executors and plan-and-execute systems can break when a subtask cannot be executed. https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772\n\nRecommendation: use ReAct when you want a tight tool-feedback loop for a short or uncertain task; use planner-executor when the task is long-horizon, multi-step, or benefits from explicit decomposition and stateful coordination. This is a synthesis from the sources, not a hard benchmark rule. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\n\n### Required aspect coverage\n- interleaved reasoning and acting — ReAct alternates reasoning and tool calls: https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents\n- explicit planning stage — planner-executor/deep-agent style systems start with planning and decomposition: https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\n- tool-use implications — ReAct makes tool use reactive; planner-executor makes it plan-sequenced and easier to delegate/control: https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview\n- failure modes — ReAct prompting is brittle/sensitive, and plan-and-execute can fail when subtasks are not executable: https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772\n- when each architecture is preferable — ReAct fits tighter feedback-loop tasks; planner-executor fits long-horizon, multi-step work: https://docs.langchain.com/oss/python/deepagents/overview https://docs.langchain.com/oss/python/langchain/agents\n\n## Sources\n- ReAct paper: https://arxiv.org/abs/2210.03629\n- LangChain Agents docs: https://docs.langchain.com/oss/python/langchain/agents\n- Deep Agents overview: https://docs.langchain.com/oss/python/deepagents/overview\n- ADaPT paper: https://arxiv.org/abs/2311.05772\n- Brittle Foundations of ReAct paper: https://arxiv.org/abs/2405.13966\n\n## Limitations\nI did not find a single canonical benchmark that isolates only \"ReAct vs planner-executor\" across identical tasks and models. The recommendation above is therefore a synthesis from primary papers and official docs, especially https://arxiv.org/abs/2311.05772 and https://docs.langchain.com/oss/python/deepagents/overview. The causal value of ReAct's interleaving remains debated, so treat the choice as task-dependent rather than absolute.",
+  "decomposition": {
+    "subquestions": [
+      "What defines a ReAct-style loop?",
+      "What defines a planner-executor loop?",
+      "How does tool use differ between the two?",
+      "What failure modes are reported for each?",
+      "When is each architecture preferable?"
+    ],
+    "required_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "expected_source_types": [
+      "ReAct paper",
+      "agent framework documentation",
+      "technical comparison or benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "ReAct paper interleaved reasoning and acting arXiv 2022",
+      "planner executor agent documentation plan and execute official docs",
+      "benchmark planning vs acting agents long horizon tasks paper",
+      "brittle ReAct prompting paper arXiv 2024"
+    ],
+    "rationale_per_query": [
+      "Get the primary source for ReAct's core mechanism and claimed benefits.",
+      "Find official framework docs for a planner-executor style architecture and when it is used.",
+      "Find a comparative paper/benchmark on iterative executors vs plan-and-execute for empirical tradeoffs.",
+      "Find a primary source on ReAct failure modes and prompt sensitivity."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/abs/2210.03629"
+    },
+    {
+      "title": "Agents - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/langchain/agents"
+    },
+    {
+      "title": "Deep Agents overview - Docs by LangChain",
+      "url": "https://docs.langchain.com/oss/python/deepagents/overview"
+    },
+    {
+      "title": "ADaPT: As-Needed Decomposition and Planning with Language Models",
+      "url": "https://arxiv.org/abs/2311.05772"
+    },
+    {
+      "title": "On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models",
+      "url": "https://arxiv.org/abs/2405.13966"
+    },
+    {
+      "title": "LangGraph repository README",
+      "url": "https://github.com/langchain-ai/langgraph"
+    },
+    {
+      "title": "LangGraph plan-and-execute discussion",
+      "url": "https://github.com/langchain-ai/langgraph/discussions/571"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "reason": "Primary paper for the ReAct architecture."
+      },
+      {
+        "title": "Agents - Docs by LangChain",
+        "url": "https://docs.langchain.com/oss/python/langchain/agents",
+        "reason": "Official framework documentation describing the ReAct loop."
+      },
+      {
+        "title": "Deep Agents overview - Docs by LangChain",
+        "url": "https://docs.langchain.com/oss/python/deepagents/overview",
+        "reason": "Official framework documentation for an explicit planning/decomposition style agent."
+      },
+      {
+        "title": "ADaPT: As-Needed Decomposition and Planning with Language Models",
+        "url": "https://arxiv.org/abs/2311.05772",
+        "reason": "Primary comparative paper contrasting iterative executors and plan-and-execute."
+      },
+      {
+        "title": "On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models",
+        "url": "https://arxiv.org/abs/2405.13966",
+        "reason": "Primary paper on ReAct failure modes and sensitivity."
+      }
+    ],
+    "rejected_sources": [
+      "https://github.com/langchain-ai/langgraph/discussions/571",
+      "https://github.com/langchain-ai/langgraph",
+      "https://docs.langchain.com/oss/python/langgraph/overview"
+    ],
+    "rejection_reasons": [
+      {
+        "url": "https://github.com/langchain-ai/langgraph/discussions/571",
+        "reason": "Community discussion; useful as a lead, but not primary evidence."
+      },
+      {
+        "url": "https://github.com/langchain-ai/langgraph",
+        "reason": "Official repository, but not needed once the docs source covered the same claim more directly."
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+        "reason": "General framework overview; Deep Agents docs were more directly relevant to explicit planning and preference guidance."
+      }
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "ReAct alternates brief reasoning steps with targeted tool calls, and feeds observations back into subsequent decisions until a final answer is produced.",
+      "source_url": "https://arxiv.org/abs/2210.03629",
+      "source_type": "primary paper",
+      "supported_aspect": "interleaved reasoning and acting",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "LangChain documents ReAct as a reasoning-plus-acting loop that keeps calling tools until a stop condition is met.",
+      "source_url": "https://docs.langchain.com/oss/python/langchain/agents",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "tool-use implications",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Deep Agents include built-in planning and task decomposition, including a todo list that breaks work into discrete steps and adapts plans as new information emerges.",
+      "source_url": "https://docs.langchain.com/oss/python/deepagents/overview",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "explicit planning stage",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "The same Deep Agents docs recommend them for complex, multi-step tasks that require planning and decomposition, while suggesting simpler custom agent workflows for simpler cases.",
+      "source_url": "https://docs.langchain.com/oss/python/deepagents/overview",
+      "source_type": "agent framework documentation",
+      "supported_aspect": "when each architecture is preferable",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "ADaPT explicitly contrasts iterative executors with plan-and-execute systems and argues that both can fail when a subtask cannot be executed; its results motivate recursive decomposition as a remedy.",
+      "source_url": "https://arxiv.org/abs/2311.05772",
+      "source_type": "technical comparison paper",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "A later sensitivity analysis found ReAct performance was minimally influenced by the interleaving itself and was more driven by exemplar-query similarity, implying that ReAct prompting can be brittle and prompt-sensitive.",
+      "source_url": "https://arxiv.org/abs/2405.13966",
+      "source_type": "primary paper",
+      "supported_aspect": "failure modes",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "interleaved reasoning and acting",
+      "explicit planning stage",
+      "tool-use implications",
+      "failure modes",
+      "when each architecture is preferable"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [
+      {
+        "claim_a": "ReAct's interleaving of reasoning and acting is what improves performance and interpretability.",
+        "source_a": "https://arxiv.org/abs/2210.03629",
+        "claim_b": "ReAct performance appears to depend more on exemplar-query similarity than on interleaving itself.",
+        "source_b": "https://arxiv.org/abs/2405.13966"
+      }
+    ],
+    "resolution": "Treat the original ReAct paper as the source for the architecture and reported results, but treat the later sensitivity paper as evidence that the mechanism is not settled. The safe synthesis is that ReAct works as an interleaved tool-use pattern, but its causal advantage is debated.",
+    "uncertainty_notes": [
+      "The preferable-use guidance is a synthesis from docs and comparative papers, not a universal benchmark law.",
+      "Canonical planner-executor systems vary across frameworks; I used LangChain Deep Agents as the official representative of explicit planning/decomposition."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "ReAct interleaves reasoning and tool use.",
+      "ReAct is loop-based and observation-driven in LangChain docs.",
+      "Planner-executor systems include an explicit planning/decomposition stage.",
+      "Planner-executor style is recommended for complex multi-step tasks.",
+      "ReAct has documented brittleness and prompt sensitivity.",
+      "Iterative executors and plan-and-execute both fail on complex subtasks in ADaPT."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:38:22+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2311.05772",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2405.13966",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/deepagents/overview",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/deepagents/overview.",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.langchain.com/oss/python/langchain/agents",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_07f19ad578b449ea0069fa62fd6ac8819798a34aba6469a01e",
+      "action": {
+        "query": "ReAct paper interleaved reasoning and acting arXiv 2022",
+        "type": "search",
+        "queries": [
+          "ReAct paper interleaved reasoning and acting arXiv 2022",
+          "planner executor agent documentation plan and execute official docs",
+          "benchmark planning vs acting agents long horizon tasks paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2505.19640"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.11354"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.01262"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2210.03629"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2207.07097"
+          },
+          {
+            "type": "url",
+            "url": "https://engineersofai.com/docs/research/paper-breakdowns/react-reasoning-acting"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2405.13966"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.19685"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2601.20730"
+          },
+          {
+            "type": "url",
+            "url": "https://www.opentrain.ai/papers/react-synergizing-reasoning-and-acting-in-language-models--arxiv-2210.03629/"
+          },
+          {
+            "type": "url",
+            "url": "https://medium.com/papers-i-found/e26-react-synergizing-reasoning-and-acting-in-language-models-14a08f46c33d"
+          },
+          {
+            "type": "url",
+            "url": "https://www.seas.upenn.edu/~dineshj/publication/pertsch-2020-long/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/y1mosn"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0004370221000746"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0921889021001081"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/220660665_Continual_planning_and_acting_in_dynamic_multiagent_environments"
+          },
+          {
+            "type": "url",
+            "url": "https://www.seas.upenn.edu/~dineshj/publication/pertsch-2020-long/pertsch-2020-long.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://ysymyth.github.io/papers/react_llm.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.preprints.org/frontend/manuscript/c7a549ded160c7aca6a4af21c278a34d/download_pub"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/y0j0ji"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1re6bq4/why_is_react_the_most_dynamic_reasoning_technique/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MLQuestions/comments/1c08ca1"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa62fef8948197892a86abab606215",
+      "action": {
+        "query": "site:langchain-ai.github.io/langgraph plan and execute agent documentation",
+        "type": "search",
+        "queries": [
+          "site:langchain-ai.github.io/langgraph plan and execute agent documentation",
+          "site:docs.anthropic.com planning agent tool use official documentation",
+          "site:openai.com agent planning execution tool use documentation"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/agent-protocol/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/agents/mcp"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/overview/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/hot_path_quickstart/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/self-discover/self-discover/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/kork/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Command.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/cloud/how-tos/webhooks"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/22265bac-3191-44e5-b057-7aaacd8e90cd/paperbench.pdf?_bhlid=cca8aba082104637cede746b8dfacae6d46b6dde"
+          },
+          {
+            "type": "url",
+            "url": "https://spinningup.openai.com/_/downloads/en/latest/pdf/"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/2a7d98b1-57e5-4147-8d0e-683894d782ae/5p1_codex_max_card_03.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-business-leaders-guide-to-working-with-agents.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/papers/22265bac-3191-44e5-b057-7aaacd8e90cd/paperbench.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa6300864481979697042742e87c80",
+      "action": {
+        "query": "site:langchain-ai.github.io/langgraph plan and execute tutorial planner executor",
+        "type": "search",
+        "queries": [
+          "site:langchain-ai.github.io/langgraph plan and execute tutorial planner executor",
+          "site:docs.langchain.com plan and execute agents official",
+          "site:github.com plan and execute agent langgraph"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/overview/"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/topics/plan-and-execute"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/sql-agent/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Pregel.html"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/saurav-dhait/Plan-and-Execute-Agent"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/discussions/571"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/tutorials/self-discover/self-discover/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/kork/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraph/how-tos/human_in_the_loop/review-tool-calls/"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Command.html"
+          },
+          {
+            "type": "url",
+            "url": "https://langchain-ai.github.io/langmem/reference/utils/"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/mozilla/pdf.js/files/3721640/issue9552.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/apache/arrow-datafusion/files/14586286/DataFusion_Query_Engine___SIGMOD_2024.8.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/ska-sa/meqtrees/wiki/Intro1.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/tomolimo/processmaker/wiki/docs/BPMN%202%20Process%20Editor%20and%20workflow%20Engine%20for%20GLPI.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/BeyondTrust/pbis-open/wiki/docs/adb-quick-start-guide.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa630272748197bebef782dd6573d0",
+      "action": {
+        "type": "open_page",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/plan-and-execute/plan-and-execute/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa63036a308197827b29ff02e0d39e",
+      "action": {
+        "query": "\"langgraph/tutorials/plan-and-execute/plan-and-execute\"",
+        "type": "search",
+        "queries": [
+          "\"langgraph/tutorials/plan-and-execute/plan-and-execute\""
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/discussions/571"
+          },
+          {
+            "type": "url",
+            "url": "https://pub-7f716b302a2948e19f08b49b71408039.r2.dev/packages/haive-agents/autoapi/agents/planning/langgraph_plan_execute/index.html"
+          },
+          {
+            "type": "url",
+            "url": "https://rudaks.tistory.com/entry/langgraphPlanning-Agents-Plan-and-Execute"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.csdn.net/qq_41472205/article/details/144344405"
+          },
+          {
+            "type": "url",
+            "url": "https://medium.com/%40okanyenigun/built-with-langgraph-33-plan-execute-ea64377fccb1"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.csdn.net/Android_XG/article/details/151649002"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.csdn.net/sinat_37574187/article/details/151859765"
+          },
+          {
+            "type": "url",
+            "url": "https://www.linkedin.com/posts/soyfjimenez_langgraphdocsdocstutorialsplan-and-execute-activity-7254443434441064448-tL6a"
+          },
+          {
+            "type": "url",
+            "url": "https://devpress.csdn.net/aibjcy/68ccca0ca6dc56200e868db9.html"
+          },
+          {
+            "type": "url",
+            "url": "https://dl-pkw.tistory.com/entry/6-6-%EC%8B%A4%EC%A0%84-Planner-Tool-%EA%B8%B0%EB%B0%98-%EB%AC%B8%EC%84%9C-%EC%9E%90%EB%8F%99-%EB%B6%84%EC%84%9D-Agent-%EB%A7%8C%EB%93%A4%EA%B8%B0"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1hx3563"
+          },
+          {
+            "type": "url",
+            "url": "https://dasroot.net/posts/2026/04/agent-architectures-react-plan-execute-graph-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://blog.csdn.net/TaloyerG/article/details/142546057"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.jeptalnrecital-coria.4.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://coria-taln-2025.lis-lab.fr/wp-content/uploads/2025/06/CORIA-TALN_2025_paper_124.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/anthology-files/pdf/jeptalnrecital/2025.jeptalnrecital-coria.4.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1ge6vd9"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1f4264n"
+          },
+          {
+            "type": "url",
+            "url": "https://airaxiv.com/arxiv/pdf/1818/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1sfrb3t/what_are_the_best_tools_and_frameworks_for/"
+          },
+          {
+            "type": "url",
+            "url": "https://kuic.keele.ac.uk/wp-content/uploads/kuic-programme-specification-pmp-in-computing.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reading.ac.uk/progspecs/pdf15/UFFDMBE15.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa630673d4819791fb2a2d1c0399bd",
+      "action": {
+        "query": "\"Plan-and-Solve\" paper explicit planning large language models arXiv",
+        "type": "search",
+        "queries": [
+          "\"Plan-and-Solve\" paper explicit planning large language models arXiv",
+          "\"plan-and-execute\" large language models paper arXiv",
+          "\"explicit planning\" agent benchmark tool use paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2305.04091"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2305.04091"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.21544"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2311.05772"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.11908"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2305.14564"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2304.11477"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2603.06713"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.05608"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/conceptagent-llm-driven-precondition-grounding-tree-search"
+          },
+          {
+            "type": "url",
+            "url": "https://www.huayusha.org/publication/SciAgentGym/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencedirect.com/science/article/pii/S2667143326000429"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2602.22953v1"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers?q=plan-and-execute"
+          },
+          {
+            "type": "url",
+            "url": "https://fugumt.com/fugumt/paper_check/2503.09572v2_enmode"
+          },
+          {
+            "type": "url",
+            "url": "https://maxpool.dev/research-papers/agentflow_report.html"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.neurips.cc/paper/2019/file/486c825db2f776da72d0b7a791f45b8f-Paper.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2023.emnlp-main.688.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=sdpVfWOUQA"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/f561768ef2c56a1719aecbcb0de56592e5fa229d.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/datasets/explodinggradients/prompt-engineering-papers/resolve/main/2305.14564v1.PEARL__Prompting_Large_Language_Models_to_Plan_and_Execute_Actions_Over_Long_Documents.pdf?download=true"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/30f5405c35d81fe67ee2f85b1ed906a3932f1885.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/ArtificialInteligence/comments/1hbxpup"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/uxwl51"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa6309b77481978d4462675a763661",
+      "action": {
+        "query": "site:github.com/langchain-ai/langgraph plan-and-execute.ipynb",
+        "type": "search",
+        "queries": [
+          "site:github.com/langchain-ai/langgraph plan-and-execute.ipynb"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraphjs/blob/main/examples/plan-and-execute/plan-and-execute.ipynb?ref=blog.langchain.com"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langchain/blob/master/cookbook/plan_and_execute_agent.ipynb"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph-101"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/AI-App/LangChain-AI.LangGraph"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/topics/plan-and-execute"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraphjs"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/discussions/571"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/blob/main/examples/multi_agent/multi-agent-collaboration.ipynb"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/blob/main/examples/rag/langgraph_agentic_rag.ipynb"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph-studio"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/langchain-ai/langgraph/blob/main/examples/customer-support/customer-support.ipynb"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.github.com/downloads/github-git-cheat-sheet.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.github.com/assets/img/events/jp-campaign-accouncement.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/intel/intel-ipsec-mb/wiki/doc/advanced-encryption-standard-galois-counter-mode-optimized-ghash-function-technology-guide-1693300747.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.github.com/downloads/%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%A2%E3%81%AASW%E9%96%8B%E7%99%BA%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AEEbook.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://resources.github.com/downloads/%E3%82%A4%E3%83%B3%E3%83%8A%E3%83%BC%E3%82%BD%E3%83%BC%E3%82%B9-%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E9%96%8B.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa630f0bb88197ac88947306379035",
+      "action": {
+        "type": "open_page",
+        "url": null
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa631048588197a245e813cb4c5f6d",
+      "action": {
+        "pattern": "plan-and-execute",
+        "type": "find_in_page",
+        "url": "https://github.com/langchain-ai/langgraph"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa631226748197a597d4f29f520918",
+      "action": {
+        "query": "site:docs.langchain.com ReAct agent tools interleaved reasoning acting official",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com ReAct agent tools interleaved reasoning acting official",
+          "site:docs.langchain.com create_react_agent official docs LangGraph"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/docs/integrations/providers/bedrock"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/releases/langgraph-v1"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/runtime"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/frontend/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/migrate/langgraph-v1"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/persistence"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/migrate/langchain-v1"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/use-subgraphs"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/long-term-memory"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/langgraph-platform/generative-ui-react"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa631463788197bb6c4feaa1711633",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2311.05772"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa6315a0b48197806c95251ea47658",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2405.13966"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa631d7ac88197beadeb7930cad18a",
+      "action": {
+        "query": "site:docs.langchain.com \"plan and execute\" LangGraph",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com \"plan and execute\" LangGraph",
+          "site:docs.langchain.com \"planner\" \"executor\" LangGraph",
+          "site:docs.langchain.com \"planning\" \"execution\" agents LangGraph"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/harness"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/index"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/data-analysis"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/data-analysis"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/concepts/products"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/cli/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/deepagents/cli"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/quickstart"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/javascript/deepagents/cli"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa6320613c819791a82f497f91c62f",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.langchain.com/oss/python/deepagents/index"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_07f19ad578b449ea0069fa6321551881979a42a441001f5cd9",
+      "action": {
+        "type": "open_page",
+        "url": "https://docs.langchain.com/oss/python/langchain-agents"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 57658,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11074,
+    "output_tokens_details": {
+      "reasoning_tokens": 8048
+    },
+    "total_tokens": 68732
+  },
+  "response_id": "resp_07f19ad578b449ea0069fa62fa9fc881979613441593ec5135",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What defines a ReAct-style loop?\",\n      \"What defines a planner-executor loop?\",\n      \"How does tool use differ between the two?\",\n      \"What failure modes are reported for each?\",\n      \"When is each architecture preferable?\"\n    ],\n    \"required_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"expected_source_types\": [\n      \"ReAct paper\",\n      \"agent framework documentation\",\n      \"technical comparison or benchmark\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"ReAct paper interleaved reasoning and acting arXiv 2022\",\n      \"planner executor agent documentation plan and execute official docs\",\n      \"benchmark planning vs acting agents long horizon tasks paper\",\n      \"brittle ReAct prompting paper arXiv 2024\"\n    ],\n    \"rationale_per_query\": [\n      \"Get the primary source for ReAct's core mechanism and claimed benefits.\",\n      \"Find official framework docs for a planner-executor style architecture and when it is used.\",\n      \"Find a comparative paper/benchmark on iterative executors vs plan-and-execute for empirical tradeoffs.\",\n      \"Find a primary source on ReAct failure modes and prompt sensitivity.\"\n    ]\n  },\n  \"candidate_sources\": [\n    {\n      \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n      \"url\": \"https://arxiv.org/abs/2210.03629\"\n    },\n    {\n      \"title\": \"Agents - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/langchain/agents\"\n    },\n    {\n      \"title\": \"Deep Agents overview - Docs by LangChain\",\n      \"url\": \"https://docs.langchain.com/oss/python/deepagents/overview\"\n    },\n    {\n      \"title\": \"ADaPT: As-Needed Decomposition and Planning with Language Models\",\n      \"url\": \"https://arxiv.org/abs/2311.05772\"\n    },\n    {\n      \"title\": \"On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models\",\n      \"url\": \"https://arxiv.org/abs/2405.13966\"\n    },\n    {\n      \"title\": \"LangGraph repository README\",\n      \"url\": \"https://github.com/langchain-ai/langgraph\"\n    },\n    {\n      \"title\": \"LangGraph plan-and-execute discussion\",\n      \"url\": \"https://github.com/langchain-ai/langgraph/discussions/571\"\n    }\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      {\n        \"title\": \"ReAct: Synergizing Reasoning and Acting in Language Models\",\n        \"url\": \"https://arxiv.org/abs/2210.03629\",\n        \"reason\": \"Primary paper for the ReAct architecture.\"\n      },\n      {\n        \"title\": \"Agents - Docs by LangChain\",\n        \"url\": \"https://docs.langchain.com/oss/python/langchain/agents\",\n        \"reason\": \"Official framework documentation describing the ReAct loop.\"\n      },\n      {\n        \"title\": \"Deep Agents overview - Docs by LangChain\",\n        \"url\": \"https://docs.langchain.com/oss/python/deepagents/overview\",\n        \"reason\": \"Official framework documentation for an explicit planning/decomposition style agent.\"\n      },\n      {\n        \"title\": \"ADaPT: As-Needed Decomposition and Planning with Language Models\",\n        \"url\": \"https://arxiv.org/abs/2311.05772\",\n        \"reason\": \"Primary comparative paper contrasting iterative executors and plan-and-execute.\"\n      },\n      {\n        \"title\": \"On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models\",\n        \"url\": \"https://arxiv.org/abs/2405.13966\",\n        \"reason\": \"Primary paper on ReAct failure modes and sensitivity.\"\n      }\n    ],\n    \"rejected_sources\": [\n      \"https://github.com/langchain-ai/langgraph/discussions/571\",\n      \"https://github.com/langchain-ai/langgraph\",\n      \"https://docs.langchain.com/oss/python/langgraph/overview\"\n    ],\n    \"rejection_reasons\": [\n      {\n        \"url\": \"https://github.com/langchain-ai/langgraph/discussions/571\",\n        \"reason\": \"Community discussion; useful as a lead, but not primary evidence.\"\n      },\n      {\n        \"url\": \"https://github.com/langchain-ai/langgraph\",\n        \"reason\": \"Official repository, but not needed once the docs source covered the same claim more directly.\"\n      },\n      {\n        \"url\": \"https://docs.langchain.com/oss/python/langgraph/overview\",\n        \"reason\": \"General framework overview; Deep Agents docs were more directly relevant to explicit planning and preference guidance.\"\n      }\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"ReAct alternates brief reasoning steps with targeted tool calls, and feeds observations back into subsequent decisions until a final answer is produced.\",\n      \"source_url\": \"https://arxiv.org/abs/2210.03629\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"interleaved reasoning and acting\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"LangChain documents ReAct as a reasoning-plus-acting loop that keeps calling tools until a stop condition is met.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/langchain/agents\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"tool-use implications\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Deep Agents include built-in planning and task decomposition, including a todo list that breaks work into discrete steps and adapts plans as new information emerges.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/deepagents/overview\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"explicit planning stage\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"The same Deep Agents docs recommend them for complex, multi-step tasks that require planning and decomposition, while suggesting simpler custom agent workflows for simpler cases.\",\n      \"source_url\": \"https://docs.langchain.com/oss/python/deepagents/overview\",\n      \"source_type\": \"agent framework documentation\",\n      \"supported_aspect\": \"when each architecture is preferable\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ADaPT explicitly contrasts iterative executors with plan-and-execute systems and argues that both can fail when a subtask cannot be executed; its results motivate recursive decomposition as a remedy.\",\n      \"source_url\": \"https://arxiv.org/abs/2311.05772\",\n      \"source_type\": \"technical comparison paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"A later sensitivity analysis found ReAct performance was minimally influenced by the interleaving itself and was more driven by exemplar-query similarity, implying that ReAct prompting can be brittle and prompt-sensitive.\",\n      \"source_url\": \"https://arxiv.org/abs/2405.13966\",\n      \"source_type\": \"primary paper\",\n      \"supported_aspect\": \"failure modes\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"interleaved reasoning and acting\",\n      \"explicit planning stage\",\n      \"tool-use implications\",\n      \"failure modes\",\n      \"when each architecture is preferable\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [\n      {\n        \"claim_a\": \"ReAct's interleaving of reasoning and acting is what improves performance and interpretability.\",\n        \"source_a\": \"https://arxiv.org/abs/2210.03629\",\n        \"claim_b\": \"ReAct performance appears to depend more on exemplar-query similarity than on interleaving itself.\",\n        \"source_b\": \"https://arxiv.org/abs/2405.13966\"\n      }\n    ],\n    \"resolution\": \"Treat the original ReAct paper as the source for the architecture and reported results, but treat the later sensitivity paper as evidence that the mechanism is not settled. The safe synthesis is that ReAct works as an interleaved tool-use pattern, but its causal advantage is debated.\",\n    \"uncertainty_notes\": [\n      \"The preferable-use guidance is a synthesis from docs and comparative papers, not a universal benchmark law.\",\n      \"Canonical planner-executor systems vary across frameworks; I used LangChain Deep Agents as the official representative of explicit planning/decomposition.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"ReAct interleaves reasoning and tool use.\",\n      \"ReAct is loop-based and observation-driven in LangChain docs.\",\n      \"Planner-executor systems include an explicit planning/decomposition stage.\",\n      \"Planner-executor style is recommended for complex multi-step tasks.\",\n      \"ReAct has documented brittleness and prompt sensitivity.\",\n      \"Iterative executors and plan-and-execute both fail on complex subtasks in ADaPT.\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nReAct-style agents interleave reasoning and acting: they emit a short reasoning step, call a tool, read the observation, and then decide the next step. Planner-executor agents separate those phases: they first create an explicit plan or decomposition, then execute the steps, often revising the plan when new information arrives. https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview\\n\\nTool-use implication: ReAct is tightly coupled to immediate observations, so tool choice is made step-by-step inside the loop. Planner-executor is more structured, so tool calls are sequenced against a plan, which is better for delegation, checkpoints, and longer workflows. That second sentence is an engineering inference from the docs and should be treated as guidance, not a universal fact. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\\n\\nFailure modes differ too. ReAct can be prompt-sensitive; a later analysis found that performance was minimally influenced by interleaving itself and more by exemplar-query similarity. Planner-executor can fail if the initial plan is bad or a subtask is infeasible; ADaPT argues that both iterative executors and plan-and-execute systems can break when a subtask cannot be executed. https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772\\n\\nRecommendation: use ReAct when you want a tight tool-feedback loop for a short or uncertain task; use planner-executor when the task is long-horizon, multi-step, or benefits from explicit decomposition and stateful coordination. This is a synthesis from the sources, not a hard benchmark rule. https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\\n\\n### Required aspect coverage\\n- interleaved reasoning and acting — ReAct alternates reasoning and tool calls: https://arxiv.org/abs/2210.03629 https://docs.langchain.com/oss/python/langchain/agents\\n- explicit planning stage — planner-executor/deep-agent style systems start with planning and decomposition: https://docs.langchain.com/oss/python/deepagents/overview https://arxiv.org/abs/2311.05772\\n- tool-use implications — ReAct makes tool use reactive; planner-executor makes it plan-sequenced and easier to delegate/control: https://docs.langchain.com/oss/python/langchain/agents https://docs.langchain.com/oss/python/deepagents/overview\\n- failure modes — ReAct prompting is brittle/sensitive, and plan-and-execute can fail when subtasks are not executable: https://arxiv.org/abs/2405.13966 https://arxiv.org/abs/2311.05772\\n- when each architecture is preferable — ReAct fits tighter feedback-loop tasks; planner-executor fits long-horizon, multi-step work: https://docs.langchain.com/oss/python/deepagents/overview https://docs.langchain.com/oss/python/langchain/agents\\n\\n## Sources\\n- ReAct paper: https://arxiv.org/abs/2210.03629\\n- LangChain Agents docs: https://docs.langchain.com/oss/python/langchain/agents\\n- Deep Agents overview: https://docs.langchain.com/oss/python/deepagents/overview\\n- ADaPT paper: https://arxiv.org/abs/2311.05772\\n- Brittle Foundations of ReAct paper: https://arxiv.org/abs/2405.13966\\n\\n## Limitations\\nI did not find a single canonical benchmark that isolates only \\\"ReAct vs planner-executor\\\" across identical tasks and models. The recommendation above is therefore a synthesis from primary papers and official docs, especially https://arxiv.org/abs/2311.05772 and https://docs.langchain.com/oss/python/deepagents/overview. The causal value of ReAct's interleaving remains debated, so treat the choice as task-dependent rather than absolute.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

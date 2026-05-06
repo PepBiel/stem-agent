@@ -1,0 +1,704 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:43:57+00:00",
+  "question": "How should citations be audited in deep research agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "source_expectations": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:44:52+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nAudit citations in deep research agents at the **claim level**: every factual sentence or clause should be checked against one or more **directly supporting sources**, with inline citations and source metadata retained for traceability. Prefer primary, current sources and do not use broad topical matches as substitutes for evidence. https://developers.openai.com/api/docs/guides/deep-research https://help.openai.com/en/articles/10500283\n\nA practical audit rule-set is:\n- **Verify each claim directly** against the cited source(s); reject loose or invented citations. https://developers.openai.com/api/docs/guides/citation-formatting\n- **Keep citations granular**: attach them to the supported sentence or clause, and cite all sources that materially support the proposition. https://developers.openai.com/api/docs/guides/citation-formatting\n- **Flag unsupported claims explicitly** and separate well-supported findings from directional observations or unknowns. https://openai.com/academy/research/\n- **Handle disagreement transparently** by citing at least one high-quality source per major viewpoint and noting uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting\n- **Use benchmark metrics** like citation accuracy and effective citations to score the audit process itself. https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html https://arxiv.org/abs/2506.01829\n\n### Required aspect coverage\n- **claim-level evidence** — Covered: audit each factual claim against direct evidence and keep source metadata for traceability. https://developers.openai.com/api/docs/guides/deep-research\n- **source relevance** — Covered: prefer sources that directly support the text and prioritize reliable primary sources. https://help.openai.com/en/articles/10500283\n- **citation granularity** — Covered: cite at sentence/clause level and use multiple citations when multiple sources materially support a point. https://developers.openai.com/api/docs/guides/citation-formatting\n- **unsupported claim detection** — Covered: require a source-quality check and a 'what's missing' section for gaps or unknowns. https://openai.com/academy/research/\n- **handling conflicting sources** — Covered: cite each major viewpoint when reliable sources disagree and surface uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting\n\n## Sources\n- OpenAI Help Center — Deep research in ChatGPT: https://help.openai.com/en/articles/10500283\n- OpenAI API Docs — Deep research: https://developers.openai.com/api/docs/guides/deep-research\n- OpenAI Academy — ChatGPT for research: https://openai.com/academy/research/\n- OpenAI API Docs — Citation Formatting: https://developers.openai.com/api/docs/guides/citation-formatting\n- CiteEval paper: https://arxiv.org/abs/2506.01829\n- NVIDIA Deep Research Bench: https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\n\n## Limitations\nThis is a synthesis of aligned guidance and benchmark practice, not a single universal standard. The evidence is strong on direct support, granularity, unsupported-claim surfacing, and disagreement handling, but exact audit thresholds still depend on the agent’s task, domain, and risk level. https://developers.openai.com/api/docs/guides/citation-formatting https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html",
+  "decomposition": {
+    "subquestions": [
+      "What evidence-based practices are recommended for auditing citations in deep research agent outputs?",
+      "What source-quality and granularity rules should citation audits enforce?",
+      "How should auditors detect unsupported claims and handle conflicting sources?",
+      "What benchmark or evaluation signals can measure citation quality?"
+    ],
+    "required_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "expected_source_types": [
+      "citation or factuality evaluation guidance",
+      "deep research agent documentation",
+      "retrieval or source-grounding benchmark"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "site:openai.com deep research citations sources audit documentation",
+      "site:platform.openai.com deep research inline citations source metadata",
+      "arXiv citation evaluation benchmark attribution source grounding",
+      "site:docs.nvidia.com deep research bench citation accuracy"
+    ],
+    "rationale_per_query": [
+      "Find official deep-research documentation describing citations, source metadata, and review affordances.",
+      "Find API documentation with explicit citation-formatting rules and source-quality guidance.",
+      "Find citation-evaluation guidance and a source-attribution benchmark to ground audit criteria.",
+      "Find an evaluation benchmark with citation-specific metrics for deep research agents."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "title": "OpenAI Help Center — Deep research in ChatGPT",
+      "url": "https://help.openai.com/en/articles/10500283"
+    },
+    {
+      "title": "OpenAI API Docs — Deep research",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research"
+    },
+    {
+      "title": "OpenAI Academy — ChatGPT for research",
+      "url": "https://openai.com/academy/research/"
+    },
+    {
+      "title": "OpenAI API Docs — Citation Formatting",
+      "url": "https://developers.openai.com/api/docs/guides/citation-formatting"
+    },
+    {
+      "title": "CiteEval: Principle-Driven Citation Evaluation for Source Attribution",
+      "url": "https://arxiv.org/abs/2506.01829"
+    },
+    {
+      "title": "NVIDIA AI-Q Blueprint — Deep Research Bench Evaluation",
+      "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html"
+    },
+    {
+      "title": "PraisonAI Deep Research Agent docs",
+      "url": "https://docs.praison.ai/agents/deep-research"
+    },
+    {
+      "title": "Agno Research Agent docs",
+      "url": "https://docs.agno.com/production/applications/research-agent"
+    }
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      {
+        "title": "OpenAI Help Center — Deep research in ChatGPT",
+        "url": "https://help.openai.com/en/articles/10500283"
+      },
+      {
+        "title": "OpenAI API Docs — Deep research",
+        "url": "https://developers.openai.com/api/docs/guides/deep-research"
+      },
+      {
+        "title": "OpenAI Academy — ChatGPT for research",
+        "url": "https://openai.com/academy/research/"
+      },
+      {
+        "title": "OpenAI API Docs — Citation Formatting",
+        "url": "https://developers.openai.com/api/docs/guides/citation-formatting"
+      },
+      {
+        "title": "CiteEval: Principle-Driven Citation Evaluation for Source Attribution",
+        "url": "https://arxiv.org/abs/2506.01829"
+      },
+      {
+        "title": "NVIDIA AI-Q Blueprint — Deep Research Bench Evaluation",
+        "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html"
+      }
+    ],
+    "rejected_sources": [
+      {
+        "title": "PraisonAI Deep Research Agent docs",
+        "url": "https://docs.praison.ai/agents/deep-research"
+      },
+      {
+        "title": "Agno Research Agent docs",
+        "url": "https://docs.agno.com/production/applications/research-agent"
+      }
+    ],
+    "rejection_reasons": [
+      "Secondary implementation docs; useful as discovery leads but not needed because official OpenAI documentation covers citation and audit guidance directly.",
+      "Secondary implementation docs; too indirect for the question and weaker than primary/official sources."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Deep research outputs should expose citations/source links and a sources-used section so reviewers can verify and trace answers.",
+      "source_url": "https://help.openai.com/en/articles/10500283",
+      "source_type": "deep research agent documentation",
+      "supported_aspect": "source relevance",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Deep research requests should include inline citations and return all source metadata, and should prioritize reliable primary sources such as peer-reviewed work, health organizations, and regulatory agencies.",
+      "source_url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "source_type": "deep research agent documentation",
+      "supported_aspect": "claim-level evidence",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Audits should ask for a research outline, source strategy, evaluation criteria, citations for key claims, a source-quality check, and a 'what's missing' section.",
+      "source_url": "https://openai.com/academy/research/",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "unsupported claim detection",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Citations should be placed at the supported sentence or clause, after punctuation, and multiple materially supporting sources should all be cited.",
+      "source_url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "citation granularity",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Auditors should reject loose or invented citations and only cite sources that directly support the text.",
+      "source_url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "claim-level evidence",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "When reliable sources disagree, cite at least one high-quality source for each major viewpoint and cover the spectrum of opinions.",
+      "source_url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "handling conflicting sources",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "CiteEval frames citation evaluation around the cited sources plus the full retrieval context, user query, and generated text, and provides human-annotated citation-quality benchmarks.",
+      "source_url": "https://arxiv.org/abs/2506.01829",
+      "source_type": "citation or factuality evaluation guidance",
+      "supported_aspect": "citation granularity",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Deep Research Bench evaluates citation systems with 'Average Effective Citations' and 'Citation Accuracy,' making citation precision and verifiable support explicit audit targets.",
+      "source_url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html",
+      "source_type": "retrieval or source-grounding benchmark",
+      "supported_aspect": "source relevance",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "claim-level evidence",
+      "source relevance",
+      "citation granularity",
+      "unsupported claim detection",
+      "handling conflicting sources"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No substantive conflicts were found across the accepted sources; they consistently favor direct, granular, source-traceable citations and explicit treatment of disagreement.",
+    "uncertainty_notes": [
+      "The sources are guidance and benchmark-oriented rather than a single canonical audit standard; the answer is therefore a synthesis of aligned best practices.",
+      "The conflict-handling rule is explicit in citation-formatting guidance, but broader operational workflows for resolving disagreements remain an engineering choice."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Claim-level auditing should require each factual statement to map to direct evidence.",
+      "Citations should be granular and placed near the supported sentence or clause.",
+      "Unsupported or weakly supported claims should be surfaced in a 'what's missing' or similar section.",
+      "Conflicting sources should be represented with separate citations for major viewpoints.",
+      "Citation quality can be measured with benchmark metrics like citation accuracy and effective citations."
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:44:52+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2506.01829",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://developers.openai.com/api/docs/guides/deep-research",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://help.openai.com/en/articles/10500283",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://openai.com/academy/research/",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_05b453593532c7aa0069fa64a285988196b180b747746c353a",
+      "action": {
+        "query": "site:openai.com deep research citations sources audit documentation",
+        "type": "search",
+        "queries": [
+          "site:openai.com deep research citations sources audit documentation",
+          "site:platform.openai.com citations audit source grounding evaluation documentation",
+          "site:arxiv.org source grounding benchmark citations factuality evaluation retrieval agent"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://help.openai.com/articles/10500283"
+          },
+          {
+            "type": "url",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/fr-fr/articles/10500283-deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://openai.com/academy/research/"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/11487775-connectors-in-chatgpt?_bhlid=e114e64406411558883143e2346b9ffbf321098c"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/fr-fr/articles/10500283-recherche-approfondie-dans-chatgpt"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/articles/11487775-connectors-in-chatgpt?_bhlid=d1d658877418cc8fd0a3026db50ce719ce703544"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/en/?q=source+o+que+%C3%A9"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.07671"
+          },
+          {
+            "type": "url",
+            "url": "https://help.openai.com/de-de/articles/20001202-chatgpt-for-clinicians"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/evaluation-getting-started"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/evals/cancelRun"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2310.00741"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.03200"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/API/docs/deep_research_blog.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2407.12883"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/pdf/5e10f4ab-d6f7-442e-9508-59515c65e35d/browsecomp.pdf?_bhlid=5e37ec605bdb75a861131661072e162d73bf8dd5"
+          },
+          {
+            "type": "url",
+            "url": "https://cdn.openai.com/osa/chatgpt-regulated-workspace.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64a437188196bbe05d19de11ace9",
+      "action": {
+        "query": "arXiv citation evaluation benchmark attribution alignment source grounding benchmark llm citations",
+        "type": "search",
+        "queries": [
+          "arXiv citation evaluation benchmark attribution alignment source grounding benchmark llm citations",
+          "official documentation inline citations source metadata deep research agent evaluation",
+          "arXiv retrieval augmented generation citation faithfulness benchmark"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://help.openai.com/articles/10500283"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.01829"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.17853"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2502.17163"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.13272"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2311.09476"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2402.15089v1"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.praison.ai/agents/deep-research"
+          },
+          {
+            "type": "url",
+            "url": "https://www.sciencestack.ai/paper/2511.12142"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.nvidia.com/aiq-blueprint/2.0.0/architecture/agents/deep-researcher.html"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.x.ai/developers/tools/citations"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.agno.com/production/applications/research-agent"
+          },
+          {
+            "type": "url",
+            "url": "https://exa.ai/docs/reference/research/overview"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2510.13272"
+          },
+          {
+            "type": "url",
+            "url": "https://ntrs.nasa.gov/api/citations/20190034047/downloads/20190034047.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.scitepress.org/Papers/2024/130657/130657.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+          },
+          {
+            "type": "url",
+            "url": "https://zhenghao-he.github.io/assets/pdf/iclr2026.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/pdf/2408.08067"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/92900004282c6f3b0cfe3409cc1273269b65f34c.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/8152e57ce051a98a6ff82cff57c1bdfa18267166.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1hgyp2d"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1ip7dvv/r_trustworthy_retrievalaugmented_generation_a/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64a7c0d48196878b7a6cc107c8e8",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2506.01829"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64a977688196adaa7f804c5f0aff",
+      "action": {
+        "type": "open_page",
+        "url": "https://openai.com/academy/research/"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64afed28819685a3417908731bf2",
+      "action": {
+        "pattern": "source metadata",
+        "type": "find_in_page",
+        "url": "https://platform.openai.com/docs/guides/deep-research"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64b134ec819681757c1222c650d6",
+      "action": {
+        "type": "open_page",
+        "url": "https://developers.openai.com/api/docs/guides/citation-formatting"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64b287bc8196b879c28bb6879eac",
+      "action": {
+        "pattern": "annotations",
+        "type": "find_in_page",
+        "url": "https://developers.openai.com/api/docs/guides/citation-formatting"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_05b453593532c7aa0069fa64b39ee48196b0bbdd42a05c4907",
+      "action": {
+        "pattern": "Citations",
+        "type": "find_in_page",
+        "url": "https://developers.openai.com/api/docs/guides/citation-formatting"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 35849,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 6572,
+    "output_tokens_details": {
+      "reasoning_tokens": 4141
+    },
+    "total_tokens": 42421
+  },
+  "response_id": "resp_05b453593532c7aa0069fa64a001e08196966310b5556c306a",
+  "raw_output_text": "{\"decomposition\":{\"subquestions\":[\"What evidence-based practices are recommended for auditing citations in deep research agent outputs?\",\"What source-quality and granularity rules should citation audits enforce?\",\"How should auditors detect unsupported claims and handle conflicting sources?\",\"What benchmark or evaluation signals can measure citation quality?\"],\"required_aspects\":[\"claim-level evidence\",\"source relevance\",\"citation granularity\",\"unsupported claim detection\",\"handling conflicting sources\"],\"expected_source_types\":[\"citation or factuality evaluation guidance\",\"deep research agent documentation\",\"retrieval or source-grounding benchmark\"]},\"search_plan\":{\"queries\":[\"site:openai.com deep research citations sources audit documentation\",\"site:platform.openai.com deep research inline citations source metadata\",\"arXiv citation evaluation benchmark attribution source grounding\",\"site:docs.nvidia.com deep research bench citation accuracy\"],\"rationale_per_query\":[\"Find official deep-research documentation describing citations, source metadata, and review affordances.\",\"Find API documentation with explicit citation-formatting rules and source-quality guidance.\",\"Find citation-evaluation guidance and a source-attribution benchmark to ground audit criteria.\",\"Find an evaluation benchmark with citation-specific metrics for deep research agents.\" ]},\"candidate_sources\":[{\"title\":\"OpenAI Help Center — Deep research in ChatGPT\",\"url\":\"https://help.openai.com/en/articles/10500283\"},{\"title\":\"OpenAI API Docs — Deep research\",\"url\":\"https://developers.openai.com/api/docs/guides/deep-research\"},{\"title\":\"OpenAI Academy — ChatGPT for research\",\"url\":\"https://openai.com/academy/research/\"},{\"title\":\"OpenAI API Docs — Citation Formatting\",\"url\":\"https://developers.openai.com/api/docs/guides/citation-formatting\"},{\"title\":\"CiteEval: Principle-Driven Citation Evaluation for Source Attribution\",\"url\":\"https://arxiv.org/abs/2506.01829\"},{\"title\":\"NVIDIA AI-Q Blueprint — Deep Research Bench Evaluation\",\"url\":\"https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\"},{\"title\":\"PraisonAI Deep Research Agent docs\",\"url\":\"https://docs.praison.ai/agents/deep-research\"},{\"title\":\"Agno Research Agent docs\",\"url\":\"https://docs.agno.com/production/applications/research-agent\"}],\"source_triage\":{\"accepted_sources\":[{\"title\":\"OpenAI Help Center — Deep research in ChatGPT\",\"url\":\"https://help.openai.com/en/articles/10500283\"},{\"title\":\"OpenAI API Docs — Deep research\",\"url\":\"https://developers.openai.com/api/docs/guides/deep-research\"},{\"title\":\"OpenAI Academy — ChatGPT for research\",\"url\":\"https://openai.com/academy/research/\"},{\"title\":\"OpenAI API Docs — Citation Formatting\",\"url\":\"https://developers.openai.com/api/docs/guides/citation-formatting\"},{\"title\":\"CiteEval: Principle-Driven Citation Evaluation for Source Attribution\",\"url\":\"https://arxiv.org/abs/2506.01829\"},{\"title\":\"NVIDIA AI-Q Blueprint — Deep Research Bench Evaluation\",\"url\":\"https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\"}],\"rejected_sources\":[{\"title\":\"PraisonAI Deep Research Agent docs\",\"url\":\"https://docs.praison.ai/agents/deep-research\"},{\"title\":\"Agno Research Agent docs\",\"url\":\"https://docs.agno.com/production/applications/research-agent\"}],\"rejection_reasons\":[\"Secondary implementation docs; useful as discovery leads but not needed because official OpenAI documentation covers citation and audit guidance directly.\",\"Secondary implementation docs; too indirect for the question and weaker than primary/official sources.\"]},\"evidence_table\":[{\"claim\":\"Deep research outputs should expose citations/source links and a sources-used section so reviewers can verify and trace answers.\",\"source_url\":\"https://help.openai.com/en/articles/10500283\",\"source_type\":\"deep research agent documentation\",\"supported_aspect\":\"source relevance\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"Deep research requests should include inline citations and return all source metadata, and should prioritize reliable primary sources such as peer-reviewed work, health organizations, and regulatory agencies.\",\"source_url\":\"https://developers.openai.com/api/docs/guides/deep-research\",\"source_type\":\"deep research agent documentation\",\"supported_aspect\":\"claim-level evidence\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"Audits should ask for a research outline, source strategy, evaluation criteria, citations for key claims, a source-quality check, and a 'what's missing' section.\",\"source_url\":\"https://openai.com/academy/research/\",\"source_type\":\"citation or factuality evaluation guidance\",\"supported_aspect\":\"unsupported claim detection\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"Citations should be placed at the supported sentence or clause, after punctuation, and multiple materially supporting sources should all be cited.\",\"source_url\":\"https://developers.openai.com/api/docs/guides/citation-formatting\",\"source_type\":\"citation or factuality evaluation guidance\",\"supported_aspect\":\"citation granularity\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"Auditors should reject loose or invented citations and only cite sources that directly support the text.\",\"source_url\":\"https://developers.openai.com/api/docs/guides/citation-formatting\",\"source_type\":\"citation or factuality evaluation guidance\",\"supported_aspect\":\"claim-level evidence\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"When reliable sources disagree, cite at least one high-quality source for each major viewpoint and cover the spectrum of opinions.\",\"source_url\":\"https://developers.openai.com/api/docs/guides/citation-formatting\",\"source_type\":\"citation or factuality evaluation guidance\",\"supported_aspect\":\"handling conflicting sources\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"},{\"claim\":\"CiteEval frames citation evaluation around the cited sources plus the full retrieval context, user query, and generated text, and provides human-annotated citation-quality benchmarks.\",\"source_url\":\"https://arxiv.org/abs/2506.01829\",\"source_type\":\"citation or factuality evaluation guidance\",\"supported_aspect\":\"citation granularity\",\"support_directness\":\"direct\",\"source_authority\":\"primary\",\"confidence\":\"high\"},{\"claim\":\"Deep Research Bench evaluates citation systems with 'Average Effective Citations' and 'Citation Accuracy,' making citation precision and verifiable support explicit audit targets.\",\"source_url\":\"https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\",\"source_type\":\"retrieval or source-grounding benchmark\",\"supported_aspect\":\"source relevance\",\"support_directness\":\"direct\",\"source_authority\":\"official\",\"confidence\":\"high\"}],\"coverage_audit\":{\"covered_aspects\":[\"claim-level evidence\",\"source relevance\",\"citation granularity\",\"unsupported claim detection\",\"handling conflicting sources\"],\"missing_aspects\":[],\"followup_needed\":[]},\"contradiction_audit\":{\"conflicting_claims\":[],\"resolution\":\"No substantive conflicts were found across the accepted sources; they consistently favor direct, granular, source-traceable citations and explicit treatment of disagreement.\",\"uncertainty_notes\":[\"The sources are guidance and benchmark-oriented rather than a single canonical audit standard; the answer is therefore a synthesis of aligned best practices.\",\"The conflict-handling rule is explicit in citation-formatting guidance, but broader operational workflows for resolving disagreements remain an engineering choice.\"]},\"citation_audit\":{\"supported_claims\":[\"Claim-level auditing should require each factual statement to map to direct evidence.\",\"Citations should be granular and placed near the supported sentence or clause.\",\"Unsupported or weakly supported claims should be surfaced in a 'what's missing' or similar section.\",\"Conflicting sources should be represented with separate citations for major viewpoints.\",\"Citation quality can be measured with benchmark metrics like citation accuracy and effective citations.\"],\"unsupported_claims\":[],\"weak_citations\":[]},\"answer\":\"## Answer\\nAudit citations in deep research agents at the **claim level**: every factual sentence or clause should be checked against one or more **directly supporting sources**, with inline citations and source metadata retained for traceability. Prefer primary, current sources and do not use broad topical matches as substitutes for evidence. https://developers.openai.com/api/docs/guides/deep-research https://help.openai.com/en/articles/10500283\\n\\nA practical audit rule-set is:\\n- **Verify each claim directly** against the cited source(s); reject loose or invented citations. https://developers.openai.com/api/docs/guides/citation-formatting\\n- **Keep citations granular**: attach them to the supported sentence or clause, and cite all sources that materially support the proposition. https://developers.openai.com/api/docs/guides/citation-formatting\\n- **Flag unsupported claims explicitly** and separate well-supported findings from directional observations or unknowns. https://openai.com/academy/research/\\n- **Handle disagreement transparently** by citing at least one high-quality source per major viewpoint and noting uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting\\n- **Use benchmark metrics** like citation accuracy and effective citations to score the audit process itself. https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html https://arxiv.org/abs/2506.01829\\n\\n### Required aspect coverage\\n- **claim-level evidence** — Covered: audit each factual claim against direct evidence and keep source metadata for traceability. https://developers.openai.com/api/docs/guides/deep-research\\n- **source relevance** — Covered: prefer sources that directly support the text and prioritize reliable primary sources. https://help.openai.com/en/articles/10500283\\n- **citation granularity** — Covered: cite at sentence/clause level and use multiple citations when multiple sources materially support a point. https://developers.openai.com/api/docs/guides/citation-formatting\\n- **unsupported claim detection** — Covered: require a source-quality check and a 'what's missing' section for gaps or unknowns. https://openai.com/academy/research/\\n- **handling conflicting sources** — Covered: cite each major viewpoint when reliable sources disagree and surface uncertainty. https://developers.openai.com/api/docs/guides/citation-formatting\\n\\n## Sources\\n- OpenAI Help Center — Deep research in ChatGPT: https://help.openai.com/en/articles/10500283\\n- OpenAI API Docs — Deep research: https://developers.openai.com/api/docs/guides/deep-research\\n- OpenAI Academy — ChatGPT for research: https://openai.com/academy/research/\\n- OpenAI API Docs — Citation Formatting: https://developers.openai.com/api/docs/guides/citation-formatting\\n- CiteEval paper: https://arxiv.org/abs/2506.01829\\n- NVIDIA Deep Research Bench: https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\\n\\n## Limitations\\nThis is a synthesis of aligned guidance and benchmark practice, not a single universal standard. The evidence is strong on direct support, granularity, unsupported-claim surfacing, and disagreement handling, but exact audit thresholds still depend on the agent’s task, domain, and risk level. https://developers.openai.com/api/docs/guides/citation-formatting https://docs.nvidia.com/aiq-blueprint/2.0.0/evaluation/benchmarks/deep-research-bench.html\"}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

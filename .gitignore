@@ -23,6 +23,15 @@ env/
 # Local planning notes that are not part of the public submission
 jetbrains_ai_engineering_task1_notes.md
 
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
 # OS files
 .DS_Store
 Thumbs.db

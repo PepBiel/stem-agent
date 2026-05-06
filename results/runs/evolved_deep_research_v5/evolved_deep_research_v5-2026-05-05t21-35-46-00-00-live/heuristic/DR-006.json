@@ -1,0 +1,137 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-006.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-006",
+  "question": "What are common failure modes in multi-agent systems?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 0.6667,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 0.95,
+  "failure_tags": [],
+  "runtime_seconds": 74.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "coordination overhead",
+        "covered": true,
+        "matched_terms": [
+          "coordination",
+          "overhead"
+        ],
+        "expected_terms": [
+          "coordination",
+          "overhead"
+        ]
+      },
+      {
+        "aspect": "role confusion",
+        "covered": true,
+        "matched_terms": [
+          "confusion",
+          "role"
+        ],
+        "expected_terms": [
+          "confusion",
+          "role"
+        ]
+      },
+      {
+        "aspect": "error propagation",
+        "covered": true,
+        "matched_terms": [
+          "error",
+          "propagation"
+        ],
+        "expected_terms": [
+          "error",
+          "propagation"
+        ]
+      },
+      {
+        "aspect": "consensus without correctness",
+        "covered": true,
+        "matched_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ],
+        "expected_terms": [
+          "consensus",
+          "correctness",
+          "without"
+        ]
+      },
+      {
+        "aspect": "evaluation difficulty",
+        "covered": true,
+        "matched_terms": [
+          "difficulty",
+          "evaluation"
+        ],
+        "expected_terms": [
+          "difficulty",
+          "evaluation"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Common failure modes in multi-agent systems cluster around coordination, role assignment, verification, and evaluation. Recent survey and benchmark evidence shows that adding more agents does not automatically improve performance: coordination costs rise, errors can propagate across message chains, and groups can reach agreement without reaching the right answer. https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045 https://arxiv.org/abs/2603.04474",
+      "- coordination overhead — Surveys and Silo-Bench both report that communication/coordination cost grows with scale and can erase parallelization gains: https://link.springer.com/article/10.1007/s44336-024-00009-2 https://arxiv.org/abs/2603.01045",
+      "- role confusion — Role-specification failure is a major failure mode; role overstepping means an agent behaves like another role: https://arxiv.org/abs/2604.02770",
+      "- error propagation — Minor inaccuracies can propagate through message dependencies and become system-level false consensus: https://arxiv.org/abs/2603.04474",
+      "- consensus without correctness — Agents may coordinate and exchange information yet still fail to synthesize a correct answer; Silo-Bench explicitly names consensus failure: https://arxiv.org/abs/2603.01045",
+      "- evaluation difficulty — Reliable evaluation needs annotated traces, human agreement checks, LLM-as-a-Judge pipelines, and split strategies for multi-turn workflows: https://arxiv.org/abs/2503.13657 https://learn.microsoft.com/en-us/agent-framework/agents/evaluation"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2503.13657",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.01045",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2603.04474",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2604.02770",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+        "domain": "learn.microsoft.com",
+        "authoritative": false,
+        "weak": false
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s44336-024-00009-2",
+        "domain": "link.springer.com",
+        "authoritative": false,
+        "weak": false
+      }
+    ],
+    "citation_count": 6,
+    "unique_citation_count": 6
+  }
+}

@@ -1,0 +1,1158 @@
+{
+  "run_type": "evolved",
+  "agent_type": "evolved_deep_research_v5",
+  "agent_id": "evolved_deep_research_agent",
+  "genome_id": "evolved_deep_research_v5",
+  "genome_version": 5,
+  "genome_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\evolved_deep_research_agent_v5.yaml",
+  "schema_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\configs\\genome_schema.yaml",
+  "started_at": "2026-05-05T21:38:31+00:00",
+  "question": "What are current approaches to evaluating tool use in LLM agents?",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "workflow": [
+    "receive_question",
+    "decompose_question",
+    "create_search_plan",
+    "collect_candidate_sources",
+    "source_triage",
+    "extract_evidence",
+    "coverage_check",
+    "contradiction_check",
+    "synthesize_answer",
+    "citation_audit",
+    "report_limitations"
+  ],
+  "tools_allowed": [
+    "web_search"
+  ],
+  "limits": {
+    "max_search_queries": 4,
+    "max_sources": 6,
+    "max_model_calls": 5,
+    "max_runtime_seconds": 300,
+    "max_evolution_rounds": 3
+  },
+  "source_quality_policy": {
+    "authority_order": [
+      "peer-reviewed papers or official proceedings",
+      "arXiv or preprint papers when proceedings are unavailable",
+      "official provider or framework documentation",
+      "benchmark pages, datasets, repositories, or implementation docs",
+      "engineering case studies from primary teams",
+      "secondary surveys only when they directly support the claim"
+    ],
+    "discouraged_sources": [
+      "reddit.com",
+      "www.reddit.com",
+      "wikipedia.org",
+      "papers.cool",
+      "papers.lunadong.com",
+      "generic SEO blog posts",
+      "uncited newsletter summaries",
+      "source aggregators that do not add primary evidence"
+    ],
+    "minimum_authoritative_sources": 4,
+    "require_direct_support_for": [
+      "named failure modes",
+      "architecture comparisons",
+      "evaluation metrics",
+      "cost, latency, recovery, or reproducibility claims",
+      "benchmark or empirical performance claims",
+      "recommendations about when an engineering pattern is preferable"
+    ],
+    "inference_policy": "Engineering inferences are allowed, but they must be labeled as inferences or recommendations and must cite the source facts they are inferred from.\n",
+    "weak_source_policy": "Weak sources should be rejected during source triage when an authoritative replacement exists. If a weak source is unavoidable, cite it only for the narrow claim it directly supports and flag it in the citation audit.\n"
+  },
+  "citation_contract_policy": {
+    "citation_style": "raw_inline_url",
+    "raw_url_required": true,
+    "forbidden_markers": [
+      "turn4view0",
+      "turn0search0",
+      "provider citation marker",
+      "numeric-only citation",
+      "footnote-only citation"
+    ],
+    "required_answer_rule": "Every important claim bullet or sentence in the Answer section must include at least one literal raw https:// URL in the same line. A Sources section alone does not satisfy claim-level citation support.\n",
+    "rejected_source_rule": "URLs from rejected sources must not be copied into the final answer, evidence table, citation audit supported claims, or trace citations.\n"
+  },
+  "evaluation_requirements": {
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "source_expectations": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": []
+  },
+  "events": [
+    {
+      "name": "question_received",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "question",
+      "artifact_present": true
+    },
+    {
+      "name": "decomposition_created",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "decomposition",
+      "artifact_present": true
+    },
+    {
+      "name": "search_plan_created",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "search_plan",
+      "artifact_present": true
+    },
+    {
+      "name": "candidate_sources_collected",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "candidate_sources",
+      "artifact_present": true
+    },
+    {
+      "name": "sources_triaged",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "source_triage",
+      "artifact_present": true
+    },
+    {
+      "name": "evidence_extracted",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "evidence_table",
+      "artifact_present": true
+    },
+    {
+      "name": "coverage_checked",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "coverage_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "contradictions_checked",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "contradiction_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "answer_synthesized",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    },
+    {
+      "name": "citations_audited",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "citation_audit",
+      "artifact_present": true
+    },
+    {
+      "name": "final_answer_returned",
+      "timestamp": "2026-05-05T21:40:03+00:00",
+      "artifact": "answer",
+      "artifact_present": true
+    }
+  ],
+  "answer": "## Answer\nCurrent approaches evaluate tool use in LLM agents on multiple axes rather than with one success score. The common pattern is: end-to-end task success for multi-turn outcomes, function-call correctness and argument checks for tool invocation quality, trace/trajectory grading for debugging, recovery metrics for failure handling, and cost/latency accounting for efficiency. https://arxiv.org/abs/2507.21504 https://proceedings.mlr.press/v267/patil25a.html https://arxiv.org/abs/2406.12045 https://learn.microsoft.com/en-us/agent-framework/agents/evaluation https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/ https://arxiv.org/abs/2604.01508\n\n### Required aspect coverage\n- Task success — Evaluated as end-state correctness or task completion, e.g. τ-bench compares final database state to the goal state and reports pass^k reliability. https://arxiv.org/abs/2406.12045\n- Tool-call correctness — Benchmarks like BFCL score whether the correct tool/function is invoked, including serial and parallel calls. https://proceedings.mlr.press/v267/patil25a.html\n- Argument validity — Frameworks now check whether tool inputs match expected arguments; Microsoft exposes tool_input_accuracy and expected_tool_calls. https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\n- Recovery from tool errors — Newer benchmarks inject faults and measure invalid calls, policy violations, recovery quality, and retry behavior. https://arxiv.org/abs/2604.01508\n- Cost and latency — Official eval stacks increasingly report token cost and end-to-end latency alongside quality, using trace-derived metrics. https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\n\n## Sources\n- Survey taxonomy: https://arxiv.org/abs/2507.21504\n- BFCL (ICML 2025): https://proceedings.mlr.press/v267/patil25a.html\n- τ-bench: https://arxiv.org/abs/2406.12045\n- ToolMisuseBench: https://arxiv.org/abs/2604.01508\n- Microsoft Agent Framework evaluation docs: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\n- Azure Databricks Agent Evaluation docs: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\n\n## Limitations\nThis is a benchmark-and-framework view of the field, not a complete catalog of every proprietary or internal eval setup. Metrics are not fully standardized across benchmarks, so numbers from different suites should not be compared directly. Recovery-focused benchmarks are newer, so the area is still settling on common definitions for failure and recovery quality.",
+  "decomposition": {
+    "subquestions": [
+      "What evaluation dimensions are currently used for tool use in LLM agents?",
+      "Which benchmark families exemplify each dimension?",
+      "How do frameworks instrument traces, tool calls, and efficiency metrics?"
+    ],
+    "required_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "expected_source_types": [
+      "agent evaluation survey",
+      "tool-use benchmark",
+      "provider or framework evaluation documentation"
+    ]
+  },
+  "search_plan": {
+    "queries": [
+      "arXiv survey evaluation benchmarking LLM agents tool use cost latency",
+      "BFCL tau-bench ACEBench function calling tool use benchmark arXiv",
+      "tool misuse recovery benchmark agentic systems arXiv",
+      "official agent evaluation docs traces tool call accuracy cost latency"
+    ],
+    "rationale_per_query": [
+      "Find a current survey to anchor the taxonomy of agent/tool-use evaluation approaches.",
+      "Find primary tool-use benchmarks that cover correctness and multi-turn task completion.",
+      "Find a benchmark specifically targeting recovery after tool misuse or failures.",
+      "Find official framework documentation for trace-based grading and cost/latency metrics."
+    ]
+  },
+  "candidate_sources": [
+    "https://arxiv.org/abs/2507.21504",
+    "https://proceedings.mlr.press/v267/patil25a.html",
+    "https://arxiv.org/abs/2406.12045",
+    "https://arxiv.org/abs/2604.01508",
+    "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+    "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+    "https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey",
+    "https://papers.cool/arxiv/2601.02663"
+  ],
+  "source_triage": {
+    "accepted_sources": [
+      "https://arxiv.org/abs/2507.21504",
+      "https://proceedings.mlr.press/v267/patil25a.html",
+      "https://arxiv.org/abs/2406.12045",
+      "https://arxiv.org/abs/2604.01508",
+      "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/"
+    ],
+    "rejected_sources": [
+      "https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey",
+      "https://papers.cool/arxiv/2601.02663"
+    ],
+    "rejection_reasons": [
+      "Secondary host for a survey; the arXiv primary version was available and preferred.",
+      "Discovery/aggregator page rather than the primary paper or official documentation."
+    ]
+  },
+  "evidence_table": [
+    {
+      "claim": "Current tool-use evaluation is multi-dimensional: the survey organizes work by evaluation objectives (behavior, capabilities, reliability, safety) and by evaluation process (interaction modes, benchmarks, metric computation, tooling).",
+      "source_url": "https://arxiv.org/abs/2507.21504",
+      "source_type": "agent evaluation survey",
+      "supported_aspect": "task success",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "BFCL evaluates whether agents invoke the correct function call, including serial and parallel calls, using an AST-based method that scales to many functions.",
+      "source_url": "https://proceedings.mlr.press/v267/patil25a.html",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "tool-call correctness",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "τ-bench measures task success by comparing the final database state with the annotated goal state and adds pass^k to assess reliability across trials.",
+      "source_url": "https://arxiv.org/abs/2406.12045",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "task success",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    },
+    {
+      "claim": "Microsoft's Agent Framework exposes tool-specific checks such as tool_call_accuracy, tool_selection, tool_input_accuracy, tool_output_utilization, and tool_call_success, plus expected_tool_calls for ground-truth tool-call assertions.",
+      "source_url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "source_type": "provider or framework evaluation documentation",
+      "supported_aspect": "argument validity",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "Databricks Agent Evaluation scores full traces with LLM judges, identifies root causes, and reports quality together with cost and latency metrics such as average token count and average latency.",
+      "source_url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+      "source_type": "provider or framework evaluation documentation",
+      "supported_aspect": "cost and latency",
+      "support_directness": "direct",
+      "source_authority": "official",
+      "confidence": "high"
+    },
+    {
+      "claim": "ToolMisuseBench evaluates tool misuse and recovery under explicit step, call, and retry budgets, with replayable fault injection and metrics for invalid calls, policy violations, recovery quality, and budgeted efficiency.",
+      "source_url": "https://arxiv.org/abs/2604.01508",
+      "source_type": "tool-use benchmark",
+      "supported_aspect": "recovery from tool errors",
+      "support_directness": "direct",
+      "source_authority": "primary",
+      "confidence": "high"
+    }
+  ],
+  "coverage_audit": {
+    "covered_aspects": [
+      "task success",
+      "tool-call correctness",
+      "argument validity",
+      "recovery from tool errors",
+      "cost and latency"
+    ],
+    "missing_aspects": [],
+    "followup_needed": []
+  },
+  "contradiction_audit": {
+    "conflicting_claims": [],
+    "resolution": "No material contradictions. The sources are complementary: BFCL emphasizes call validity, τ-bench emphasizes end-state success in multi-turn settings, ToolMisuseBench emphasizes recovery under faults, and framework docs emphasize trace-based scoring and efficiency.",
+    "uncertainty_notes": [
+      "Benchmarks are not directly comparable across task domains, execution environments, and scoring conventions.",
+      "Recovery and cost/latency evaluation are newer and less standardized than basic function-call correctness."
+    ]
+  },
+  "citation_audit": {
+    "supported_claims": [
+      "Multi-dimensional agent evaluation taxonomy: https://arxiv.org/abs/2507.21504",
+      "Correct function-call evaluation via BFCL: https://proceedings.mlr.press/v267/patil25a.html",
+      "End-state task success and pass^k reliability via τ-bench: https://arxiv.org/abs/2406.12045",
+      "Tool-call argument checks via Microsoft Agent Framework: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "Trace-based cost/latency reporting via Databricks Agent Evaluation: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+      "Recovery and retry-budget evaluation via ToolMisuseBench: https://arxiv.org/abs/2604.01508"
+    ],
+    "unsupported_claims": [],
+    "weak_citations": []
+  },
+  "finished_at": "2026-05-05T21:40:03+00:00",
+  "citations": [
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2406.12045",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2507.21504",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://arxiv.org/abs/2604.01508",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/",
+      "title": ""
+    },
+    {
+      "type": "url_citation",
+      "url": "https://proceedings.mlr.press/v267/patil25a.html",
+      "title": ""
+    }
+  ],
+  "web_search_calls": [
+    {
+      "id": "ws_0f68b182d0728d660069fa635e27b48197b8c6a5aa025d97c5",
+      "action": {
+        "query": "tool use evaluation LLM agents survey benchmark function calling argument validity recovery latency cost paper",
+        "type": "search",
+        "queries": [
+          "tool use evaluation LLM agents survey benchmark function calling argument validity recovery latency cost paper",
+          "agent evaluation tool use benchmark tool calling correctness argument validity recovery from errors latency cost",
+          "official documentation evaluating tool use LLM agents function calling evals framework docs",
+          "benchmark paper tool use evaluation LLM agents BFCL ToolBench AgentBench tool call correctness"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://agentv.dev/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.00392"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/openai/evals"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.24943"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.langchain.com/oss/python/langchain/evals"
+          },
+          {
+            "type": "url",
+            "url": "https://clawsbench.benchflow.ai/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.06185"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/api-reference/evals/get?lang=javascript"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.11557"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.kiln.tech/docs/evaluations/evaluate-appropriate-tool-use"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.docker.com/ai/docker-agent/evals/"
+          },
+          {
+            "type": "url",
+            "url": "https://docs.futureagi.com/docs/sdk/evals/metrics/agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1rweggk/what_broke_when_i_evaluated_an_ai_agent_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLM/comments/1rwefmq/what_broke_when_i_evaluated_an_ai_agent_in/"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/290074/preprint_pdf/c1db05b115803ed23fe677f7881bbd41.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-emnlp.697.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://sls.csail.mit.edu/archives/root/publications/2026/WeiFang_PHD-Thesis.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclweb.org/anthology/2024.acl-long.515.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/309673/preprint_pdf/0089bf0d2a2d02dd922af6bcb5193eca.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1s71tv7/i_built_a_tool_to_evaluate_llm_agents_by_path/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa6361b97081978cc803bee1c7a27a",
+      "action": {
+        "query": "site:docs.langchain.com agent evals latency cost tool use",
+        "type": "search",
+        "queries": [
+          "site:docs.langchain.com agent evals latency cost tool use",
+          "site:learn.microsoft.com agent framework evaluation latency cost tool calls",
+          "site:platform.openai.com agent evals latency cost tool use",
+          "tool use evaluation benchmark latency cost agent paper"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/en-us/agent-framework/agents/evaluation"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://vercel.hyper.ai/en/papers/2511.02734"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.02663"
+          },
+          {
+            "type": "url",
+            "url": "https://www.microsoft.com/en-us/research/publication/the-tool-illusion-rethinking-tool-use-in-web-agents/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.18170"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/mcpagentbench-real-world-task-benchmark-evaluating-llm"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.02663"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.01357"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/392918456_OSWorld-Human_Benchmarking_the_Efficiency_of_Computer-Use_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://www.alphaxiv.org/benchmarks/microsoft/themcpcompany"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.20285"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/399931270_ToolPRMBench_Evaluating_and_Advancing_Process_Reward_Models_for_Tool-using_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.microsoft.com/azure/databricks/generative-ai/agent-evaluation/"
+          },
+          {
+            "type": "url",
+            "url": "https://agentsindex.ai/agentbench"
+          },
+          {
+            "type": "url",
+            "url": "https://d197for5662m48.cloudfront.net/documents/publicationstatus/290074/preprint_pdf/c1db05b115803ed23fe677f7881bbd41.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://zeltrex.com/papers/temporal-benchmarks-2026.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2026.findings-eacl.75.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/019bd9024381aecf1dc945621af8a6f02e74c43a.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://cseweb.ucsd.edu/~yiying/cse291a-fall25/reading/cua.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://pdos.csail.mit.edu/papers/dhtcomparison%3Ainfocom05/paper.pdf"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa636386608197a22dfdf3485c356f",
+      "action": {
+        "query": "BFCL paper function calling leaderboard official arxiv 2024",
+        "type": "search",
+        "queries": [
+          "BFCL paper function calling leaderboard official arxiv 2024",
+          "ToolBench paper arxiv function calling evaluation tool use",
+          "TAU-bench paper arxiv tool-agent-user benchmark",
+          "ACEBench paper arxiv comprehensive evaluation tool usage"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2501.12851"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2506.07982"
+          },
+          {
+            "type": "url",
+            "url": "https://beancount.io/bean-labs/research-logs/2026/06/12/tau-bench-tool-agent-user-interaction-real-world-domains"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2411.14054"
+          },
+          {
+            "type": "url",
+            "url": "https://www.tau-bench.com/"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2506.07982"
+          },
+          {
+            "type": "url",
+            "url": "https://hub.benchflow.ai/benchmarks/benchflow/TauBench"
+          },
+          {
+            "type": "url",
+            "url": "https://learn.engineering.vips.edu/agent-protocols/tau-bench-tool-augmented"
+          },
+          {
+            "type": "url",
+            "url": "https://hal.cs.princeton.edu/taubench_airline"
+          },
+          {
+            "type": "url",
+            "url": "https://aclanthology.org/2025.findings-emnlp.697.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://sky.cs.berkeley.edu/project/berkeley-function-calling-leaderboard/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2406.12045"
+          },
+          {
+            "type": "url",
+            "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-184.html"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/397421109_ACEBench_A_Comprehensive_Evaluation_of_LLM_Tool_Usage"
+          },
+          {
+            "type": "url",
+            "url": "https://sierra.ai/es/blog/tau-bench-shaping-development-evaluation-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://en.wikipedia.org/wiki/Language_model_benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/d52a12bb32128210600246f8979d90b892505cca.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1etyrs8"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/1c20to0"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/datasets/comments/1quvd1v/carbench_a_benchmark_for_task_completion/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLM/comments/1r88kox/benchmark_leaderboard_for_agentic_capabilities/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/machinelearningnews/comments/1kblt94"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1quxi9f/carbench_results_models_score_54_consistent_pass/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa636733c4819784faaa058492afd0",
+      "action": {
+        "query": "tool use benchmark recovery from tool errors error handling retries benchmark paper",
+        "type": "search",
+        "queries": [
+          "tool use benchmark recovery from tool errors error handling retries benchmark paper",
+          "agent evaluation tool errors recovery benchmark official docs",
+          "tool sandbox benchmark error recovery agent tool use",
+          "trajectory aware benchmark tool use recovery from errors"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2604.01508"
+          },
+          {
+            "type": "url",
+            "url": "https://sandrun.dev/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/agent-evals"
+          },
+          {
+            "type": "url",
+            "url": "https://www.catalyzex.com/paper/spectool-a-benchmark-for-characterizing"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.01508"
+          },
+          {
+            "type": "url",
+            "url": "https://www.iris-eval.com/"
+          },
+          {
+            "type": "url",
+            "url": "https://platform.openai.com/docs/guides/trace-grading"
+          },
+          {
+            "type": "url",
+            "url": "https://agentv.dev/"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/letta-ai/recovery-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2601.22352"
+          },
+          {
+            "type": "url",
+            "url": "https://www.agentsandbox.co/docs"
+          },
+          {
+            "type": "url",
+            "url": "https://www.aimodels.fyi/papers/arxiv/critictool-evaluating-self-critique-capabilities-large-language"
+          },
+          {
+            "type": "url",
+            "url": "https://rivet.dev/docs/agent-os/benchmarks/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2510.04550"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.14465"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2406.19228"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=8FZRnDgDxq"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=3Snm5cHdRu"
+          },
+          {
+            "type": "url",
+            "url": "https://www.skillsbench.ai/skillsbench.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/495650e142b81d8ae21ee3b94029a86f9b19428a.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1qdc7p0/most_test_time_compute_is_wasted_on_trajectories/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa6369fc148197ad4fa3c6609e5326",
+      "action": {
+        "query": "arXiv beyond success rate benchmarking robustness in tool-using language agents",
+        "type": "search",
+        "queries": [
+          "arXiv beyond success rate benchmarking robustness in tool-using language agents",
+          "arXiv recovery-bench language model agents recover from mistakes tool use",
+          "openreview recovery-bench tool-use mistakes",
+          "tool-use recovery benchmark arxiv 2026"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2604.01508"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=3Snm5cHdRu"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.00933"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.21265"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2602.17022"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=8FZRnDgDxq"
+          },
+          {
+            "type": "url",
+            "url": "https://www.letta.com/blog/recovery-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/1c7dcf5fde585fc162750b0b23093b63e71971df.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=FUA7ZAWfwY"
+          },
+          {
+            "type": "url",
+            "url": "https://github.com/letta-ai/recovery-bench"
+          },
+          {
+            "type": "url",
+            "url": "https://researchtrend.ai/papers/2601.22352"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=4V0cZkWT1A"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv-troller.com/paper/3096569/"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2505.23596v3"
+          },
+          {
+            "type": "url",
+            "url": "https://raider-llmagent.github.io/"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2407.18219"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2303.09014"
+          },
+          {
+            "type": "url",
+            "url": "https://letsdatascience.com/news/llm-agents-learn-to-ask-under-unclear-instructions-0840af97"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/MachineLearning/comments/17zu3xo"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/u_LongjumpingQuail597/comments/1sgh8f8/why_does_your_ai_agent_forget_what_you_told_it/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/singularity/comments/1i7bvio"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/FunMachineLearning/comments/1rih979/d_we_ran_3000_agent_experiments_to_measure/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/reinforcementlearning/comments/1t46tyy/project_i_gave_an_llm_memory_of_its_own_mistakes/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa636cfb48819780b4b1aaaacf7ea8",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2406.12045"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa636ed18c8197b5548386561b011d",
+      "action": {
+        "query": "BFCL arXiv Berkeley Function Calling Leaderboard arxiv abstract",
+        "type": "search",
+        "queries": [
+          "BFCL arXiv Berkeley Function Calling Leaderboard arxiv abstract"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://proceedings.mlr.press/v267/patil25a.html"
+          },
+          {
+            "type": "url",
+            "url": "https://aiwiki.ai/wiki/bfcl"
+          },
+          {
+            "type": "url",
+            "url": "https://sky.cs.berkeley.edu/project/berkeley-function-calling-leaderboard/"
+          },
+          {
+            "type": "url",
+            "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/31680.html"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/leaderboard"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2504.00914"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2603.05553"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2412.07017"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/venue/2GmDdhBdDk%40OpenReview"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/forum?id=2GmDdhBdDk&noteId=4XRcIe03dD"
+          },
+          {
+            "type": "url",
+            "url": "https://contextqmd.com/libraries/qwen3-coder/versions/latest/pages/qwencoder-eval/tool_calling_eval/berkeley-function-call-leaderboard/README"
+          },
+          {
+            "type": "url",
+            "url": "https://icml.cc/virtual/2025/poster/46593"
+          },
+          {
+            "type": "url",
+            "url": "https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2509.18420"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf?id=2GmDdhBdDk"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/attachment?id=2GmDdhBdDk&name=pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.preprints.org/frontend/manuscript/772a69f5c9ee2400b001a9346b5c314f/download_pub"
+          },
+          {
+            "type": "url",
+            "url": "https://openreview.net/pdf/d52a12bb32128210600246f8979d90b892505cca.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LangChain/comments/1ajit2n"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1f8irms"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/OpenAI/comments/1e8bczg"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sp579o/removed/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LocalLLaMA/comments/1jwhvnv"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa637695788197aa2820651dbc3d6d",
+      "action": {
+        "type": "open_page",
+        "url": "https://proceedings.mlr.press/v267/patil25a.html"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa63773c6c8197bac8c5628b366f88",
+      "action": {
+        "query": "arXiv evaluation and benchmarking of LLM agents survey latency cost tool use",
+        "type": "search",
+        "queries": [
+          "arXiv evaluation and benchmarking of LLM agents survey latency cost tool use"
+        ],
+        "sources": [
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.gg/abs/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2511.02734"
+          },
+          {
+            "type": "url",
+            "url": "https://jp.ibbac.eu.org/papers/2507.21504v1"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv.org/abs/2601.03281"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2507.21504"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/390038174_Survey_on_Evaluation_of_LLM-based_Agents"
+          },
+          {
+            "type": "url",
+            "url": "https://papers.cool/arxiv/2601.02663"
+          },
+          {
+            "type": "url",
+            "url": "https://deeplearn.org/arxiv/739136/survey-on-evaluation-of-llm-based-agents"
+          },
+          {
+            "type": "url",
+            "url": "https://arxiv-troller.com/paper/3088906/"
+          },
+          {
+            "type": "url",
+            "url": "https://huggingface.co/papers/2503.16416"
+          },
+          {
+            "type": "url",
+            "url": "https://www.researchgate.net/publication/399522035_When_Do_Tools_and_Planning_Help_LLMs_Think_A_Cost-_and_Latency-Aware_Benchmark"
+          },
+          {
+            "type": "url",
+            "url": "https://app.argminai.com/arxiv-dashboard/papers/2601.14192v1"
+          },
+          {
+            "type": "url",
+            "url": "https://www.rivista.ai/wp-content/uploads/2025/06/1749500273238.pdf"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/LLMDevs/comments/1pdve4o/are_you_really_using_llm_evaluationmonitoring/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1pdvj93/are_you_really_using_llm_evaluation_platforms/"
+          },
+          {
+            "type": "url",
+            "url": "https://www.reddit.com/r/AIEval/comments/1s3835s/i_built_a_tool_for_deterministic_llm_evaluation/"
+          }
+        ]
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa637aa3f48197864e12102dc9a4f3",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2601.02663"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    },
+    {
+      "id": "ws_0f68b182d0728d660069fa6382f31c81978a53035adf8a0747",
+      "action": {
+        "type": "open_page",
+        "url": "https://arxiv.org/abs/2507.21504"
+      },
+      "status": "completed",
+      "type": "web_search_call"
+    }
+  ],
+  "usage": {
+    "input_tokens": 47194,
+    "input_tokens_details": {
+      "cached_tokens": 4736
+    },
+    "output_tokens": 11056,
+    "output_tokens_details": {
+      "reasoning_tokens": 8734
+    },
+    "total_tokens": 58250
+  },
+  "response_id": "resp_0f68b182d0728d660069fa635b2c608197af7529bfc1b93263",
+  "raw_output_text": "{\n  \"decomposition\": {\n    \"subquestions\": [\n      \"What evaluation dimensions are currently used for tool use in LLM agents?\",\n      \"Which benchmark families exemplify each dimension?\",\n      \"How do frameworks instrument traces, tool calls, and efficiency metrics?\"\n    ],\n    \"required_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"expected_source_types\": [\n      \"agent evaluation survey\",\n      \"tool-use benchmark\",\n      \"provider or framework evaluation documentation\"\n    ]\n  },\n  \"search_plan\": {\n    \"queries\": [\n      \"arXiv survey evaluation benchmarking LLM agents tool use cost latency\",\n      \"BFCL tau-bench ACEBench function calling tool use benchmark arXiv\",\n      \"tool misuse recovery benchmark agentic systems arXiv\",\n      \"official agent evaluation docs traces tool call accuracy cost latency\"\n    ],\n    \"rationale_per_query\": [\n      \"Find a current survey to anchor the taxonomy of agent/tool-use evaluation approaches.\",\n      \"Find primary tool-use benchmarks that cover correctness and multi-turn task completion.\",\n      \"Find a benchmark specifically targeting recovery after tool misuse or failures.\",\n      \"Find official framework documentation for trace-based grading and cost/latency metrics.\"\n    ]\n  },\n  \"candidate_sources\": [\n    \"https://arxiv.org/abs/2507.21504\",\n    \"https://proceedings.mlr.press/v267/patil25a.html\",\n    \"https://arxiv.org/abs/2406.12045\",\n    \"https://arxiv.org/abs/2604.01508\",\n    \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n    \"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\n    \"https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey\",\n    \"https://papers.cool/arxiv/2601.02663\"\n  ],\n  \"source_triage\": {\n    \"accepted_sources\": [\n      \"https://arxiv.org/abs/2507.21504\",\n      \"https://proceedings.mlr.press/v267/patil25a.html\",\n      \"https://arxiv.org/abs/2406.12045\",\n      \"https://arxiv.org/abs/2604.01508\",\n      \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n      \"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\"\n    ],\n    \"rejected_sources\": [\n      \"https://www.researchgate.net/publication/394100858_Evaluation_and_Benchmarking_of_LLM_Agents_A_Survey\",\n      \"https://papers.cool/arxiv/2601.02663\"\n    ],\n    \"rejection_reasons\": [\n      \"Secondary host for a survey; the arXiv primary version was available and preferred.\",\n      \"Discovery/aggregator page rather than the primary paper or official documentation.\"\n    ]\n  },\n  \"evidence_table\": [\n    {\n      \"claim\": \"Current tool-use evaluation is multi-dimensional: the survey organizes work by evaluation objectives (behavior, capabilities, reliability, safety) and by evaluation process (interaction modes, benchmarks, metric computation, tooling).\",\n      \"source_url\": \"https://arxiv.org/abs/2507.21504\",\n      \"source_type\": \"agent evaluation survey\",\n      \"supported_aspect\": \"task success\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"BFCL evaluates whether agents invoke the correct function call, including serial and parallel calls, using an AST-based method that scales to many functions.\",\n      \"source_url\": \"https://proceedings.mlr.press/v267/patil25a.html\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"tool-call correctness\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"τ-bench measures task success by comparing the final database state with the annotated goal state and adds pass^k to assess reliability across trials.\",\n      \"source_url\": \"https://arxiv.org/abs/2406.12045\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"task success\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Microsoft's Agent Framework exposes tool-specific checks such as tool_call_accuracy, tool_selection, tool_input_accuracy, tool_output_utilization, and tool_call_success, plus expected_tool_calls for ground-truth tool-call assertions.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n      \"source_type\": \"provider or framework evaluation documentation\",\n      \"supported_aspect\": \"argument validity\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"Databricks Agent Evaluation scores full traces with LLM judges, identifies root causes, and reports quality together with cost and latency metrics such as average token count and average latency.\",\n      \"source_url\": \"https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\n      \"source_type\": \"provider or framework evaluation documentation\",\n      \"supported_aspect\": \"cost and latency\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"official\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"claim\": \"ToolMisuseBench evaluates tool misuse and recovery under explicit step, call, and retry budgets, with replayable fault injection and metrics for invalid calls, policy violations, recovery quality, and budgeted efficiency.\",\n      \"source_url\": \"https://arxiv.org/abs/2604.01508\",\n      \"source_type\": \"tool-use benchmark\",\n      \"supported_aspect\": \"recovery from tool errors\",\n      \"support_directness\": \"direct\",\n      \"source_authority\": \"primary\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"coverage_audit\": {\n    \"covered_aspects\": [\n      \"task success\",\n      \"tool-call correctness\",\n      \"argument validity\",\n      \"recovery from tool errors\",\n      \"cost and latency\"\n    ],\n    \"missing_aspects\": [],\n    \"followup_needed\": []\n  },\n  \"contradiction_audit\": {\n    \"conflicting_claims\": [],\n    \"resolution\": \"No material contradictions. The sources are complementary: BFCL emphasizes call validity, τ-bench emphasizes end-state success in multi-turn settings, ToolMisuseBench emphasizes recovery under faults, and framework docs emphasize trace-based scoring and efficiency.\",\n    \"uncertainty_notes\": [\n      \"Benchmarks are not directly comparable across task domains, execution environments, and scoring conventions.\",\n      \"Recovery and cost/latency evaluation are newer and less standardized than basic function-call correctness.\"\n    ]\n  },\n  \"citation_audit\": {\n    \"supported_claims\": [\n      \"Multi-dimensional agent evaluation taxonomy: https://arxiv.org/abs/2507.21504\",\n      \"Correct function-call evaluation via BFCL: https://proceedings.mlr.press/v267/patil25a.html\",\n      \"End-state task success and pass^k reliability via τ-bench: https://arxiv.org/abs/2406.12045\",\n      \"Tool-call argument checks via Microsoft Agent Framework: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\",\n      \"Trace-based cost/latency reporting via Databricks Agent Evaluation: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\",\n      \"Recovery and retry-budget evaluation via ToolMisuseBench: https://arxiv.org/abs/2604.01508\"\n    ],\n    \"unsupported_claims\": [],\n    \"weak_citations\": []\n  },\n  \"answer\": \"## Answer\\nCurrent approaches evaluate tool use in LLM agents on multiple axes rather than with one success score. The common pattern is: end-to-end task success for multi-turn outcomes, function-call correctness and argument checks for tool invocation quality, trace/trajectory grading for debugging, recovery metrics for failure handling, and cost/latency accounting for efficiency. https://arxiv.org/abs/2507.21504 https://proceedings.mlr.press/v267/patil25a.html https://arxiv.org/abs/2406.12045 https://learn.microsoft.com/en-us/agent-framework/agents/evaluation https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/ https://arxiv.org/abs/2604.01508\\n\\n### Required aspect coverage\\n- Task success — Evaluated as end-state correctness or task completion, e.g. τ-bench compares final database state to the goal state and reports pass^k reliability. https://arxiv.org/abs/2406.12045\\n- Tool-call correctness — Benchmarks like BFCL score whether the correct tool/function is invoked, including serial and parallel calls. https://proceedings.mlr.press/v267/patil25a.html\\n- Argument validity — Frameworks now check whether tool inputs match expected arguments; Microsoft exposes tool_input_accuracy and expected_tool_calls. https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n- Recovery from tool errors — Newer benchmarks inject faults and measure invalid calls, policy violations, recovery quality, and retry behavior. https://arxiv.org/abs/2604.01508\\n- Cost and latency — Official eval stacks increasingly report token cost and end-to-end latency alongside quality, using trace-derived metrics. https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n## Sources\\n- Survey taxonomy: https://arxiv.org/abs/2507.21504\\n- BFCL (ICML 2025): https://proceedings.mlr.press/v267/patil25a.html\\n- τ-bench: https://arxiv.org/abs/2406.12045\\n- ToolMisuseBench: https://arxiv.org/abs/2604.01508\\n- Microsoft Agent Framework evaluation docs: https://learn.microsoft.com/en-us/agent-framework/agents/evaluation\\n- Azure Databricks Agent Evaluation docs: https://learn.microsoft.com/en-us/azure/databricks/generative-ai/agent-evaluation/\\n\\n## Limitations\\nThis is a benchmark-and-framework view of the field, not a complete catalog of every proprietary or internal eval setup. Metrics are not fully standardized across benchmarks, so numbers from different suites should not be compared directly. Recovery-focused benchmarks are newer, so the area is still settling on common definitions for failure and recovery quality.\"\n}",
+  "citation_contract_warnings": [],
+  "status": "complete"
+}

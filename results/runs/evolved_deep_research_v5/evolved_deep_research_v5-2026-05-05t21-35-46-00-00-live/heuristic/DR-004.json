@@ -1,0 +1,135 @@
+{
+  "schema_version": "2026-05-04",
+  "trace_path": "C:\\Users\\PepBiel\\Documents\\GitHub\\stem-agent\\results\\runs\\evolved_deep_research_v5\\evolved_deep_research_v5-2026-05-05t21-35-46-00-00-live\\traces\\DR-004.json",
+  "run_type": "evolved",
+  "agent_id": "evolved_deep_research_agent",
+  "model": "gpt-5.4-mini",
+  "dry_run": false,
+  "question_id": "DR-004",
+  "question": "What is agentic RAG and how does it differ from standard RAG?",
+  "metrics": {
+    "coverage_score": 1.0,
+    "citation_support_score": 1.0,
+    "source_quality_score": 1.0,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_score": 1.0,
+    "contradiction_handling_score": 1.0,
+    "redundancy_score": 1.0
+  },
+  "overall_score": 1.0,
+  "failure_tags": [],
+  "runtime_seconds": 45.0,
+  "details": {
+    "coverage": [
+      {
+        "aspect": "standard retrieve-then-generate workflow",
+        "covered": true,
+        "matched_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ],
+        "expected_terms": [
+          "generate",
+          "retrieve",
+          "standard",
+          "then",
+          "workflow"
+        ]
+      },
+      {
+        "aspect": "planning or iterative retrieval",
+        "covered": true,
+        "matched_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ],
+        "expected_terms": [
+          "iterative",
+          "planning",
+          "retrieval"
+        ]
+      },
+      {
+        "aspect": "tool use",
+        "covered": true,
+        "matched_terms": [
+          "tool"
+        ],
+        "expected_terms": [
+          "tool"
+        ]
+      },
+      {
+        "aspect": "reflection or verification",
+        "covered": true,
+        "matched_terms": [
+          "reflection",
+          "verification"
+        ],
+        "expected_terms": [
+          "reflection",
+          "verification"
+        ]
+      },
+      {
+        "aspect": "added complexity and failure modes",
+        "covered": true,
+        "matched_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ],
+        "expected_terms": [
+          "added",
+          "complexity",
+          "failure",
+          "modes"
+        ]
+      }
+    ],
+    "claim_lines": [
+      "Agentic RAG is RAG with an agent/controller layer. Instead of a single retrieve-once-then-generate pass, the system can plan, choose tools, retrieve again, and verify or refine its output before answering. Standard RAG is the simpler baseline: retrieve relevant external context, then generate from that context. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401",
+      "- standard retrieve-then-generate workflow — Standard RAG combines a language model with retrieved non-parametric memory for generation: https://arxiv.org/abs/2005.11401",
+      "- planning or iterative retrieval — Agentic RAG uses planning and iterative retrieval/refinement rather than a single static pass: https://arxiv.org/abs/2501.09136",
+      "- tool use — Agentic RAG explicitly uses tool use, and framework docs show agents calling tools in long-running loops: https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/overview",
+      "- reflection or verification — Evaluator-optimizer workflows add a separate evaluation step and loop back when feedback says the answer needs improvement: https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "- added complexity and failure modes — The extra autonomy adds orchestration complexity and open issues around evaluation, coordination, memory management, efficiency, and governance: https://arxiv.org/abs/2501.09136",
+      "Direct source-backed summary: the survey describes Agentic RAG as embedding autonomous AI agents into the RAG pipeline, with reflection, planning, tool use, and multi-agent collaboration; the baseline RAG paper describes retrieve-then-generate with a retriever over non-parametric memory. https://arxiv.org/abs/2501.09136 https://arxiv.org/abs/2005.11401",
+      "Engineering inference: agentic RAG is most useful when a query needs multi-step reasoning, source selection, or self-checking; standard RAG is usually enough when one retrieval pass is likely sufficient. That recommendation follows from the cited loop/verification patterns and the added complexity noted in the survey, not from a direct benchmark in the selected sources. https://arxiv.org/abs/2501.09136 https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+    ],
+    "unsupported_claim_lines": [],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2005.11401",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://arxiv.org/abs/2501.09136",
+        "domain": "arxiv.org",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+        "domain": "docs.langchain.com",
+        "authoritative": true,
+        "weak": false
+      }
+    ],
+    "citation_count": 4,
+    "unique_citation_count": 4
+  }
+}
