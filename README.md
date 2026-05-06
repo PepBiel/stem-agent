@@ -2,67 +2,102 @@
 
 Applied AI engineering prototype for JetBrains AI Engineering Intern Task #1.
 
-The project explores a constrained version of a "stem agent": a minimal agent
-that specializes into a task-specific agent through an observable and
-measurable process. The chosen domain is technical deep research about LLM
-agents.
+This repository implements a constrained version of a **stem agent**: a minimal
+agent that becomes specialized for a narrow task class through an observable,
+validated, and evaluated process. The chosen task class is technical deep
+research about LLM agents.
 
-## Project Goal
+The project does not attempt to build a universal autonomous agent or arbitrary
+self-modifying code. Specialization is represented as an auditable **agent
+genome**: a YAML configuration that defines workflow steps, prompt roles,
+allowed tools, memory policy, safeguards, trace requirements, stopping criteria,
+and evaluation expectations.
 
-The goal is not to build a universal autonomous agent. The goal is to show that
-a small initial agent can analyze a narrow task domain, propose a specialized
-agent configuration, validate it, and improve over a simple baseline on a fixed
-evaluation set.
+## Submission Artifacts
 
-In this repository, specialization is represented as an **agent genome**:
+- Final write-up: [`write-up.pdf`](write-up.pdf)
+- Source write-up: [`write-up.tex`](write-up.tex)
+- Result summary: [`results/comparison.md`](results/comparison.md)
+- Full experiment log: [`docs/experiment_log.md`](docs/experiment_log.md)
+- Final genome: [`configs/evolved_deep_research_agent_v5.yaml`](configs/evolved_deep_research_agent_v5.yaml)
+- Evaluation set: [`evals/questions.json`](evals/questions.json)
+- Evaluation rubric: [`evals/rubric.yaml`](evals/rubric.yaml)
 
-- workflow steps
-- allowed tools
-- prompt roles
-- memory policy
-- safeguards
-- stopping criteria
-- evaluation rubric
+## What Evolved
 
-This keeps evolution controlled and inspectable instead of allowing arbitrary
-self-modifying code.
-
-## Planned Comparison
-
-Model-only baseline:
+The baseline agents are intentionally simple:
 
 ```text
+model-only baseline:
 question -> answer from model knowledge -> state uncertainty
-```
 
-Web-search baseline:
-
-```text
+web-search baseline:
 question -> search/read top sources -> summarize
 ```
 
-Evolved deep research agent:
+The evolved deep-research agent specializes into a structured workflow:
 
 ```text
-question -> decompose -> search plan -> source triage -> evidence extraction
-         -> coverage check -> contradiction check -> synthesis -> citation audit
+question
+-> decompose
+-> search plan
+-> source triage
+-> evidence extraction
+-> coverage check
+-> contradiction check
+-> synthesis
+-> citation audit
+-> limitations
 ```
 
-The final submission will compare model-only, web-search, and evolved-agent
-runs using a fixed set of technical research questions and measurable signals
-such as coverage, citation support, source quality, unsupported claims, latency,
-and cost. This makes the value of retrieval separate from the value of the
-specialized agent workflow.
+The tool boundary stays narrow: the evolved agent still only uses web search.
+This makes the comparison about workflow specialization, not about adding more
+tools.
+
+## Main Result
+
+The final comparison uses the same fixed 8-question evaluation set for every
+agent version. Scores combine a transparent local heuristic layer with a
+model-assisted judge. The judge is not treated as ground truth; it is one
+semantic signal alongside trace-level diagnostics such as coverage, citation
+support, source quality, unsupported claim lines, contradiction handling, token
+usage, and saved workflow artifacts.
+
+| Agent | Heuristic | Judge | Final | Combined tokens |
+|---|---:|---:|---:|---:|
+| Model-only baseline | 0.3277 | 0.4167 | 0.3856 | 34,514 |
+| Web-search baseline | 0.8417 | 0.5833 | 0.6738 | 158,887 |
+| Evolved v1 | 0.8133 | 0.5781 | 0.6604 | 306,817 |
+| Evolved v2 | 0.8935 | 0.7240 | 0.7833 | 380,138 |
+| Evolved v3 | 0.8164 | 0.6146 | 0.6852 | 193,890 |
+| Evolved v4 | 0.8862 | 0.7552 | 0.8010 | 450,061 |
+| Evolved v5 | 0.9492 | 0.8073 | 0.8569 | 354,487 |
+
+The stronger evidence is not only the score improvement. The final agent leaves
+inspectable traces for decomposition, source triage, evidence extraction,
+coverage checking, contradiction handling, and citation auditing. It also fixes
+specific failure modes discovered during evaluation:
+
+- v3 reduced cost but lost reliability, especially on citation-audit tasks.
+- v4 improved source discipline but exposed a raw-URL citation-contract failure
+  on DR-002.
+- v5 fixed that failure: DR-002 final score moved from 0.5741 to 0.8785, and
+  citation support moved from 0.0000 to 1.0000.
+- A later runner fix removed a DR-003 trace parsing failure without changing the
+  genome.
+
+See [`results/comparison.md`](results/comparison.md) for the compact result
+table and links to the saved runs.
 
 ## Repository Layout
 
 ```text
 stem-agent/
   src/stem_agent/       Python package and CLI entry points
-  configs/              Agent genome YAML files
-  evals/                Evaluation questions, rubrics, and runners
-  results/              Experiment outputs and traces
-  docs/                 Research notes, design decisions, and experiment log
+  configs/              Baseline configs, genome schema, evolved genomes v1-v5
+  evals/                Fixed question set and judge rubric
+  results/              Saved runs, traces, heuristic scores, judge outputs
+  docs/                 Research notes, design decisions, experiment log
 ```
 
 ## Setup
@@ -70,7 +105,7 @@ stem-agent/
 Requirements:
 
 - Python 3.11+
-- OpenAI API key for model-backed runs once the agents are implemented
+- OpenAI API key for live model-backed runs
 
 Create a local environment:
 
@@ -79,7 +114,7 @@ python -m venv .venv
 python -m pip install -e .
 ```
 
-If you prefer `uv`:
+Or with `uv`:
 
 ```bash
 uv venv
@@ -92,161 +127,91 @@ Configure secrets locally:
 cp .env.example .env
 ```
 
-Then edit `.env` and set `OPENAI_API_KEY`. Never commit `.env`.
-
-Recommended starting model:
+Then edit `.env` and set:
 
 ```bash
+OPENAI_API_KEY=
 OPENAI_MODEL=gpt-5.4-mini
 OPENAI_EVAL_MODEL=gpt-5.4-mini
 ```
 
-This keeps early experiments cheaper and faster. A stronger model can be used
-later for final synthesis or citation auditing if the evaluation shows a real
-need.
+Never commit `.env`.
 
-## Current Status
+## Smoke Checks
 
-The project currently has model-only and web-search baseline variants, saved
-traces, a transparent heuristic scorer, and a stricter model-assisted judge. The
-project also defines the first evolved deep-research genome, validates it, and
-can execute it through an evolved-agent runner that writes workflow artifacts.
-
-Smoke check:
+These commands do not require live model calls:
 
 ```bash
 python -m stem_agent status
 python -m stem_agent eval-info
 python -m stem_agent validate-genome
+python -m stem_agent run-eval-batch --agent evolved --dry-run
 ```
 
-`validate-genome` checks `configs/evolved_deep_research_agent_v5.yaml` against
-`configs/genome_schema.yaml`. This is the contract that keeps specialization
-controlled: the evolved agent can change workflow and prompts, but it must stay
-inside fixed tool, budget, trace, and evaluation boundaries.
-
-The evolved genome variants are kept as explicit configs so the project can
-compare the specialization path without rewriting history:
-
-```text
-configs/evolved_deep_research_agent_v1.yaml  inferred coverage, original budget
-configs/evolved_deep_research_agent_v2.yaml  fixed coverage injection, original budget
-configs/evolved_deep_research_agent_v3.yaml  fixed coverage injection, tuned budget
-configs/evolved_deep_research_agent_v4.yaml  v2 budget plus source quality discipline
-configs/evolved_deep_research_agent_v5.yaml  v4 plus raw URL citation contract
-configs/evolved_deep_research_agent.yaml     earlier default candidate kept for history
-```
-
-Version 5 is the current best full-batch candidate. It started as a targeted
-fix after the v4 run: v4 produced the best aggregate quality so far, but DR-002
-exposed a citation-contract failure where the answer used provider/internal
-citation markers instead of raw URLs. v5 keeps v4's source-quality policy,
-requires literal raw URLs on claim lines, and filters final trace citations to
-answer/evidence/accepted-source artifacts. In the full live batch, v5 improved
-both quality and cost relative to v4.
-
-```text
-evolved_v5 full live: heuristic 0.9492, judge 0.8073, final 0.8569, tokens 354487
-```
-
-Run the evolved agent without spending API credits:
+Compile the write-up:
 
 ```bash
-python -m stem_agent run-evolved --question-id DR-001 --dry-run
-python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v1.yaml --dry-run
-python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v2.yaml --dry-run
-python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v3.yaml --dry-run
-python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v4.yaml --dry-run
-python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v5.yaml --dry-run
+pdflatex -interaction=nonstopmode -halt-on-error write-up.tex
+pdflatex -interaction=nonstopmode -halt-on-error write-up.tex
 ```
 
-The evolved runner validates the genome before execution and writes trace
-artifacts for decomposition, search planning, source triage, evidence
-extraction, coverage audit, contradiction audit, citation audit, and the final
-answer.
+## Running Agents
 
-Run the baseline without spending API credits:
+Run one baseline question without spending API credits:
 
 ```bash
 python -m stem_agent run-baseline --question-id DR-001 --dry-run
 ```
 
-Run the baseline live:
+Run one evolved question without spending API credits:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001 --dry-run
+```
+
+Run the final evolved genome explicitly:
+
+```bash
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v5.yaml --dry-run
+```
+
+Live one-question runs:
 
 ```bash
 python -m stem_agent run-baseline --question-id DR-001
+python -m stem_agent run-evolved --question-id DR-001 --genome configs/evolved_deep_research_agent_v5.yaml
 ```
 
-By default this uses `configs/base_agent.yaml`, which enables the OpenAI
-Responses API `web_search` tool. To run the model-only baseline for one
-question, pass the no-web config explicitly:
+Live web-search runs require an API key with OpenAI Responses API access.
 
-```bash
-python -m stem_agent run-baseline --question-id DR-001 --config configs/baseline_no_web.yaml
-```
+## Evaluation Batches
 
-Live web-search runs require an API key with permission for Responses writes.
-
-Each run writes a JSON trace under `results/traces/`.
-
-Score a trace against the fixed evaluation rubric:
-
-```bash
-python -m stem_agent score-trace --trace results/traces/<trace>.json
-```
-
-The automatic scorer is intentionally transparent. It estimates coverage,
-citation support, source quality, unsupported claims, uncertainty handling, and
-redundancy from the saved trace. Later evaluations will combine this with
-manual or model-assisted review for the final before/after comparison.
-
-Run the stricter model-assisted judge:
-
-```bash
-python -m stem_agent judge-trace --trace results/traces/<trace>.json
-```
-
-This second layer grades factual accuracy, real coverage, evidence quality,
-uncertainty handling, engineer usefulness, and structure using the fixed rubric.
-It exists because the heuristic scorer can overestimate answers that merely look
-well-cited.
-
-Run a full evaluation batch:
-
-`evolved` currently aliases `evolved_v5`, the best full-batch candidate so far.
-The raw results are recorded under
-`results/runs/evolved_deep_research_v5/evolved_v5_full_live/`.
+Dry-run batches:
 
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --dry-run
 python -m stem_agent run-eval-batch --agent baseline_web --dry-run
 python -m stem_agent run-eval-batch --agent evolved --dry-run
-python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_dry_run --dry-run
-python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_dry_run --dry-run
-python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_dry_run --dry-run
-python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_dry_run --dry-run
-python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_dry_run --dry-run
 ```
 
 Live batches require explicit confirmation because they make model calls for
-each answer and each judge evaluation:
+answers and judge evaluations:
 
 ```bash
 python -m stem_agent run-eval-batch --agent baseline_no_web --confirm-live
 python -m stem_agent run-eval-batch --agent baseline_web --confirm-live
 python -m stem_agent run-eval-batch --agent evolved --confirm-live
+```
+
+Run a historical genome version:
+
+```bash
 python -m stem_agent run-eval-batch --agent evolved_v1 --run-id evolved_v1_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v2 --run-id evolved_v2_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v3 --run-id evolved_v3_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v4 --run-id evolved_v4_full_live --confirm-live
 python -m stem_agent run-eval-batch --agent evolved_v5 --run-id evolved_v5_full_live --confirm-live
 ```
-
-`baseline_no_web` makes one answer call per question plus one judge call per
-question. `baseline_web` makes one answer call with `web_search` per question
-plus one judge call per question. Each evolved live batch also makes one
-evolved answer call with `web_search` per question plus one judge call per
-question. The heuristic scorer is local in all cases.
 
 Batch artifacts are written under:
 
@@ -259,4 +224,37 @@ results/runs/<agent>/<run_id>/
   summary.md    compact human-readable report
 ```
 
-The summary includes token usage when the OpenAI API returns usage metadata.
+## Evaluation Design
+
+The fixed dataset contains 8 technical research questions about LLM agents
+(`DR-001` to `DR-008`). Each question includes required aspects and expected
+source types.
+
+The evaluation has two layers:
+
+- **Heuristic scorer**: local and transparent. It checks coverage terms,
+  citation support, source domains, unsupported claim lines, contradiction
+  handling, redundancy, runtime, and token usage.
+- **Model-assisted judge**: stricter semantic review using a fixed rubric:
+  factual accuracy, substantive coverage, evidence quality, uncertainty
+  handling, usefulness for an engineer, and structure.
+
+The final score is:
+
+```text
+final = 0.35 * heuristic + 0.65 * judge
+```
+
+This is an engineering rubric, not a benchmark claim. The write-up reports
+limitations and uses failure analysis rather than treating the judge score as
+absolute truth.
+
+## Reproducibility And Safety Notes
+
+- `.env` is ignored and must stay local.
+- Live runs may produce temporary signed URLs in raw web-search traces. Before
+  committing traces, sanitize provider URLs that include credentials or
+  signature query parameters.
+- The committed final traces were sanitized after GitHub secret scanning found a
+  temporary AWS signed URL in an earlier history.
+- The repo keeps raw run artifacts to make the reported comparison auditable.
